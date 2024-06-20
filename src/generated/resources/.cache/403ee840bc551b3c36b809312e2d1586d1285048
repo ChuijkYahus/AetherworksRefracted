@@ -1,0 +1,3 @@
+// 1.20.1	2024-06-16T13:45:30.4502419	Tags for minecraft:block mod id aetherworks
+23a3019c7ec154b898a4026941c3f5ade3b34c30 data/minecraft/tags/blocks/mineable/pickaxe.json
+561013a86cb78d73e0606c42a2f3b8e60eb51bb2 data/minecraft/tags/blocks/needs_diamond_tool.json

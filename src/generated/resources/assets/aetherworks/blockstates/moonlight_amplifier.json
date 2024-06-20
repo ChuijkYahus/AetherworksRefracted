@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "aetherworks:block/moonlight_amplifier",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "aetherworks:block/moonlight_amplifier"
+    },
+    "facing=south": {
+      "model": "aetherworks:block/moonlight_amplifier",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "aetherworks:block/moonlight_amplifier",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "parent": "aetherworks:block/moonlight_amplifier",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        130,
+        0
+      ],
+      "scale": [
+        0.6,
+        0.6,
+        0.6
+      ]
+    }
+  }
+}

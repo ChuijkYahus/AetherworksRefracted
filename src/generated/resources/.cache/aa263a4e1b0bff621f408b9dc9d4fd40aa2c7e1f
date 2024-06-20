@@ -1,0 +1,5 @@
+// 1.20.1	2024-06-18T15:14:35.0804806	Tags for minecraft:item mod id aetherworks
+0b7a1560a4107bcd249165229d4225828d287db0 data/forge/tags/items/ingots/aetherium.json
+23d237d221997832215307b1cc1a8270bcff7e65 data/forge/tags/items/plates/aetherium.json
+b208475069132fa3db3b2dac46a13093fbb936fb data/forge/tags/items/raw_materials/aetherium.json
+c21b1e08d685bba776fe4494ab38dee50dbda517 data/minecraft/tags/items/pickaxes.json

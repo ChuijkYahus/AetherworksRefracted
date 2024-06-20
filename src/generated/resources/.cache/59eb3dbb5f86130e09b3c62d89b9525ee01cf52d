@@ -1,0 +1,7 @@
+// 1.20.1	2024-06-16T13:45:30.4492418	Loot Tables
+b00cf4019b1f391e49d554e9149e195362ce9697 data/aetherworks/loot_tables/blocks/aether_prism_controller_matrix.json
+225a99bc7f31e9de898529dd3324fba3d2829f49 data/aetherworks/loot_tables/blocks/block_aether.json
+8286696bbe96394e6e25ab0c66088e2545c2036c data/aetherworks/loot_tables/blocks/moonlight_amplifier.json
+429a749894cf54b2fdcb7a27566502965dad1600 data/aetherworks/loot_tables/blocks/ore_aether.json
+a6708b0138cb99950decd838a94a0073b6280d54 data/aetherworks/loot_tables/blocks/prism.json
+563b37b7f750c4ded6c55f323faf875342b7d9fb data/aetherworks/loot_tables/blocks/prism_support.json
