@@ -1,6 +1,7 @@
 package net.sirplop.aetherworks;
 
 import com.mojang.logging.LogUtils;
+import com.rekindled.embers.api.augment.AugmentUtil;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.atlas.SpriteResourceLoader;
@@ -13,6 +14,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -24,6 +26,7 @@ import net.sirplop.aetherworks.blockentity.render.RenderPrism;
 import net.sirplop.aetherworks.datagen.*;
 import net.sirplop.aetherworks.lib.AWHarvestHelper;
 import net.sirplop.aetherworks.network.PacketHandler;
+import net.sirplop.aetherworks.util.AWConfig;
 import org.slf4j.Logger;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -60,11 +63,9 @@ public class Aetherworks
         //AWRegistry.RECIPE_TYPES.register(modEventBus);
         //AWRegistry.RECIPE_SERIALIZERS.register(modEventBus);
 
-        // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
+        AWConfig.register();
 
-        // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
@@ -89,7 +90,7 @@ public class Aetherworks
             //gen.addProvider(true, new EmbersSounds(output, existingFileHelper));
         } if (event.includeServer()) {
             gen.addProvider(true, new AWLootTables(output));
-            //gen.addProvider(true, new EmbersRecipes(output));
+            gen.addProvider(true, new AWRecipes(output));
             BlockTagsProvider blockTags = new AWBlockTags(output, lookupProvider, existingFileHelper);
             gen.addProvider(true, blockTags);
             gen.addProvider(true, new AWItemTags(output, lookupProvider, blockTags.contentsGetter(), existingFileHelper));

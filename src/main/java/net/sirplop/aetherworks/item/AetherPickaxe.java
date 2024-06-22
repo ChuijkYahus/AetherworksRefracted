@@ -1,15 +1,15 @@
 package net.sirplop.aetherworks.item;
 
 import com.rekindled.embers.particle.GlowParticleOptions;
-import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
-import net.sirplop.aetherworks.Config;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.sirplop.aetherworks.lib.AWHarvestHelper;
+import net.sirplop.aetherworks.lib.AWHarvestNode;
+import net.sirplop.aetherworks.util.AWConfig;
 import net.sirplop.aetherworks.util.AetheriumTiers;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
@@ -34,13 +34,15 @@ public class AetherPickaxe  extends AOEEmberDiggerItem {
 
         if (context.getPlayer() == null || context.getLevel().isClientSide()
                 || !context.getLevel().getBlockState(context.getClickedPos()).getTags().anyMatch(blockTagKey -> blockTagKey == blocks)
-                || Config.aetherPickBannedBlocks.contains(context.getLevel().getBlockState(context.getClickedPos()).getBlock())
+                || AWConfig.getAetherPickaxeBanned().contains(context.getLevel().getBlockState(context.getClickedPos()).getBlock())
         )
             return result;
         if (result == InteractionResult.PASS && context.getHand() == InteractionHand.MAIN_HAND
                 && context.getLevel().getBlockState(context.getClickedPos()).canHarvestBlock(context.getLevel(), context.getClickedPos(), context.getPlayer()))
         {
-            if (AWHarvestHelper.addNode(context.getPlayer(), context.getClickedPos(), Config.aetherPickRange, p -> p.getMainHandItem().getItem() == this, particle))
+            if (AWHarvestHelper.addNode(context.getPlayer(),
+                    new AWHarvestNode(context.getPlayer(), context.getLevel(), context.getClickedPos(),
+                            AWConfig.AETHER_PICKAXE_RANGE.get(), p -> p.getMainHandItem().getItem() == this, particle)))
             {
                 context.getPlayer().swing(context.getHand());
             }
@@ -48,7 +50,4 @@ public class AetherPickaxe  extends AOEEmberDiggerItem {
 
         return result;
     }
-
-    @Override
-    public void aoeMineTrigger(ItemStack stack, BlockPos pos, Player player) { }
 }

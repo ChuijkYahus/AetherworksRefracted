@@ -64,7 +64,7 @@ public class RenderPrism implements BlockEntityRenderer<PrismBlockEntity>
                 }
             }
         }
-        VertexConsumer overlayBuffer = pBuffer.getBuffer(RenderType.textSeeThrough(LOCATION_PRISM_OVERLAY));
+        VertexConsumer overlayBuffer = pBuffer.getBuffer(RenderType.text(LOCATION_PRISM_OVERLAY));
         RenderSystem.enableDepthTest();
 
         float uv0 = frameUVShift * frame;
@@ -89,7 +89,7 @@ public class RenderPrism implements BlockEntityRenderer<PrismBlockEntity>
         FaceRendererUtil.renderHorizontals(overlayBuffer, poseStack, COLOR, LIGHTMAP,0, 1, uv0, uv1);
         poseStack.translate(2, 2, 2);
 
-        VertexConsumer runeBuffer = pBuffer.getBuffer(RenderType.textSeeThrough(LOCATION_RUNES));
+        VertexConsumer runeBuffer = pBuffer.getBuffer(RenderType.text(LOCATION_RUNES));
         RenderSystem.enableDepthTest();
 
         //random rune seed - noisy enough?

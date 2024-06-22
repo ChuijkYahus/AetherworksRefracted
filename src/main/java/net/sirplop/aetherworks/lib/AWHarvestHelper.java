@@ -1,12 +1,8 @@
 package net.sirplop.aetherworks.lib;
 
 import com.rekindled.embers.particle.GlowParticleOptions;
-import net.minecraft.client.telemetry.events.WorldUnloadEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -15,26 +11,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.level.LevelEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.network.PacketDistributor;
-import net.sirplop.aetherworks.Aetherworks;
-import net.sirplop.aetherworks.network.MessageHarvestNode;
-import net.sirplop.aetherworks.network.PacketHandler;
-import net.sirplop.aetherworks.util.Utils;
-import org.apache.logging.log4j.core.jmx.Server;
 import org.joml.Random;
-import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -138,7 +122,7 @@ public class AWHarvestHelper {
         return true;
     }
 
-    public static boolean addNode(Player invoker, BlockPos at, int range, Predicate<Player> predicate, @Nullable GlowParticleOptions particle)
+    public static boolean addNode(Player invoker, AWHarvestNode node)
     {
         UUID playerID = invoker.getUUID();
         if (nodes.containsKey(playerID))
@@ -146,7 +130,6 @@ public class AWHarvestHelper {
             return false;
         }
 
-        AWHarvestNode node = new AWHarvestNode(invoker, invoker.level(), at, range, predicate, particle);
         node.initNode();
         if (node.isInvalid())
         {
@@ -157,7 +140,7 @@ public class AWHarvestHelper {
         return true;
     }
 
-    public static class AWExchangeNode extends AWHarvestNode
+    public class AWExchangeNode extends AWHarvestNode
     {
         public final ItemStack stackConsumed;
         private BlockState baseState;
@@ -171,6 +154,7 @@ public class AWHarvestHelper {
             this.stackConsumed = is;
         }
 
+        @Override
         public void initNode()
         {
             if (!isLoaded(this.beginning))
@@ -204,7 +188,8 @@ public class AWHarvestHelper {
             }
         }
 
-        private void traverseRecursive(BlockPos from)
+        @Override
+        public void traverseRecursive(BlockPos from)
         {
             if (currentIteration >= this.range)
             {
@@ -235,6 +220,7 @@ public class AWHarvestHelper {
             }
         }
 
+        @Override
         public void tick()
         {
             BlockPos pos = this.toHarvest.pop();
@@ -292,140 +278,6 @@ public class AWHarvestHelper {
             {
                 this.invalid = true;
             }
-        }
-    }
-
-    public static class AWHarvestNode {
-        public final Player harvester;
-        public final Level level;
-        public final BlockPos beginning;
-        public final Predicate<Player> canHarvest;
-        public final int range;
-        public final Stack<BlockPos> toHarvest = new Stack<>();
-        private BlockState baseState;
-        private final GlowParticleOptions particle;
-
-        public boolean isInvalid()
-        {
-            return invalid;
-        }
-
-        boolean invalid;
-
-        public boolean isLoaded(BlockPos pos)
-        {
-            return level.isLoaded(pos);
-        }
-        public double distanceToSqr(BlockPos pos)
-        {
-            return beginning.distToCenterSqr(pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f);
-        }
-
-
-        public AWHarvestNode(Player harvester, Level level, BlockPos beginning,
-                             int range, Predicate<Player> canHarvest, @Nullable  GlowParticleOptions particle)
-        {
-            this.harvester = harvester;
-            this.level = level;
-            this.beginning = beginning;
-            this.canHarvest = canHarvest;
-            this.range = range;
-            this.particle = particle;
-        }
-        public void initNode()
-        {
-            if (!isLoaded(this.beginning))
-            {
-                this.invalid = true;
-                return;
-            }
-
-            if (!isLoaded(this.beginning))
-            {
-                this.invalid = true;
-                return;
-            }
-
-            this.toHarvest.add(this.beginning);
-            this.baseState = this.level.getBlockState(this.beginning);
-            this.traverseRecursive(this.beginning);
-
-            this.toHarvest.sort((BlockPos l, BlockPos r) -> (int) (distanceToSqr(r) - distanceToSqr(l)));
-            if (this.toHarvest.isEmpty())
-            {
-                this.invalid = true;
-            }
-        }
-
-        private void traverseRecursive(BlockPos from)
-        {
-            if (from.distToCenterSqr(this.beginning.getX() + 0.5, this.beginning.getY() + 0.5, this.beginning.getZ() + 0.5) >= (range * range)-1)
-            {
-                return;
-            }
-
-            for (Direction facing : Direction.values())
-            {
-                BlockPos offset = from.relative(facing);
-                if (this.toHarvest.contains(offset))
-                {
-                    continue;
-                }
-
-                if (!this.isLoaded(offset))
-                {
-                    continue;
-                }
-
-                BlockState state = this.level.getBlockState(offset);
-                if (state.equals(this.baseState))
-                {
-                    this.toHarvest.add(0, offset);
-                    this.traverseRecursive(offset);
-                }
-            }
-        }
-        public void tick()
-        {
-            BlockPos pos = this.toHarvest.pop();
-            boolean val = Utils.breakAndHarvestBlock((ServerLevel)level, pos, (ServerPlayer)harvester, harvester.getMainHandItem(),
-                    Direction.getRandom(level.random), (state) -> state == baseState, false);
-            if (val) {
-                harvester.getMainHandItem().hurt(1, level.random, (ServerPlayer) harvester);
-                if (particle != null) {
-                    ((ServerLevel)level).sendParticles(particle,
-                            pos.getX() + 0.5f,
-                            pos.getY() + 0.5f,
-                            pos.getZ() + 0.5f,
-                            10, 0.25f, 0.25f, 0.25f, 0.25f);
-                }
-            }
-            if (this.toHarvest.isEmpty())
-                this.invalid = true;
-            /*
-                BlockState state = this.level.getBlockState(pos);
-                if (this.canHarvest.test(this.harvester)) {
-                    if (!level.isClientSide()) {
-                        int exp = net.minecraftforge.common.ForgeHooks.onBlockBreakEvent(this.level, GameType.SURVIVAL, (ServerPlayer) this.harvester, pos);
-                        if (exp == -1) {
-                            return;
-                        }
-
-                        SoundType type = state.getBlock().getSoundType(state, this.level, pos, this.harvester);
-                        this.level.playSound(null, pos, type.getBreakSound(), SoundSource.BLOCKS, type.getVolume(), type.getPitch());
-                        boolean flag = state.getBlock().canHarvestBlock(state, this.level, pos, this.harvester);
-                        boolean flag1 = this.removeBlock(pos, flag);
-                        if (flag1 && flag) {
-                            state.getBlock().playerDestroy(this.level, this.harvester, pos, state, level.getBlockEntity(pos), this.harvester.getMainHandItem());
-                            this.harvester.getMainHandItem().hurt(1, RandomSource.create(), (ServerPlayer) harvester);
-                            PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new MessageHarvestNode(state, pos));
-                        }
-                    }
-                }
-                else
-                {
-                }
-            }*/
         }
     }
 }

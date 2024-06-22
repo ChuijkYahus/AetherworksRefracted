@@ -40,6 +40,7 @@
   "item.aetherworks.geode_ocean" : "Oceanic Geode",
   "item.aetherworks.geode_deep" : "Deepslate Geode",
   "item.aetherworks.geode_basic" : "Stone Geode",
+  "item.aetherworks.tuning_cylinder" : "Tuning Cylinder",
 
   "item.aetherworks.pickaxe_aether" : "§cPickaxe of the Boundless Sky",
   "item.aetherworks.pickaxe_ember" : "§cPickaxe of the Molten Depths",
@@ -82,6 +83,8 @@
   "tooltip.aetherworks.shovel_head_slime" : "Forever shifting and changing form.",
   "tooltip.aetherworks.crossbow_limbs_quartz" : "Sharper than sharp.",
   "tooltip.aetherworks.crossbow_limbs_magma" : "Flames wick onto your fingertips.",
+
+  "embers.tooltip.augment.aetherworks.tuning_cylinder" : "Aetheric Tuning",
 
   "enchantment.aetherworks.aetheric" : "Aetheric"
 }

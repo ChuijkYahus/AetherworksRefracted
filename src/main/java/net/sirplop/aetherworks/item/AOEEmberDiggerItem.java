@@ -29,8 +29,8 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.sirplop.aetherworks.Aetherworks;
-import net.sirplop.aetherworks.Config;
 import net.sirplop.aetherworks.api.IToggleItem;
+import net.sirplop.aetherworks.util.AWConfig;
 import net.sirplop.aetherworks.util.MoonlightRepair;
 import net.sirplop.aetherworks.util.Utils;
 import org.jetbrains.annotations.Nullable;
@@ -52,10 +52,11 @@ public abstract class AOEEmberDiggerItem extends DiggerItem implements IToggleIt
 
     @Override
     public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
-        if (!player.level().isClientSide() && isPoweredOn(stack)) {
+        boolean check = super.onBlockStartBreak(stack, pos, player);
+        if (check && !player.level().isClientSide() && isPoweredOn(stack)) {
             causeAoe((ServerLevel) player.level(), pos, player.level().getBlockState(pos), stack, player);
         }
-        return super.onBlockStartBreak(stack, pos, player);
+        return check;
     }
 
     // modified from the JustHammers hammer code:
@@ -114,14 +115,12 @@ public abstract class AOEEmberDiggerItem extends DiggerItem implements IToggleIt
                 continue;
             }
             //use embers every block
-            if (!consumeEmbers(player, Config.aetherToolEmberUse)) {
+            if (!consumeEmbers(player, AWConfig.TOOL_EMBER_USE.get())) {
                 toggleItem(stack, player);
                 break;
             }
 
             removedPos.add(pos);
-            if (stack.getItem() instanceof AOEEmberDiggerItem tool)
-                tool.aoeMineTrigger(stack, pos, player);
 
             level.sendParticles(glow,
                     pos.getX() + 0.5f,
@@ -180,7 +179,7 @@ public abstract class AOEEmberDiggerItem extends DiggerItem implements IToggleIt
 
     @Override
     public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-        MoonlightRepair.tryRepair(stack, world, entity, Config.aethericRepairStrength);
+        MoonlightRepair.tryRepair(stack, world, entity, AWConfig.AETHERIC_STRENGTH.get());
         super.inventoryTick(stack, world, entity, slot, selected);
     }
 
@@ -194,27 +193,27 @@ public abstract class AOEEmberDiggerItem extends DiggerItem implements IToggleIt
         if (!level.isClientSide()) {
             //send toggle message to client and play sounds.
             boolean powerOn = isPoweredOn(stack);
-            if (powerOn || EmberInventoryUtil.getEmberTotal(player) > Config.aetherToolEmberUse) { //powered on, play sound
+            if (powerOn || EmberInventoryUtil.getEmberTotal(player) > AWConfig.TOOL_EMBER_USE.get()) { //powered on, play sound
                 toggleItem(stack, player);
             }
         } else
         {
             boolean powerOn = !isPoweredOn(stack); //we're flipping modes, so opposite
-            boolean ember = EmberInventoryUtil.getEmberTotal(player) > Config.aetherToolEmberUse;
+            boolean ember = EmberInventoryUtil.getEmberTotal(player) > AWConfig.TOOL_EMBER_USE.get();
             if (powerOn && ember) { //power on successfully
                 Aetherworks.LOGGER.atDebug().log("Toggle On");
                 level.playSound(player, player.getOnPos(),
-                        SoundEvents.EXPERIENCE_ORB_PICKUP,
+                        SoundEvents.AMETHYST_BLOCK_CHIME,
                         SoundSource.PLAYERS, 0.6f, 0.9F);
             } else if (powerOn) { //power on fail
                 Aetherworks.LOGGER.atDebug().log("Toggle Fail");
                 level.playSound(player, player.getOnPos(),
-                        SoundEvents.EXPERIENCE_ORB_PICKUP,
+                        SoundEvents.AMETHYST_BLOCK_CHIME,
                         SoundSource.PLAYERS, 0.6f, 0.0F);
             } else { //power off
                 Aetherworks.LOGGER.atDebug().log("Toggle Off");
                 level.playSound(player, player.getOnPos(),
-                        SoundEvents.EXPERIENCE_ORB_PICKUP,
+                        SoundEvents.AMETHYST_BLOCK_CHIME,
                         SoundSource.PLAYERS, 0.6f, 0.6F);
             }
         }
@@ -264,8 +263,6 @@ public abstract class AOEEmberDiggerItem extends DiggerItem implements IToggleIt
         }
         return slotChanged || newStack.getItem() != oldStack.getItem();
     }
-
-    public abstract void aoeMineTrigger(ItemStack stack, BlockPos pos, Player player);
 
     //original implementation, preserved forevermore
      /*private void tryPowerMine(ItemStack stack, Level level, BlockState state, BlockPos pos, Player player) {

@@ -1,5 +1,6 @@
 package net.sirplop.aetherworks.util;
 
+import com.rekindled.embers.api.augment.AugmentUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.ChatType;
@@ -13,7 +14,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.FakePlayer;
+import net.sirplop.aetherworks.Aetherworks;
 import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
@@ -78,6 +81,7 @@ public class Utils {
         if (!match || !canHarvest)
             return false;
 
+        ForgeHooks.onBlockBreakEvent(level, player.gameMode.getGameModeForPlayer(), player, pos);
         level.destroyBlock(pos, false, player);
         if (!player.isCreative()) {
             boolean correctToolForDrops = itemInHand.isCorrectToolForDrops(targetState);

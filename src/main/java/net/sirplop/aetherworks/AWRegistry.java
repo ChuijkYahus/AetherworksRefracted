@@ -11,6 +11,9 @@ import java.util.function.Supplier;
 import javax.annotation.Nullable;
 
 import com.mojang.serialization.Codec;
+import com.rekindled.embers.api.EmbersAPI;
+import com.rekindled.embers.api.augment.AugmentUtil;
+import com.rekindled.embers.api.augment.IAugment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
@@ -19,10 +22,12 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
@@ -39,6 +44,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import net.sirplop.aetherworks.augment.TuningCylinderAugment;
 import net.sirplop.aetherworks.block.AetherBlock;
 import net.sirplop.aetherworks.block.AetherOre;
 import net.sirplop.aetherworks.block.MoonlightAmplifier;
@@ -49,6 +55,7 @@ import net.sirplop.aetherworks.fluid.GasFluidType;
 import net.sirplop.aetherworks.fluid.AetherworksFluidType;
 import net.sirplop.aetherworks.item.AetherPickaxe;
 import net.sirplop.aetherworks.item.EmberPickaxe;
+import net.sirplop.aetherworks.util.AWConfig;
 import org.jetbrains.annotations.NotNull;
 
 public class AWRegistry {
@@ -130,6 +137,7 @@ public class AWRegistry {
     public static final RegistryObject<Item> GEODE_OCEAN = ITEMS.register("geode_ocean", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> GEODE_DEEP = ITEMS.register("geode_deep", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> GEODE_BASIC = ITEMS.register("geode_basic", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> TUNING_CYLINDER = ITEMS.register("tuning_cylinder", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> PICKAXE_EMBER = ITEMS.register("pickaxe_ember", () -> new EmberPickaxe(new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> PICKAXE_AETHER = ITEMS.register("pickaxe_aether", () -> new AetherPickaxe(new Item.Properties().rarity(Rarity.RARE)));
@@ -142,6 +150,8 @@ public class AWRegistry {
     public static final RegistryObject<Block> MOONLIGHT_AMPLIFIER = registerBlock("moonlight_amplifier", () -> new MoonlightAmplifier(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().noOcclusion().strength(3, 6).sound(SoundType.GLASS)));
     public static final RegistryObject<Block> CONTROL_MATRIX = registerBlock("aether_prism_controller_matrix", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3, 6).requiresCorrectToolForDrops().noOcclusion()));
 
+    //Augments
+    public static final IAugment TUNING_CYLINDER_AUGMENT = AugmentUtil.registerAugment(new TuningCylinderAugment(new ResourceLocation(Aetherworks.MODID, "tuning_cylinder")));
 
     //Fluids
     public static final FluidStuff AETHERIUM_GAS_IMPURE = addFluid(new AetherworksFluidType.FluidInfo("aether_gas_impure", 0xff6c829f, 0.1F, 1.5F),
@@ -231,6 +241,8 @@ public class AWRegistry {
             for (FluidStuff fluid : fluidList) {
                 DispenserBlock.registerBehavior(fluid.FLUID_BUCKET.get(), dispenseBucket);
             }
+
+            EmbersAPI.registerEmberResonance(Ingredient.of(PICKAXE_EMBER.get(), PICKAXE_AETHER.get()), 2.5);
         });
     }
 

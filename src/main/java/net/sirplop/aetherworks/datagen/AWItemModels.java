@@ -56,6 +56,8 @@ public class AWItemModels extends ItemModelProvider {
         itemWithTexture(AWRegistry.CROSSBOW_LIMBS_QUARTZ, "crossbow_limbs_quartz");
         itemWithTexture(AWRegistry.CROSSBOW_LIMBS_MAGMA, "crossbow_limbs_magma");
 
+        itemWithTexture(AWRegistry.TUNING_CYLINDER, "tuning_cylinder");
+
         itemWithTexture(AWRegistry.GEODE_END, "geode_end");
         itemWithTexture(AWRegistry.GEODE_NETHER, "geode_nether");
         itemWithTexture(AWRegistry.GEODE_HOT, "geode_hot");

@@ -8,9 +8,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkEvent;
-import net.sirplop.aetherworks.Config;
 import net.sirplop.aetherworks.api.IToggleItem;
-import net.sirplop.aetherworks.util.Utils;
+import net.sirplop.aetherworks.util.AWConfig;
 
 import java.util.function.Supplier;
 
@@ -42,7 +41,7 @@ public class MessageToggleItem {
         if(stack.getItem() instanceof IToggleItem){
             if (!stack.hasTag()) {
                 stack.getOrCreateTag();
-                stack.getTag().putBoolean("poweredOn", EmberInventoryUtil.getEmberTotal(player) > Config.aetherToolEmberUse);
+                stack.getTag().putBoolean("poweredOn", EmberInventoryUtil.getEmberTotal(player) > AWConfig.TOOL_EMBER_USE.get());
             } else {
                 stack.getTag().putBoolean("poweredOn",
                         !stack.getTag().getBoolean("poweredOn"));

@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-18T15:18:30.484534	Item Models: aetherworks
+// 1.20.1	2024-06-21T15:39:48.3954742	Item Models: aetherworks
 d45f4464b3b643edba8fc5cf621a56ccd8646486 assets/aetherworks/models/item/aetherium_lens.json
 1a1c0d6cd2e5d23ac47715ccac71298c56ce2116 assets/aetherworks/models/item/aether_crown_crude.json
 b47ee9359e93621f4b6adf9d345d037c629ce41b assets/aetherworks/models/item/aether_crown_mundane.json
@@ -41,3 +41,4 @@ f858c21dd9fc656810761487b41a3ebdec5b9d9d assets/aetherworks/models/item/shovel_h
 6f28d4422bc15bcb531442345a4c3d1187820355 assets/aetherworks/models/item/tool_rod.json
 e5586b1543325418c4904cac2b46a68d1888d0f9 assets/aetherworks/models/item/tool_rod_crude.json
 6f28d4422bc15bcb531442345a4c3d1187820355 assets/aetherworks/models/item/tool_rod_infused.json
+eca7b6f8822170963733498f2d6247bb77a9903d assets/aetherworks/models/item/tuning_cylinder.json
