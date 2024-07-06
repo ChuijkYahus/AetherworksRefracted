@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "embers:archaic_brick"
+    },
+    "D": {
+      "item": "embers:dawnstone_ingot"
+    },
+    "F": {
+      "item": "aetherworks:focus_crystal"
+    },
+    "I": {
+      "item": "embers:intelligent_apparatus"
+    }
+  },
+  "pattern": [
+    "DFD",
+    "DID",
+    "AAA"
+  ],
+  "result": {
+    "item": "aetherworks:aether_prism_controller_matrix"
+  },
+  "show_notification": true
+}

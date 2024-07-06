@@ -1,0 +1,9 @@
+{
+    "parent": "aetherworks:block/forge_center",
+    "textures": {
+			"down" : "aetherworks:block/forge/forge_corner_br",
+			"up" : "aetherworks:block/forge/forge_corner_br",
+			"east" : "aetherworks:block/forge/forge_corner_side",
+			"south" : "aetherworks:block/forge/forge_corner_side_inv"
+    }
+}

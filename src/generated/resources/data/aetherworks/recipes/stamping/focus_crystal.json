@@ -1,0 +1,16 @@
+{
+  "type": "embers:stamping",
+  "fluid": {
+    "amount": 1000,
+    "name": "minecraft:water"
+  },
+  "input": {
+    "item": "embers:ember_shard"
+  },
+  "output": {
+    "item": "aetherworks:focus_crystal"
+  },
+  "stamp": {
+    "item": "embers:flat_stamp"
+  }
+}

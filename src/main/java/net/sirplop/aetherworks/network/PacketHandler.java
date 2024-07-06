@@ -20,5 +20,8 @@ public class PacketHandler {
     public static void init() {
         INSTANCE.registerMessage(id++, MessageHarvestNode.class, MessageHarvestNode::encode, MessageHarvestNode::decode, MessageHarvestNode::handle);
         INSTANCE.registerMessage(id++, MessageToggleItem.class, MessageToggleItem::encode, MessageToggleItem::decode, MessageToggleItem::handle);
+        INSTANCE.registerMessage(id++, MessageSyncItemEntityTag.class, MessageSyncItemEntityTag::encode, MessageSyncItemEntityTag::decode, MessageSyncItemEntityTag::handle);
+        INSTANCE.registerMessage(id++, MessageFocusedStack.class, MessageFocusedStack::encode, MessageFocusedStack::decode, MessageFocusedStack::handle);
+        INSTANCE.registerMessage(id++, MessageSurroundWIthParticles.class, MessageSurroundWIthParticles::encode, MessageSurroundWIthParticles::decode, MessageSurroundWIthParticles::handle);
     }
 }

@@ -1,0 +1,22 @@
+{
+  "parent": "aetherworks:block/forge_vent",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        -40,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "translation": [
+        -3,
+        -2,
+        0
+      ]
+    }
+  }
+}

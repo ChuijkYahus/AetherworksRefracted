@@ -14,6 +14,7 @@ import com.mojang.serialization.Codec;
 import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.api.augment.AugmentUtil;
 import com.rekindled.embers.api.augment.IAugment;
+import com.rekindled.embers.util.AshenArmorMaterial;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
@@ -23,17 +24,24 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.SoundActions;
@@ -45,42 +53,37 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import net.sirplop.aetherworks.augment.TuningCylinderAugment;
-import net.sirplop.aetherworks.block.AetherBlock;
-import net.sirplop.aetherworks.block.AetherOre;
-import net.sirplop.aetherworks.block.MoonlightAmplifier;
-import net.sirplop.aetherworks.block.Prism;
-import net.sirplop.aetherworks.blockentity.PrismBlockEntity;
+import net.sirplop.aetherworks.block.*;
+import net.sirplop.aetherworks.block.forge.*;
+import net.sirplop.aetherworks.blockentity.*;
 import net.sirplop.aetherworks.enchantment.AethericEnchantment;
+import net.sirplop.aetherworks.entity.DummyArmorLoaderEntity;
 import net.sirplop.aetherworks.fluid.GasFluidType;
 import net.sirplop.aetherworks.fluid.AetherworksFluidType;
-import net.sirplop.aetherworks.item.AetherPickaxe;
-import net.sirplop.aetherworks.item.EmberPickaxe;
-import net.sirplop.aetherworks.util.AWConfig;
+import net.sirplop.aetherworks.item.*;
+import net.sirplop.aetherworks.recipe.*;
 import org.jetbrains.annotations.NotNull;
 
 public class AWRegistry {
-    public static final DeferredRegister<Item> ITEMS =
-            DeferredRegister.create(ForgeRegistries.ITEMS, Aetherworks.MODID);
-    public static final DeferredRegister<Block> BLOCKS =
-            DeferredRegister.create(ForgeRegistries.BLOCKS, Aetherworks.MODID);
-    public static final DeferredRegister<FluidType> FLUIDTYPES =
-            DeferredRegister.create(ForgeRegistries.Keys.FLUID_TYPES, Aetherworks.MODID);
-    public static final DeferredRegister<Fluid> FLUIDS =
-            DeferredRegister.create(ForgeRegistries.FLUIDS, Aetherworks.MODID);
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB =
-            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Aetherworks.MODID);
-    public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES =
-            DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Aetherworks.MODID);
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES =
-            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Aetherworks.MODID);
-    public static final DeferredRegister<Enchantment> ENCHANTMENTS =
-            DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, Aetherworks.MODID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Aetherworks.MODID);
+    public static final DeferredRegister<Block> BLOCKS =  DeferredRegister.create(ForgeRegistries.BLOCKS, Aetherworks.MODID);
+    public static final DeferredRegister<FluidType> FLUIDTYPES = DeferredRegister.create(ForgeRegistries.Keys.FLUID_TYPES, Aetherworks.MODID);
+    public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, Aetherworks.MODID);
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Aetherworks.MODID);
+    public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Aetherworks.MODID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Aetherworks.MODID);
+    public static final DeferredRegister<Enchantment> ENCHANTMENTS =  DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, Aetherworks.MODID);
+    public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Aetherworks.MODID);
+    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, Aetherworks.MODID);
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Aetherworks.MODID);
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Aetherworks.MODID);
+
 
     public static List<FluidStuff> fluidList = new ArrayList<FluidStuff>();
 
     public static FluidStuff addFluid(AetherworksFluidType.FluidInfo info,
                                       BiFunction<FluidType.Properties, AetherworksFluidType.FluidInfo, FluidType> type,
-                                      BiFunction<Supplier<? extends FlowingFluid>, BlockBehaviour.Properties, LiquidBlock> block,
+                                      BiFunction<Supplier<? extends FlowingFluid>,Properties, LiquidBlock> block,
                                       Function<ForgeFlowingFluid.Properties, ForgeFlowingFluid.Source> source,
                                       Function<ForgeFlowingFluid.Properties, ForgeFlowingFluid.Flowing> flowing,
                                       @Nullable Consumer<ForgeFlowingFluid.Properties> fluidProperties, FluidType.Properties prop) {
@@ -91,15 +94,15 @@ public class AWRegistry {
 
     public static FluidStuff addFluid(AetherworksFluidType.FluidInfo info,
                                       BiFunction<FluidType.Properties, AetherworksFluidType.FluidInfo, FluidType> type,
-                                      BiFunction<Supplier<? extends FlowingFluid>, BlockBehaviour.Properties, LiquidBlock> block,
+                                      BiFunction<Supplier<? extends FlowingFluid>, Properties, LiquidBlock> block,
                                       @Nullable Consumer<ForgeFlowingFluid.Properties> fluidProperties, FluidType.Properties prop) {
         return addFluid(info, type, block, ForgeFlowingFluid.Source::new, ForgeFlowingFluid.Flowing::new, fluidProperties, prop);
     }
 
-
-
     //Items
     public static final RegistryObject<Item> AETHER_SHARD = ITEMS.register("aether_shard", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> AETHER_AMALGAM = ITEMS.register("aether_amalgam", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> AETHER_PEARL = ITEMS.register("aether_pearl", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> FOCUS_CRYSTAL = ITEMS.register("focus_crystal", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> AETHERIUM_LENS = ITEMS.register("aetherium_lens", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PLATE_AETHER = ITEMS.register("plate_aether", () -> new Item(new Item.Properties()));
@@ -137,18 +140,40 @@ public class AWRegistry {
     public static final RegistryObject<Item> GEODE_OCEAN = ITEMS.register("geode_ocean", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> GEODE_DEEP = ITEMS.register("geode_deep", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> GEODE_BASIC = ITEMS.register("geode_basic", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> AETHER_ASPECTUS = ITEMS.register("aspectus_aetherium", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TUNING_CYLINDER = ITEMS.register("tuning_cylinder", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> PICKAXE_EMBER = ITEMS.register("pickaxe_ember", () -> new EmberPickaxe(new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> PICKAXE_AETHER = ITEMS.register("pickaxe_aether", () -> new AetherPickaxe(new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> AXE_ENDER = ITEMS.register("axe_ender", () -> new EnderAxe(new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> AXE_SCULK = ITEMS.register("axe_sculk", () -> new SculkAxe(new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> SHOVEL_SLIME = ITEMS.register("shovel_slime", () -> new SlimeShovel(new Item.Properties().rarity(Rarity.RARE)));
+
+    public static final RegistryObject<Item> AETHER_CROWN = ITEMS.register("aether_crown", () -> new AetherCrownItem(AshenArmorMaterial.INSTANCE, ArmorItem.Type.HELMET, new Item.Properties()));
+    public static final RegistryObject<Item> POTION_GEM = ITEMS.register("potion_gem", () -> new PotionGemItem(new Item.Properties()));
 
     //Blocks
-    public static final RegistryObject<Block> AETHERIUM_ORE = registerBlock("ore_aether", () -> new AetherOre(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(5, 12), UniformInt.of(4, 8)));
-    public static final RegistryObject<Block> AETHERIUM_BLOCK = registerBlock("block_aether", () -> new AetherBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(10, 40)));
-    public static final RegistryObject<Block> PRISM_SUPPORT = registerBlock("prism_support", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3, 6).requiresCorrectToolForDrops().noOcclusion()));
-    public static final RegistryObject<Block> PRISM = registerBlock("prism", () -> new Prism(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(4, 8).requiresCorrectToolForDrops().noOcclusion()));
-    public static final RegistryObject<Block> MOONLIGHT_AMPLIFIER = registerBlock("moonlight_amplifier", () -> new MoonlightAmplifier(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().noOcclusion().strength(3, 6).sound(SoundType.GLASS)));
-    public static final RegistryObject<Block> CONTROL_MATRIX = registerBlock("aether_prism_controller_matrix", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3, 6).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistryObject<Block> SUEVITE = registerBlock("suevite", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(2.5f)));
+    public static final RegistryObject<Block> SUEVITE_COBBLE = registerBlock("suevite_cobble", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));;
+    public static final StoneDecoBlocks SUEVITE_COBBLE_DECO = new StoneDecoBlocks("suevite_cobble", SUEVITE_COBBLE, Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f));
+    public static final RegistryObject<Block> SUEVITE_BRICKS = registerBlock("suevite_bricks", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));;
+    public static final StoneDecoBlocks SUEVITE_BRICKS_DECO = new StoneDecoBlocks("suevite_bricks", SUEVITE_BRICKS, Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f));
+
+    public static final RegistryObject<Block> AETHERIUM_ORE = registerBlock("ore_aether", () -> new AetherOreBlock(Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(5, 12), UniformInt.of(4, 8)));
+    public static final RegistryObject<Block> AETHERIUM_SHARD_BLOCK = registerBlock("block_shards_raw", () -> new Block(Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(5, 12)));
+    public static final RegistryObject<Block> AETHERIUM_BLOCK = registerBlock("block_aether", () -> new AetherBlock(Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(10, 40)));
+    public static final RegistryObject<Block> PRISM_SUPPORT = registerBlock("prism_support", () -> new PrismSupportBlock(Properties.copy(Blocks.STONE).strength(3, 6).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistryObject<Block> PRISM = registerBlock("prism", () -> new PrismBlock(Properties.copy(Blocks.IRON_BLOCK).strength(4, 8).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistryObject<Block> MOONLIGHT_AMPLIFIER = registerBlock("moonlight_amplifier", () -> new MoonlightAmplifierBlock(Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().noOcclusion().strength(3, 6).sound(SoundType.GLASS)));
+    public static final RegistryObject<Block> CONTROL_MATRIX = registerBlock("aether_prism_controller_matrix", () -> new ControlMatrixBlock(Properties.copy(Blocks.STONE).strength(3, 6).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistryObject<Block> FORGE_CORE = registerBlock("forge_core", () -> new ForgeCoreBlock(Properties.copy(Blocks.IRON_BLOCK).strength(3, 10).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistryObject<Block> FORGE_VENT = registerBlock("forge_vent", () -> new ForgeVentBlock(Properties.copy(Blocks.IRON_BLOCK).strength(3, 10).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistryObject<Block> FORGE_HEATER = registerBlock("forge_heater", () -> new ForgeHeaterBlock(Properties.copy(Blocks.IRON_BLOCK).strength(3, 10).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistryObject<Block> FORGE_COOLER = registerBlock("forge_cooler", () -> new ForgeCoolerBlock(Properties.copy(Blocks.IRON_BLOCK).strength(3, 10).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistryObject<Block> FORGE_ANVIL = registerBlock("forge_anvil", () -> new AetheriumAnvilBlock(Properties.copy(Blocks.IRON_BLOCK).strength(3, 10).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistryObject<Block> FORGE_METAL_FORMER = registerBlock("forge_metal_former", () -> new MetalFormerBlock(Properties.copy(Blocks.IRON_BLOCK).strength(3, 10).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistryObject<Block> FORGE_BLOCK = registerBlock("forge_block", () -> new ForgeStructureBlock(Properties.copy(Blocks.IRON_BLOCK)));
+    public static final RegistryObject<Block> HEAT_DIAL = registerBlock("heat_dial", () -> new HeatDialBlock(Properties.copy(Blocks.IRON_BLOCK)));
 
     //Augments
     public static final IAugment TUNING_CYLINDER_AUGMENT = AugmentUtil.registerAugment(new TuningCylinderAugment(new ResourceLocation(Aetherworks.MODID, "tuning_cylinder")));
@@ -184,13 +209,20 @@ public class AWRegistry {
                     .canHydrate(false)
                     .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY)
                     .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL)
-                    .density(-1000)
+                    .density(1)
                     .viscosity(10)
                     .temperature(1020)
                     .lightLevel(10));
 
     //Block Entities
-    public static final RegistryObject<BlockEntityType<PrismBlockEntity>> PRISM_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("prism_tile", () -> BlockEntityType.Builder.of(PrismBlockEntity::new, PRISM.get()).build(null));
+    public static final RegistryObject<BlockEntityType<PrismBlockEntity>> PRISM_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("prism_block_entity", () -> BlockEntityType.Builder.of(PrismBlockEntity::new, PRISM.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ForgeCoreBlockEntity>> FORGE_CORE_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("forge_core_block_entity", () -> BlockEntityType.Builder.of(ForgeCoreBlockEntity::new, FORGE_CORE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ForgeHeatVentBlockEntity>> FORGE_VENT_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("forge_vent_block_entity", () -> BlockEntityType.Builder.of(ForgeHeatVentBlockEntity::new, FORGE_VENT.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ForgeHeaterBlockEntity>> FORGE_HEATER_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("forge_heater_block_entity", () -> BlockEntityType.Builder.of(ForgeHeaterBlockEntity::new, FORGE_HEATER.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ForgeCoolerBlockEntity>> FORGE_COOLER_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("forge_cooler_block_entity", () -> BlockEntityType.Builder.of(ForgeCoolerBlockEntity::new, FORGE_COOLER.get()).build(null));
+    public static final RegistryObject<BlockEntityType<HeatDialBlockEntity>> HEAT_DIAL_ENTITY = BLOCK_ENTITY_TYPES.register("heat_dial_block_entity", () -> BlockEntityType.Builder.of(HeatDialBlockEntity::new, HEAT_DIAL.get()).build(null));
+    public static final RegistryObject<BlockEntityType<MetalFormerBlockEntity>> METAL_FORMER_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("metal_former_block_entity", () -> BlockEntityType.Builder.of(MetalFormerBlockEntity::new, FORGE_METAL_FORMER.get()).build(null));
+    public static final RegistryObject<BlockEntityType<AetheriumAnvilBlockEntity>> AETHERIUM_ANVIL_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("aetherium_anvil_block_entity", () -> BlockEntityType.Builder.of(AetheriumAnvilBlockEntity::new, FORGE_ANVIL.get()).build(null));
 
     //Creative Tabs
     public static final RegistryObject<CreativeModeTab> AW_TAB = CREATIVE_MODE_TAB.register("aetherworks_tab",
@@ -200,9 +232,11 @@ public class AWRegistry {
                     .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
                     .displayItems((params, output) -> {
                         for (RegistryObject<Item> item : ITEMS.getEntries()) {
+                            if (item.get().equals(FORGE_BLOCK.get().asItem()))
+                                continue;
                             output.accept(item.get());
                         }
-                        //output.accept(AWRegistry.AETHER_SHARD.get());
+                        PotionGemItem.getAllPotionGems(output);
                     })
                     .build());
 
@@ -211,14 +245,23 @@ public class AWRegistry {
             ENCHANTMENTS.register("aetheric", () -> new AethericEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.BREAKABLE, EquipmentSlot.values()));
 
     //Entities
+    public static final RegistryObject<EntityType<DummyArmorLoaderEntity>> DUMMY_LOADER = registerEntity("dummy_loader", EntityType.Builder.<DummyArmorLoaderEntity>of(DummyArmorLoaderEntity::new, MobCategory.MISC).sized(0.0F, 0F));
 
     //Spawn Eggs
 
     //Particle Types
 
     //Recipe Types
+    public static final RegistryObject<RecipeType<IMetalFormerRecipe>> METAL_FORMING = registerRecipeType("metal_forming");
+    public static final RegistryObject<RecipeType<IAetheriumAnvilRecipe>> AETHERIUM_ANVIL = registerRecipeType("aetherium_anvil");
+    public static final RegistryObject<RecipeSerializer<PotionGemSocketRecipe>> GEM_SOCKET_SERIALIZER = RECIPE_SERIALIZERS.register("potion_gem_socket", () -> PotionGemSocketRecipe.SERIALIZER);
+    public static final RegistryObject<RecipeSerializer<PotionGemUnsocketRecipe>> GEM_UNSOCKET_SERIALIZER = RECIPE_SERIALIZERS.register("potion_gem_unsocket", () -> PotionGemUnsocketRecipe.SERIALIZER);
+    public static final RegistryObject<RecipeSerializer<PotionGemImbueRecipe>> GEM_IMBUE_SERIALIZER = RECIPE_SERIALIZERS.register("potion_gem_imbue", () -> PotionGemImbueRecipe.SERIALIZER);
 
     //Recipe Serializers
+    public static final RegistryObject<RecipeSerializer<MetalFormerRecipe>> METAL_FORMING_SERIALIZER = RECIPE_SERIALIZERS.register("metal_forming", () -> MetalFormerRecipe.SERIALIZER);
+    public static final RegistryObject<RecipeSerializer<AetheriumAnvilRecipe>> AETHERIUM_ANVIL_SERIALIZER = RECIPE_SERIALIZERS.register("aetherium_anvil", () -> AetheriumAnvilRecipe.SERIALIZER);
+
 
     public static void init(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
@@ -243,6 +286,9 @@ public class AWRegistry {
             }
 
             EmbersAPI.registerEmberResonance(Ingredient.of(PICKAXE_EMBER.get(), PICKAXE_AETHER.get()), 2.5);
+            EmbersAPI.registerEmberResonance(Ingredient.of(AETHER_CROWN.get()), 2.5);
+            EmbersAPI.registerWearableLens(Ingredient.of(AETHER_CROWN.get())); //of course it's a lens!
+
         });
     }
 
@@ -282,7 +328,7 @@ public class AWRegistry {
         public final int color;
 
         public FluidStuff(String name, int color, FluidType type,
-                          BiFunction<Supplier<? extends FlowingFluid>, BlockBehaviour.Properties, LiquidBlock> block,
+                          BiFunction<Supplier<? extends FlowingFluid>, Properties, LiquidBlock> block,
                           @Nullable Consumer<ForgeFlowingFluid.Properties> fluidProperties,
                           Function<ForgeFlowingFluid.Properties, ForgeFlowingFluid.Source> source,
                           Function<ForgeFlowingFluid.Properties, ForgeFlowingFluid.Flowing> flowing) {
@@ -306,5 +352,58 @@ public class AWRegistry {
         public ForgeFlowingFluid.Properties getFluidProperties() {
             return PROPERTIES;
         }
+    }
+
+    public static class StoneDecoBlocks {
+        public String name;
+        public RegistryObject<Block> block;
+        public RegistryObject<StairBlock> stairs;
+        public RegistryObject<Item> stairsItem;
+        public RegistryObject<SlabBlock> slab;
+        public RegistryObject<Item> slabItem;
+        public RegistryObject<WallBlock> wall;
+        public RegistryObject<Item> wallItem;
+
+        public StoneDecoBlocks(String name, RegistryObject<Block> block, Properties properties, boolean stairs, boolean slab, boolean wall) {
+            this.stairs = null;
+            this.stairsItem = null;
+            this.slab = null;
+            this.slabItem = null;
+            this.wall = null;
+            this.wallItem = null;
+            this.name = name;
+            this.block = block;
+            if (stairs) {
+                this.stairs = BLOCKS.register(name + "_stairs", () ->
+                        new StairBlock(() -> block.get().defaultBlockState(), properties));
+                this.stairsItem = registerBlockItem(name + "_stairs", this.stairs);
+            }
+
+            if (slab) {
+                this.slab = BLOCKS.register(name + "_slab", () -> new SlabBlock(properties));
+                this.slabItem = registerBlockItem(name + "_slab", this.slab);
+            }
+
+            if (wall) {
+                this.wall = BLOCKS.register(name + "_wall", () -> new WallBlock(properties));
+                this.slabItem = registerBlockItem(name + "_wall", this.wall);
+            }
+
+        }
+
+        public StoneDecoBlocks(String name, RegistryObject<Block> block, Properties properties) {
+            this(name, block, properties, true, true, true);
+        }
+    }
+
+    public static <T extends Recipe<?>> RegistryObject<RecipeType<T>> registerRecipeType(final String identifier) {
+        return RECIPE_TYPES.register(identifier, () -> new RecipeType<T>() {
+            public String toString() {
+                return Aetherworks.MODID + ":" + identifier;
+            }
+        });
+    }
+    public static <T extends Entity> RegistryObject<EntityType<T>> registerEntity(String name, EntityType.Builder<T> builder) {
+        return ENTITY_TYPES.register(name, () -> builder.build(Aetherworks.MODID + ":" + name));
     }
 }

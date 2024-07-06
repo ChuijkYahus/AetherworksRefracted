@@ -1,0 +1,37 @@
+{
+  "variants": {
+    "oct_facing=back": {
+      "model": "aetherworks:block/forge_side",
+      "y": 180
+    },
+    "oct_facing=front": {
+      "model": "aetherworks:block/forge_side"
+    },
+    "oct_facing=left": {
+      "model": "aetherworks:block/forge_side",
+      "y": 270
+    },
+    "oct_facing=left_back": {
+      "model": "aetherworks:block/forge_corner",
+      "y": 180
+    },
+    "oct_facing=left_front": {
+      "model": "aetherworks:block/forge_corner",
+      "y": 270
+    },
+    "oct_facing=none": {
+      "model": "aetherworks:block/forge_center"
+    },
+    "oct_facing=right": {
+      "model": "aetherworks:block/forge_side",
+      "y": 90
+    },
+    "oct_facing=right_back": {
+      "model": "aetherworks:block/forge_corner",
+      "y": 90
+    },
+    "oct_facing=right_front": {
+      "model": "aetherworks:block/forge_corner"
+    }
+  }
+}

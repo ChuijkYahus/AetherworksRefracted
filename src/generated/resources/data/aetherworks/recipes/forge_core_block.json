@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "embers:caminite_brick"
+    },
+    "C": {
+      "item": "embers:ember_crystal_cluster"
+    },
+    "P": {
+      "item": "embers:dawnstone_plate"
+    },
+    "S": {
+      "item": "embers:ember_crystal"
+    }
+  },
+  "pattern": [
+    "BSB",
+    "BCB",
+    "PPP"
+  ],
+  "result": {
+    "item": "aetherworks:forge_core"
+  },
+  "show_notification": true
+}

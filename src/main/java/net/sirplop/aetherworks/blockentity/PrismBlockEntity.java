@@ -8,7 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
@@ -16,15 +15,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.sirplop.aetherworks.AWRegistry;
-import net.sirplop.aetherworks.Aetherworks;
-import net.sirplop.aetherworks.block.MoonlightAmplifier;
+import net.sirplop.aetherworks.block.MoonlightAmplifierBlock;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 import net.minecraft.network.protocol.Packet;
@@ -43,7 +40,7 @@ public class PrismBlockEntity extends BlockEntity {
         if (isStructureValid != value)
         {
             isStructureValid = value;
-            level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
+            level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 1 | 2);
         }
     }
 
@@ -55,7 +52,7 @@ public class PrismBlockEntity extends BlockEntity {
         if (canWork != value)
         {
             canWork = value;
-            level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
+            level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 1 | 2);
         }
     }
 
@@ -64,6 +61,7 @@ public class PrismBlockEntity extends BlockEntity {
     private int ticksExisted;
 
     private BlockPos currentCrystal;
+    private int currentCrystalInt = 0;
     private int currentCrystalFXTime = 0;
     private boolean currentCrystalHeat;
 
@@ -95,7 +93,10 @@ public class PrismBlockEntity extends BlockEntity {
     {
         if (--currentCrystalFXTime <= 0)
         {
-            int crystalPtr = level.random.nextInt(4);
+            int crystalPtr = level.random.nextInt(3);
+            if (crystalPtr >= currentCrystalInt)
+                crystalPtr++;
+            currentCrystalInt = crystalPtr;
             currentCrystal = pos.relative(crystalPtr / 2 == 0 ? Direction.WEST : Direction.EAST, 2).relative(crystalPtr % 2 == 0 ? Direction.NORTH : Direction.SOUTH, 2);
             currentCrystalFXTime = 40;
             currentCrystalHeat = level.random.nextBoolean();
@@ -177,10 +178,10 @@ public class PrismBlockEntity extends BlockEntity {
                         && level.getBlockState(pos.south()).isAir() && level.getBlockState(pos.south(2)).isAir() &&
 
                         // Amplifiers
-                        level.getBlockState(pos.west(3)).is(AWRegistry.MOONLIGHT_AMPLIFIER.get()) && level.getBlockState(pos.west(3)).getValue(MoonlightAmplifier.FACING) == Direction.EAST
-                        && level.getBlockState(pos.east(3)).is(AWRegistry.MOONLIGHT_AMPLIFIER.get()) && level.getBlockState(pos.east(3)).getValue(MoonlightAmplifier.FACING) == Direction.WEST
-                        && level.getBlockState(pos.north(3)).is(AWRegistry.MOONLIGHT_AMPLIFIER.get()) && level.getBlockState(pos.north(3)).getValue(MoonlightAmplifier.FACING) == Direction.SOUTH
-                        && level.getBlockState(pos.south(3)).is(AWRegistry.MOONLIGHT_AMPLIFIER.get()) && level.getBlockState(pos.south(3)).getValue(MoonlightAmplifier.FACING) == Direction.NORTH &&
+                        level.getBlockState(pos.west(3)).is(AWRegistry.MOONLIGHT_AMPLIFIER.get()) && level.getBlockState(pos.west(3)).getValue(MoonlightAmplifierBlock.FACING) == Direction.EAST
+                        && level.getBlockState(pos.east(3)).is(AWRegistry.MOONLIGHT_AMPLIFIER.get()) && level.getBlockState(pos.east(3)).getValue(MoonlightAmplifierBlock.FACING) == Direction.WEST
+                        && level.getBlockState(pos.north(3)).is(AWRegistry.MOONLIGHT_AMPLIFIER.get()) && level.getBlockState(pos.north(3)).getValue(MoonlightAmplifierBlock.FACING) == Direction.SOUTH
+                        && level.getBlockState(pos.south(3)).is(AWRegistry.MOONLIGHT_AMPLIFIER.get()) && level.getBlockState(pos.south(3)).getValue(MoonlightAmplifierBlock.FACING) == Direction.NORTH &&
 
                         // Matrices
                         level.getBlockState(pos.below().west(2).north(2)).is(AWRegistry.CONTROL_MATRIX.get())

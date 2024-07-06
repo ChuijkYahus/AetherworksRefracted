@@ -14,9 +14,6 @@ import org.joml.Vector3d;
 
 import java.util.Random;
 
-/**
- * Created by V0idWa1k3r on 01-Jun-17.
- */
 public class RenderPrism implements BlockEntityRenderer<PrismBlockEntity>
 {
     public static final ResourceLocation LOCATION_PRISM_OVERLAY = new ResourceLocation(Aetherworks.MODID, "textures/block/prism_active_overlay.png");

@@ -26,6 +26,8 @@ public class AWItemModels extends ItemModelProvider {
         }
 
         itemWithTexture(AWRegistry.AETHER_SHARD, "aether_shard");
+        itemWithTexture(AWRegistry.AETHER_AMALGAM, "aether_amalgam");
+        itemWithTexture(AWRegistry.AETHER_PEARL, "aether_pearl");
         itemWithTexture(AWRegistry.FOCUS_CRYSTAL, "focus_crystal");
         itemWithTexture(AWRegistry.AETHERIUM_LENS, "aetherium_lens");
         itemWithTexture(AWRegistry.PLATE_AETHER, "plate_aether");
@@ -56,6 +58,8 @@ public class AWItemModels extends ItemModelProvider {
         itemWithTexture(AWRegistry.CROSSBOW_LIMBS_QUARTZ, "crossbow_limbs_quartz");
         itemWithTexture(AWRegistry.CROSSBOW_LIMBS_MAGMA, "crossbow_limbs_magma");
 
+        itemWithTexture(AWRegistry.AETHER_ASPECTUS, "aspectus_aetherium");
+
         itemWithTexture(AWRegistry.TUNING_CYLINDER, "tuning_cylinder");
 
         itemWithTexture(AWRegistry.GEODE_END, "geode_end");
@@ -69,7 +73,12 @@ public class AWItemModels extends ItemModelProvider {
 
         toolWithTexture(AWRegistry.PICKAXE_EMBER, "pickaxe_ember");
         toolWithTexture(AWRegistry.PICKAXE_AETHER, "pickaxe_aether");
+        toolWithTexture(AWRegistry.AXE_ENDER, "axe_ender");
+        toolWithTexture(AWRegistry.AXE_SCULK, "axe_sculk");
+        toolWithTexture(AWRegistry.SHOVEL_SLIME, "shovel_slime");
 
+        basicItem(AWRegistry.AETHER_CROWN.get());
+        itemWithTexture(AWRegistry.POTION_GEM, "item/generated","potion_gem_overlay", "potion_gem");
     }
 
     public void itemWithModel(RegistryObject<? extends Item> registryObject, String model) {
@@ -81,10 +90,12 @@ public class AWItemModels extends ItemModelProvider {
     public void itemWithTexture(RegistryObject<? extends Item> registryObject, String texture) {
         itemWithTexture(registryObject, "item/generated", texture);
     }
-    public void itemWithTexture(RegistryObject<? extends Item> registryObject, String model, String texture) {
+    public void itemWithTexture(RegistryObject<? extends Item> registryObject, String model, String... textures) {
         ResourceLocation id = registryObject.getId();
-        ResourceLocation textureLocation = new ResourceLocation(id.getNamespace(), "item/" + texture);
-        singleTexture(id.getPath(), new ResourceLocation(model), "layer0", textureLocation);
+        for (int i = 0; i < textures.length; i++) {
+            ResourceLocation textureLocation = new ResourceLocation(id.getNamespace(), "item/" + textures[i]);
+            singleTexture(id.getPath(), new ResourceLocation(model), "layer"+i, textureLocation);
+        }
     }
     public void toolWithTexture(RegistryObject<? extends Item> registryObject, String texture) {
         itemWithTexture(registryObject, "item/handheld", texture);

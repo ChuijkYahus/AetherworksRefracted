@@ -25,6 +25,7 @@ public class AWHarvestNode {
     protected BlockState baseState;
     protected final GlowParticleOptions particle;
     protected final ItemStack usedItem;
+    protected double damageChance;
 
     public boolean isInvalid()
     {
@@ -44,7 +45,7 @@ public class AWHarvestNode {
 
 
     public AWHarvestNode(Player harvester, Level level, BlockPos beginning,
-                         int range, Predicate<Player> canHarvest, @Nullable GlowParticleOptions particle)
+                         int range, Predicate<Player> canHarvest, @Nullable GlowParticleOptions particle, double damageChance)
     {
         this.harvester = harvester;
         this.level = level;
@@ -53,15 +54,10 @@ public class AWHarvestNode {
         this.range = range;
         this.particle = particle;
         this.usedItem = harvester.getMainHandItem();
+        this.damageChance = damageChance;
     }
     public void initNode()
     {
-        if (!isLoaded(this.beginning))
-        {
-            this.invalid = true;
-            return;
-        }
-
         if (!isLoaded(this.beginning))
         {
             this.invalid = true;
@@ -100,7 +96,7 @@ public class AWHarvestNode {
             }
 
             BlockState state = this.level.getBlockState(offset);
-            if (state.equals(this.baseState))
+            if (state.getBlock().equals(this.baseState.getBlock()))
             {
                 this.toHarvest.add(0, offset);
                 this.traverseRecursive(offset);
@@ -109,16 +105,15 @@ public class AWHarvestNode {
     }
     public void tick()
     {
-        if (!canHarvest.test(harvester)) {
+        if (!canHarvest.test(harvester) || !Utils.hasEnoughDurability(harvester.getMainHandItem(), 1)) {
             this.invalid = true;
             return;
         }
-
         BlockPos pos = this.toHarvest.pop();
         boolean val = Utils.breakAndHarvestBlock((ServerLevel)level, pos, (ServerPlayer)harvester, harvester.getMainHandItem(),
-                Direction.getRandom(level.random), (state) -> state == baseState, false);
+                Direction.getRandom(level.random), (state) -> state.getBlock().equals(baseState.getBlock()), false, true);
         if (val) {
-            if (!harvester.isCreative())
+            if (!harvester.isCreative() && level.random.nextFloat() <= damageChance)
                 harvester.getMainHandItem().hurt(1, level.random, (ServerPlayer) harvester);
             if (particle != null) {
                 ((ServerLevel)level).sendParticles(particle,

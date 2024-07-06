@@ -1,0 +1,15 @@
+{
+  "values": [
+    "aetherworks:prism_support",
+    "aetherworks:prism",
+    "aetherworks:moonlight_amplifier",
+    "aetherworks:aether_prism_controller_matrix",
+    "aetherworks:forge_block",
+    "aetherworks:forge_core",
+    "aetherworks:forge_heater",
+    "aetherworks:forge_cooler",
+    "aetherworks:forge_vent",
+    "aetherworks:forge_anvil",
+    "aetherworks:forge_metal_former"
+  ]
+}

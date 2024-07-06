@@ -19,9 +19,9 @@ import java.util.function.Predicate;
 
 public class AWTunnelNode extends AWHarvestNode{
     public AWTunnelNode(Player harvester, Level level, BlockPos beginning, int range,
-                        Predicate<Player> canHarvest, @Nullable GlowParticleOptions particle, Direction direction,
+                        Predicate<Player> canHarvest, @Nullable GlowParticleOptions particle, double damageChance, Direction direction,
                         Predicate<BlockState> checkStateMatch) {
-        super(harvester, level, beginning, range, canHarvest, particle);
+        super(harvester, level, beginning, range, canHarvest, particle, damageChance);
         initialDirection = direction;
         this.checkStateMatch = checkStateMatch;
     }
@@ -131,7 +131,7 @@ public class AWTunnelNode extends AWHarvestNode{
     @Override
     public void tick()
     {
-        if (!canHarvest.test(harvester)) {
+        if (!canHarvest.test(harvester) || !Utils.hasEnoughDurability(harvester.getMainHandItem(), 1)) {
             this.invalid = true;
             return;
         }
@@ -162,7 +162,7 @@ public class AWTunnelNode extends AWHarvestNode{
 
     private void harvest(BlockPos pos) {
         boolean val = Utils.breakAndHarvestBlock((ServerLevel)level, pos, (ServerPlayer)harvester, harvester.getMainHandItem(),
-                Direction.getRandom(level.random), (state) -> true, false);
+                Direction.getRandom(level.random), (state) -> true, false, true);
         if (val) {
             if (!harvester.isCreative())
                 harvester.getMainHandItem().hurt(1, level.random, (ServerPlayer) harvester);

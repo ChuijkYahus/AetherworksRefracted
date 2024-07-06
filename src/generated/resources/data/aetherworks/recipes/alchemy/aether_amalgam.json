@@ -1,0 +1,37 @@
+{
+  "type": "embers:alchemy",
+  "aspects": [
+    {
+      "tag": "embers:aspectus/copper"
+    },
+    {
+      "tag": "embers:aspectus/silver"
+    },
+    {
+      "tag": "embers:aspectus/dawnstone"
+    }
+  ],
+  "inputs": [
+    {
+      "item": "aetherworks:aether_shard"
+    },
+    {
+      "item": "aetherworks:aether_shard"
+    },
+    {
+      "item": "aetherworks:aether_shard"
+    },
+    {
+      "item": "aetherworks:aether_shard"
+    },
+    {
+      "item": "aetherworks:aether_shard"
+    }
+  ],
+  "output": {
+    "item": "aetherworks:aether_amalgam"
+  },
+  "tablet": {
+    "item": "embers:ember_crystal_cluster"
+  }
+}

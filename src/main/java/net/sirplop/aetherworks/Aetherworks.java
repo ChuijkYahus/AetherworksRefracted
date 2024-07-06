@@ -1,32 +1,41 @@
 package net.sirplop.aetherworks;
 
 import com.mojang.logging.LogUtils;
-import com.rekindled.embers.api.augment.AugmentUtil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.texture.atlas.SpriteResourceLoader;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.sirplop.aetherworks.blockentity.render.RenderAetherAnvil;
+import net.sirplop.aetherworks.blockentity.render.RenderMetalFormer;
 import net.sirplop.aetherworks.blockentity.render.RenderPrism;
+import net.sirplop.aetherworks.blockentity.render.RenderForge;
 import net.sirplop.aetherworks.datagen.*;
+import net.sirplop.aetherworks.entity.render.DummyAetherCrownRender;
+import net.sirplop.aetherworks.item.PotionGemItem;
 import net.sirplop.aetherworks.lib.AWHarvestHelper;
+import net.sirplop.aetherworks.model.AetherCrownGemLayer;
+import net.sirplop.aetherworks.model.AetherCrownModel;
 import net.sirplop.aetherworks.network.PacketHandler;
-import net.sirplop.aetherworks.util.AWConfig;
 import org.slf4j.Logger;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -55,13 +64,15 @@ public class Aetherworks
         AWRegistry.ITEMS.register(modEventBus);
         AWRegistry.FLUIDTYPES.register(modEventBus);
         AWRegistry.FLUIDS.register(modEventBus);
+        AWRegistry.ENTITY_TYPES.register(modEventBus);
         AWRegistry.BLOCK_ENTITY_TYPES.register(modEventBus);
         AWRegistry.CREATIVE_MODE_TAB.register(modEventBus);
         //AWRegistry.ENCHANTMENTS.register(modEventBus); //we're ignoring Aetheric for now - aetherium items will just self-repair.
         //AWRegistry.PARTICLE_TYPES.register(modEventBus);
-        //AWRegistry.SOUND_EVENTS.register(modEventBus);
-        //AWRegistry.RECIPE_TYPES.register(modEventBus);
-        //AWRegistry.RECIPE_SERIALIZERS.register(modEventBus);
+        AWRegistry.SOUND_EVENTS.register(modEventBus);
+        AWRegistry.RECIPE_TYPES.register(modEventBus);
+        AWRegistry.RECIPE_SERIALIZERS.register(modEventBus);
+        AWSounds.init();
 
         AWConfig.register();
 
@@ -76,6 +87,7 @@ public class Aetherworks
         MinecraftForge.EVENT_BUS.addListener(AWHarvestHelper::onServerTick);
         MinecraftForge.EVENT_BUS.addListener(AWHarvestHelper::onLevelUnload);
         MinecraftForge.EVENT_BUS.addListener(AWHarvestHelper::onPlayerLeave);
+        MinecraftForge.EVENT_BUS.addListener(AWEvents::onPlayerClickedBlock);
     }
 
     public void gatherData(GatherDataEvent event) {
@@ -87,7 +99,7 @@ public class Aetherworks
         if (event.includeClient()) {
             gen.addProvider(true, new AWItemModels(output, existingFileHelper));
             gen.addProvider(true, new AWBlockStates(output, existingFileHelper));
-            //gen.addProvider(true, new EmbersSounds(output, existingFileHelper));
+            gen.addProvider(true, new AWSounds(output, existingFileHelper));
         } if (event.includeServer()) {
             gen.addProvider(true, new AWLootTables(output));
             gen.addProvider(true, new AWRecipes(output));
@@ -124,11 +136,44 @@ public class Aetherworks
                 ItemBlockRenderTypes.setRenderLayer(AWRegistry.AETHERIUM_GAS_IMPURE.FLUID_FLOW.get(), RenderType.translucent());
             });
         }
+        @OnlyIn(Dist.CLIENT)
+        @SubscribeEvent
+        public static void overlayRegister(RegisterGuiOverlaysEvent event) {
+            event.registerAboveAll("aw_overlay", AWClientEvents.INGAME_OVERLAY);
+        }
 
         @OnlyIn(Dist.CLIENT)
         @SubscribeEvent
         static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+            event.registerEntityRenderer(AWRegistry.DUMMY_LOADER.get(), DummyAetherCrownRender::new);
+
             event.registerBlockEntityRenderer(AWRegistry.PRISM_BLOCK_ENTITY.get(), RenderPrism::new);
+            event.registerBlockEntityRenderer(AWRegistry.FORGE_CORE_BLOCK_ENTITY.get(), RenderForge::new);
+            event.registerBlockEntityRenderer(AWRegistry.METAL_FORMER_BLOCK_ENTITY.get(), RenderMetalFormer::new);
+            event.registerBlockEntityRenderer(AWRegistry.AETHERIUM_ANVIL_BLOCK_ENTITY.get(), RenderAetherAnvil::new);
+        }
+        @OnlyIn(Dist.CLIENT)
+        @SubscribeEvent
+        static void registerLayers(EntityRenderersEvent.AddLayers event) {
+            event.getSkins().forEach(skins ->
+            {
+                event.getSkin(skins).addLayer(new AetherCrownGemLayer(event.getSkin(skins), event.getEntityModels()));
+            });
+            Minecraft.getInstance().getEntityRenderDispatcher().renderers.values().forEach(r -> {
+                if (r instanceof LivingEntityRenderer) {
+                    ((LivingEntityRenderer<?, ?>) r).addLayer(new AetherCrownGemLayer((LivingEntityRenderer<?, ?>) r, event.getEntityModels()));
+                }
+            });
+        }
+        @OnlyIn(Dist.CLIENT)
+        @SubscribeEvent
+        static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+            event.registerLayerDefinition(AetherCrownModel.CROWN_HEAD, () -> LayerDefinition.create(AetherCrownModel.createHeadMesh(), 32,32));
+        }
+        @OnlyIn(Dist.CLIENT)
+        @SubscribeEvent
+        static void registerItemColorHandlers(RegisterColorHandlersEvent.Item event){
+            event.register(new PotionGemItem.ColorHandler(), AWRegistry.POTION_GEM.get());
         }
     }
 }

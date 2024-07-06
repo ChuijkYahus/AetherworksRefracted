@@ -1,0 +1,14 @@
+{
+  "type": "aetherworks:aetherium_anvil",
+  "difficulty": 4,
+  "emberPerHit": 60,
+  "input": {
+    "item": "aetherworks:shovel_head_crude"
+  },
+  "numberOfHits": 30,
+  "output": {
+    "item": "aetherworks:shovel_head"
+  },
+  "temperatureMax": 2900,
+  "temperatureMin": 2500
+}

@@ -1,0 +1,8 @@
+{
+  "block.forge_groan": {
+    "sounds": [
+      "aetherworks:forge_groan"
+    ],
+    "subtitle": "subtitles.aetherworks.block.forge_groan"
+  }
+}

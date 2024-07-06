@@ -1,0 +1,14 @@
+{
+  "type": "aetherworks:metal_forming",
+  "fluid": {
+    "amount": 360,
+    "name": "aetherworks:aether_gas"
+  },
+  "input": {
+    "item": "minecraft:diamond"
+  },
+  "output": {
+    "item": "aetherworks:gem_aether"
+  },
+  "temperature": 2600
+}

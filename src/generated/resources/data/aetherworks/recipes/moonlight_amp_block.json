@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "embers:archaic_brick"
+    },
+    "D": {
+      "item": "embers:dawnstone_ingot"
+    },
+    "L": {
+      "item": "aetherworks:aetherium_lens"
+    },
+    "P": {
+      "tag": "forge:glass_panes"
+    }
+  },
+  "pattern": [
+    "DLD",
+    "DPL",
+    "AAA"
+  ],
+  "result": {
+    "item": "aetherworks:moonlight_amplifier"
+  },
+  "show_notification": true
+}

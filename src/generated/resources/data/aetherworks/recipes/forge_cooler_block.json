@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "embers:archaic_circuit"
+    },
+    "H": {
+      "item": "embers:silver_plate"
+    },
+    "P": {
+      "item": "embers:dawnstone_plate"
+    },
+    "S": {
+      "item": "embers:ember_crystal_cluster"
+    },
+    "V": {
+      "item": "embers:fluid_vessel"
+    }
+  },
+  "pattern": [
+    " S ",
+    "HVH",
+    "PCP"
+  ],
+  "result": {
+    "item": "aetherworks:forge_cooler"
+  },
+  "show_notification": true
+}

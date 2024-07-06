@@ -1,0 +1,14 @@
+{
+  "type": "aetherworks:metal_forming",
+  "fluid": {
+    "amount": 90,
+    "name": "aetherworks:aether_gas"
+  },
+  "input": {
+    "item": "embers:dawnstone_ingot"
+  },
+  "output": {
+    "item": "aetherworks:ingot_aether"
+  },
+  "temperature": 2100
+}

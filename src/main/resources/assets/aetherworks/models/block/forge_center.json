@@ -1,0 +1,28 @@
+{
+	"ambientocclusion": false,
+    "render_type": "minecraft:cutout",
+    "parent": "block/block",
+    "textures": {
+			"all" : "embers:block/block_dawnstone",
+			"down" : "aetherworks:block/forge/forge_center",
+			"up" : "aetherworks:block/forge/forge_center",
+			"north" : "#all",
+			"south" : "#all",
+			"west" : "#all",
+			"east" : "#all",
+			"particle" : "#all"
+    },
+	"elements": [
+	  {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 16, 16 ],
+            "faces": {
+                "down":  { "texture": "#down", "cullface": "down" },
+                "up":    { "texture": "#up", "cullface": "up" },
+                "north": { "texture": "#north", "cullface": "north" },
+                "south": { "texture": "#south", "cullface": "south" },
+                "west":  { "texture": "#west", "cullface": "west" },
+                "east":  { "texture": "#east", "cullface": "east" }
+            }
+        }
+	]
+}

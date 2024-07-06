@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:iron_bars"
+    },
+    "I": {
+      "item": "embers:iron_plate"
+    },
+    "P": {
+      "item": "embers:dawnstone_plate"
+    }
+  },
+  "pattern": [
+    "PIP",
+    "IBI",
+    "PIP"
+  ],
+  "result": {
+    "item": "aetherworks:forge_vent"
+  },
+  "show_notification": true
+}

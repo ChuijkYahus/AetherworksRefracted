@@ -19,7 +19,7 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.sirplop.aetherworks.AWRegistry;
-import net.sirplop.aetherworks.util.AWConfig;
+import net.sirplop.aetherworks.AWConfig;
 import net.sirplop.aetherworks.util.Utils;
 
 import java.util.ArrayList;
