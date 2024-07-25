@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class PotionGemImbueRecipe  implements CraftingRecipe {
+public class PotionGemImbueRecipe implements CraftingRecipe {
 
     public static final Serializer SERIALIZER = new Serializer();
 

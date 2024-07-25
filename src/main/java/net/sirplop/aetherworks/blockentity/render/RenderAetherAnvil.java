@@ -28,7 +28,7 @@ import org.joml.Vector3f;
 public class RenderAetherAnvil implements BlockEntityRenderer<AetheriumAnvilBlockEntity> {
 
     private final ItemRenderer itemRenderer;
-     public RenderAetherAnvil(BlockEntityRendererProvider.Context pContext) {
+    public RenderAetherAnvil(BlockEntityRendererProvider.Context pContext) {
         this.itemRenderer = pContext.getItemRenderer();
     }
 
@@ -46,7 +46,7 @@ public class RenderAetherAnvil implements BlockEntityRenderer<AetheriumAnvilBloc
         if (!blockEntity.inventory.getStackInSlot(0).isEmpty()) {
             poseStack.pushPose();
             ItemStack stack = blockEntity.inventory.getStackInSlot(0);
-            int seed = stack.isEmpty() ? 187 : Item.getId(stack.getItem()) + stack.getDamageValue();
+            int seed = Item.getId(stack.getItem()) + stack.getDamageValue();
             BakedModel bakedmodel = this.itemRenderer.getModel(stack, blockEntity.getLevel(), null, seed);
             float f2 = bakedmodel.getTransforms().getTransform(ItemDisplayContext.FIXED).scale.z();
             poseStack.translate(0.5D, (double)(0.2F * f2), 0.5D);

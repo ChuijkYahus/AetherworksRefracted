@@ -7,6 +7,7 @@
   "input": {
     "item": "minecraft:diamond"
   },
+  "match_exactly": false,
   "output": {
     "item": "aetherworks:gem_aether"
   },

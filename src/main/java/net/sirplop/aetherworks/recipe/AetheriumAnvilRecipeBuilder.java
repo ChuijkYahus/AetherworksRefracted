@@ -1,18 +1,24 @@
 package net.sirplop.aetherworks.recipe;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Either;
-import com.rekindled.embers.recipe.FluidIngredient;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.sirplop.aetherworks.AWRegistry;
+import net.sirplop.aetherworks.util.WeightedList;
 
 import java.util.function.Consumer;
 
@@ -24,20 +30,21 @@ public class AetheriumAnvilRecipeBuilder {
     public int difficulty;
     public int emberPerHit;
     public int numberOfHits;
-    public Either<ItemStack, TagKey<Item>> output;
+    public WeightedList<Either<ItemStack, TagKey<Item>>> output;
 
-    public static AetheriumAnvilRecipeBuilder create(ItemStack itemStack) {
+    public static AetheriumAnvilRecipeBuilder create(ItemStack input) {
         AetheriumAnvilRecipeBuilder builder = new AetheriumAnvilRecipeBuilder();
-        builder.output = Either.left(itemStack);
-        builder.id = ForgeRegistries.ITEMS.getKey(itemStack.getItem());
+        builder.output = new WeightedList<>();
+        builder.input = Ingredient.of(input);
+        builder.id = ForgeRegistries.ITEMS.getKey(input.getItem());
         return builder;
     }
-    public static AetheriumAnvilRecipeBuilder create(Item item) {
+    public static AetheriumAnvilRecipeBuilder create(ItemLike item) {
         return create(new ItemStack(item));
     }
     public static AetheriumAnvilRecipeBuilder create(TagKey<Item> tag) {
         AetheriumAnvilRecipeBuilder builder = new AetheriumAnvilRecipeBuilder();
-        builder.output = Either.right(tag);
+        builder.input = Ingredient.of(tag);
         builder.id = tag.location();
         return builder;
     }
@@ -59,20 +66,6 @@ public class AetheriumAnvilRecipeBuilder {
         this.id = new ResourceLocation(id.getNamespace(), folder + "/" + id.getPath());
         return this;
     }
-    public AetheriumAnvilRecipeBuilder input(Ingredient input) {
-        this.input = input;
-        return this;
-    }
-
-    public AetheriumAnvilRecipeBuilder input(ItemLike... input) {
-        input(Ingredient.of(input));
-        return this;
-    }
-
-    public AetheriumAnvilRecipeBuilder input(TagKey<Item> tag) {
-        input(Ingredient.of(tag));
-        return this;
-    }
 
     public AetheriumAnvilRecipeBuilder temperatureRange(int min, int max) {
         this.temperatureMin = min;
@@ -86,6 +79,19 @@ public class AetheriumAnvilRecipeBuilder {
     }
     public AetheriumAnvilRecipeBuilder difficulty(int difficulty) {
         this.difficulty = difficulty;
+        return this;
+    }
+
+    public AetheriumAnvilRecipeBuilder result(ItemStack stack, double chance) {
+        this.output.add(Either.left(stack), chance);
+        return this;
+    }
+    public AetheriumAnvilRecipeBuilder result(ItemLike item, double chance) {
+        this.output.add(Either.left(new ItemStack(item)), chance);
+        return this;
+    }
+    public AetheriumAnvilRecipeBuilder result(TagKey<Item> tag, double chance) {
+        this.output.add(Either.right(tag), chance);
         return this;
     }
 
@@ -107,13 +113,19 @@ public class AetheriumAnvilRecipeBuilder {
 
         @Override
         public void serializeRecipeData(JsonObject json) {
-            JsonObject outputJson = new JsonObject();
-            if (recipe.output.right().isPresent()) {
-                outputJson.addProperty("tag", recipe.output.right().get().location().toString());
-            } else {
-                outputJson.addProperty("item", ForgeRegistries.ITEMS.getKey(recipe.output.left().get().getItem()).toString());
+            JsonArray outputJson = new JsonArray();
+            for (Pair<Either<ItemStack, TagKey<Item>>, Double> pair : recipe.output.internalList) {
+                JsonObject entry = new JsonObject();
+                if (pair.getFirst().right().isPresent()) {
+                    entry.addProperty("tag", pair.getFirst().right().get().location().toString());
+                } else {
+                    entry.addProperty("item", ForgeRegistries.ITEMS.getKey(pair.getFirst().left().get().getItem()).toString());
+                    entry.addProperty("count", pair.getFirst().left().get().getCount());
+                }
+                entry.addProperty("chance", pair.getSecond());
+                outputJson.add(entry);
             }
-            json.add("output", outputJson);
+            json.add("result", outputJson);
 
             if (!recipe.input.isEmpty())
                 json.add("input", recipe.input.toJson());

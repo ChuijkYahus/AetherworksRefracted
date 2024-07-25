@@ -1,5 +1,7 @@
 package net.sirplop.aetherworks.datagen;
 
+import net.minecraft.client.renderer.block.model.ItemModelGenerator;
+import net.minecraft.client.resources.model.BuiltInModel;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BucketItem;
@@ -13,6 +15,8 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.Aetherworks;
+
+import java.util.List;
 
 public class AWItemModels extends ItemModelProvider {
     public AWItemModels(PackOutput gen, ExistingFileHelper existingFileHelper) {
@@ -36,18 +40,18 @@ public class AWItemModels extends ItemModelProvider {
         itemWithTexture(AWRegistry.TOOL_ROD_CRUDE, "tool_rod_crude");
         itemWithTexture(AWRegistry.TOOL_ROD, "tool_rod");
         itemWithTexture(AWRegistry.TOOL_ROD_INFUSED, "tool_rod");
-        itemWithTexture(AWRegistry.PICKAXE_HEAD_CRUDE, "pickaxe_head_crude");
-        itemWithTexture(AWRegistry.PICKAXE_HEAD, "pickaxe_head");
-        itemWithTexture(AWRegistry.PICKAXE_HEAD_AETHER, "pickaxe_head_aether");
-        itemWithTexture(AWRegistry.PICKAXE_HEAD_EMBER, "pickaxe_head_ember");
-        itemWithTexture(AWRegistry.AXE_HEAD_CRUDE, "axe_head_crude");
-        itemWithTexture(AWRegistry.AXE_HEAD, "axe_head");
-        itemWithTexture(AWRegistry.AXE_HEAD_PRISMARINE, "axe_head_prismarine");
-        itemWithTexture(AWRegistry.AXE_HEAD_ENDER, "axe_head_ender");
-        itemWithTexture(AWRegistry.SHOVEL_HEAD_CRUDE, "shovel_head_crude");
-        itemWithTexture(AWRegistry.SHOVEL_HEAD, "shovel_head");
-        itemWithTexture(AWRegistry.SHOVEL_HEAD_REDSTONE, "shovel_head_redstone");
-        itemWithTexture(AWRegistry.SHOVEL_HEAD_SLIME, "shovel_head_slime");
+        itemWithTexture(AWRegistry.PICKAXE_HEAD_CRUDE, "generated", "tool/head/pickaxe_head_center", "tool/part/pickaxe_head_crude");
+        itemWithTexture(AWRegistry.PICKAXE_HEAD, "generated", "tool/head/pickaxe_head_center", "tool/part/pickaxe_head");
+        itemWithTexture(AWRegistry.PICKAXE_HEAD_AETHER, "generated", "tool/head/pickaxe_head_center", "tool/head/pickaxe_head_aether");
+        itemWithTexture(AWRegistry.PICKAXE_HEAD_EMBER, "generated", "tool/head/pickaxe_head_center", "tool/head/pickaxe_head_ember");
+        itemWithTexture(AWRegistry.AXE_HEAD_CRUDE, "tool/part/axe_head_crude");
+        itemWithTexture(AWRegistry.AXE_HEAD, "tool/part/axe_head");
+        itemWithTexture(AWRegistry.AXE_HEAD_SCULK, "generated", "tool/head/axe_head_center", "tool/head/axe_head_sculk");
+        itemWithTexture(AWRegistry.AXE_HEAD_ENDER, "generated", "tool/head/axe_head_center", "tool/head/axe_head_ender");
+        itemWithTexture(AWRegistry.SHOVEL_HEAD_CRUDE, "tool/part/shovel_head_crude");
+        itemWithTexture(AWRegistry.SHOVEL_HEAD, "tool/part/shovel_head");
+        itemWithTexture(AWRegistry.SHOVEL_HEAD_PRISMARINE, "generated", "tool/head/shovel_head_center", "tool/head/shovel_head_prismarine");
+        itemWithTexture(AWRegistry.SHOVEL_HEAD_SLIME, "generated", "tool/head/shovel_head_center", "tool/head/shovel_head_slime");
         itemWithTexture(AWRegistry.AETHER_CROWN_CRUDE, "aether_crown_crude");
         itemWithTexture(AWRegistry.AETHER_CROWN_MUNDANE, "aether_crown_mundane");
         itemWithTexture(AWRegistry.CROSSBOW_FRAME_CRUDE, "crossbow_frame_crude");
@@ -59,6 +63,7 @@ public class AWItemModels extends ItemModelProvider {
         itemWithTexture(AWRegistry.CROSSBOW_LIMBS_MAGMA, "crossbow_limbs_magma");
 
         itemWithTexture(AWRegistry.AETHER_ASPECTUS, "aspectus_aetherium");
+        itemWithTexture(AWRegistry.AETHERIOMETER, "aetheriometer");
 
         itemWithTexture(AWRegistry.TUNING_CYLINDER, "tuning_cylinder");
 
@@ -71,14 +76,17 @@ public class AWItemModels extends ItemModelProvider {
         itemWithTexture(AWRegistry.GEODE_DEEP, "geode_deep");
         itemWithTexture(AWRegistry.GEODE_BASIC, "geode_basic");
 
-        toolWithTexture(AWRegistry.PICKAXE_EMBER, "pickaxe_ember");
-        toolWithTexture(AWRegistry.PICKAXE_AETHER, "pickaxe_aether");
-        toolWithTexture(AWRegistry.AXE_ENDER, "axe_ender");
-        toolWithTexture(AWRegistry.AXE_SCULK, "axe_sculk");
-        toolWithTexture(AWRegistry.SHOVEL_SLIME, "shovel_slime");
+        toolWithTexture(AWRegistry.PICKAXE_EMBER, "tool/tool_base", "tool/pickaxe_ember");
+        toolWithTexture(AWRegistry.PICKAXE_AETHER, "tool/tool_base", "tool/pickaxe_aether");
+        toolWithTexture(AWRegistry.AXE_ENDER, "tool/tool_base", "tool/axe_ender");
+        toolWithTexture(AWRegistry.AXE_SCULK, "tool/tool_base", "tool/axe_sculk");
+        toolWithTexture(AWRegistry.SHOVEL_SLIME, "tool/tool_base_shovel", "tool/shovel_slime");
+        toolWithTexture(AWRegistry.SHOVEL_PRISMARINE, "tool/tool_base_shovel", "tool/shovel_prismarine");
 
-        basicItem(AWRegistry.AETHER_CROWN.get());
-        itemWithTexture(AWRegistry.POTION_GEM, "item/generated","potion_gem_overlay", "potion_gem");
+        //basicItem(AWRegistry.AETHER_CROWN.get());
+        itemWithTexture(AWRegistry.AETHER_CROWN, "generated", "aether_crown", "aether_crown_overlay");
+        //potion gem now in own model file because overrides
+        //itemWithTexture(AWRegistry.POTION_GEM, "item/generated","potion_gem_overlay", "potion_gem");
     }
 
     public void itemWithModel(RegistryObject<? extends Item> registryObject, String model) {
@@ -97,8 +105,8 @@ public class AWItemModels extends ItemModelProvider {
             singleTexture(id.getPath(), new ResourceLocation(model), "layer"+i, textureLocation);
         }
     }
-    public void toolWithTexture(RegistryObject<? extends Item> registryObject, String texture) {
-        itemWithTexture(registryObject, "item/handheld", texture);
+    public void toolWithTexture(RegistryObject<? extends Item> registryObject, String... textures) {
+        itemWithTexture(registryObject, "item/handheld", textures);
     }
     public void bucketModel(RegistryObject<? extends BucketItem> registryObject, Fluid fluid) {
         ModelBuilder<ItemModelBuilder> builder = withExistingParent(registryObject.getId().getPath(), new ResourceLocation(Aetherworks.MODID, "item/bucket_fluid"));

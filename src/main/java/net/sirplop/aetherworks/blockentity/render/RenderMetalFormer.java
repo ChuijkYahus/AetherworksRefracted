@@ -35,7 +35,7 @@ public class RenderMetalFormer implements BlockEntityRenderer<MetalFormerBlockEn
         if (!blockEntity.inventory.getStackInSlot(0).isEmpty()) {
             poseStack.pushPose();
             ItemStack stack = blockEntity.inventory.getStackInSlot(0);
-            int seed = stack.isEmpty() ? 187 : Item.getId(stack.getItem()) + stack.getDamageValue();
+            int seed = Item.getId(stack.getItem()) + stack.getDamageValue();
             BakedModel bakedmodel = this.itemRenderer.getModel(stack, blockEntity.getLevel(), null, seed);
             float f2 = bakedmodel.getTransforms().getTransform(ItemDisplayContext.FIXED).scale.y();
             poseStack.translate(0.5D, (double)(0.1F * f2), 0.5D);

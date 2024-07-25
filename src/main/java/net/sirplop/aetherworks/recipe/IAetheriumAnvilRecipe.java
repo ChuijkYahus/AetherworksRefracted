@@ -1,13 +1,18 @@
 package net.sirplop.aetherworks.recipe;
 
+import com.mojang.datafixers.util.Either;
 import com.rekindled.embers.recipe.FluidIngredient;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.sirplop.aetherworks.AWRegistry;
+
+import java.util.List;
 
 public interface IAetheriumAnvilRecipe extends Recipe<AetheriumAnvilContext> {
 
@@ -29,6 +34,8 @@ public interface IAetheriumAnvilRecipe extends Recipe<AetheriumAnvilContext> {
     }
 
     public ItemStack getResultItem();
+
+    public List<ItemStack> getAllResults();
 
     public Ingredient getDisplayInput();
 

@@ -34,10 +34,14 @@ public class AWItemTags extends ItemTagsProvider {
         tag(AETHERIUM_INGOT).add(AWRegistry.INGOT_AETHER.get());
         tag(AETHERIUM_PLATE).add(AWRegistry.PLATE_AETHER.get());
         tag(AETHERIUM_ASPECTUS).add(AWRegistry.AETHER_ASPECTUS.get());
+        tag(EmbersItemTags.ASPECTUS).add(AWRegistry.AETHER_ASPECTUS.get());
 
         tag(ItemTags.PICKAXES).add(AWRegistry.PICKAXE_EMBER.get(), AWRegistry.PICKAXE_AETHER.get());
         tag(ItemTags.AXES).add(AWRegistry.AXE_ENDER.get(), AWRegistry.AXE_SCULK.get());
-        tag(ItemTags.SHOVELS).add(AWRegistry.SHOVEL_SLIME.get());
+        tag(ItemTags.SHOVELS).add(AWRegistry.SHOVEL_SLIME.get(), AWRegistry.SHOVEL_PRISMARINE.get());
+
+        tag(EmbersItemTags.NORMAL_WALK_SPEED_TOOL).add(AWRegistry.CROSSBOW_QUARTZ.get(), AWRegistry.CROSSBOW_MAGMA.get());
+        tag(EmbersItemTags.AUGMENTABLE_PROJECTILE_WEAPONS).add(AWRegistry.CROSSBOW_QUARTZ.get(), AWRegistry.CROSSBOW_MAGMA.get());
 
         tag(EmbersItemTags.TINKER_LENS_HELMETS).add(AWRegistry.AETHER_CROWN.get());
         tag(Tags.Items.ARMORS_HELMETS).add(AWRegistry.AETHER_CROWN.get());

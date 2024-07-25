@@ -1,16 +1,13 @@
 package net.sirplop.aetherworks.datagen;
 
-import com.rekindled.embers.RegistryManager;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.Aetherworks;
 import org.jetbrains.annotations.Nullable;
@@ -43,6 +40,7 @@ public class AWBlockTags  extends BlockTagsProvider {
                 AWRegistry.FORGE_VENT.get(),
                 AWRegistry.FORGE_ANVIL.get(),
                 AWRegistry.FORGE_METAL_FORMER.get(),
+                AWRegistry.FORGE_TOOL_STATION.get(),
                 AWRegistry.SUEVITE.get(),
                 AWRegistry.SUEVITE_COBBLE.get(),
                 AWRegistry.SUEVITE_BRICKS.get()
@@ -63,7 +61,8 @@ public class AWBlockTags  extends BlockTagsProvider {
                 AWRegistry.FORGE_COOLER.get(),
                 AWRegistry.FORGE_VENT.get(),
                 AWRegistry.FORGE_ANVIL.get(),
-                AWRegistry.FORGE_METAL_FORMER.get()
+                AWRegistry.FORGE_METAL_FORMER.get(),
+                AWRegistry.FORGE_TOOL_STATION.get()
         );
 
         //individual tags
@@ -71,7 +70,6 @@ public class AWBlockTags  extends BlockTagsProvider {
         getTag("minecraft:sculk_replaceable").add(AWRegistry.SUEVITE.get());
         getTag("forge:stone").add(AWRegistry.SUEVITE.get());
         getTag("minecraft:snaps_goat_horn").add(AWRegistry.SUEVITE.get());
-        getTag("minecraft:base_stone_overworld").add(AWRegistry.SUEVITE.get());
         getTag("minecraft:moss_replaceable").add(AWRegistry.SUEVITE.get());
 
         getTag("forge:ores").add(AWRegistry.AETHERIUM_ORE.get());

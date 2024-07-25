@@ -55,7 +55,7 @@ public class SculkAxe extends AOEEmberDiggerItem{
             return result;
 
         if (context.getPlayer() == null
-                || !AWConfig.getConfigSet(AWConfig.Tool.ENDER_AXE).contains(context.getLevel().getBlockState(context.getClickedPos()).getBlock())
+                || !AWConfig.getConfigSet(AWConfig.Tool.SCULK_AXE).contains(context.getLevel().getBlockState(context.getClickedPos()).getBlock())
         )
             return result;
         if (result == InteractionResult.PASS && context.getHand() == InteractionHand.MAIN_HAND

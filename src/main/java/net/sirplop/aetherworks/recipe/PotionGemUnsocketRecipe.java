@@ -32,7 +32,7 @@ public class PotionGemUnsocketRecipe implements CraftingRecipe {
         for (int i = 0; i < container.getContainerSize(); i++) {
             ItemStack stack = container.getItem(i);
             if (stack.getItem() instanceof AetherCrownItem) {
-                if (!crown.isEmpty())
+                if (!crown.isEmpty() || !AetherCrownItem.hasAttachedGem(stack))
                     return false;
                 crown = stack;
                 continue;
@@ -52,7 +52,7 @@ public class PotionGemUnsocketRecipe implements CraftingRecipe {
             }
         }
         if (!crownStack.isEmpty()) {
-            ((AetherCrownItem) crownStack.getItem()).detachGem(crownStack);
+            AetherCrownItem.detachGem(crownStack);
         }
         return crownStack;
     }
@@ -65,9 +65,8 @@ public class PotionGemUnsocketRecipe implements CraftingRecipe {
             ItemStack stack = container.getItem(i);
             if (!stack.isEmpty()) {
                 if (stack.getItem() instanceof AetherCrownItem) {
-                    AetherCrownItem crown = ((AetherCrownItem) stack.getItem());
-                    if (!crown.getAttachedGem(stack).isEmpty()) {
-                        gems.set(index, crown.getAttachedGem(stack));
+                    if (!AetherCrownItem.getAttachedGem(stack).isEmpty()) {
+                        gems.set(index, AetherCrownItem.getAttachedGem(stack));
                         index++;
                     }
                 }

@@ -1,8 +1,10 @@
 package net.sirplop.aetherworks.recipe;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Either;
-import com.rekindled.embers.recipe.FluidIngredient;
+import com.mojang.datafixers.util.Pair;
 import com.rekindled.embers.util.Misc;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -16,11 +18,12 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
+import net.sirplop.aetherworks.util.WeightedList;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AetheriumAnvilRecipe implements IAetheriumAnvilRecipe {
     public static final Serializer SERIALIZER = new Serializer();
@@ -34,21 +37,13 @@ public class AetheriumAnvilRecipe implements IAetheriumAnvilRecipe {
     public final int emberPerHit;
     public final int numberOfHits;
 
-    public final Either<ItemStack, TagKey<Item>> output;
+    public final WeightedList<Either<ItemStack, TagKey<Item>>> output;
 
     public AetheriumAnvilRecipe(ResourceLocation id, Ingredient input, int temperatureMin, int temperatureMax,
-                                int difficulty, int emberPerHit, int numberOfHits, TagKey<Item> output) {
-        this(id, input, temperatureMin, temperatureMax, difficulty, emberPerHit, numberOfHits, Either.right(output));
-    }
-    public AetheriumAnvilRecipe(ResourceLocation id, Ingredient input, int temperatureMin, int temperatureMax,
-                                int difficulty, int emberPerHit, int numberOfHits, ItemStack output) {
-        this(id, input, temperatureMin, temperatureMax, difficulty, emberPerHit, numberOfHits, Either.left(output));
-    }
-    public AetheriumAnvilRecipe(ResourceLocation id, Ingredient input, int temperatureMin, int temperatureMax,
-                                int difficulty, int emberPerHit, int numberOfHits, Either<ItemStack, TagKey<Item>> output) {
+                                int difficulty, int emberPerHit, int numberOfHits, WeightedList<Either<ItemStack, TagKey<Item>>> list) {
         this.id = id;
         this.input = input;
-        this.output = output;
+        this.output = list;
 
         this.temperatureMin = temperatureMin;
         this.temperatureMax = temperatureMax;
@@ -64,9 +59,23 @@ public class AetheriumAnvilRecipe implements IAetheriumAnvilRecipe {
 
     @Override
     public ItemStack getResultItem() {
-        if (output.left().isPresent())
-            return output.left().get().copy();
-        return new ItemStack(Misc.getTaggedItem(output.right().get()), 1);
+        var result = output.choose();
+        if (result.left().isPresent())
+            return result.left().get().copy();
+        return new ItemStack(Misc.getTaggedItem(result.right().get()), 1);
+    }
+
+    @Override
+    public List<ItemStack> getAllResults() {
+        List<ItemStack> ret = new ArrayList<>();
+        for (var pair : output.internalList) {
+            if (pair.getFirst().right().isPresent()) {
+                ret.add(new ItemStack(Misc.getTaggedItem(pair.getFirst().right().get())));
+            } else {
+                ret.add(pair.getFirst().left().get());
+            }
+        }
+        return ret;
     }
 
     @Override
@@ -146,15 +155,21 @@ public class AetheriumAnvilRecipe implements IAetheriumAnvilRecipe {
             int emberPerHit = json.get("emberPerHit").getAsInt();
             int numberOfHits =  json.get("numberOfHits").getAsInt();
 
-            JsonObject outputJson = GsonHelper.getAsJsonObject(json, "output");
-            if (outputJson.has("tag")) {
-
-                TagKey<Item> output = ItemTags.create(new ResourceLocation(GsonHelper.getAsString(outputJson, "tag")));
-                return new AetheriumAnvilRecipe(recipeId, input, temperatureMin, temperatureMax, difficulty, emberPerHit, numberOfHits, output);
-            } else {
-                ItemStack output = ShapedRecipe.itemStackFromJson(outputJson);
-                return new AetheriumAnvilRecipe(recipeId, input, temperatureMin, temperatureMax, difficulty, emberPerHit, numberOfHits, output);
+            WeightedList<Either<ItemStack, TagKey<Item>>> result = new WeightedList<>();
+            JsonArray outputJson = GsonHelper.getAsJsonArray(json, "result");
+            for (JsonElement element : outputJson) {
+                JsonObject stackObj = element.getAsJsonObject();
+                if (stackObj.has("tag")) {
+                    TagKey<Item> output = ItemTags.create(new ResourceLocation(GsonHelper.getAsString(stackObj, "tag")));
+                    double chance = stackObj.getAsJsonPrimitive("chance").getAsDouble();
+                    result.add(Either.right(output), chance);
+                } else {
+                    ItemStack output = ShapedRecipe.itemStackFromJson(stackObj.getAsJsonObject());
+                    double chance = stackObj.getAsJsonPrimitive("chance").getAsDouble();
+                    result.add(Either.left(output), chance);
+                }
             }
+            return new AetheriumAnvilRecipe(recipeId, input, temperatureMin, temperatureMax, difficulty, emberPerHit, numberOfHits, result);
         }
 
         @Override
@@ -166,13 +181,18 @@ public class AetheriumAnvilRecipe implements IAetheriumAnvilRecipe {
             int emberPerHit = buffer.readInt();
             int numberOfHits = buffer.readInt();
 
-            if (buffer.readBoolean()) {
-                TagKey<Item> output = ItemTags.create(buffer.readResourceLocation());
-                return new AetheriumAnvilRecipe(recipeId, input, temperatureMin, temperatureMax, difficulty, emberPerHit, numberOfHits, output);
+            int size = buffer.readInt();
+            WeightedList<Either<ItemStack, TagKey<Item>>> result = new WeightedList<>();
+            for (int i = 0; i < size; i++) {
+                if (buffer.readBoolean()) {
+                    TagKey<Item> output = ItemTags.create(buffer.readResourceLocation());
+                    result.add(Either.right(output), buffer.readDouble());
+                } else {
+                    ItemStack output = buffer.readItem();
+                    result.add(Either.left(output), buffer.readDouble());
+                }
             }
-            ItemStack output = buffer.readItem();
-
-            return new AetheriumAnvilRecipe(recipeId, input, temperatureMin, temperatureMax, difficulty, emberPerHit, numberOfHits, output);
+            return new AetheriumAnvilRecipe(recipeId, input, temperatureMin, temperatureMax, difficulty, emberPerHit, numberOfHits, result);
         }
 
         @Override
@@ -183,13 +203,18 @@ public class AetheriumAnvilRecipe implements IAetheriumAnvilRecipe {
             buffer.writeInt(recipe.difficulty);
             buffer.writeInt(recipe.emberPerHit);
             buffer.writeInt(recipe.numberOfHits);
+            buffer.writeInt(recipe.output.internalList.size());
 
-            if (recipe.output.right().isPresent()) {
-                buffer.writeBoolean(true);
-                buffer.writeResourceLocation(recipe.output.right().get().location());
-            } else {
-                buffer.writeBoolean(false);
-                buffer.writeItemStack(recipe.output.left().get(), false);
+            for (Pair<Either<ItemStack, TagKey<Item>>, Double> stack : recipe.output.internalList) {
+                if (stack.getFirst().right().isPresent()) {
+                    buffer.writeBoolean(true);
+                    buffer.writeResourceLocation(stack.getFirst().right().get().location());
+                    buffer.writeDouble(stack.getSecond());
+                } else {
+                    buffer.writeBoolean(false);
+                    buffer.writeItemStack(stack.getFirst().left().get(), false);
+                    buffer.writeDouble(stack.getSecond());
+                }
             }
         }
     }

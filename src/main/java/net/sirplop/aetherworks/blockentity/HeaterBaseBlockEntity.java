@@ -73,7 +73,7 @@ public class HeaterBaseBlockEntity extends FluidHandlerBlockEntity implements IF
 
     @Override
     public boolean isInvalid() {
-        return level.getBlockEntity(getBlockPos()) == null;
+        return (level != null ? level.getBlockEntity(getBlockPos()) : null) == null;
     }
 
     @Override

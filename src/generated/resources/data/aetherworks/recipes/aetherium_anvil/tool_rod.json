@@ -6,9 +6,13 @@
     "item": "aetherworks:tool_rod_crude"
   },
   "numberOfHits": 15,
-  "output": {
-    "item": "aetherworks:tool_rod"
-  },
+  "result": [
+    {
+      "chance": 1.0,
+      "count": 1,
+      "item": "aetherworks:tool_rod"
+    }
+  ],
   "temperatureMax": 3000,
   "temperatureMin": 2100
 }

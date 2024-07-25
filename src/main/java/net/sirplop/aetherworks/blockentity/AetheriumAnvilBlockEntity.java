@@ -25,6 +25,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.recipe.AetheriumAnvilContext;
 import net.sirplop.aetherworks.recipe.IAetheriumAnvilRecipe;
+import net.sirplop.aetherworks.util.Utils;
 import org.joml.Vector3f;
 
 public class AetheriumAnvilBlockEntity extends BlockEntity implements IForgePart, IExtraCapabilityInformation {
@@ -115,7 +116,7 @@ public class AetheriumAnvilBlockEntity extends BlockEntity implements IForgePart
         if (level instanceof ServerLevel)
             ((ServerLevel) level).getChunkSource().blockChanged(worldPosition);
     }
-    public static final GlowParticleOptions GLOW = new GlowParticleOptions(new Vector3f(0, 1F, 1F), 1f, 30);
+    public static final GlowParticleOptions GLOW = new GlowParticleOptions(Utils.AETHERIUM_COLOR, 1f, 30);
 
     @Override
     public void onForgeTick(IForge forge)
@@ -187,7 +188,7 @@ public class AetheriumAnvilBlockEntity extends BlockEntity implements IForgePart
             }
 
             if (hitTimeout == 0) {
-                if (level.random.nextFloat() < 0.01f + cachedRecipe.getDifficulty() / 100f) {
+                if (progress == 0 || level.random.nextFloat() < 0.01f + cachedRecipe.getDifficulty() / 100f) {
                     //more lenient than the original - gotta account for lag a little.
                     this.hitTimeout = Math.max(20, 100 - cachedRecipe.getDifficulty() * 12);
                     setChanged();
@@ -210,7 +211,7 @@ public class AetheriumAnvilBlockEntity extends BlockEntity implements IForgePart
 
     @Override
     public boolean isInvalid() {
-        return level.getBlockEntity(getBlockPos()) == null;
+        return (level != null ? level.getBlockEntity(getBlockPos()) : null) == null;
     }
 
     public boolean onHit() {

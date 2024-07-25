@@ -7,6 +7,7 @@
   "input": {
     "item": "embers:dawnstone_plate"
   },
+  "match_exactly": false,
   "output": {
     "item": "aetherworks:plate_aether"
   },

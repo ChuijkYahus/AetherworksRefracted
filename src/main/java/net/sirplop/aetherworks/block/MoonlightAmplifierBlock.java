@@ -20,6 +20,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.sirplop.aetherworks.AWRegistry;
+import net.sirplop.aetherworks.util.Utils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
@@ -35,8 +36,8 @@ public class MoonlightAmplifierBlock extends HorizontalDirectionalBlock implemen
             Block.box(2, 2, 2, 14, 2, 14),
             Block.box(3, 3, 3, 13, 11, 13));
 
-    public static final GlowParticleOptions GLOW_SKY = new GlowParticleOptions(new Vector3f(0, 0.72F, 0.95F), 1f, 80);
-    public static final GlowParticleOptions GLOW_BEAM = new GlowParticleOptions(new Vector3f(0, 0.72F, 0.95F), new Vec3(0, -0.1f, 0),2.5f, 30);
+    public static final GlowParticleOptions GLOW_SKY = new GlowParticleOptions(Utils.AETHERIUM_COLOR, 1f, 80);
+    public static final GlowParticleOptions GLOW_BEAM = new GlowParticleOptions(Utils.AETHERIUM_COLOR, new Vec3(0, -0.1f, 0),2.5f, 30);
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {

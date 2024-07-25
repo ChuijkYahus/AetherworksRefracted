@@ -12,8 +12,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.sirplop.aetherworks.AWRegistry;
-import net.sirplop.aetherworks.api.capabilities.AetherworksCapabilities;
-import net.sirplop.aetherworks.api.power.IHeatCapability;
+import net.sirplop.aetherworks.capabilities.AWCapabilities;
+import net.sirplop.aetherworks.api.capabilities.IHeatCapability;
 
 public class HeatDialBlockEntity extends BlockEntity  implements IDialEntity {
 
@@ -44,7 +44,7 @@ public class HeatDialBlockEntity extends BlockEntity  implements IDialEntity {
             Direction facing = state.getValue(BlockStateProperties.FACING);
             BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(facing, -1));
             if (blockEntity != null) {
-                IHeatCapability cap = blockEntity.getCapability(AetherworksCapabilities.HEAT_CAPABILITY, facing.getOpposite()).orElse(blockEntity.getCapability(AetherworksCapabilities.HEAT_CAPABILITY, null).orElse(null));
+                IHeatCapability cap = blockEntity.getCapability(AWCapabilities.HEAT_CAPABILITY, facing.getOpposite()).orElse(blockEntity.getCapability(AWCapabilities.HEAT_CAPABILITY, null).orElse(null));
                 if (cap != null) {
                     nbt.putDouble(IHeatCapability.HEAT, cap.getHeat());
                     nbt.putDouble(IHeatCapability.HEAT_CAPACITY, cap.getHeatCapacity());

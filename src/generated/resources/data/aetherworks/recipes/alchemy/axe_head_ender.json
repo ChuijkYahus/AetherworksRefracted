@@ -5,7 +5,7 @@
       "tag": "embers:aspectus/silver"
     },
     {
-      "tag": "embers:aspectus/copper"
+      "tag": "embers:aspectus/lead"
     },
     {
       "tag": "embers:aspectus/aetherium"
@@ -17,9 +17,6 @@
     },
     {
       "tag": "forge:obsidian"
-    },
-    {
-      "item": "minecraft:ender_eye"
     },
     {
       "item": "minecraft:ender_eye"

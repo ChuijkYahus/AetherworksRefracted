@@ -58,6 +58,7 @@ public class AWBlockStates extends BlockStateProvider {
         horizontalblockWithItem(AWRegistry.FORGE_COOLER, "forge_cooler");
         horizontalblockWithItem(AWRegistry.FORGE_ANVIL, "anvil");
         horizontalblockWithItem(AWRegistry.FORGE_METAL_FORMER, "metal_former");
+        horizontalblockWithItem(AWRegistry.FORGE_TOOL_STATION, "tool_station");
         ModelFile.ExistingModelFile forgeVent = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "forge_vent"));
         horizontalBlock(AWRegistry.FORGE_VENT.get(), forgeVent);
         blockItemWithAdjustment(AWRegistry.FORGE_VENT, forgeVent,

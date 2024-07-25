@@ -15,7 +15,7 @@ public class ForgeHeatVentBlockEntity extends BlockEntity implements IForgePart 
 
     @Override
     public boolean isInvalid() {
-        return level.getBlockEntity(getBlockPos()) == null;
+        return (level != null ? level.getBlockEntity(getBlockPos()) : null) == null;
     }
 
     @Override

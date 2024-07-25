@@ -15,6 +15,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.sirplop.aetherworks.AWRegistry;
+import net.sirplop.aetherworks.Aetherworks;
 
 import java.util.function.Consumer;
 
@@ -25,6 +26,7 @@ public class MetalFormerRecipeBuilder {
     public FluidIngredient fluid = FluidIngredient.EMPTY;
     public int temperature = 0;
     public Either<ItemStack, MetalFormerRecipe.TagAmount> output;
+    public boolean matchExactly = false;
 
     public static MetalFormerRecipeBuilder create(ItemStack itemStack) {
         MetalFormerRecipeBuilder builder = new MetalFormerRecipeBuilder();
@@ -80,6 +82,11 @@ public class MetalFormerRecipeBuilder {
         return this;
     }
 
+    public MetalFormerRecipeBuilder mustMatchExactly() {
+        matchExactly = true;
+        return this;
+    }
+
     public MetalFormerRecipeBuilder fluid(FluidIngredient fluid) {
         this.fluid = fluid;
         return this;
@@ -110,7 +117,7 @@ public class MetalFormerRecipeBuilder {
         return this;
     }
     public MetalFormerRecipe build() {
-        return new MetalFormerRecipe(id, input, fluid, temperature, output);
+        return new MetalFormerRecipe(id, input, fluid, temperature, output, matchExactly);
     }
 
     public void save(Consumer<FinishedRecipe> consumer) {
@@ -132,6 +139,9 @@ public class MetalFormerRecipeBuilder {
                 outputJson.addProperty("tag", recipe.output.right().get().tag.location().toString());
             } else {
                 outputJson.addProperty("item", ForgeRegistries.ITEMS.getKey(recipe.output.left().get().getItem()).toString());
+                if (recipe.output.left().get().hasTag()) {
+                    outputJson.addProperty("nbt", recipe.output.left().get().getTag().toString());
+                }
             }
             json.add("output", outputJson);
 
@@ -140,6 +150,7 @@ public class MetalFormerRecipeBuilder {
             if (recipe.fluid != FluidIngredient.EMPTY)
                 json.add("fluid", recipe.fluid.serialize());
             json.addProperty("temperature", recipe.temperature);
+            json.addProperty("match_exactly", recipe.matchExactly);
         }
 
         @Override

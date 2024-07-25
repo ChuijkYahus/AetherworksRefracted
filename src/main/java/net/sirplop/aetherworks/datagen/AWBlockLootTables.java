@@ -57,6 +57,7 @@ public class AWBlockLootTables extends BlockLootSubProvider {
         dropSelf(AWRegistry.FORGE_VENT.get());
         dropSelf(AWRegistry.FORGE_ANVIL.get());
         dropSelf(AWRegistry.FORGE_METAL_FORMER.get());
+        dropSelf(AWRegistry.FORGE_TOOL_STATION.get());
         dropOther(AWRegistry.FORGE_BLOCK.get(), RegistryManager.DAWNSTONE_BLOCK_ITEM.get());
         dropSelf(AWRegistry.HEAT_DIAL.get());
     }

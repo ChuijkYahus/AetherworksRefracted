@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "aetherworks:item/shovel_head_crude"
+    "layer0": "aetherworks:item/tool/part/shovel_head_crude"
   }
 }

@@ -10,6 +10,7 @@
     "aetherworks:forge_cooler",
     "aetherworks:forge_vent",
     "aetherworks:forge_anvil",
-    "aetherworks:forge_metal_former"
+    "aetherworks:forge_metal_former",
+    "aetherworks:forge_tool_station"
   ]
 }

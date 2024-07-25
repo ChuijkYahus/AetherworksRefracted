@@ -5,14 +5,17 @@
     "G": {
       "item": "aetherworks:gem_aether"
     },
+    "I": {
+      "item": "embers:inflictor_gem"
+    },
     "X": {
       "item": "aetherworks:ingot_aether"
     }
   },
   "pattern": [
-    "X",
-    "G",
-    "X"
+    " X ",
+    "GIG",
+    " X "
   ],
   "result": {
     "item": "aetherworks:potion_gem"

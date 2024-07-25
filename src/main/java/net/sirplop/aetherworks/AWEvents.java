@@ -1,18 +1,36 @@
 package net.sirplop.aetherworks;
 
 import com.rekindled.embers.RegistryManager;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.profiling.jfr.event.ChunkGenerationEvent;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.level.ChunkDataEvent;
+import net.minecraftforge.event.level.ChunkEvent;
+import net.minecraftforge.event.level.ChunkWatchEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.network.PacketDistributor;
+import net.sirplop.aetherworks.capabilities.AetheriometerChunkCapability;
 import net.sirplop.aetherworks.lib.OctDirection;
 import net.sirplop.aetherworks.lib.OctFacingHorizontalProperty;
+import net.sirplop.aetherworks.network.MessageSyncAetheriometer;
+import net.sirplop.aetherworks.network.PacketHandler;
+import net.sirplop.aetherworks.util.AetheriometerUtil;
+import net.sirplop.aetherworks.worldgen.MeteorPlacer;
 
+@Mod.EventBusSubscriber
 public class AWEvents {
     public static final int[][] FORGE_OFFSETS = {
             {-1, -1},
@@ -26,6 +44,7 @@ public class AWEvents {
             {0,   0}
     };
     //Aetherium Forge construction - kinda scuffed, but ho hum this is how it was originally.
+    @SubscribeEvent
     public static void onPlayerClickedBlock(PlayerInteractEvent.RightClickBlock event)
     {
         if (!event.isCanceled() && event.getEntity() != null)

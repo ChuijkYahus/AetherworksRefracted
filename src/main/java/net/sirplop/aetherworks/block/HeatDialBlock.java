@@ -2,7 +2,6 @@ package net.sirplop.aetherworks.block;
 
 import com.rekindled.embers.block.DialBaseBlock;
 import com.rekindled.embers.util.DecimalFormats;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -14,8 +13,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.Aetherworks;
-import net.sirplop.aetherworks.api.capabilities.AetherworksCapabilities;
-import net.sirplop.aetherworks.api.power.IHeatCapability;
+import net.sirplop.aetherworks.capabilities.AWCapabilities;
+import net.sirplop.aetherworks.api.capabilities.IHeatCapability;
 import net.sirplop.aetherworks.blockentity.HeatDialBlockEntity;
 
 import java.text.DecimalFormat;
@@ -45,7 +44,7 @@ public class HeatDialBlock extends DialBaseBlock {
     public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
         BlockEntity blockEntity = level.getBlockEntity(pos.relative(state.getValue(FACING), -1));
         if (blockEntity != null) {
-            IHeatCapability cap = blockEntity.getCapability(AetherworksCapabilities.HEAT_CAPABILITY, state.getValue(FACING).getOpposite()).orElse(blockEntity.getCapability(AetherworksCapabilities.HEAT_CAPABILITY, null).orElse(null));
+            IHeatCapability cap = blockEntity.getCapability(AWCapabilities.HEAT_CAPABILITY, state.getValue(FACING).getOpposite()).orElse(blockEntity.getCapability(AWCapabilities.HEAT_CAPABILITY, null).orElse(null));
             if (cap != null) {
                 if (cap.getHeat() >= cap.getHeatCapacity())
                     return 15;

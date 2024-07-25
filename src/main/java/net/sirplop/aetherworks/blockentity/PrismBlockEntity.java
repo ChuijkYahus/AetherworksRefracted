@@ -22,11 +22,15 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.block.MoonlightAmplifierBlock;
+import net.sirplop.aetherworks.util.Utils;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PrismBlockEntity extends BlockEntity {
     public PrismBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -65,9 +69,9 @@ public class PrismBlockEntity extends BlockEntity {
     private int currentCrystalFXTime = 0;
     private boolean currentCrystalHeat;
 
-    public static final GlowParticleOptions GLOW = new GlowParticleOptions(new Vector3f(0, 1F, 1F), 2f, 80);
+    public static final GlowParticleOptions GLOW = new GlowParticleOptions(Utils.AETHERIUM_COLOR, 2f, 80);
     public static final GlowParticleOptions EMBER = new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, 2f, 80);
-    public static final GlowParticleOptions GLOW_WORK = new GlowParticleOptions(new Vector3f(0, 1, 1), 1.5f, 40);
+    public static final GlowParticleOptions GLOW_WORK = new GlowParticleOptions(Utils.AETHERIUM_COLOR, 1.5f, 40);
 
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, PrismBlockEntity blockEntity){
@@ -91,18 +95,41 @@ public class PrismBlockEntity extends BlockEntity {
     @OnlyIn(Dist.CLIENT)
     private void mkCrystalFX(Level level, BlockPos pos)
     {
+        List<BlockPos> crystals = new ArrayList<>();
+
+        // Matrices
+        if (level.getBlockState(pos.below().west(2).north(2)).is(AWRegistry.CONTROL_MATRIX.get()))
+            crystals.add(pos.below().west(2).north(2));
+        if (level.getBlockState(pos.below().west(2).south(2)).is(AWRegistry.CONTROL_MATRIX.get()))
+            crystals.add(pos.below().west(2).south(2));
+        if (level.getBlockState(pos.below().east(2).north(2)).is(AWRegistry.CONTROL_MATRIX.get()))
+            crystals.add(pos.below().east(2).north(2));
+        if (level.getBlockState(pos.below().east(2).south(2)).is(AWRegistry.CONTROL_MATRIX.get()))
+            crystals.add(pos.below().east(2).south(2));
+
+        if (currentCrystalFXTime > 50 && !crystals.isEmpty())
+            currentCrystalFXTime = 0;
+        else if (crystals.isEmpty()) {
+            currentCrystalFXTime = 9999; //arbitrary large number
+            currentCrystalInt = 5; //out of bounds
+            return;
+        }
+
         if (--currentCrystalFXTime <= 0)
         {
-            int crystalPtr = level.random.nextInt(3);
-            if (crystalPtr >= currentCrystalInt)
-                crystalPtr++;
+            int crystalPtr = 0;
+            if (crystals.size() > 1) { //randomization requires 2+ crystals
+                crystalPtr = level.random.nextInt(crystals.size() - 1);
+                if (crystalPtr >= currentCrystalInt)
+                    crystalPtr++;
+            }
             currentCrystalInt = crystalPtr;
-            currentCrystal = pos.relative(crystalPtr / 2 == 0 ? Direction.WEST : Direction.EAST, 2).relative(crystalPtr % 2 == 0 ? Direction.NORTH : Direction.SOUTH, 2);
+            currentCrystal = crystals.get(crystalPtr);
             currentCrystalFXTime = 40;
             currentCrystalHeat = level.random.nextBoolean();
             level.playSound(Minecraft.getInstance().player, currentCrystal,
                     SoundEvents.FIRECHARGE_USE,
-                    SoundSource.BLOCKS, 3, 0.1F);
+                    SoundSource.BLOCKS, 0.5f, 0.1F);
         }
         else
         {
@@ -136,8 +163,19 @@ public class PrismBlockEntity extends BlockEntity {
         FluidVesselBlockEntity target = (FluidVesselBlockEntity)level.getBlockEntity(pos.below(3));
         if (target != null)
         {
+            int amount = 1;
+            // Matrices
+            if (level.getBlockState(pos.below().west(2).north(2)).is(AWRegistry.CONTROL_MATRIX.get()))
+                amount++;
+            if (level.getBlockState(pos.below().west(2).south(2)).is(AWRegistry.CONTROL_MATRIX.get()))
+                amount++;
+            if (level.getBlockState(pos.below().east(2).north(2)).is(AWRegistry.CONTROL_MATRIX.get()))
+                amount++;
+            if (level.getBlockState(pos.below().east(2).south(2)).is(AWRegistry.CONTROL_MATRIX.get()))
+                amount++;
+
             FluidTank tank = target.getTank();
-            FluidStack fs = new FluidStack(AWRegistry.AETHERIUM_GAS_IMPURE.FLUID.get(), 1);
+            FluidStack fs = new FluidStack(AWRegistry.AETHERIUM_GAS_IMPURE.FLUID.get(), amount);
             if (tank.fill(fs, IFluidHandler.FluidAction.SIMULATE) >= fs.getAmount())
             {
                 tank.fill(fs, IFluidHandler.FluidAction.EXECUTE);
@@ -183,12 +221,6 @@ public class PrismBlockEntity extends BlockEntity {
                         && level.getBlockState(pos.north(3)).is(AWRegistry.MOONLIGHT_AMPLIFIER.get()) && level.getBlockState(pos.north(3)).getValue(MoonlightAmplifierBlock.FACING) == Direction.SOUTH
                         && level.getBlockState(pos.south(3)).is(AWRegistry.MOONLIGHT_AMPLIFIER.get()) && level.getBlockState(pos.south(3)).getValue(MoonlightAmplifierBlock.FACING) == Direction.NORTH &&
 
-                        // Matrices
-                        level.getBlockState(pos.below().west(2).north(2)).is(AWRegistry.CONTROL_MATRIX.get())
-                        && level.getBlockState(pos.below().west(2).south(2)).is(AWRegistry.CONTROL_MATRIX.get())
-                        && level.getBlockState(pos.below().east(2).north(2)).is(AWRegistry.CONTROL_MATRIX.get())
-                        && level.getBlockState(pos.below().east(2).south(2)).is(AWRegistry.CONTROL_MATRIX.get()) &&
-                        // Base
                         this.checkStructureBase(level, pos);
     }
 

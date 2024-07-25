@@ -29,7 +29,12 @@ public class AWConfig {
     private static ConfigValue<List<? extends String>> SKULK_AXE_ALLOWED_CONFIG;
     public static ConfigValue<Integer> SLIME_SHOVEL_RANGE;
     private static ConfigValue<List<? extends String>> SLIME_SHOVEL_BANNED_CONFIG;
+    public static ConfigValue<Integer> PRISMARINE_SHOVEL_CAPACITY;
+    public static ConfigValue<Double> CROSSBOW_EMBER_USE;
+    public static ConfigValue<Integer> CROSSBOW_MAGMA_CHAIN_LIMIT;
+    public static ConfigValue<Double> CROSSBOW_MAGMA_CHAIN_RANGE;
 
+    public static ConfigValue<Integer> FORGE_TOOL_STATION_MAX_HITS;
 
     public static ConfigValue<Integer> AUGMENT_TUNING_CYLINDER_CHANCE;
     public static ConfigValue<Double> AETHER_CROWN_EFFECT_RADIUS;
@@ -166,7 +171,8 @@ public class AWConfig {
                         "#minecraft:nylium",
                         "minecraft:smooth_basalt",
                         "minecraft:basalt",
-                        "minecraft:end_stone"
+                        "minecraft:end_stone",
+                        "aetherworks:suevite"
                 ), a -> true);
 
         ENDER_AXE_RANGE = COMMON.comment("Maximum recursions the Axe of the Twisted Realm can do while chopping. [default: 512]").defineInRange("aotr.range", 512, 0, 2048);
@@ -189,6 +195,11 @@ public class AWConfig {
                         "minecraft:reinforced_deepslate",
                         "aetherworks:forge_block"
                 ), a -> true);
+        PRISMARINE_SHOVEL_CAPACITY = COMMON.comment("Fluid capacity of the Shovel of the Timeless Cascades. [default: 4096]").defineInRange("sotc.capacity", 4096, 0, 16384);
+
+        CROSSBOW_EMBER_USE = COMMON.comment("Ember cost of loading an aetherium crossbow. [default 10]").define("crossbow.ember_use", 10.0);
+        CROSSBOW_MAGMA_CHAIN_LIMIT = COMMON.comment("How many entities the Crossbow of the Shattered Reflection is allowed to chain to. [default 16]").define("crossbow.magma.chain_limit", 16);
+        CROSSBOW_MAGMA_CHAIN_RANGE = COMMON.comment("How far can an entity be for the Crossbow of the Shattered Reflection to chain to them. [default 16.0]").define("crossbow.magma.chain_range", 16.0);
 
         AETHER_CROWN_EFFECT_RADIUS = COMMON.comment("Cube radius of the area of effect the Aetherium Crown applies to. [default: 8.0")
                 .define("crown.radius", 8.0);
@@ -199,6 +210,12 @@ public class AWConfig {
                         "minecraft:instant_damage|minecraft:wither"
                 ), AWConfig::validatePotions);
         AUGMENT_TUNING_CYLINDER_CHANCE = COMMON.comment("Base chance (1/X) per level to drop a geode when using the Tuning Cylinder augment. [default: 32]").define("tuning_cylinder.chance", 32);
+
+        COMMON.pop();
+
+        COMMON.comment("Settings for block parameters").push("block");
+
+        FORGE_TOOL_STATION_MAX_HITS = COMMON.comment("Number of hits required to work a tool in the Forge Tool Station. [default: 30]").define("forge.tool_station.hits", 30);
 
         COMMON.pop();
 

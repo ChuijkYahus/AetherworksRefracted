@@ -5,10 +5,14 @@
   "input": {
     "item": "aetherworks:shovel_head_crude"
   },
-  "numberOfHits": 30,
-  "output": {
-    "item": "aetherworks:shovel_head"
-  },
+  "numberOfHits": 25,
+  "result": [
+    {
+      "chance": 1.0,
+      "count": 1,
+      "item": "aetherworks:shovel_head"
+    }
+  ],
   "temperatureMax": 2900,
-  "temperatureMin": 2500
+  "temperatureMin": 2400
 }

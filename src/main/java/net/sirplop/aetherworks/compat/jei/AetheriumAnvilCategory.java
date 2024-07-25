@@ -1,6 +1,5 @@
 package net.sirplop.aetherworks.compat.jei;
 
-import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.gui.GuiCodex;
 import com.rekindled.embers.util.Misc;
@@ -32,7 +31,7 @@ public class AetheriumAnvilCategory implements IRecipeCategory<IAetheriumAnvilRe
     public static ResourceLocation texture = new ResourceLocation(Aetherworks.MODID, "textures/gui/jei_anvil.png");
 
     public AetheriumAnvilCategory(IGuiHelper helper) {
-        background = helper.createDrawable(texture, 0, 0, 114, 99);
+        background = helper.createDrawable(texture, 0, 0, 111, 99);
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(AWRegistry.FORGE_ANVIL.get().asItem()));
     }
 
@@ -59,7 +58,7 @@ public class AetheriumAnvilCategory implements IRecipeCategory<IAetheriumAnvilRe
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, IAetheriumAnvilRecipe recipe, IFocusGroup iFocusGroup) {
         builder.addSlot(RecipeIngredientRole.INPUT, 19, 18).addIngredients(recipe.getDisplayInput());
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 18).addItemStack(recipe.getResultItem());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 18).addItemStacks(recipe.getAllResults());
         builder.addSlot(RecipeIngredientRole.CATALYST, 19, 1).addItemStack(new ItemStack(RegistryManager.TINKER_HAMMER.get().asItem()));
     }
 
@@ -70,32 +69,31 @@ public class AetheriumAnvilCategory implements IRecipeCategory<IAetheriumAnvilRe
 
         //number of hits
         GuiCodex.drawTextGlowing(fontRenderer, guiGraphics, Component.translatable(Aetherworks.MODID + ".jei.recipe.aetherium_anvil.hits", recipe.getNumberOfHits()).getVisualOrderText(), 42, 31);
-        int y = 45;
-        int x = 7;
+
 
         final Vec3 min = new Vec3(255, 255, 255);
         final Vec3 mid1 = new Vec3(255, 240, 100);
         final Vec3 mid2 = new Vec3(255, 190, 0);
         final Vec3 max = new Vec3(255, 77, 77);
 
-        final Vec3 colorLow = Utils.lerpMultiColor((recipe.getTemperatureMin() / 1000d) , min, mid1, mid2, max);
-        final Vec3 colorHigh = Utils.lerpMultiColor((recipe.getTemperatureMax() / 1000d) , min, mid1, mid2, max);
+        final Vec3 colorLow = Utils.multiLerpColor((recipe.getTemperatureMin() / 1000d) , min, mid1, mid2, max);
+        final Vec3 colorHigh = Utils.multiLerpColor((recipe.getTemperatureMax() / 1000d) , min, mid1, mid2, max);
+
+        String tempText = Component.translatable(Aetherworks.MODID + ".jei.recipe.aetherium_anvil.temperature.value", recipe.getTemperatureMin(), recipe.getTemperatureMax()).getString();
+        drawTextGradientCentered(fontRenderer, guiGraphics, 55, 45, tempText, colorLow, colorHigh);
+        int y = 64;
+        int x = 7;
 
         drawComponentsAsOne(fontRenderer, guiGraphics, x, y,
                 Component.translatable(Aetherworks.MODID + ".jei.recipe.aetherium_anvil.difficulty.title"),
                 Component.translatable(Aetherworks.MODID + ".jei.recipe.aetherium_anvil.difficulty." + Math.min(7, Math.max(1, recipe.getDifficulty()))));
-        y += fontRenderer.lineHeight + 2;
+        y += fontRenderer.lineHeight + 3;
 
         //render Ember Crystal sprite in gui
         guiGraphics.renderFakeItem(new ItemStack(RegistryManager.EMBER_SHARD.get()), x - 5, y - 5);
 
         Misc.drawComponents(fontRenderer, guiGraphics, x, y,
-                Component.translatable(Aetherworks.MODID + ".jei.recipe.aetherium_anvil.ember", recipe.getEmberPerHit()),
-                Component.translatable(Aetherworks.MODID + ".jei.recipe.aetherium_anvil.temperature"));
-
-        y += 2 * (fontRenderer.lineHeight + 2);
-        String tempText = Component.translatable(Aetherworks.MODID + ".jei.recipe.aetherium_anvil.temperature.value", recipe.getTemperatureMin(), recipe.getTemperatureMax()).getString();
-        drawTextGradientCentered(fontRenderer, guiGraphics, x + 5 + (int)(fontRenderer.width(tempText) * 0.5), y, tempText, colorLow, colorHigh);
+                Component.translatable(Aetherworks.MODID + ".jei.recipe.aetherium_anvil.ember", recipe.getEmberPerHit()));
     }
 
     public static void drawComponentsAsOne(Font fontRenderer, GuiGraphics guiGraphics, int x, int y, Component... components) {

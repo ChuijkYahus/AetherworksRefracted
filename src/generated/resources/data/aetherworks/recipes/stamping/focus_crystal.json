@@ -1,11 +1,11 @@
 {
   "type": "embers:stamping",
   "fluid": {
-    "amount": 1000,
-    "name": "minecraft:water"
+    "amount": 90,
+    "name": "aetherworks:alchemic_precursor"
   },
   "input": {
-    "item": "embers:ember_shard"
+    "item": "aetherworks:gem_aether"
   },
   "output": {
     "item": "aetherworks:focus_crystal"

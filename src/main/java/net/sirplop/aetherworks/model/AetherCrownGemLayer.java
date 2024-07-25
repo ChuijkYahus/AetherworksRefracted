@@ -45,8 +45,8 @@ public class AetherCrownGemLayer<T extends LivingEntity, M extends HumanoidModel
             model.hat.visible = true;
 
             //render gem
-            if (crown.hasAttachedGem(itemstack)) {
-                int color = PotionGemItem.getColor(crown.getAttachedGem(itemstack));
+            if (AetherCrownItem.hasAttachedGem(itemstack)) {
+                int color = PotionGemItem.getColor(AetherCrownItem.getAttachedGem(itemstack));
 
                 float r = (float)(color >> 16 & 255) / 255.0F;
                 float g = (float)(color >> 8 & 255) / 255.0F;

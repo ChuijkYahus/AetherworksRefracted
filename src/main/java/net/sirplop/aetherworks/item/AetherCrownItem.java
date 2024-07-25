@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.rekindled.embers.Embers;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -27,6 +28,8 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.sirplop.aetherworks.AWConfig;
 import net.sirplop.aetherworks.Aetherworks;
@@ -124,15 +127,15 @@ public class AetherCrownItem extends ArmorItem implements IToggleItem {
             }
         }
     }
-    public boolean hasAttachedGem(ItemStack holder) {
+    public static boolean hasAttachedGem(ItemStack holder) {
         return !getAttachedGem(holder).isEmpty();
     }
 
-    public void attachGem(ItemStack holder, ItemStack gem) {
+    public static void attachGem(ItemStack holder, ItemStack gem) {
         holder.getOrCreateTag().put("gem", gem.serializeNBT());
     }
 
-    public ItemStack detachGem(ItemStack holder) {
+    public static ItemStack detachGem(ItemStack holder) {
         if (holder.getOrCreateTag().contains("gem")) {
             ItemStack gem = ItemStack.of(holder.getOrCreateTag().getCompound("gem"));
             holder.getOrCreateTag().remove("gem");
@@ -141,7 +144,7 @@ public class AetherCrownItem extends ArmorItem implements IToggleItem {
         return ItemStack.EMPTY;
     }
 
-    public ItemStack getAttachedGem(ItemStack holder) {
+    public static ItemStack getAttachedGem(ItemStack holder) {
         if (holder.getOrCreateTag().contains("gem")) {
             return ItemStack.of(holder.getOrCreateTag().getCompound("gem"));
         }
@@ -205,5 +208,18 @@ public class AetherCrownItem extends ArmorItem implements IToggleItem {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(AetherCrownModel.ARMOR_MODEL_GETTER);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static class ColorHandler implements ItemColor {
+        @Override
+        public int getColor(ItemStack itemStack, int i) {
+            if (i == 1 && AetherCrownItem.hasAttachedGem(itemStack)) {
+                return AetherCrownItem.getAttachedGem(itemStack).getOrCreateTag().getInt(PotionGemItem.POTION_COLOR);
+            }
+            else if (i == 0)
+                return 0xFFFFFFFF;
+            return 0x0021b2ff;
+        }
     }
 }

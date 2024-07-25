@@ -1,6 +1,5 @@
 package net.sirplop.aetherworks.util;
 
-import com.rekindled.embers.api.augment.AugmentUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.ChatType;
@@ -11,37 +10,43 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.network.PacketDistributor;
-import net.sirplop.aetherworks.Aetherworks;
 import net.sirplop.aetherworks.network.MessageSyncItemEntityTag;
-import net.sirplop.aetherworks.network.MessageToggleItem;
 import net.sirplop.aetherworks.network.PacketHandler;
 import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class Utils {
 
     public static final String SUCK_ITEM_TAG = "awsucc";
+    public static final Vector3f AETHERIUM_COLOR = new Vector3f(0, 0.72F, 0.95F);
+    public static final Color AETHERIUM_PROJECTILE_COLOR = new Color(130, 183, 255);
 
     public static void dropItemIntoWorld(Level level, BlockPos pos, ItemStack item) {
         Random rand = new Random();
@@ -76,7 +81,7 @@ public class Utils {
         return new Vector3f(r / 255f, g / 255f, b / 255f);
     }
     public static boolean hasEnoughDurability(ItemStack item, int requiredDamage) {
-        return item.getDamageValue() >= item.getMaxDamage() - requiredDamage;
+        return item.getDamageValue() < item.getMaxDamage() - requiredDamage;
     }
 
     /**
@@ -165,16 +170,54 @@ public class Utils {
         return true;
     }
 
-    public static Vec3 lerpMultiColor(double weight, Vec3... colors) {
-        if (weight >= colors.length - 1)
-            return colors[colors.length - 1];
+    public static Vec3 multiLerp(double weight, Vec3... values) {
+        if (weight >= values.length - 1)
+            return values[values.length - 1];
         if (weight <= 0)
-            return colors[0];
+            return values[0];
 
         int tFloor = (int)Math.floor(weight);
 
-        Vec3 left = colors[tFloor];
-        Vec3 right = colors[tFloor + 1];
+        Vec3 left = values[tFloor];
+        Vec3 right = values[tFloor + 1];
+
+        double t = weight - tFloor;
+
+        double xAvg = mix(left.x(), right.x(), t);
+        double yAvg = mix(left.y(), right.y(), t);
+        double zAvg = mix(left.z(), right.z(), t);
+
+        return new Vec3(xAvg, yAvg, zAvg);
+    }
+    public static Vector3f multiLerp(double weight, Vector3f... values) {
+        if (weight >= values.length - 1)
+            return values[values.length - 1];
+        if (weight <= 0)
+            return values[0];
+
+        int tFloor = (int)Math.floor(weight);
+
+        Vector3f left = values[tFloor];
+        Vector3f right = values[tFloor + 1];
+
+        double t = weight - tFloor;
+
+        float xAvg = (float)mix(left.x(), right.x(), t);
+        float yAvg = (float)mix(left.y(), right.y(), t);
+        float zAvg = (float)mix(left.z(), right.z(), t);
+
+        return new Vector3f(xAvg, yAvg, zAvg);
+    }
+    public static Vec3 multiLerpColor(double weight, Vec3... values) {
+        if (weight >= values.length - 1)
+            return values[values.length - 1];
+        if (weight <= 0)
+            return values[0];
+
+        int tFloor = (int)Math.floor(weight);
+
+        Vec3 left = values[tFloor];
+        Vec3 right = values[tFloor + 1];
 
         double t = weight - tFloor;
 
@@ -183,6 +226,25 @@ public class Utils {
         int bAvg = (int)Math.round(mix(left.z(), right.z(), t));
 
         return new Vec3(rAvg, gAvg, bAvg);
+    }
+    public static Vector3f multiLerpColor(double weight, Vector3f... values) {
+        if (weight >= values.length - 1)
+            return values[values.length - 1];
+        if (weight <= 0)
+            return values[0];
+
+        int tFloor = (int)Math.floor(weight);
+
+        Vector3f left = values[tFloor];
+        Vector3f right = values[tFloor + 1];
+
+        double t = weight - tFloor;
+
+        int rAvg = (int)Math.round(mix(left.x(), right.x(), t));
+        int gAvg = (int)Math.round(mix(left.y(), right.y(), t));
+        int bAvg = (int)Math.round(mix(left.z(), right.z(), t));
+
+        return new Vector3f(rAvg, gAvg, bAvg);
     }
 
     public static int mix(int a, int b, float weightB)
@@ -230,5 +292,35 @@ public class Utils {
             return itementity;
         }
         return null;
+    }
+
+    public static BlockHitResult getEntityPOVHitResult(Level pLevel, LivingEntity entity, double range, ClipContext.Fluid pFluidMode) {
+        float f = entity.getXRot();
+        float f1 = entity.getYRot();
+        Vec3 vec3 = entity.getEyePosition();
+        float f2 = Mth.cos(-f1 * ((float)Math.PI / 180F) - (float)Math.PI);
+        float f3 = Mth.sin(-f1 * ((float)Math.PI / 180F) - (float)Math.PI);
+        float f4 = -Mth.cos(-f * ((float)Math.PI / 180F));
+        float f5 = Mth.sin(-f * ((float)Math.PI / 180F));
+        float f6 = f3 * f4;
+        float f7 = f2 * f4;
+        Vec3 vec31 = vec3.add((double)f6 * range, (double)f5 * range, (double)f7 * range);
+        return pLevel.clip(new ClipContext(vec3, vec31, ClipContext.Block.OUTLINE, pFluidMode, entity));
+    }
+
+    public static <T> LivingEntity getClosestEntity(List<LivingEntity> list, Vec3 pos, Function<LivingEntity, Boolean> isValid) {
+        LivingEntity result = null;
+        double dist = 9999999999D; //big number lmao
+        double d;
+        for (LivingEntity ent : list) {
+            if (!isValid.apply(ent))
+                continue;
+            d = ent.position().distanceToSqr(pos);
+            if (d < dist) {
+                result = ent;
+                dist = d;
+            }
+        }
+        return result;
     }
 }

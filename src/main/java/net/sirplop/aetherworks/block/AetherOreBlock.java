@@ -9,13 +9,32 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.joml.Vector3f;
+import net.sirplop.aetherworks.Aetherworks;
+import net.sirplop.aetherworks.api.capabilities.IAetheriometerCap;
+import net.sirplop.aetherworks.capabilities.AetheriometerChunkCapability;
+import net.sirplop.aetherworks.util.Utils;
 
 public class AetherOreBlock extends DropExperienceBlock {
     public AetherOreBlock(Properties pProperties, IntProvider pXpRange) {
         super(pProperties, pXpRange);
     }
-    public static final GlowParticleOptions GLOW = new GlowParticleOptions(new Vector3f(0, 0.72F, 0.95F), 0.75F, 20);
+    public static final GlowParticleOptions GLOW = new GlowParticleOptions(Utils.AETHERIUM_COLOR, 0.75F, 20);
+
+    @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        super.onPlace(state, level, pos, oldState, movedByPiston);
+        IAetheriometerCap capability = AetheriometerChunkCapability.getData(level.getChunkAt(pos)).orElseThrow(UnsupportedOperationException::new);
+
+        capability.adjustData(1);
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        super.onRemove(state, level, pos, newState, movedByPiston);
+        IAetheriometerCap capability = AetheriometerChunkCapability.getData(level.getChunkAt(pos)).orElseThrow(UnsupportedOperationException::new);
+        capability.adjustData(-1);
+        Aetherworks.LOGGER.atDebug().log("Removing, chunk is now at "+capability.getData());
+    }
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {

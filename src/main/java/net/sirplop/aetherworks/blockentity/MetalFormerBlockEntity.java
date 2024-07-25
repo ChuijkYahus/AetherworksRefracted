@@ -28,6 +28,7 @@ import net.sirplop.aetherworks.Aetherworks;
 import net.sirplop.aetherworks.recipe.IAetheriumAnvilRecipe;
 import net.sirplop.aetherworks.recipe.IMetalFormerRecipe;
 import net.sirplop.aetherworks.recipe.MetalFormerContext;
+import net.sirplop.aetherworks.util.Utils;
 import org.joml.Vector3f;
 
 import java.util.List;
@@ -45,8 +46,6 @@ public class MetalFormerBlockEntity extends FluidHandlerBlockEntity implements I
 
     public float renderOffset;
     public boolean hasEmber;
-
-    public boolean checkRecipe = false;
 
     public int progress;
     public IMetalFormerRecipe cachedRecipe = null;
@@ -135,7 +134,7 @@ public class MetalFormerBlockEntity extends FluidHandlerBlockEntity implements I
             ((ServerLevel) level).getChunkSource().blockChanged(worldPosition);
     }
 
-    public static final GlowParticleOptions GLOW = new GlowParticleOptions(new Vector3f(0, 1F, 1F), 1f, 30);
+    public static final GlowParticleOptions GLOW = new GlowParticleOptions(Utils.AETHERIUM_COLOR, 1f, 30);
 
     @Override
     public void onForgeTick(IForge forge) {
@@ -210,6 +209,6 @@ public class MetalFormerBlockEntity extends FluidHandlerBlockEntity implements I
 
     @Override
     public boolean isInvalid() {
-        return level.getBlockEntity(getBlockPos()) == null;
+        return (level != null ? level.getBlockEntity(getBlockPos()) : null) == null;
     }
 }

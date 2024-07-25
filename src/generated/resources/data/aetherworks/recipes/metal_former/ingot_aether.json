@@ -7,6 +7,7 @@
   "input": {
     "item": "embers:dawnstone_ingot"
   },
+  "match_exactly": false,
   "output": {
     "item": "aetherworks:ingot_aether"
   },

@@ -4,8 +4,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.sirplop.aetherworks.api.capabilities.AetherworksCapabilities;
-import net.sirplop.aetherworks.api.power.IHeatCapability;
+import net.sirplop.aetherworks.capabilities.AWCapabilities;
+import net.sirplop.aetherworks.api.capabilities.IHeatCapability;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -104,8 +104,8 @@ public class DefaultHeatCapability implements IHeatCapability {
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == AetherworksCapabilities.HEAT_CAPABILITY)
-            return AetherworksCapabilities.HEAT_CAPABILITY.orEmpty(cap, holder);
+        if (cap == AWCapabilities.HEAT_CAPABILITY)
+            return AWCapabilities.HEAT_CAPABILITY.orEmpty(cap, holder);
         return LazyOptional.empty();
     }
 }

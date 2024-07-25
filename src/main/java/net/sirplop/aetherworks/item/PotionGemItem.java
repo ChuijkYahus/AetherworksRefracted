@@ -51,10 +51,16 @@ public class PotionGemItem extends Item {
         for (int i = 0; i < effects.size(); i++) {
             MobEffectInstance inst = effects.get(i);
             effects.set(i, new MobEffectInstance(inst.getEffect(), 200,
-                    inst.getAmplifier(), inst.isAmbient(), inst.isVisible(), inst.showIcon()));
+                    inst.getAmplifier(), true, inst.isVisible(), inst.showIcon()));
         }
         PotionUtils.setCustomEffects(stack, effects);
         int color = PotionUtils.getColor(effects);
+        tag.putInt(POTION_COLOR, color);
+    }
+
+    public static void setEffectsForRecipe(List<MobEffectInstance> effects, ItemStack stack, int color) {
+        CompoundTag tag = stack.getOrCreateTag();
+        PotionUtils.setCustomEffects(stack, effects);
         tag.putInt(POTION_COLOR, color);
     }
 

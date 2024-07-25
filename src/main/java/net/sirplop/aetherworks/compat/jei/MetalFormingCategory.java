@@ -23,7 +23,7 @@ import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.Aetherworks;
 import net.sirplop.aetherworks.recipe.IMetalFormerRecipe;
 
-public class MetalFormingCategory  implements IRecipeCategory<IMetalFormerRecipe> {
+public class MetalFormingCategory implements IRecipeCategory<IMetalFormerRecipe> {
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -31,7 +31,7 @@ public class MetalFormingCategory  implements IRecipeCategory<IMetalFormerRecipe
     public static ResourceLocation texture = new ResourceLocation(Aetherworks.MODID, "textures/gui/jei_metal_former.png");
 
     public MetalFormingCategory(IGuiHelper helper) {
-        background = helper.createDrawable(texture, 0, 0, 121, 83);
+        background = helper.createDrawable(texture, 0, 0, 87, 75);
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(AWRegistry.FORGE_METAL_FORMER.get().asItem()));
     }
 
@@ -57,11 +57,11 @@ public class MetalFormingCategory  implements IRecipeCategory<IMetalFormerRecipe
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, IMetalFormerRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 14, 5).addIngredients(recipe.getDisplayInput());
+        builder.addSlot(RecipeIngredientRole.INPUT, 5, 5).addIngredients(recipe.getDisplayInput());
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 70, 23).addItemStack(recipe.getResultItem());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 61, 21).addItemStack(recipe.getResultItem());
 
-        builder.addSlot(RecipeIngredientRole.INPUT, 14, 42)
+        builder.addSlot(RecipeIngredientRole.INPUT, 5, 39)
                 .addTooltipCallback(IngotTooltipCallback.INSTANCE)
                 .setFluidRenderer(1000, true, 16, 34)
                 .addIngredients(ForgeTypes.FLUID_STACK, recipe.getDisplayInputFluid().getFluids());
@@ -75,7 +75,8 @@ public class MetalFormingCategory  implements IRecipeCategory<IMetalFormerRecipe
         Vec3 color = new Vec3(255, 181, 77).lerp(new Vec3(255, 77, 77), (double) (recipe.getTemperature() - 2000) / 900);
         int colorVal = (int)color.x << 16 | (int)color.y << 8 | (int)color.z;
 
-        Misc.drawComponents(fontRenderer, guiGraphics, 38, 50, Component.translatable(Aetherworks.MODID + ".jei.recipe.metal_forming.temp_title"));
-        Misc.drawComponents(fontRenderer, guiGraphics, 42, 62, Component.translatable(Aetherworks.MODID + ".jei.recipe.metal_forming.temp_value", recipe.getTemperature()).withStyle(style -> style.withColor(colorVal)));
+        //Misc.drawComponents(fontRenderer, guiGraphics, 38, 50, Component.translatable(Aetherworks.MODID + ".jei.recipe.metal_forming.temp_title"));
+        guiGraphics.drawCenteredString(fontRenderer, Component.translatable(Aetherworks.MODID + ".jei.recipe.metal_forming.temp_value", recipe.getTemperature()), 51, 53, colorVal);
+        //Misc.drawComponents(fontRenderer, guiGraphics, 32, 53, );
     }
 }

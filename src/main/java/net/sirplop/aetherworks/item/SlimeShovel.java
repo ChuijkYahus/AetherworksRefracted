@@ -40,6 +40,9 @@ public class SlimeShovel extends AOEEmberDiggerItem implements IHudFocus {
         return ItemStack.of(held.getOrCreateTag().getCompound(MessageFocusedStack.FOCUS_TAG));
     }
 
+    @Override
+    public boolean showAmount() { return false; }
+
     private final GlowParticleOptions particle = new GlowParticleOptions(getParticleColor(), 1, 15);
 
     @Override

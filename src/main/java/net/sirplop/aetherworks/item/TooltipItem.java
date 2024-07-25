@@ -13,14 +13,26 @@ import java.util.List;
 public class TooltipItem extends Item {
     protected final String tooltipLocation;
     protected final ChatFormatting format;
-    public TooltipItem(Properties pProperties, String tooltipLocation, ChatFormatting format) {
+    protected final boolean foil;
+    public TooltipItem(Properties pProperties, String tooltipLocation, ChatFormatting format, boolean foil) {
         super(pProperties);
         this.tooltipLocation = tooltipLocation;
         this.format = format;
+        this.foil = foil;
+    }
+    public TooltipItem(Properties pProperties, String tooltipLocation, boolean foil) {
+        super(pProperties);
+        this.tooltipLocation = tooltipLocation;
+        this.format = ChatFormatting.GRAY;
+        this.foil = foil;
     }
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         pTooltipComponents.add(Component.translatable(tooltipLocation).withStyle(ChatFormatting.GRAY));
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+    }
+    @Override
+    public boolean isFoil(ItemStack pStack) {
+        return foil;
     }
 }

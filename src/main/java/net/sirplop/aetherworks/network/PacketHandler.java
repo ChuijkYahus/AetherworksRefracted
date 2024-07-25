@@ -23,5 +23,7 @@ public class PacketHandler {
         INSTANCE.registerMessage(id++, MessageSyncItemEntityTag.class, MessageSyncItemEntityTag::encode, MessageSyncItemEntityTag::decode, MessageSyncItemEntityTag::handle);
         INSTANCE.registerMessage(id++, MessageFocusedStack.class, MessageFocusedStack::encode, MessageFocusedStack::decode, MessageFocusedStack::handle);
         INSTANCE.registerMessage(id++, MessageSurroundWIthParticles.class, MessageSurroundWIthParticles::encode, MessageSurroundWIthParticles::decode, MessageSurroundWIthParticles::handle);
+        INSTANCE.registerMessage(id++, MessageFluidSync.class, MessageFluidSync::encode, MessageFluidSync::decode, MessageFluidSync::handle);
+        INSTANCE.registerMessage(id++, MessageSyncAetheriometer.class, MessageSyncAetheriometer::encode, MessageSyncAetheriometer::decode, MessageSyncAetheriometer::handle);
     }
 }

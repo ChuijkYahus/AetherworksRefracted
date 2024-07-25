@@ -91,7 +91,7 @@ public class PotionGemSocketRecipe implements CraftingRecipe {
             for (int i = 0; i < container.getContainerSize(); i++) {
                 ItemStack stack = container.getItem(i);
                 if (!stack.isEmpty() && stack.getItem() instanceof PotionGemItem) {
-                    ((AetherCrownItem)crown.getItem()).attachGem(crown, stack.copyWithCount(1));
+                    AetherCrownItem.attachGem(crown, stack.copyWithCount(1));
                 }
             }
             return crown;

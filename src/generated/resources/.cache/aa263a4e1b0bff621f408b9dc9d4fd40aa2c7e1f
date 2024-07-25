@@ -1,5 +1,8 @@
-// 1.20.1	2024-07-05T16:09:17.7281227	Tags for minecraft:item mod id aetherworks
+// 1.20.1	2024-07-13T02:52:18.8682576	Tags for minecraft:item mod id aetherworks
+e8838e9a24e4ee6a741a31fce3aabfcf062e1048 data/embers/tags/items/aspectus.json
 e8838e9a24e4ee6a741a31fce3aabfcf062e1048 data/embers/tags/items/aspectus/aetherium.json
+adcfae7f181ed9117f154acd6cfda77a67ca62d3 data/embers/tags/items/augmentables/projectiles.json
+adcfae7f181ed9117f154acd6cfda77a67ca62d3 data/embers/tags/items/normal_walk_speed_tool.json
 a2dcd071d84028871a648663b03f6fcd71b85681 data/embers/tags/items/tinker_lens_helmets.json
 a2dcd071d84028871a648663b03f6fcd71b85681 data/forge/tags/items/armors/helmets.json
 0b7a1560a4107bcd249165229d4225828d287db0 data/forge/tags/items/ingots/aetherium.json
@@ -7,4 +10,4 @@ a2dcd071d84028871a648663b03f6fcd71b85681 data/forge/tags/items/armors/helmets.js
 b208475069132fa3db3b2dac46a13093fbb936fb data/forge/tags/items/raw_materials/aetherium.json
 3b840ea7c9fd7b0c0d0935825342c1f167bf86c2 data/minecraft/tags/items/axes.json
 c21b1e08d685bba776fe4494ab38dee50dbda517 data/minecraft/tags/items/pickaxes.json
-9111aaf2993f266b1d5044415b4940e3a3b4875b data/minecraft/tags/items/shovels.json
+f34b6541cc2837ca21bbbbe65e79fe6b12f71ef8 data/minecraft/tags/items/shovels.json

@@ -26,8 +26,8 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.sirplop.aetherworks.AWRegistry;
-import net.sirplop.aetherworks.api.capabilities.AetherworksCapabilities;
-import net.sirplop.aetherworks.api.power.IHeatCapability;
+import net.sirplop.aetherworks.capabilities.AWCapabilities;
+import net.sirplop.aetherworks.api.capabilities.IHeatCapability;
 import net.sirplop.aetherworks.datagen.AWSounds;
 import net.sirplop.aetherworks.power.DefaultHeatCapability;
 
@@ -361,7 +361,7 @@ public class ForgeCoreBlockEntity extends BlockEntity implements IForge {
             if (cap == EmbersCapabilities.EMBER_CAPABILITY) {
                 return emberCapability.getCapability(cap, side);
             }
-            else if (cap == AetherworksCapabilities.HEAT_CAPABILITY) {
+            else if (cap == AWCapabilities.HEAT_CAPABILITY) {
                 return heatCapability.getCapability(cap, side);
             }
         }

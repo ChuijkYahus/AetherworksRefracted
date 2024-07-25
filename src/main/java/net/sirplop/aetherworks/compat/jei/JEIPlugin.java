@@ -22,6 +22,7 @@ import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.Aetherworks;
 import net.sirplop.aetherworks.recipe.IAetheriumAnvilRecipe;
 import net.sirplop.aetherworks.recipe.IMetalFormerRecipe;
+import net.sirplop.aetherworks.recipe.IToolStationRecipe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class JEIPlugin  implements IModPlugin {
 
     public static final RecipeType<IMetalFormerRecipe> METAL_FORMING = RecipeType.create(Aetherworks.MODID, "metal_forming", IMetalFormerRecipe.class);
     public static final RecipeType<IAetheriumAnvilRecipe> AETHERIUM_ANVIL = RecipeType.create(Aetherworks.MODID, "aetherium_anvil", IAetheriumAnvilRecipe.class);
+    public static final RecipeType<IToolStationRecipe> TOOL_STATION = RecipeType.create(Aetherworks.MODID, "tool_station", IToolStationRecipe.class);
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -45,6 +47,7 @@ public class JEIPlugin  implements IModPlugin {
 
         registry.addRecipeCategories(new MetalFormingCategory(guiHelper));
         registry.addRecipeCategories(new AetheriumAnvilCategory(guiHelper));
+        registry.addRecipeCategories(new ToolStationCategory(guiHelper));
     }
     @SuppressWarnings("unchecked")
     public static <C extends Container, T extends Recipe<C>> void addRecipes(IRecipeRegistration register, RecipeManager manager, RecipeType<T> jeiType, net.minecraft.world.item.crafting.RecipeType<T> type) {
@@ -67,6 +70,12 @@ public class JEIPlugin  implements IModPlugin {
 
         addRecipes(register, manager, METAL_FORMING, AWRegistry.METAL_FORMING.get());
         addRecipes(register, manager, AETHERIUM_ANVIL, AWRegistry.AETHERIUM_ANVIL.get());
+        addRecipes(register, manager, TOOL_STATION, AWRegistry.TOOL_STATION_RECIPE.get());
     }
-
+    @Override
+    public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
+        registry.addRecipeCatalyst(new ItemStack(AWRegistry.FORGE_METAL_FORMER.get()), METAL_FORMING);
+        registry.addRecipeCatalyst(new ItemStack(AWRegistry.FORGE_ANVIL.get()), AETHERIUM_ANVIL);
+        registry.addRecipeCatalyst(new ItemStack(AWRegistry.FORGE_TOOL_STATION.get()), TOOL_STATION);
+    }
 }

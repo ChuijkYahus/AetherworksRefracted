@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "aetherworks:item/axe_head"
+    "layer0": "aetherworks:item/tool/part/axe_head"
   }
 }

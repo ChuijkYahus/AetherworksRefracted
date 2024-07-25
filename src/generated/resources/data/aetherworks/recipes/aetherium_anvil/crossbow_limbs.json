@@ -1,14 +1,18 @@
 {
   "type": "aetherworks:aetherium_anvil",
   "difficulty": 5,
-  "emberPerHit": 80,
+  "emberPerHit": 70,
   "input": {
-    "item": "aetherworks:crossbow_frame_crude"
+    "item": "aetherworks:crossbow_limbs_crude"
   },
   "numberOfHits": 35,
-  "output": {
-    "item": "aetherworks:crossbow_limbs"
-  },
+  "result": [
+    {
+      "chance": 1.0,
+      "count": 1,
+      "item": "aetherworks:crossbow_limbs"
+    }
+  ],
   "temperatureMax": 3000,
-  "temperatureMin": 2650
+  "temperatureMin": 2600
 }

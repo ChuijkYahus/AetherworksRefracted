@@ -1,0 +1,6 @@
+// 1.20.1	2024-07-12T14:54:55.115849	Tags for minecraft:damage_type mod id aetherworks
+2a40ae6018726e8336be9cad0c1a896931a99969 data/consecration/tags/damage_type/holy.json
+2a40ae6018726e8336be9cad0c1a896931a99969 data/minecraft/tags/damage_type/always_most_significant_fall.json
+2a40ae6018726e8336be9cad0c1a896931a99969 data/minecraft/tags/damage_type/bypasses_armor.json
+2a40ae6018726e8336be9cad0c1a896931a99969 data/minecraft/tags/damage_type/bypasses_invulnerability.json
+2a40ae6018726e8336be9cad0c1a896931a99969 data/minecraft/tags/damage_type/bypasses_resistance.json

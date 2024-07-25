@@ -4,7 +4,8 @@
     "render_type": "minecraft:cutout",
     "parent": "block/block",
     "textures": {
-        "0": "aetherworks:block/cooler"
+        "0": "aetherworks:block/cooler",
+		"particle" : "#0"
     },
     "elements": [
         {
