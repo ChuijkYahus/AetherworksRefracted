@@ -38,7 +38,7 @@ public class AWBlockStates extends BlockStateProvider {
         blockWithItem(AWRegistry.SUEVITE_BRICKS);
         decoBlocks(AWRegistry.SUEVITE_BRICKS_DECO);
         blockWithItem(AWRegistry.AETHERIUM_ORE, "ore_aether");
-        blockWithItem(AWRegistry.AETHERIUM_SHARD_BLOCK, "block_shards_raw");
+        blockWithItem(AWRegistry.AETHERIUM_SHARD_BLOCK);
         blockWithItem(AWRegistry.AETHERIUM_BLOCK);
         blockWithItem(AWRegistry.PRISM_SUPPORT, "prism_support");
         blockWithItem(AWRegistry.PRISM, "prism");

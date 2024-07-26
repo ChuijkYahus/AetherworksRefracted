@@ -1,4 +1,4 @@
-// 1.20.1	2024-07-21T17:24:50.8837425	Block States: aetherworks
+// 1.20.1	2024-07-26T14:05:56.2833533	Block States: aetherworks
 72428f20af5f8522098cd0ea74aa0e8d5b619702 assets/aetherworks/blockstates/aether_gas_block.json
 463d759783ac30ffb052ec59040a2c1f8bc03c11 assets/aetherworks/blockstates/aether_gas_impure_block.json
 51634286f12542c08d94a1761875c8411a1c2b6f assets/aetherworks/blockstates/aether_prism_controller_matrix.json
@@ -31,6 +31,7 @@ e368648aedfd0e5a3f220ecb4efad1a5772f57e7 assets/aetherworks/models/block/aether_
 9ecd140cc920bd27e529358ac7e8cbbf1d801288 assets/aetherworks/models/block/aether_gas_impure.json
 949f342c3137f6603ce52107dc49ea7e70227259 assets/aetherworks/models/block/alchemic_precursor.json
 ad41f1449cd4127fc7d245ff5ffaac26a56a3c07 assets/aetherworks/models/block/block_aether.json
+385a476d52f0af03afda1a4e7d119a942491bc47 assets/aetherworks/models/block/block_shards_raw.json
 48939048f24cfec6a5e6498bbe73c3bfb6a5c92b assets/aetherworks/models/block/heat_dial.json
 126ced4f69d2cb2432d9a03cce20fb37e64b898e assets/aetherworks/models/block/suevite.json
 436ec5ee795cfcad8f8088cec806765e56fab30a assets/aetherworks/models/block/suevite_bricks.json
