@@ -45,8 +45,7 @@ import java.util.Set;
 
 public abstract class AOEEmberDiggerItem extends DiggerItem implements IToggleEmberItem {
 
-
-    public final TagKey<Block> blocks;
+    public TagKey<Block> blocks;
 
     public AOEEmberDiggerItem(float pAttackDamageModifier, float pAttackSpeedModifier, Tier pTier, TagKey<Block> pBlocks, Properties pProperties) {
         super(pAttackDamageModifier, pAttackSpeedModifier, pTier, pBlocks, pProperties);
@@ -163,12 +162,11 @@ public abstract class AOEEmberDiggerItem extends DiggerItem implements IToggleEm
     }
     public abstract Vector3f getParticleColor();
 
-    public static final SparkParticleOptions suckParticle = new SparkParticleOptions(new Vector3f(0, 1F, 1F), 1f);
-
     @Override
     public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
         MoonlightRepair.tryRepair(stack, world, entity, AWConfig.AETHERIC_STRENGTH.get());
         if (selected) { //get all items around the player and try to suck them in if they have the succ tag
+            SparkParticleOptions suckParticle = new SparkParticleOptions(getParticleColor(), 1f);
             List<ItemEntity> targets = world.getEntitiesOfClass(ItemEntity.class, entity.getBoundingBox().inflate(10.0),
                     ent -> ent.getTags().contains(Utils.SUCK_ITEM_TAG));
             for (ItemEntity ent : targets) {
@@ -186,7 +184,7 @@ public abstract class AOEEmberDiggerItem extends DiggerItem implements IToggleEm
                             ent.position().x,
                             ent.position().y,
                             ent.position().z,
-                            0.25f, 0.25f, 0.25f);
+                            0.05f, 0.1f, 0.05f);
             }
         }
 

@@ -1,4 +1,5 @@
-// 1.20.1	2024-07-18T19:52:59.6268429	Tags for minecraft:block mod id aetherworks
+// 1.20.1	2024-07-25T19:45:11.7829095	Tags for minecraft:block mod id aetherworks
+ffbf59a78593db7dd7409dca7fe3babe11ab5bb7 data/aetherworks/tags/blocks/sculk_axe_mineable.json
 75fb9e2ba833961f50bb2fb2a1d7e159d0d766d4 data/forge/tags/blocks/cobblestone.json
 16d77e90188570787f5df63ef002453681167829 data/forge/tags/blocks/ores.json
 6fe00f86d162ece6829db1efecfc22aa7eecff50 data/forge/tags/blocks/stone.json

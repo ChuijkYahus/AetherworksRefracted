@@ -11,6 +11,7 @@ You can contact me about the port in the Embers Rekindled discord, in the Embers
 - A variety of numbers changes and added config options.
 - Removed or reworded many of the tooltips.
 - Fixed block models in the inventory looking terrible.
+- The Moonlight Harvester structure no longer requires Control Matrices to function. Instead, each Control Matrix added will increase aetherium production.
 - Aetherium refinement reworked as electrum and bronze no longer exists by default.
 - Added the Aetherium Aspectus, required to perform aetherium-based alchemy.
 - Added the Tool Forge, the final step in crafting aetherium tools, instead of just smushing the parts together in a crafting grid. (boring!)
@@ -28,11 +29,7 @@ You can contact me about the port in the Embers Rekindled discord, in the Embers
 - Replaced aetherium ore with ancient aetherium meteorites whose old impact craters dot the landscape - search for their signature circular crater, or make an Aetheriometer, and you'll find them!
 - Added Suevite, Cobbled Suevite, and Suevite bricks. Suevite is found in meteorites, and generated when aetherium aerosol meets water.
 
-## Agenda
-- Remake some of the old textures that no longer fit with modern minecraft's style.
-- Write all the codex entries.
-
-## Things I'm Thinking About Adding
+## Potential Future Changes
 - Add more decorative blocks. Because... decor!
 - Allow upgrades (catalytic plug, wildfire stirling) to interact with the Aetherium Forge.
 - Rework the heating and cooling of the Aetherium Forge so you'll want to use all 3 components, instead of just 1 heater + 2 heat vents.
@@ -40,8 +37,8 @@ You can contact me about the port in the Embers Rekindled discord, in the Embers
 - Add a pair of aetheric hoes that excel at farming and shepherding.
 - Add more embers-based stuff, since the original mod didn't have a lot of actual integration.
 - Semi-automatable Aetherium Forge (aka make automatic hammer work with certain forging recipes)
-- Figure out how to animate the texture of the Aetherium Crown.
-- Dangers from processing aetherium? Nothing annoying, of course.
+- Animate the texture of the Aetherium Crown.
+- Long-term dangers from processing aetherium? Nothing annoying, of course.
 
 ## Musings
 - What is Aetherium, anyway? Ember is something like the fire or energy of the core of the planet, and Aetherium is generated via moonlight, and moonlight comes from the sun reflecting off the moon, so Aetherium is the ember reflections of the sun with special moon stuff thrown in. I imagine that, coming from the sun near-directly, it's very powerful and that working with and harnessing it is challenging.

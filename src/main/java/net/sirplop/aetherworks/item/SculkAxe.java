@@ -2,9 +2,11 @@ package net.sirplop.aetherworks.item;
 
 import com.rekindled.embers.particle.GlowParticleOptions;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -14,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.phys.BlockHitResult;
@@ -21,6 +24,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.sirplop.aetherworks.AWConfig;
 import net.sirplop.aetherworks.Aetherworks;
+import net.sirplop.aetherworks.datagen.AWBlockTags;
 import net.sirplop.aetherworks.lib.AWHarvestHelper;
 import net.sirplop.aetherworks.lib.AWHarvestNode;
 import net.sirplop.aetherworks.lib.OctDirection;
@@ -37,7 +41,7 @@ public class SculkAxe extends AOEEmberDiggerItem{
     private static final Vector3f color = new Vector3f(57f / 255f, 214 / 255f, 224 / 255f);
 
     public SculkAxe(Properties properties) {
-        super(1, -2.8f, AetheriumTiers.AETHERIUM, BlockTags.MINEABLE_WITH_AXE, properties);
+        super(2.5f, -2.8f, AetheriumTiers.AETHERIUM, AWBlockTags.SCULK_AXE_MINEABLE, properties);
     }
 
     private final GlowParticleOptions particle = new GlowParticleOptions(getParticleColor(), 1, 15);

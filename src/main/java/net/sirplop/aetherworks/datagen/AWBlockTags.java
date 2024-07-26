@@ -19,6 +19,7 @@ public class AWBlockTags  extends BlockTagsProvider {
         super(output, lookupProvider, Aetherworks.MODID, existingFileHelper);
     }
     public static final TagKey<Block> NEEDS_AETHERIUM_TOOL = BlockTags.create(new ResourceLocation(Aetherworks.MODID, "needs_aetherium_tool"));
+    public static final TagKey<Block> SCULK_AXE_MINEABLE = BlockTags.create(new ResourceLocation(Aetherworks.MODID, "sculk_axe_mineable"));
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
@@ -64,6 +65,8 @@ public class AWBlockTags  extends BlockTagsProvider {
                 AWRegistry.FORGE_METAL_FORMER.get(),
                 AWRegistry.FORGE_TOOL_STATION.get()
         );
+
+        tag(SCULK_AXE_MINEABLE).addTags(BlockTags.MINEABLE_WITH_AXE, BlockTags.LEAVES);
 
         //individual tags
         getTag("forge:cobblestone").add(AWRegistry.SUEVITE_COBBLE.get());
