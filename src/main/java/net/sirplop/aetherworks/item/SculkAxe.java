@@ -2,11 +2,8 @@ package net.sirplop.aetherworks.item;
 
 import com.rekindled.embers.particle.GlowParticleOptions;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -16,7 +13,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.phys.BlockHitResult;
@@ -41,7 +37,7 @@ public class SculkAxe extends AOEEmberDiggerItem{
     private static final Vector3f color = new Vector3f(57f / 255f, 214 / 255f, 224 / 255f);
 
     public SculkAxe(Properties properties) {
-        super(2.5f, -2.8f, AetheriumTiers.AETHERIUM, AWBlockTags.SCULK_AXE_MINEABLE, properties);
+        super(4.5f, -3f, AetheriumTiers.AETHERIUM, AWBlockTags.SCULK_AXE_MINEABLE, properties);
     }
 
     private final GlowParticleOptions particle = new GlowParticleOptions(getParticleColor(), 1, 15);
@@ -53,7 +49,7 @@ public class SculkAxe extends AOEEmberDiggerItem{
     }
 
     @Override
-    public @NotNull InteractionResult useOn(UseOnContext context) {
+    public @NotNull InteractionResult useOn(@NotNull UseOnContext context) {
         InteractionResult result = super.useOn(context);
         if (context.getLevel().isClientSide || AWConfig.getConfigSet(AWConfig.Tool.ENDER_AXE).isEmpty())
             return result;
@@ -77,12 +73,12 @@ public class SculkAxe extends AOEEmberDiggerItem{
     }
 
     @Override
-    public @NotNull UseAnim getUseAnimation(ItemStack pStack) {
+    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack pStack) {
         return UseAnim.BOW;
     }
 
     @Override
-    public int getUseDuration(ItemStack pStack) {
+    public int getUseDuration(@NotNull ItemStack pStack) {
         return 72000;
     }
     @Override
@@ -92,7 +88,7 @@ public class SculkAxe extends AOEEmberDiggerItem{
 
     private int ticksUsed = 0;
     @Override
-    public void onUseTick(Level level, LivingEntity entity, ItemStack pStack, int pRemainingUseDuration) {
+    public void onUseTick(@NotNull Level level, @NotNull LivingEntity entity, @NotNull ItemStack pStack, int pRemainingUseDuration) {
         if (++ticksUsed < 40 || level.isClientSide() || !(entity instanceof Player player))
             return;
         if (!Utils.hasEnoughDurability(player.getUseItem(), 2)) {

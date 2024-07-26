@@ -15,7 +15,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.network.PacketDistributor;
 import net.sirplop.aetherworks.AWConfig;
-import net.sirplop.aetherworks.Aetherworks;
 import net.sirplop.aetherworks.api.item.IHudFocus;
 import net.sirplop.aetherworks.lib.AWExchangeNode;
 import net.sirplop.aetherworks.lib.AWHarvestHelper;
@@ -28,7 +27,7 @@ import org.joml.Vector3f;
 
 public class SlimeShovel extends AOEEmberDiggerItem implements IHudFocus {
     public SlimeShovel(Properties properties) {
-        super(1, -2.8f, AetheriumTiers.AETHERIUM, BlockTags.MINEABLE_WITH_SHOVEL, properties);
+        super(1.5f, -3f, AetheriumTiers.AETHERIUM, BlockTags.MINEABLE_WITH_SHOVEL, properties);
     }
 
     public void setFocus(ItemStack held, ItemStack focus, Player player) {

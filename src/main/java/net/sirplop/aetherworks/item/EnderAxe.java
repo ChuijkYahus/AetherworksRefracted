@@ -1,6 +1,5 @@
 package net.sirplop.aetherworks.item;
 
-import com.rekindled.embers.particle.GlowParticleOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -28,7 +27,7 @@ public class EnderAxe extends AOEEmberDiggerItem{
     private final Vector3f color = new Vector3f(205f / 255f, 0, 1f);
 
     public EnderAxe(Properties properties) {
-        super(1, -2.8f, AetheriumTiers.AETHERIUM, BlockTags.MINEABLE_WITH_AXE, properties);
+        super(4.5f, -3f, AetheriumTiers.AETHERIUM, BlockTags.MINEABLE_WITH_AXE, properties);
     }
 
     @Override
@@ -37,7 +36,7 @@ public class EnderAxe extends AOEEmberDiggerItem{
     }
 
     @Override
-    public @NotNull InteractionResult useOn(UseOnContext context) {
+    public @NotNull InteractionResult useOn(@NotNull UseOnContext context) {
         InteractionResult result = super.useOn(context);
         if (context.getLevel().isClientSide || AWConfig.getConfigSet(AWConfig.Tool.ENDER_AXE).isEmpty())
             return result;

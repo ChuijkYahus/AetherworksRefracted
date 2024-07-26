@@ -39,7 +39,7 @@ public class PrismarineShovel extends AOEEmberDiggerItem implements IHudFocus {
     private final GlowParticleOptions particle = new GlowParticleOptions(getParticleColor(), 1, 15);
 
     public PrismarineShovel(Properties properties) {
-        super(1, -2.8f, AetheriumTiers.AETHERIUM, BlockTags.MINEABLE_WITH_SHOVEL, properties);
+        super(1.5f, -3f, AetheriumTiers.AETHERIUM, BlockTags.MINEABLE_WITH_SHOVEL, properties);
     }
 
     @Override
