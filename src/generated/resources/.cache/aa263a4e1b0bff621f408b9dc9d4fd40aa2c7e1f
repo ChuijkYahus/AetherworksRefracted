@@ -1,7 +1,8 @@
-// 1.20.1	2024-07-13T02:52:18.8682576	Tags for minecraft:item mod id aetherworks
+// 1.20.1	2024-07-27T13:12:53.1810745	Tags for minecraft:item mod id aetherworks
 e8838e9a24e4ee6a741a31fce3aabfcf062e1048 data/embers/tags/items/aspectus.json
 e8838e9a24e4ee6a741a31fce3aabfcf062e1048 data/embers/tags/items/aspectus/aetherium.json
 adcfae7f181ed9117f154acd6cfda77a67ca62d3 data/embers/tags/items/augmentables/projectiles.json
+a5378e1c1ce7c61648f694ff732227bc20e480e8 data/embers/tags/items/gauge_overlay.json
 adcfae7f181ed9117f154acd6cfda77a67ca62d3 data/embers/tags/items/normal_walk_speed_tool.json
 a2dcd071d84028871a648663b03f6fcd71b85681 data/embers/tags/items/tinker_lens_helmets.json
 a2dcd071d84028871a648663b03f6fcd71b85681 data/forge/tags/items/armors/helmets.json

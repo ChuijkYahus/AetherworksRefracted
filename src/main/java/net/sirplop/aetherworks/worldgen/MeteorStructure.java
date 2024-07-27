@@ -3,10 +3,13 @@ package net.sirplop.aetherworks.worldgen;
 import com.google.common.math.StatsAccumulator;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.LevelHeightAccessor;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -56,7 +59,11 @@ public class MeteorStructure extends Structure {
         final float meteoriteZSize = random.nextFloat() * (meteoriteXSize > 2.5f ? 2.0f : 4.0f) + 1;
         final int yOffset = (int) Math.ceil(meteoriteYSize);
 
-        final Heightmap.Types heightmapType = Heightmap.Types.OCEAN_FLOOR_WG;//isOcean ? Heightmap.Types.OCEAN_FLOOR_WG : Heightmap.Types.WORLD_SURFACE_WG;
+        var t2 = generator.getBiomeSource().getBiomesWithin(centerX, generator.getSeaLevel(), centerZ, 0,
+                context.randomState().sampler());
+        var spawnBiome = t2.stream().findFirst().orElseThrow();
+
+        final Heightmap.Types heightmapType = Heightmap.Types.OCEAN_FLOOR_WG;
 
         // Accumulate stats about the surrounding heightmap
         StatsAccumulator stats = new StatsAccumulator();
@@ -82,17 +89,22 @@ public class MeteorStructure extends Structure {
         centerY = Math.max(heightAccessor.getMinBuildHeight() + yOffset, centerY);
 
         BlockPos actualPos = new BlockPos(centerX, centerY, centerZ);
-        boolean hasWater = locateWaterAroundTheCrater(actualPos, (meteoriteXSize + meteoriteZSize) / 1.5f, context);
+        boolean hasWater = locateWaterAroundTheCrater(actualPos, (meteoriteXSize + meteoriteZSize) / 1.5f, context, spawnBiome);
         piecesBuilder.addPiece(new MeteorStructurePiece(actualPos, meteoriteXSize, meteoriteYSize, meteoriteZSize, hasWater));
     }
 
-    private static boolean locateWaterAroundTheCrater(BlockPos pos, float radius, GenerationContext context) {
+    private static boolean locateWaterAroundTheCrater(BlockPos pos, float radius, GenerationContext context, Holder<Biome> spawnBiome) {
         var generator = context.chunkGenerator();
         var heightAccessor = context.heightAccessor();
 
         final int seaLevel = generator.getSeaLevel();
         final int maxY = seaLevel - 1;
         BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos();
+
+        //shortcut
+        if (spawnBiome.is(BiomeTags.IS_OCEAN) || spawnBiome.is(BiomeTags.IS_DEEP_OCEAN)
+                || spawnBiome.is(BiomeTags.IS_RIVER) || spawnBiome.is(BiomeTags.IS_BEACH))
+            return true; //this should always be watery
 
         blockPos.setY(maxY);
         for (int i = pos.getX() - 40; i <= pos.getX() + 40; i++) {

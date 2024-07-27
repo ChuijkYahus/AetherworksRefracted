@@ -43,6 +43,8 @@ public class AWItemTags extends ItemTagsProvider {
         tag(EmbersItemTags.NORMAL_WALK_SPEED_TOOL).add(AWRegistry.CROSSBOW_QUARTZ.get(), AWRegistry.CROSSBOW_MAGMA.get());
         tag(EmbersItemTags.AUGMENTABLE_PROJECTILE_WEAPONS).add(AWRegistry.CROSSBOW_QUARTZ.get(), AWRegistry.CROSSBOW_MAGMA.get());
 
+        tag(EmbersItemTags.GAUGE_OVERLAY).add(AWRegistry.AETHERIOMETER.get());
+
         tag(EmbersItemTags.TINKER_LENS_HELMETS).add(AWRegistry.AETHER_CROWN.get());
         tag(Tags.Items.ARMORS_HELMETS).add(AWRegistry.AETHER_CROWN.get());
     }

@@ -4,13 +4,18 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.datagen.EmbersItemTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
@@ -60,10 +65,9 @@ public class AWClientEvents {
                 }
             }
         }
-        if (player.getMainHandItem().getItem() == AWRegistry.AETHERIOMETER.get().asItem() || player.getOffhandItem().getItem() == AWRegistry.AETHERIOMETER.get().asItem()) {
-            //do not render if we are rendering the atmospheric gauge, as they take up the same position.
-            if (player.getMainHandItem().getItem() != RegistryManager.ATMOSPHERIC_GAUGE_ITEM.get() && player.getOffhandItem().getItem() != RegistryManager.ATMOSPHERIC_GAUGE_ITEM.get())
-                renderAetheriometer(gui, graphics, player, partialTicks, width, height);
+
+        if (player.getMainHandItem().getItem() == AWRegistry.AETHERIOMETER.get() || (player.getOffhandItem().getItem() == AWRegistry.AETHERIOMETER.get() && !player.getMainHandItem().is(EmbersItemTags.GAUGE_OVERLAY))) {
+            renderAetheriometer(gui, graphics, player, partialTicks, width, height);
         }
     }
 
