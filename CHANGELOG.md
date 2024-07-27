@@ -1,5 +1,9 @@
 Changelog - Aetherworks Refracted
 =============================
+1.20.1-1.01b
+-----------------------------
+Removed debug messages that shouldn't have been there.
+
 1.20.1-1.0.1
 -----------------------------
 _Additions_

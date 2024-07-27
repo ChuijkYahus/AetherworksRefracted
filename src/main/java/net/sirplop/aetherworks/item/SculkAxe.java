@@ -117,7 +117,6 @@ public class SculkAxe extends AOEEmberDiggerItem{
             }
         }
         if (slot == -1) {
-            Aetherworks.LOGGER.atDebug().log("No more saplings found!");
             entity.stopUsingItem();
             return; //no more saplings.
         }

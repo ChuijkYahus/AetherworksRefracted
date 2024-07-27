@@ -64,8 +64,6 @@ public class AetherCrossbowQuartz extends AetherCrossbow {
                     changed = true;
                 }
             }
-            if (!rem.isEmpty())
-                Aetherworks.LOGGER.atDebug().log("Removing "+rem.size());
             for (String key : rem) {
                 exp.remove(key);
             }

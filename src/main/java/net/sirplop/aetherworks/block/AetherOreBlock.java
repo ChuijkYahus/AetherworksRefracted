@@ -33,7 +33,6 @@ public class AetherOreBlock extends DropExperienceBlock {
         super.onRemove(state, level, pos, newState, movedByPiston);
         IAetheriometerCap capability = AetheriometerChunkCapability.getData(level.getChunkAt(pos)).orElseThrow(UnsupportedOperationException::new);
         capability.adjustData(-1);
-        Aetherworks.LOGGER.atDebug().log("Removing, chunk is now at "+capability.getData());
     }
 
     @Override
