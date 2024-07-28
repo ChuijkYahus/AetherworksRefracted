@@ -1,7 +1,7 @@
 # Aetherworks Refracted
 Aetherworks Refracted is an addon to Embers Rekindled that adds end-game content to the mod. The original [1.12.2 mod](https://www.curseforge.com/minecraft/mc-mods/aetherworks) was made by V0idWa1k3r.
 ## Builds
-Builds can be found on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/aetherworks-refracted). Modrinth is still under review.
+Builds can be found on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/aetherworks-refracted) and on [Modrinth](https://modrinth.com/mod/aetherworks-refracted).
 
 ## Contact
 You can contact me about the port in RCXcrafter's discord, in the Embers channel, [found here](https://discord.gg/SthsknG)
