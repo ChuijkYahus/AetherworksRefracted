@@ -13,6 +13,7 @@ _Changes_
 - Changed out block harvest functions for non-recursive ones.
 - Remade the Moonlight Harvester rune textures.
 - Modified Moonlight Amplifier and Refraction Prism textures.
+- Improved Aetherium Forge overlay animation.
 
 _Fixes_
 
