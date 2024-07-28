@@ -16,6 +16,7 @@ import java.util.*;
 
 public class AWConfig {
 
+    public static ConfigValue<Integer> MOONSNARE_STRENGTH;
     public static ConfigValue<Integer> AETHERIC_STRENGTH;
     public static ConfigValue<Double> TOOL_EMBER_USE;
     public static ConfigValue<Integer> AETHER_PICKAXE_RANGE;
@@ -149,6 +150,7 @@ public class AWConfig {
 
         COMMON.comment("Settings for tool parameters").push("tool");
 
+        MOONSNARE_STRENGTH = COMMON.comment("How quickly do the Moonsnare jars generate ember? Set to -1 to disable. [default: 2]").defineInRange("moonsnare_strength", 2, -1, 40);
         AETHERIC_STRENGTH = COMMON.comment("How strong is the self-repair effect of aetherium tools? Set to -1 to disable. [default: 2]").defineInRange("aetheric_strength", 2, -1, 40);
         TOOL_EMBER_USE = COMMON.comment("Ember used when using the AOE mode on aetheric tools. [default: 4.0]").define("ember_use", 4.0);
 

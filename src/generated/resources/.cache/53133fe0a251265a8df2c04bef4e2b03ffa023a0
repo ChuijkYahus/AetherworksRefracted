@@ -1,10 +1,13 @@
-// 1.20.1	2024-07-21T17:24:50.8817436	Item Models: aetherworks
+// 1.20.1	2024-07-28T16:28:39.0700736	Item Models: aetherworks
 263c3fa599b16e43c5708ed4242608e4931d5e1b assets/aetherworks/models/item/aetheriometer.json
 d45f4464b3b643edba8fc5cf621a56ccd8646486 assets/aetherworks/models/item/aetherium_lens.json
 14d56331c116e7649d3b64ea7182b6f076e870e0 assets/aetherworks/models/item/aether_amalgam.json
 11980ded3dd6d300a0943629256c6bd29acaa0a2 assets/aetherworks/models/item/aether_crown.json
 1a1c0d6cd2e5d23ac47715ccac71298c56ce2116 assets/aetherworks/models/item/aether_crown_crude.json
 b47ee9359e93621f4b6adf9d345d037c629ce41b assets/aetherworks/models/item/aether_crown_mundane.json
+747bea2fa44965b8d1c84c0548b741d789687391 assets/aetherworks/models/item/aether_ember_bulb.json
+0a3c379c9d136f3bbf68328933c9f387b5080494 assets/aetherworks/models/item/aether_ember_cartridge.json
+0e33b6daf52b6900c526488d4273e602597bde1b assets/aetherworks/models/item/aether_ember_jar.json
 70ce896ecc74bbf6d589d01eda791a63f82c6f6b assets/aetherworks/models/item/aether_gas_bucket.json
 04967a2bf6eb99bc6950aecedb0c6cfdf5eda47a assets/aetherworks/models/item/aether_gas_impure_bucket.json
 fbc8430361123d3d8b6f0934a6512c3fb73ad137 assets/aetherworks/models/item/aether_pearl.json

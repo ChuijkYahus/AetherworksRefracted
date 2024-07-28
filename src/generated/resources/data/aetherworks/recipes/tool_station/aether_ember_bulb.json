@@ -1,0 +1,25 @@
+{
+  "type": "aetherworks:tool_station",
+  "inputs": [
+    {
+      "item": "aetherworks:aether_shard"
+    },
+    {
+      "item": "embers:dawnstone_plate"
+    },
+    {
+      "item": "embers:ember_bulb"
+    },
+    {
+      "item": "embers:dawnstone_plate"
+    },
+    {
+      "item": "aetherworks:aether_shard"
+    }
+  ],
+  "output": {
+    "item": "aetherworks:aether_ember_bulb"
+  },
+  "temperature": 2500,
+  "temperature_rate": 15.0
+}

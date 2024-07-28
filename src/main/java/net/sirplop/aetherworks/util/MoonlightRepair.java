@@ -1,5 +1,6 @@
 package net.sirplop.aetherworks.util;
 
+import com.rekindled.embers.api.power.IEmberCapability;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -13,6 +14,15 @@ public class MoonlightRepair {
                 && level.random.nextFloat() <= 0.025f * effectLevel)
         {
             stack.setDamageValue(stack.getDamageValue() - 1);
+        }
+    }
+    public static void tryFillWithEmber(IEmberCapability capability, Level level, Entity entity, int effectLevel) {
+        if (!level.isClientSide() && capability.getEmber() < capability.getEmberCapacity()
+                && level.getDayTime() >= 15000 && level.getDayTime() <= 21000
+                && level.canSeeSky(entity.getOnPos().above(2))
+                && level.random.nextFloat() <= 0.025f * effectLevel)
+        {
+            capability.addAmount(1, true);
         }
     }
 }

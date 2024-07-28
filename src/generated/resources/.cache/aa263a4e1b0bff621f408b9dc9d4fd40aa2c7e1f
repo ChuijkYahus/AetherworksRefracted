@@ -1,4 +1,5 @@
-// 1.20.1	2024-07-27T13:12:53.1810745	Tags for minecraft:item mod id aetherworks
+// 1.20.1	2024-07-28T16:28:39.0710737	Tags for minecraft:item mod id aetherworks
+a68fc43c7817fe26a1339e2e55dda7d5ec96abd8 data/curios/tags/items/curio.json
 e8838e9a24e4ee6a741a31fce3aabfcf062e1048 data/embers/tags/items/aspectus.json
 e8838e9a24e4ee6a741a31fce3aabfcf062e1048 data/embers/tags/items/aspectus/aetherium.json
 adcfae7f181ed9117f154acd6cfda77a67ca62d3 data/embers/tags/items/augmentables/projectiles.json
@@ -9,6 +10,7 @@ a2dcd071d84028871a648663b03f6fcd71b85681 data/forge/tags/items/armors/helmets.js
 0b7a1560a4107bcd249165229d4225828d287db0 data/forge/tags/items/ingots/aetherium.json
 23d237d221997832215307b1cc1a8270bcff7e65 data/forge/tags/items/plates/aetherium.json
 b208475069132fa3db3b2dac46a13093fbb936fb data/forge/tags/items/raw_materials/aetherium.json
+1a553e63c5e46d3d55eb80d002330912fa02ba9e data/forge/tags/items/storage_blocks.json
 3b840ea7c9fd7b0c0d0935825342c1f167bf86c2 data/minecraft/tags/items/axes.json
 c21b1e08d685bba776fe4494ab38dee50dbda517 data/minecraft/tags/items/pickaxes.json
 f34b6541cc2837ca21bbbbe65e79fe6b12f71ef8 data/minecraft/tags/items/shovels.json

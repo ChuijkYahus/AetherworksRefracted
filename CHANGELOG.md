@@ -4,11 +4,17 @@ Changelog - Aetherworks Refracted
 -----------------------------
 _Additions_
 
+- Added the Moonsnare Jar, Cartridge, and Bulb, which have less capacity than their mantle counterparts, but slowly generate Ember in moonlight.
+
 _Changes_
+
+- Changed name of "Heat Dial" to "Forge Dial" to better reflect its purpose (and to not be confused with augment Heat).
 
 _Fixes_
 
 - Moonlight Harvester's rune overlay can stop rendering at certain angles while still visible.
+- Aetherium Forge overlay rendering wrong when GeckoLib is installed.
+- The aetherium shovels, axes, and crossbows now properly have an ember resonance value.
 
 1.20.1-1.0.2
 -----------------------------

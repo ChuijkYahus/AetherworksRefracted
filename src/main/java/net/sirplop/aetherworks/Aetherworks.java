@@ -25,15 +25,18 @@ import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.sirplop.aetherworks.blockentity.render.*;
+import net.sirplop.aetherworks.compat.curios.CuriosCompat;
 import net.sirplop.aetherworks.datagen.*;
 import net.sirplop.aetherworks.entity.render.DummyAetherCrownRender;
 import net.sirplop.aetherworks.item.AetherCrownItem;
+import net.sirplop.aetherworks.item.AetherEmberColorHandler;
 import net.sirplop.aetherworks.item.PotionGemItem;
 import net.sirplop.aetherworks.lib.AWHarvestHelper;
 import net.sirplop.aetherworks.model.AetherCrownGemLayer;
@@ -83,6 +86,12 @@ public class Aetherworks
         AWSounds.init();
 
         AWConfig.register();
+
+
+        if (ModList.get().isLoaded("curios")) {
+            Aetherworks.LOGGER.atDebug().log("Curios loading!");
+            CuriosCompat.init();
+        }
 
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -189,6 +198,12 @@ public class Aetherworks
         static void registerItemColorHandlers(RegisterColorHandlersEvent.Item event){
             event.register(new PotionGemItem.ColorHandler(), AWRegistry.POTION_GEM.get());
             event.register(new AetherCrownItem.ColorHandler(), AWRegistry.AETHER_CROWN.get());
+
+            AetherEmberColorHandler emberColor = new AetherEmberColorHandler();
+
+            if (ModList.get().isLoaded("curios"))
+                CuriosCompat.registerColorHandler(event, emberColor);
+            event.register(emberColor, AWRegistry.AETHER_EMBER_JAR.get(), AWRegistry.AETHER_EMBER_CARTRIDGE.get());
         }
     }
 }

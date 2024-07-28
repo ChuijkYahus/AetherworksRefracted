@@ -17,6 +17,7 @@ import com.rekindled.embers.api.augment.AugmentUtil;
 import com.rekindled.embers.api.augment.IAugment;
 import com.rekindled.embers.block.AtmosphericGaugeBlock;
 import com.rekindled.embers.fluidtypes.EmbersFluidType;
+import com.rekindled.embers.item.EmberStorageItem;
 import com.rekindled.embers.util.AshenArmorMaterial;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
@@ -173,6 +174,9 @@ public class AWRegistry {
     public static final RegistryObject<Item> AETHER_CROWN = ITEMS.register("aether_crown", () -> new AetherCrownItem(AshenArmorMaterial.INSTANCE, ArmorItem.Type.HELMET, new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> POTION_GEM = ITEMS.register("potion_gem", () -> new PotionGemItem(new Item.Properties()));
 
+    public static final RegistryObject<Item> AETHER_EMBER_JAR = ITEMS.register("aether_ember_jar", () -> new AetherEmberJarItem(new Item.Properties()));
+    public static final RegistryObject<Item> AETHER_EMBER_CARTRIDGE = ITEMS.register("aether_ember_cartridge", () -> new AetherEmberCartridgeItem(new Item.Properties()));
+
     //Blocks
     public static final RegistryObject<Block> SUEVITE = registerBlock("suevite", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(2.5f)));
     public static final RegistryObject<Block> SUEVITE_COBBLE = registerBlock("suevite_cobble", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));;
@@ -275,6 +279,9 @@ public class AWRegistry {
                             if (item.get().equals(FORGE_BLOCK.get().asItem()))
                                 continue;
                             output.accept(item.get());
+
+                            if (item.get() instanceof EmberStorageItem)
+                                output.accept(EmberStorageItem.withFill(item.get(), ((EmberStorageItem) item.get()).getCapacity()));
                         }
                         PotionGemItem.getAllPotionGems(output);
                     })
@@ -336,7 +343,7 @@ public class AWRegistry {
                 DispenserBlock.registerBehavior(fluid.FLUID_BUCKET.get(), dispenseBucket);
             }
 
-            EmbersAPI.registerEmberResonance(Ingredient.of(PICKAXE_EMBER.get(), PICKAXE_AETHER.get()), 2.5);
+            EmbersAPI.registerEmberResonance(Ingredient.of(PICKAXE_EMBER.get(), PICKAXE_AETHER.get(), AXE_ENDER.get(), AXE_SCULK.get(), SHOVEL_PRISMARINE.get(), SHOVEL_SLIME.get(), CROSSBOW_MAGMA.get(), CROSSBOW_QUARTZ.get()), 2.5);
             EmbersAPI.registerEmberResonance(Ingredient.of(AETHER_CROWN.get()), 2.5);
             EmbersAPI.registerWearableLens(Ingredient.of(AETHER_CROWN.get())); //of course it's a lens!
 

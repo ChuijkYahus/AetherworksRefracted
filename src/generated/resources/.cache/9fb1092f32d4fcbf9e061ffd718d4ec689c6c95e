@@ -1,4 +1,4 @@
-// 1.20.1	2024-07-27T20:40:31.1307945	Recipes
+// 1.20.1	2024-07-28T17:06:08.0128741	Recipes
 517acf7e396808bd01a06777a37a841282204d7d data/aetherworks/advancements/recipes/brewing/potion_gem.json
 6ecc0a6a2f83a90281170a0dcbd575fe913b9505 data/aetherworks/advancements/recipes/building_blocks/suevite_bricks.json
 3f2e0357127bd7a13f326ab205f72f7841ea8c7b data/aetherworks/advancements/recipes/decorations/suevite_bricks_slab.json
@@ -112,6 +112,9 @@ c336a75eaadf1ae7e24b66e632f6755ee9f2be94 data/aetherworks/recipes/suevite_cobble
 fcd85e7d3ed32b6e8935ab8469d90b651808b754 data/aetherworks/recipes/suevite_cobble_stairs.json
 9d2f1ec81b35e2d02e2cc4bebe8bb7f0c08b25ee data/aetherworks/recipes/suevite_cobble_wall.json
 2d8a2a9f0a2f771b95eade391cecb5c9f5cf5852 data/aetherworks/recipes/tool_rod_crude.json
+075e86a44ce37102b08053e4c90f8504c4a7b236 data/aetherworks/recipes/tool_station/aether_ember_bulb.json
+ad4aa92ec5b72b6c07e107e361dc9f8f890733e6 data/aetherworks/recipes/tool_station/aether_ember_cartridge.json
+6b3c70cfb1e6ad476c3ab0a45f1133be29f535f9 data/aetherworks/recipes/tool_station/aether_ember_jar.json
 0e3248c6a9d629754b893ead7affbcd73c6aa9e4 data/aetherworks/recipes/tool_station/axe_ender.json
 b6554d5d65befc576b7664317add2c245670f126 data/aetherworks/recipes/tool_station/axe_sculk.json
 0ddde2513bbd0d207c43ce286b4e0dc3d40ca0a6 data/aetherworks/recipes/tool_station/crossbow_magma.json

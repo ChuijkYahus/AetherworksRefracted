@@ -15,6 +15,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.Aetherworks;
+import net.sirplop.aetherworks.compat.curios.CuriosCompat;
 
 import java.util.List;
 
@@ -65,6 +66,10 @@ public class AWItemModels extends ItemModelProvider {
         itemWithTexture(AWRegistry.AETHER_ASPECTUS, "aspectus_aetherium");
         itemWithTexture(AWRegistry.AETHERIOMETER, "aetheriometer");
 
+        layeredItem(AWRegistry.AETHER_EMBER_JAR, "item/generated", "aether_ember_jar_glass", "aether_ember_jar_shine", "aether_ember_jar");
+        layeredItem(AWRegistry.AETHER_EMBER_CARTRIDGE, "item/generated", "aether_ember_cartridge_glass", "aether_ember_cartridge_shine", "aether_ember_cartridge");
+        layeredItem(CuriosCompat.AETHER_EMBER_BULB, "item/generated", "aether_ember_bulb_glass", "aether_ember_bulb_shine", "aether_ember_bulb");
+
         itemWithTexture(AWRegistry.TUNING_CYLINDER, "tuning_cylinder");
 
         itemWithTexture(AWRegistry.GEODE_END, "geode_end");
@@ -83,7 +88,6 @@ public class AWItemModels extends ItemModelProvider {
         toolWithTexture(AWRegistry.SHOVEL_SLIME, "tool/tool_base_shovel", "tool/shovel_slime");
         toolWithTexture(AWRegistry.SHOVEL_PRISMARINE, "tool/tool_base_shovel", "tool/shovel_prismarine");
 
-        //basicItem(AWRegistry.AETHER_CROWN.get());
         itemWithTexture(AWRegistry.AETHER_CROWN, "generated", "aether_crown", "aether_crown_overlay");
         //potion gem now in own model file because overrides
         //itemWithTexture(AWRegistry.POTION_GEM, "item/generated","potion_gem_overlay", "potion_gem");
@@ -111,5 +115,13 @@ public class AWItemModels extends ItemModelProvider {
     public void bucketModel(RegistryObject<? extends BucketItem> registryObject, Fluid fluid) {
         ModelBuilder<ItemModelBuilder> builder = withExistingParent(registryObject.getId().getPath(), new ResourceLocation(Aetherworks.MODID, "item/bucket_fluid"));
         builder.customLoader(DynamicFluidContainerModelBuilder::begin).fluid(fluid).coverIsMask(false).flipGas(true).end();
+    }
+    public void layeredItem(RegistryObject<? extends Item> registryObject, String model, String... textures) {
+        ResourceLocation id = registryObject.getId();
+
+        ModelBuilder<?> builder = withExistingParent(id.getPath(), new ResourceLocation(model));
+        for (int i = 0; i < textures.length; i ++) {
+            builder.texture("layer" + i, new ResourceLocation(id.getNamespace(), "item/" + textures[i]));
+        }
     }
 }

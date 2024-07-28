@@ -29,6 +29,7 @@ import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 import net.minecraftforge.fluids.FluidStack;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.Aetherworks;
+import net.sirplop.aetherworks.compat.curios.CuriosCompat;
 import net.sirplop.aetherworks.item.PotionGemItem;
 import net.sirplop.aetherworks.recipe.*;
 import net.sirplop.aetherworks.util.Utils;
@@ -209,6 +210,10 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
         ToolStationRecipeBuilder.create(AWRegistry.SHOVEL_SLIME.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2800).temperatureRate(10).input(null, AWRegistry.SHOVEL_HEAD_SLIME.get(), AWRegistry.AETHER_PEARL.get(), AWRegistry.TOOL_ROD_INFUSED.get(), null).save(consumer);
         ToolStationRecipeBuilder.create(AWRegistry.CROSSBOW_QUARTZ.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2800).temperatureRate(10).input(AWRegistry.CROSSBOW_LIMBS_QUARTZ.get(), RegistryManager.DAWNSTONE_PLATE.get(), AWRegistry.AETHER_PEARL.get(), Items.LEVER, AWRegistry.CROSSBOW_FRAME_INFUSED.get()).save(consumer);
         ToolStationRecipeBuilder.create(AWRegistry.CROSSBOW_MAGMA.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2800).temperatureRate(10).input(AWRegistry.CROSSBOW_LIMBS_MAGMA.get(), RegistryManager.DAWNSTONE_PLATE.get(), AWRegistry.AETHER_PEARL.get(), Items.LEVER, AWRegistry.CROSSBOW_FRAME_INFUSED.get()).save(consumer);
+
+        ToolStationRecipeBuilder.create(AWRegistry.AETHER_EMBER_JAR.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2500).temperatureRate(15).input(AWRegistry.AETHER_SHARD.get(), RegistryManager.DAWNSTONE_PLATE.get(), RegistryManager.EMBER_JAR.get(), RegistryManager.DAWNSTONE_PLATE.get(), AWRegistry.AETHER_SHARD.get()).save(consumer);
+        ToolStationRecipeBuilder.create(AWRegistry.AETHER_EMBER_CARTRIDGE.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2500).temperatureRate(15).input(AWRegistry.AETHER_SHARD.get(), RegistryManager.DAWNSTONE_PLATE.get(), RegistryManager.EMBER_CARTRIDGE.get(), RegistryManager.DAWNSTONE_PLATE.get(), AWRegistry.AETHER_SHARD.get()).save(consumer);
+        ToolStationRecipeBuilder.create(CuriosCompat.AETHER_EMBER_BULB.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2500).temperatureRate(15).input(AWRegistry.AETHER_SHARD.get(), RegistryManager.DAWNSTONE_PLATE.get(), com.rekindled.embers.compat.curios.CuriosCompat.EMBER_BULB.get(), RegistryManager.DAWNSTONE_PLATE.get(), AWRegistry.AETHER_SHARD.get()).save(consumer);
 
         //stamping
         StampingRecipeBuilder.create(AWRegistry.AETHER_SHARD.get()).domain(Aetherworks.MODID).folder(EmbersRecipes.stampingFolder).stamp(RegistryManager.FLAT_STAMP.get()).fluid(AWRegistry.AETHERIUM_GAS_IMPURE.FLUID.get(), FluidAmounts.NUGGET_AMOUNT).save(ConsumerWrapperBuilder.wrap().build(consumer));

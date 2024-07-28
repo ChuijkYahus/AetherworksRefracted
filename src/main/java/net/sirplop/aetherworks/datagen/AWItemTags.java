@@ -14,6 +14,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.Aetherworks;
+import net.sirplop.aetherworks.compat.curios.CuriosCompat;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -36,6 +37,8 @@ public class AWItemTags extends ItemTagsProvider {
         tag(AETHERIUM_ASPECTUS).add(AWRegistry.AETHER_ASPECTUS.get());
         tag(EmbersItemTags.ASPECTUS).add(AWRegistry.AETHER_ASPECTUS.get());
 
+        tag(Tags.Items.STORAGE_BLOCKS).add(AWRegistry.AETHERIUM_SHARD_BLOCK.get().asItem());
+
         tag(ItemTags.PICKAXES).add(AWRegistry.PICKAXE_EMBER.get(), AWRegistry.PICKAXE_AETHER.get());
         tag(ItemTags.AXES).add(AWRegistry.AXE_ENDER.get(), AWRegistry.AXE_SCULK.get());
         tag(ItemTags.SHOVELS).add(AWRegistry.SHOVEL_SLIME.get(), AWRegistry.SHOVEL_PRISMARINE.get());
@@ -47,5 +50,7 @@ public class AWItemTags extends ItemTagsProvider {
 
         tag(EmbersItemTags.TINKER_LENS_HELMETS).add(AWRegistry.AETHER_CROWN.get());
         tag(Tags.Items.ARMORS_HELMETS).add(AWRegistry.AETHER_CROWN.get());
+
+        tag(EmbersItemTags.ANY_CURIO).addOptional(CuriosCompat.AETHER_EMBER_BULB.getId());
     }
 }

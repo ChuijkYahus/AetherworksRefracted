@@ -46,6 +46,10 @@
   "item.aetherworks.tuning_cylinder" : "Tuning Cylinder",
   "item.aetherworks.aetheriometer" : "Aetheriometer",
 
+  "item.aetherworks.aether_ember_jar" : "Moonsnare Jar",
+  "item.aetherworks.aether_ember_cartridge" : "Moonsnare Cartridge",
+  "item.aetherworks.aether_ember_bulb" : "Moonsnare Bulb",
+
   "item.aetherworks.pickaxe_aether" : "§cPickaxe of the Boundless Sky",
   "item.aetherworks.pickaxe_ember" : "§cPickaxe of the Molten Depths",
   "item.aetherworks.axe_sculk" : "§cAxe of the Sonorous Archives",
@@ -80,7 +84,7 @@
   "block.aetherworks.forge_anvil" : "Aetherium Anvil",
   "block.aetherworks.forge_metal_former" : "Metal Former",
   "block.aetherworks.forge_tool_station" : "Aetherium Tool Forge",
-  "block.aetherworks.heat_dial" : "Heat Dial",
+  "block.aetherworks.heat_dial" : "Forge Dial",
 
   "fluid_type.aetherworks.aether_gas" : "Aetherium Aerosol",
   "fluid_type.aetherworks.flowing_aether_gas" : "Flowing Aetherium Aerosol",
@@ -185,10 +189,10 @@
   "embers.research.page.aw.forge" : "Aetherium Forge",
   "embers.research.page.aw.forge.title" : "Forge Ahead",
   "embers.research.page.aw.forge.desc" : "Working Aetherium demands extreme temperatures, so you've made the Aetherium Forge: A solid hunk of dawnstone with a wildfire core at its heart. The forge is heated with Ember, which is then used for a variety of different crafts. Don't let the heat get too high - if the forge reaches maximum temperature and stays there for too long, it will explode violently.",
-  "embers.research.page.aw.forge_2.desc" : "The forge is formed by using a Tinker's Hammer on the center of a flat 3x3 of Dawnstone Blocks, and placing an Aetherium Forge Core on top of the center block. Ember and Heat dials may also be attached to the core.",
-  "embers.research.page.aw.heat_dial" : "Heat Dial",
+  "embers.research.page.aw.forge_2.desc" : "The forge is formed by using a Tinker's Hammer on the center of a flat 3x3 of Dawnstone Blocks, and placing an Aetherium Forge Core on top of the center block. Ember and Forge dials may also be attached to the core.",
+  "embers.research.page.aw.heat_dial" : "Forge Dial",
   "embers.research.page.aw.heat_dial.title" : "Glorified Thermometer",
-  "embers.research.page.aw.heat_dial.desc" : "A Heat Dial, like other dials, will tell you the amount of Heat currently in the Aetherium Forge when looked at.",
+  "embers.research.page.aw.heat_dial.desc" : "A Forge Dial, like other dials, will tell you the amount of Heat currently in the Aetherium Forge when looked at.",
   "embers.research.page.aw.heater" : "Forge Heater",
   "embers.research.page.aw.heater.title" : "Fan the Flames",
   "embers.research.page.aw.heater.desc" : "The Forge Heater, when supplied Ember, water, and has lava beneath it, when powered by redstone, will generate heat in the Aetherium Forge.",
