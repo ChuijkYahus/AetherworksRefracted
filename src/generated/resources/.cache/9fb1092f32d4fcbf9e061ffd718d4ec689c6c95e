@@ -1,4 +1,4 @@
-// 1.20.1	2024-07-23T18:36:18.3610414	Recipes
+// 1.20.1	2024-07-27T20:40:31.1307945	Recipes
 517acf7e396808bd01a06777a37a841282204d7d data/aetherworks/advancements/recipes/brewing/potion_gem.json
 6ecc0a6a2f83a90281170a0dcbd575fe913b9505 data/aetherworks/advancements/recipes/building_blocks/suevite_bricks.json
 3f2e0357127bd7a13f326ab205f72f7841ea8c7b data/aetherworks/advancements/recipes/decorations/suevite_bricks_slab.json
@@ -84,11 +84,11 @@ c68bfe483a9d46ceace11ca5f8eaedb0d450293e data/aetherworks/recipes/forge_core_blo
 ab6c55bc4a3ed4cd3650fd544a237fd2b8bcabd2 data/aetherworks/recipes/forge_vent_block.json
 14cb9d237d62d1a9f0fb5f120c828e1b645e8013 data/aetherworks/recipes/heat_dial_block.json
 ad6729dcc586061e030b55cad7fd6d59ae48b4ad data/aetherworks/recipes/melting/aether_shard.json
-18db4c9f6606cc24a565a790d328f168ac6fe9b3 data/aetherworks/recipes/metal_former/gem_aether.json
-aa632aff2499f605b71c7f4c70dd45d75f5f594a data/aetherworks/recipes/metal_former/gem_aether_alt.json
-a42937893f25713907269ea1d9bccaea8c1bc5de data/aetherworks/recipes/metal_former/ingot_aether.json
-84217804656657445b0b1ee8bd9ebd6cbc5b71ba data/aetherworks/recipes/metal_former/moongaze_gem.json
-3f2447353d66e831ba81de6f333f957b71686d6d data/aetherworks/recipes/metal_former/plate_aether.json
+2a92176249eec4efe426372a03f1dcb41ab5ee0c data/aetherworks/recipes/metal_former/gem_aether.json
+8520942e63cff91193ae38f47df36512d211f8a2 data/aetherworks/recipes/metal_former/gem_aether_alt.json
+19a4bae2e4070fde5a9d77797f8c420378433b07 data/aetherworks/recipes/metal_former/ingot_aether.json
+f51eb328c4165049f3f934b5145aeb7595de385c data/aetherworks/recipes/metal_former/moongaze_gem.json
+6bb40645fa604ed55a518cb5de696bb5b8427193 data/aetherworks/recipes/metal_former/plate_aether.json
 6f191cd4439fdca9e6e918a8f629088507399a3d data/aetherworks/recipes/metal_former_block.json
 70c5714645d72ee55e02b9791a70f949e4783cd2 data/aetherworks/recipes/mixing/aether_gas.json
 48d14750f21e355860dff573e457dfb18e057578 data/aetherworks/recipes/mixing/alchemic_precursor.json

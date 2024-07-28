@@ -48,7 +48,7 @@ public class AWTunnelNode extends AWHarvestNode{
 
         this.toHarvest.add(this.beginning);
         this.baseState = this.level.getBlockState(this.beginning);
-        this.traverseRecursive(this.beginning);
+        this.traverse(this.beginning);
         if (this.toHarvest.isEmpty())
         {
             this.invalid = true;
@@ -56,7 +56,7 @@ public class AWTunnelNode extends AWHarvestNode{
     }
 
     @Override
-    public void traverseRecursive(BlockPos from) {
+    public void traverse(BlockPos from) {
         if (initialDirection == Direction.UP || initialDirection == Direction.DOWN) {
             this.invalid = true; //this can't mine up or down.
             return;

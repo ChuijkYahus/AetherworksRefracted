@@ -83,6 +83,7 @@ public class AWBlockStates extends BlockStateProvider {
                 }
             }
         });
+        simpleBlockItem(AWRegistry.FORGE_BLOCK.get(), models().cubeAll("block/block", new ResourceLocation(Aetherworks.MODID, "block/forge/forge")));
 
         dial(AWRegistry.HEAT_DIAL, "heat_dial");
     }

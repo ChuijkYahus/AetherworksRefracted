@@ -20,7 +20,7 @@ public class RenderForge implements BlockEntityRenderer<ForgeCoreBlockEntity> {
     public static final float[] COLOR = {1, 1, 1, 1};
     public static final int[] LIGHTMAP = {240, 240};
 
-    private static final int frameTime = 100;
+    private static final int frameTime = 20;
     private static final int frameCount = 20;
     private static final float frameUVShift = 1f / frameCount;
     private int frame = 0;

@@ -12,6 +12,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.sirplop.aetherworks.util.Utils;
 
 import javax.annotation.Nullable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Stack;
 import java.util.function.Predicate;
 
@@ -66,7 +68,7 @@ public class AWHarvestNode {
 
         this.toHarvest.add(this.beginning);
         this.baseState = this.level.getBlockState(this.beginning);
-        this.traverseRecursive(this.beginning);
+        this.traverse(this.beginning);
 
         this.toHarvest.sort((BlockPos l, BlockPos r) -> (int) (distanceToSqr(r) - distanceToSqr(l)));
         if (this.toHarvest.isEmpty())
@@ -75,36 +77,42 @@ public class AWHarvestNode {
         }
     }
 
-    public void traverseRecursive(BlockPos from)
-    {
+    public void traverse(BlockPos from) {
         if (from.distToCenterSqr(this.beginning.getX() + 0.5, this.beginning.getY() + 0.5, this.beginning.getZ() + 0.5) >= (range * range)-1)
-        {
             return;
-        }
-
-        for (Direction facing : Direction.values())
-        {
-            BlockPos offset = from.relative(facing);
-            if (this.toHarvest.contains(offset))
-            {
+        Stack<BlockPos> check = new Stack<>();
+        check.add(from);
+        this.toHarvest.add(0, from);
+        while (!check.isEmpty()) {
+            BlockPos pos = check.pop();
+            if (pos.distToCenterSqr(this.beginning.getX() + 0.5, this.beginning.getY() + 0.5, this.beginning.getZ() + 0.5) >= (range * range)-1)
                 continue;
-            }
 
-            if (!this.isLoaded(offset))
-            {
-                continue;
-            }
+            for (Direction facing : Direction.values()) {
+                BlockPos offset = pos.relative(facing);
+                if (this.toHarvest.contains(offset)) {
+                    continue;
+                }
 
-            BlockState state = this.level.getBlockState(offset);
-            if (state.getBlock().equals(this.baseState.getBlock()))
-            {
-                this.toHarvest.add(0, offset);
-                this.traverseRecursive(offset);
+                if (!this.isLoaded(offset)) {
+                    continue;
+                }
+
+                BlockState state = this.level.getBlockState(offset);
+                if (state.getBlock().equals(this.baseState.getBlock())) {
+                    this.toHarvest.add(0, offset);
+                    check.add(offset);
+                }
             }
         }
     }
+
     public void tick()
     {
+        if (!(level instanceof ServerLevel)){
+            this.invalid = true;
+            return;
+        }
         if (!canHarvest.test(harvester) || !Utils.hasEnoughDurability(harvester.getMainHandItem(), 1)) {
             this.invalid = true;
             return;

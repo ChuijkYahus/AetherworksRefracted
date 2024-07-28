@@ -89,6 +89,7 @@ public class Aetherworks
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
+        LOGGER.atInfo().log("Refracting Aetherium...");
         PacketHandler.init();
         AWRegistry.init(event);
         event.enqueueWork(AWResearch::initResearch);
@@ -96,10 +97,6 @@ public class Aetherworks
         MinecraftForge.EVENT_BUS.addListener(AWHarvestHelper::onServerTick);
         MinecraftForge.EVENT_BUS.addListener(AWHarvestHelper::onLevelUnload);
         MinecraftForge.EVENT_BUS.addListener(AWHarvestHelper::onPlayerLeave);
-        //MinecraftForge.EVENT_BUS.addListener(AWEvents::onPlayerClickedBlock);
-        //MinecraftForge.EVENT_BUS.addListener(AWEvents::chunkLoad);
-        //MinecraftForge.EVENT_BUS.addListener(AWEvents::chunkSave);
-        //MinecraftForge.EVENT_BUS.addListener(AWEvents::chunkUnload);
     }
 
     public void gatherData(GatherDataEvent event) {

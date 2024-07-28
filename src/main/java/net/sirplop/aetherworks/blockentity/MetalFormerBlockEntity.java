@@ -23,6 +23,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.sirplop.aetherworks.AWConfig;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.Aetherworks;
 import net.sirplop.aetherworks.recipe.IAetheriumAnvilRecipe;
@@ -134,8 +135,6 @@ public class MetalFormerBlockEntity extends FluidHandlerBlockEntity implements I
             ((ServerLevel) level).getChunkSource().blockChanged(worldPosition);
     }
 
-    public static final GlowParticleOptions GLOW = new GlowParticleOptions(Utils.AETHERIUM_COLOR, 1f, 30);
-
     @Override
     public void onForgeTick(IForge forge) {
         if (!level.isClientSide()) {
@@ -165,24 +164,21 @@ public class MetalFormerBlockEntity extends FluidHandlerBlockEntity implements I
                     {
                         forge.getHeatCapability().removeAmount(0.5, true);
                         ++this.progress;
+                        this.setChanged();
 
-                        if (this.progress >= 300) //15 second craft time.
+                        if (this.progress >= cachedRecipe.getCraftTime()) //15 second craft time.
                         {
                             this.progress = 0;
                             inventory.setStackInSlot(0, cachedRecipe.assemble(context, level.registryAccess()));
                         }
                     }
                 } else if (hasEmber) {
-                    /*
-                    IClientFluidTypeExtensions clientType = IClientFluidTypeExtensions.of(tank.getFluid().getFluid());
-                    int packColor = clientType.getTintColor(tank.getFluid());
-                    Aetherworks.LOGGER.atDebug().log(Misc.colorFromInt(packColor).toString());
-                    final GlowParticleOptions glow = new GlowParticleOptions(Misc.colorFromInt(packColor), 1f, 30);
-                     */
-                    //TODO: Make the particle color dependant on the color of the fluid. IDK why but it's always white.
+                    final GlowParticleOptions glow = new GlowParticleOptions(Utils.multiLerp( progress / (float) cachedRecipe.getCraftTime(),
+                            GlowParticleOptions.EMBER_COLOR, Utils.AETHERIUM_COLOR), 1f, 30);
+
                     BlockPos pos = getBlockPos();
                     final float speed = 0.1f;
-                    level.addParticle(GLOW,
+                    level.addParticle(glow,
                             pos.getX() + level.random.nextFloat(),
                             pos.getY() + 0.2f,
                             pos.getZ() + level.random.nextFloat(),

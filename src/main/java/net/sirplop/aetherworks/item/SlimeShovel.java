@@ -1,6 +1,7 @@
 package net.sirplop.aetherworks.item;
 
 import com.rekindled.embers.particle.GlowParticleOptions;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
@@ -73,7 +74,7 @@ public class SlimeShovel extends AOEEmberDiggerItem implements IHudFocus {
     public @NotNull InteractionResult useOn(@NotNull UseOnContext context) {
         InteractionResult result = super.useOn(context);
         Player player = context.getPlayer();
-        if (player == null || Utils.isFakePlayer(player) || context.getLevel().isClientSide()) {
+        if (!(context.getLevel() instanceof ServerLevel) || player == null || Utils.isFakePlayer(player) || context.getLevel().isClientSide()) {
             return result;
         }
         ItemStack usedItem = context.getItemInHand();

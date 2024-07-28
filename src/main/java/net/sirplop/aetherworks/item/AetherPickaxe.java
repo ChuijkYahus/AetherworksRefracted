@@ -1,6 +1,7 @@
 package net.sirplop.aetherworks.item;
 
 import com.rekindled.embers.particle.GlowParticleOptions;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -27,7 +28,7 @@ public class AetherPickaxe  extends AOEEmberDiggerItem {
     @Override
     public @NotNull InteractionResult useOn(UseOnContext context) {
         InteractionResult result = super.useOn(context);
-        if (context.getLevel().isClientSide)
+        if (!(context.getLevel() instanceof ServerLevel) || context.getLevel().isClientSide)
             return result;
 
         if (context.getPlayer() == null || context.getLevel().isClientSide()

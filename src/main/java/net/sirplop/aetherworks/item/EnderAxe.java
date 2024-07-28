@@ -38,7 +38,7 @@ public class EnderAxe extends AOEEmberDiggerItem{
     @Override
     public @NotNull InteractionResult useOn(@NotNull UseOnContext context) {
         InteractionResult result = super.useOn(context);
-        if (context.getLevel().isClientSide || AWConfig.getConfigSet(AWConfig.Tool.ENDER_AXE).isEmpty())
+        if (!(context.getLevel() instanceof ServerLevel) || context.getLevel().isClientSide || AWConfig.getConfigSet(AWConfig.Tool.ENDER_AXE).isEmpty())
             return result;
 
         if (context.getPlayer() == null

@@ -30,21 +30,23 @@ public class MetalFormerRecipe implements IMetalFormerRecipe{
     public final Ingredient input;
     public final FluidIngredient fluid;
     public final int temperature;
+    public final int craftTime;
     public final boolean matchExactly;
 
     public final Either<ItemStack, TagAmount> output;
 
-    public MetalFormerRecipe(ResourceLocation id, Ingredient input, FluidIngredient fluid, int temperature, TagAmount output,  boolean matchExactly) {
-        this(id, input, fluid, temperature, Either.right(output), matchExactly);
+    public MetalFormerRecipe(ResourceLocation id, Ingredient input, FluidIngredient fluid, int temperature, int craftTime, TagAmount output,  boolean matchExactly) {
+        this(id, input, fluid, temperature, craftTime, Either.right(output), matchExactly);
     }
-    public MetalFormerRecipe(ResourceLocation id, Ingredient input, FluidIngredient fluid, int temperature, ItemStack output, boolean matchExactly) {
-        this(id, input, fluid, temperature, Either.left(output), matchExactly);
+    public MetalFormerRecipe(ResourceLocation id, Ingredient input, FluidIngredient fluid, int temperature, int craftTime, ItemStack output, boolean matchExactly) {
+        this(id, input, fluid, temperature, craftTime, Either.left(output), matchExactly);
     }
-    public MetalFormerRecipe(ResourceLocation id, Ingredient input, FluidIngredient fluid, int temperature, Either<ItemStack, TagAmount> output,  boolean matchExactly) {
+    public MetalFormerRecipe(ResourceLocation id, Ingredient input, FluidIngredient fluid, int temperature, int craftTime, Either<ItemStack, TagAmount> output,  boolean matchExactly) {
         this.id = id;
         this.input = input;
         this.fluid = fluid;
         this.temperature = temperature;
+        this.craftTime = craftTime;
         this.output = output;
         this.matchExactly = matchExactly;
     }
@@ -52,7 +54,7 @@ public class MetalFormerRecipe implements IMetalFormerRecipe{
     @Override
     public boolean matches(MetalFormerContext context, Level pLevel) {
         if (context.temperature >= this.temperature && input.test(context.getItem(0))
-                && (!matchExactly || input.getItems()[0].getTag().equals(context.getItem(0).getTag()))) {
+                && (!matchExactly || input.getItems()[0].getOrCreateTag().equals(context.getItem(0).getOrCreateTag()))) {
             return fluid.test(context.fluids.getFluidInTank(0));
         }
         return false;
@@ -108,6 +110,10 @@ public class MetalFormerRecipe implements IMetalFormerRecipe{
     public int getTemperature() {
         return temperature;
     }
+    @Override
+    public int getCraftTime() {
+        return craftTime;
+    }
 
     public static class TagAmount {
         public TagKey<Item> tag;
@@ -130,15 +136,16 @@ public class MetalFormerRecipe implements IMetalFormerRecipe{
                 fluid = FluidIngredient.deserialize(json, "fluid");
 
             int temperature = json.get("temperature").getAsInt();
+            int craftTime = json.get("craft_time").getAsInt();
 
             JsonObject outputJson = GsonHelper.getAsJsonObject(json, "output");
             boolean matchExactly = json.get("match_exactly").getAsBoolean();
             if (outputJson.has("tag")) {
                 TagAmount output = new TagAmount(ItemTags.create(new ResourceLocation(GsonHelper.getAsString(outputJson, "tag"))), GsonHelper.getAsInt(outputJson, "count", 1));
-                return new MetalFormerRecipe(recipeId, input, fluid, temperature, output, matchExactly);
+                return new MetalFormerRecipe(recipeId, input, fluid, temperature, craftTime, output, matchExactly);
             } else {
                 ItemStack output = ShapedRecipe.itemStackFromJson(outputJson);
-                return new MetalFormerRecipe(recipeId, input, fluid, temperature, output, matchExactly);
+                return new MetalFormerRecipe(recipeId, input, fluid, temperature, craftTime, output, matchExactly);
             }
         }
 
@@ -148,13 +155,14 @@ public class MetalFormerRecipe implements IMetalFormerRecipe{
             Ingredient input = Ingredient.fromNetwork(buffer);
             FluidIngredient fluid = FluidIngredient.read(buffer);
             int temperature = buffer.readInt();
+            int craftTime = buffer.readInt();
             if (buffer.readBoolean()) {
                 TagAmount output = new TagAmount(ItemTags.create(buffer.readResourceLocation()), buffer.readInt());
-                return new MetalFormerRecipe(recipeId, input, fluid, temperature, output, matchExactly);
+                return new MetalFormerRecipe(recipeId, input, fluid, temperature, craftTime, output, matchExactly);
             }
             ItemStack output = buffer.readItem();
 
-            return new MetalFormerRecipe(recipeId, input, fluid,temperature, output, matchExactly);
+            return new MetalFormerRecipe(recipeId, input, fluid,temperature, craftTime, output, matchExactly);
         }
 
         @Override
@@ -163,6 +171,7 @@ public class MetalFormerRecipe implements IMetalFormerRecipe{
             recipe.input.toNetwork(buffer);
             recipe.fluid.write(buffer);
             buffer.writeInt(recipe.temperature);
+            buffer.writeInt(recipe.craftTime);
             if (recipe.output.right().isPresent()) {
                 buffer.writeBoolean(true);
                 buffer.writeResourceLocation(recipe.output.right().get().tag.location());

@@ -226,7 +226,7 @@
   "embers.research.page.aw.aotr.desc" : "The Axe of the Twisted Realm, when used on a log, will find the furthest log that is attached to that log, and mine it, making chopping down trees quick and easy.",
   "embers.research.page.aw.aosa" : "Axe of the Sonorous Archives",
   "embers.research.page.aw.aosa.title" : "Eerie Growth",
-  "embers.research.page.aw.aosa.desc" : "The xe of the Sonorous Archives, when used on leaves, will destroy all leaves connected to it in a large area. When continuously used, it will attempt to plant saplings from your inventory and instantly grow them. This ability does not work on saplings that require larger than 2x2 placement.",
+  "embers.research.page.aw.aosa.desc" : "The Axe of the Sonorous Archives, when used on leaves, will destroy all leaves connected to it in a large area. When continuously used, it will attempt to plant saplings from your inventory and instantly grow them. This ability does not work on saplings that require larger than 2x2 placement.",
   "embers.research.page.aw.soic" : "Shovel of the Ineluctable Changes",
   "embers.research.page.aw.soic.title" : "Shape the Land",
   "embers.research.page.aw.soic.desc" : "The Shovel of the Ineluctable Changes, when sneak-using on a block, will select that block, which is visible near the hotbar. When using the shovel on another, different kind of block, the shovel will exchange all blocks of that kind with the selected block.",

@@ -69,6 +69,8 @@ public class PrismarineShovel extends AOEEmberDiggerItem implements IHudFocus {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand handIn) {
         ItemStack stack = Utils.getPlayerInteractionHandItem(player, handIn);
+        if (!(level instanceof ServerLevel))
+            return InteractionResultHolder.pass(stack);;
         HitResult pick = player.pick(player.getBlockReach(), 0.0F, true);
 
         BlockHitResult blockHitResult = (BlockHitResult) pick;

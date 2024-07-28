@@ -1,5 +1,6 @@
 {
   "type": "aetherworks:metal_forming",
+  "craft_time": 200,
   "fluid": {
     "amount": 90,
     "name": "aetherworks:aether_gas"

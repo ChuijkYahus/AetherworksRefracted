@@ -37,6 +37,8 @@ public interface IMetalFormerRecipe extends Recipe<MetalFormerContext> {
 
     public int getTemperature();
 
+    public int getCraftTime();
+
     @Override
     @Deprecated
     public default boolean canCraftInDimensions(int width, int height) {

@@ -18,19 +18,20 @@ public class RenderPrism implements BlockEntityRenderer<PrismBlockEntity>
 {
     public static final ResourceLocation LOCATION_PRISM_OVERLAY = new ResourceLocation(Aetherworks.MODID, "textures/block/prism_active_overlay.png");
     public static final ResourceLocation LOCATION_RUNES = new ResourceLocation(Aetherworks.MODID, "textures/block/prism_runes.png");
+    public static final ResourceLocation LOCATION_RUNE_BACKS = new ResourceLocation(Aetherworks.MODID, "textures/block/prism_runes_backs.png");
 
     public static final Random RANDOM = new Random();
     public static final float[] COLOR = {1, 1, 1, 1};
     public static final int[] LIGHTMAP = {240, 240};
+    public static final int[] LIGHTMAP_NOLIGHT = {0, 0};
 
     private static final int runeCount = 5;
     private static final float runeUV = 1f / runeCount;
-    private static final int frameTime = 100;
-    private static final int frameCount = 20;
+    private static final int frameTime = 3;
+    private static final int frameCount = 32;
     private static final float frameUVShift = 1f / frameCount;
     private int frame = 0;
     private float time = 0;
-    private boolean flip = false;
 
     public RenderPrism(BlockEntityRendererProvider.Context context)  { }
 
@@ -44,21 +45,9 @@ public class RenderPrism implements BlockEntityRenderer<PrismBlockEntity>
         if (time >= frameTime)
         {
             time = 0;
-            if (flip)
+            if (++frame >= frameCount)
             {
-                if (--frame <= -1)
-                {
-                    flip = false;
-                    frame += 2;
-                }
-            }
-            else
-            {
-                if (++frame >= frameCount)
-                {
-                    flip = true;
-                    frame -= 2;
-                }
+                frame = 0;
             }
         }
         VertexConsumer overlayBuffer = pBuffer.getBuffer(RenderType.text(LOCATION_PRISM_OVERLAY));
@@ -90,25 +79,43 @@ public class RenderPrism implements BlockEntityRenderer<PrismBlockEntity>
         RenderSystem.enableDepthTest();
 
         //random rune seed - noisy enough?
-        RANDOM.setSeed(((long) blockEntity.getBlockPos().getX() <<16) + ((long) blockEntity.getBlockPos().getY() <<8)+ blockEntity.getBlockPos().getZ());
+        long seed = ((long) blockEntity.getBlockPos().getX() <<16) + ((long) blockEntity.getBlockPos().getY() <<8)+ blockEntity.getBlockPos().getZ();
+        RANDOM.setSeed(seed);
 
-        renderRune(runeBuffer, poseStack, new Vector3d(3, -2, 0));
-        renderRune(runeBuffer, poseStack, new Vector3d(-3, -2, 0));
-        renderRune(runeBuffer, poseStack, new Vector3d(0, -2, 3));
-        renderRune(runeBuffer, poseStack, new Vector3d(0, -2, -3));
-        renderRune(runeBuffer, poseStack, new Vector3d(2, -3, 2));
-        renderRune(runeBuffer, poseStack, new Vector3d(2, -3, -2));
-        renderRune(runeBuffer, poseStack, new Vector3d(-2, -3, 2));
-        renderRune(runeBuffer, poseStack, new Vector3d(-2, -3, -2));
+        renderRune(runeBuffer, poseStack, new Vector3d(3, -2, 0), true, 1, 1, 1, 0);
+        renderRune(runeBuffer, poseStack, new Vector3d(-3, -2, 0), true, 1,1, 1,  0);
+        renderRune(runeBuffer, poseStack, new Vector3d(0, -2, 3), true, 1, 1, 1, 0);
+        renderRune(runeBuffer, poseStack, new Vector3d(0, -2, -3), true, 1,1, 1,  0);
+        renderRune(runeBuffer, poseStack, new Vector3d(2, -3, 2), true, 1, 1, 1, 0);
+        renderRune(runeBuffer, poseStack, new Vector3d(2, -3, -2), true, 1,1, 1,  0);
+        renderRune(runeBuffer, poseStack, new Vector3d(-2, -3, 2), true, 1, 1, 1, 0);
+        renderRune(runeBuffer, poseStack, new Vector3d(-2, -3, -2), true, 1,1, 1,  0);
+
+        VertexConsumer backBuffer = pBuffer.getBuffer(RenderType.text(LOCATION_RUNE_BACKS));
+        RenderSystem.enableDepthTest();
+
+        RANDOM.setSeed(seed);
+
+        renderRune(backBuffer, poseStack, new Vector3d(3, -2, 0), false, 2, 2, 2, 0);
+        renderRune(backBuffer, poseStack, new Vector3d(-3, -2, 0), false, 2, 2, 2, 0);
+        renderRune(backBuffer, poseStack, new Vector3d(0, -2, 3), false, 2, 2, 2, 0);
+        renderRune(backBuffer, poseStack, new Vector3d(0, -2, -3), false, 2, 2, 2, 0);
+
+
+        renderRune(backBuffer, poseStack, new Vector3d(2, -2.75, 2), false, 2, 1.5f, 2, -0.05f);
+        renderRune(backBuffer, poseStack, new Vector3d(2, -2.75, -2), false, 2, 1.5f, 2, -0.05f);
+        renderRune(backBuffer, poseStack, new Vector3d(-2, -2.75, 2), false, 2, 1.5f, 2, -0.05f);
+        renderRune(backBuffer, poseStack, new Vector3d(-2, -2.75, -2), false, 2, 1.5f, 2, -0.05f);
+
     }
     private static final Float[] xUVArr = new Float[] {0f, 1f};
-    private void renderRune(VertexConsumer buffer, PoseStack pose, Vector3d at)
+    private void renderRune(VertexConsumer buffer, PoseStack pose, Vector3d at, boolean lit, float scalex, float scaley, float scalez, float uvAdj)
     {
         pose.translate(at.x, at.y, at.z);
-        FaceRendererUtil.renderHorizontals(buffer, pose, COLOR, LIGHTMAP, () -> xUVArr, () -> {
+        FaceRendererUtil.renderHorizontals(buffer, pose, COLOR, lit ? LIGHTMAP : LIGHTMAP_NOLIGHT, () -> xUVArr, () -> {
             int val = RANDOM.nextInt(runeCount);
-            return new Float[] {val * runeUV, (val + 1) * runeUV};
-        });
+            return new Float[] {val * runeUV, (val + 1) * runeUV + uvAdj};
+        }, scalex, scaley, scalez);
         pose.translate(-at.x, -at.y, -at.z);
     }
 }

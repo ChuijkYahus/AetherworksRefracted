@@ -8,18 +8,15 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.network.PacketDistributor;
-import net.sirplop.aetherworks.Aetherworks;
 import net.sirplop.aetherworks.network.MessageFluidSync;
 import net.sirplop.aetherworks.network.PacketHandler;
 import net.sirplop.aetherworks.util.Utils;
@@ -63,9 +60,10 @@ public class AWFluidNode extends AWHarvestNode {
         }
     }
 
-    public void traverseRecursive(BlockPos from) { }
+    @Override
+    public void traverse(BlockPos from) { }
 
-    public void traverse(BlockPos from, Stack<BlockPos> nodes) {
+    public void traverseRepl(BlockPos from, Stack<BlockPos> nodes) {
         if ((drain && nodes.size() >= (fluidHandler.getTankCapacity(1) / 1000) - 1)
                 || (!drain && nodes.size() >= (fluidHandler.getFluidInTank(1).getAmount() / 1000) - 1))
         {
@@ -161,7 +159,7 @@ public class AWFluidNode extends AWHarvestNode {
                 }
                 this.level.playSound(null, pos, SoundEvents.SLIME_HURT_SMALL, SoundSource.BLOCKS, 0.2f, 0.75f + level.random.nextFloat() * 0.5f);
 
-                traverse(pos, repl);
+                traverseRepl(pos, repl);
             }
         }
 

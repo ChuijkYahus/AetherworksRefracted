@@ -15,7 +15,6 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.sirplop.aetherworks.AWRegistry;
-import net.sirplop.aetherworks.Aetherworks;
 
 import java.util.function.Consumer;
 
@@ -25,6 +24,7 @@ public class MetalFormerRecipeBuilder {
     public Ingredient input = Ingredient.EMPTY;
     public FluidIngredient fluid = FluidIngredient.EMPTY;
     public int temperature = 0;
+    public int craftTime = 300;
     public Either<ItemStack, MetalFormerRecipe.TagAmount> output;
     public boolean matchExactly = false;
 
@@ -116,8 +116,12 @@ public class MetalFormerRecipeBuilder {
         this.temperature = temperature;
         return this;
     }
+    public MetalFormerRecipeBuilder craftTime(int craftTime) {
+        this.craftTime = craftTime;
+        return this;
+    }
     public MetalFormerRecipe build() {
-        return new MetalFormerRecipe(id, input, fluid, temperature, output, matchExactly);
+        return new MetalFormerRecipe(id, input, fluid, temperature, craftTime, output, matchExactly);
     }
 
     public void save(Consumer<FinishedRecipe> consumer) {
@@ -150,6 +154,7 @@ public class MetalFormerRecipeBuilder {
             if (recipe.fluid != FluidIngredient.EMPTY)
                 json.add("fluid", recipe.fluid.serialize());
             json.addProperty("temperature", recipe.temperature);
+            json.addProperty("craft_time", recipe.craftTime);
             json.addProperty("match_exactly", recipe.matchExactly);
         }
 

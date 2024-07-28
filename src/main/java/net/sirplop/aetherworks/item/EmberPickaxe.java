@@ -1,12 +1,14 @@
 package net.sirplop.aetherworks.item;
 
 import com.rekindled.embers.particle.GlowParticleOptions;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.sirplop.aetherworks.Aetherworks;
 import net.sirplop.aetherworks.lib.AWHarvestHelper;
 import net.sirplop.aetherworks.lib.AWTunnelNode;
 import net.sirplop.aetherworks.AWConfig;
@@ -30,7 +32,7 @@ public class EmberPickaxe  extends AOEEmberDiggerItem{
     @Override
     public @NotNull InteractionResult useOn(UseOnContext context) {
         InteractionResult result = super.useOn(context);
-        if (context.getLevel().isClientSide || AWConfig.getConfigSet(AWConfig.Tool.EMBER_PICKAXE).isEmpty())
+        if (!(context.getLevel() instanceof ServerLevel) || context.getLevel().isClientSide || AWConfig.getConfigSet(AWConfig.Tool.EMBER_PICKAXE).isEmpty())
             return result;
 
         if (context.getPlayer() == null
