@@ -1,5 +1,15 @@
 Changelog - Aetherworks Refracted
 =============================
+1.20.1-1.0.3
+-----------------------------
+_Additions_
+
+_Changes_
+
+_Fixes_
+
+- Moonlight Harvester's rune overlay can stop rendering at certain angles while still visible.
+
 1.20.1-1.0.2
 -----------------------------
 _Additions_

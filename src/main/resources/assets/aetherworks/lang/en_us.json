@@ -214,7 +214,7 @@
   "embers.research.page.aw.tools_category" : "Aetherium Equipment",
   "embers.research.page.aw.tools" : "Aetherium Equipment",
   "embers.research.page.aw.tools.title" : "Power of the Moon",
-  "embers.research.page.aw.tools.desc" : "Through countless nights of forging and refinement, you have created your masterpieces. Aetherium equipment has several powerful effects: They repair themselves rapidly when in moonlight, and consume ember to perform special effects. All mining tools are capable of mining in a 3x3 by sneak-using them,",
+  "embers.research.page.aw.tools.desc" : "Through countless nights of forging and refinement, you have created your masterpieces. ALl aetherium equipment have several powerful effects: They repair themselves rapidly when in moonlight, and consume ember to perform special effects. All mining tools are capable of mining in a 3x3 by sneak-using them,",
   "embers.research.page.aw.pobs" : "Pickaxe of the Boundless Sky",
   "embers.research.page.aw.pobs.title" : "As Above",
   "embers.research.page.aw.pobs.desc" : "The Pickaxe of the Boundless Sky, when used on a block it can mine, will also mine all blocks of the same type that are connected to that block. ",

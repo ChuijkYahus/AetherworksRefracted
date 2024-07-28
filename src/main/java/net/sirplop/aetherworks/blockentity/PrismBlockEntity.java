@@ -281,7 +281,7 @@ public class PrismBlockEntity extends BlockEntity {
 
     @Override
     public AABB getRenderBoundingBox() {
-        return new AABB(this.getBlockPos().below(3).north(3).east(3),
-                this.getBlockPos().south(3).west(3));
+        return new AABB(this.getBlockPos().below(3).north(4).east(4),
+                this.getBlockPos().south(4).west(4));
     }
 }
