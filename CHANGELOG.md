@@ -20,7 +20,8 @@ _Fixes_
 - Fixed crash when putting certain items in the metal former.
 - Fixed crash when using the Iceberg mod.
 - Fixed missing picked-block aetherium forge texture.
-- Fixed typo in codex entry for Axe of the Sonorous Archives
+- Fixed typo in codex entry for Axe of the Sonorous Archives.
+- Fixed Aetherium-Infused Suevite having the wrong sound type.
 
 1.20.1-1.01b
 -----------------------------

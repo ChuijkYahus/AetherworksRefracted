@@ -46,7 +46,6 @@ public class AWTunnelNode extends AWHarvestNode{
             return;
         }
 
-        this.toHarvest.add(this.beginning);
         this.baseState = this.level.getBlockState(this.beginning);
         this.traverse(this.beginning);
         if (this.toHarvest.isEmpty())
@@ -61,54 +60,58 @@ public class AWTunnelNode extends AWHarvestNode{
             this.invalid = true; //this can't mine up or down.
             return;
         }
-        traverseRecursive(from, 0);
-    }
+        int depth = 0;
+        BlockPos check = from;
 
-    public void traverseRecursive(BlockPos from, int depth) {
-        if (depth >= range)
-            return;
-        BlockState state = this.level.getBlockState(from);
-        if (!checkStateMatch.test(state) && !state.isAir())
-            return;
+        while (check != null) {
+            if (depth >= range || !level.isLoaded(check))
+                break;
+            BlockState state = this.level.getBlockState(check);
+            if (!checkStateMatch.test(state) && !state.isAir())
+                break;
 
-        BlockPos below = from.below();
-        BlockState belowState = this.level.getBlockState(below);
-        if (!checkStateMatch.test(belowState) && !belowState.isAir())
-            return; //don't continue the tunnel unless the whole space is clear.
+            BlockPos below = check.below();
+            BlockState belowState = this.level.getBlockState(below);
+            if (!checkStateMatch.test(belowState) && !belowState.isAir())
+                break; //don't continue the tunnel unless the whole space is clear.
 
-        if (belowState.isAir() && state.isAir())
-            return; //too much air - another tunnel or just a gap?
+            if (belowState.isAir() && state.isAir())
+                break; //too much air - another tunnel or just a gap?
 
-        this.toHarvest.add(0, from);
-        this.toHarvest.add(0, below);
-        if (depth % 3 == 2) {
-            Direction left, right;
-            switch (initialDirection) {
-                case NORTH -> {
-                    left = Direction.WEST;
-                    right = Direction.EAST;
+            this.toHarvest.add(0, check);
+            this.toHarvest.add(0, below);
+
+            if (depth % 3 == 2) {
+                Direction left, right;
+                switch (initialDirection) {
+                    case NORTH -> {
+                        left = Direction.WEST;
+                        right = Direction.EAST;
+                    }
+                    case SOUTH -> {
+                        left = Direction.EAST;
+                        right = Direction.WEST;
+                    }
+                    case WEST -> {
+                        left = Direction.SOUTH;
+                        right = Direction.NORTH;
+                    }
+                    case EAST -> {
+                        left = Direction.NORTH;
+                        right = Direction.SOUTH;
+                    }
+                    default -> {
+                        left = Direction.UP;
+                        right = Direction.DOWN;
+                    }
                 }
-                case SOUTH -> {
-                    left = Direction.EAST;
-                    right = Direction.WEST;
-                }
-                case WEST -> {
-                    left = Direction.SOUTH;
-                    right = Direction.NORTH;
-                }
-                case EAST -> {
-                    left = Direction.NORTH;
-                    right = Direction.SOUTH;
-                }
-                default -> {
-                    left = Direction.UP;
-                    right = Direction.DOWN;
-                }
+                toHarvestLeftTunnel.add(0, traverseRecursiveTunnel(0, check.relative(left), left, new Stack<>()));
+                toHarvestRightTunnel.add(0, traverseRecursiveTunnel(0, check.relative(right), right, new Stack<>()));
             }
-            toHarvestLeftTunnel.add(0, traverseRecursiveTunnel(0, from.relative(left), left, new Stack<>()));
-            toHarvestRightTunnel.add(0, traverseRecursiveTunnel(0, from.relative(right), right, new Stack<>()));
+
+            check = check.relative(initialDirection);
+            depth++;
         }
-        traverseRecursive(from.relative(initialDirection), ++depth);
     }
 
     private Stack<BlockPos> traverseRecursiveTunnel(int depth, BlockPos from, Direction direction,  Stack<BlockPos> inStack) {
@@ -146,7 +149,7 @@ public class AWTunnelNode extends AWHarvestNode{
         if (!this.toHarvest.isEmpty()) {
             BlockPos pos = this.toHarvest.pop();
             harvest(pos);
-            if (tickCount % 12 == 0 && (leftHas || rightHas)) {
+            if (tickCount % 12 == 11 && (leftHas || rightHas)) {
                 level.setBlock(pos, RegistryManager.GLIMMER.get().defaultBlockState(), 1 | 2);
             }
         }

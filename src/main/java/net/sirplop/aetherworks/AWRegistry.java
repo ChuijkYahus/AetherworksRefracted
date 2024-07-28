@@ -180,8 +180,8 @@ public class AWRegistry {
     public static final RegistryObject<Block> SUEVITE_BRICKS = registerBlock("suevite_bricks", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));;
     public static final StoneDecoBlocks SUEVITE_BRICKS_DECO = new StoneDecoBlocks("suevite_bricks", SUEVITE_BRICKS, Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f));
 
-    public static final RegistryObject<Block> AETHERIUM_ORE = registerBlock("ore_aether", () -> new AetherOreBlock(Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(5, 12), UniformInt.of(4, 8)));
-    public static final RegistryObject<Block> AETHERIUM_SHARD_BLOCK = registerBlock("block_shards_raw", () -> new AetherBlock(Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(5, 12)));
+    public static final RegistryObject<Block> AETHERIUM_ORE = registerBlock("ore_aether", () -> new AetherOreBlock(Properties.copy(Blocks.STONE).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(5, 12), UniformInt.of(4, 8)));
+    public static final RegistryObject<Block> AETHERIUM_SHARD_BLOCK = registerBlock("block_shards_raw", () -> new AetherBlock(Properties.copy(Blocks.STONE).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(5, 12)));
     public static final RegistryObject<Block> AETHERIUM_BLOCK = registerBlock("block_aether", () -> new AetherBlock(Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(10, 40)));
     public static final RegistryObject<Block> PRISM_SUPPORT = registerBlock("prism_support", () -> new PrismSupportBlock(Properties.copy(Blocks.STONE).strength(3, 6).requiresCorrectToolForDrops().noOcclusion()));
     public static final RegistryObject<Block> PRISM = registerBlock("prism", () -> new PrismBlock(Properties.copy(Blocks.IRON_BLOCK).strength(4, 8).requiresCorrectToolForDrops().noOcclusion()));
