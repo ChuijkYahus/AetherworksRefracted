@@ -1,13 +1,18 @@
 package net.sirplop.aetherworks.compat.curios;
 
+import com.rekindled.embers.item.EmberStorageItem;
+import com.rekindled.embers.research.ResearchBase;
+import com.rekindled.embers.research.ResearchManager;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.registries.RegistryObject;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.item.AetherEmberBulbItem;
+import net.sirplop.aetherworks.research.AWResearch;
 
 public class CuriosCompat {
 
@@ -18,5 +23,13 @@ public class CuriosCompat {
     @OnlyIn(Dist.CLIENT)
     public static void registerColorHandler(RegisterColorHandlersEvent.Item event, ItemColor itemColor) {
         event.register(itemColor, AETHER_EMBER_BULB.get());
+    }
+
+    public static void initCuriosCategory() {
+        ItemStack fullBulb = EmberStorageItem.withFill(CuriosCompat.AETHER_EMBER_BULB.get(), ((EmberStorageItem)CuriosCompat.AETHER_EMBER_BULB.get()).getCapacity());
+
+        AWResearch.moonsnare_bulb = new ResearchBase("aw.moonsnare_bulb", fullBulb, 5, 1).addAncestor(ResearchManager.mantle_bulb);
+
+        ResearchManager.subCategoryBaubles.addResearch(AWResearch.moonsnare_bulb);
     }
 }

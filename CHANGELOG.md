@@ -5,16 +5,22 @@ Changelog - Aetherworks Refracted
 _Additions_
 
 - Added the Moonsnare Jar, Cartridge, and Bulb, which have less capacity than their mantle counterparts, but slowly generate Ember in moonlight.
+- Animated the Aetherium Crown model texture.
 
 _Changes_
 
 - Changed name of "Heat Dial" to "Forge Dial" to better reflect its purpose (and to not be confused with augment Heat).
+- Resprited Aetherium Plate.
+- Changed codex category requirement for Reflections of the Sun from Wildfire Core to Dawnstone.
+- Moved Tuning Cylinder codex entry to the weapon augments section.
 
 _Fixes_
 
 - Moonlight Harvester's rune overlay can stop rendering at certain angles while still visible.
 - Aetherium Forge overlay rendering wrong when GeckoLib is installed.
 - The aetherium shovels, axes, and crossbows now properly have an ember resonance value.
+- The codex entry tab was slightly misaligned.
+- Corrected some capitalization in the codex to better align with the rest of the codex's formatting.
 
 1.20.1-1.0.2
 -----------------------------

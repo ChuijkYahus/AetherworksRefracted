@@ -36,7 +36,6 @@ You can contact me about the port in RCXcrafter's discord, in the Embers channel
 - Add a pair of aetheric hoes that excel at farming and shepherding.
 - Add more embers-based stuff, since the original mod didn't have a lot of actual integration.
 - Semi-automatable Aetherium Forge (aka make automatic hammer work with certain forging recipes)
-- Animate the texture of the Aetherium Crown.
 - Long-term dangers from processing aetherium? Nothing annoying, of course.
 
 ## Musings

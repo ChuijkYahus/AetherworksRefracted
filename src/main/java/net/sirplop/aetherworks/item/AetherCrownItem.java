@@ -3,6 +3,8 @@ package net.sirplop.aetherworks.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.rekindled.embers.Embers;
+import com.rekindled.embers.EmbersClientEvents;
+import com.rekindled.embers.util.Misc;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.network.chat.Component;

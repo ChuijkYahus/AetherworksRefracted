@@ -2,6 +2,8 @@ package net.sirplop.aetherworks.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.rekindled.embers.EmbersClientEvents;
+import com.rekindled.embers.util.Misc;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -47,16 +49,23 @@ public class AetherCrownGemLayer<T extends LivingEntity, M extends HumanoidModel
             //render gem
             if (AetherCrownItem.hasAttachedGem(itemstack)) {
                 int color = PotionGemItem.getColor(AetherCrownItem.getAttachedGem(itemstack));
+                float timerSine = ((float)Math.sin(2.5 * Math.toRadians(EmbersClientEvents.ticks % 360)) + 1.0F) / 2.0F;
+                float coeff = 1.125f - (timerSine * 0.1625f);
 
-                float r = (float)(color >> 16 & 255) / 255.0F;
-                float g = (float)(color >> 8 & 255) / 255.0F;
-                float b = (float)(color & 255) / 255.0F;
+                float r = Math.min(1f, coeff * (float)(color >> 16 & 255) / 255.0F);
+                float g = Math.min(1f, coeff * (float)(color >> 8 & 255) / 255.0F);
+                float b = Math.min(1f, coeff * (float)(color & 255) / 255.0F);
                 ResourceLocation textureLoc = new ResourceLocation(ForgeHooksClient.getArmorTexture(livingEntity, itemstack, "bro_specify_your_armor_texture", EquipmentSlot.HEAD, "overlay"));
                 this.renderModel(poseStack, multiBufferSource, packedLight, crown, model, r, g, b, textureLoc);
             }
             //render crown
+            float timerSine = ((float)Math.sin(5 * Math.toRadians(EmbersClientEvents.ticks % 360)) + 1.0F) / 2.0F;
+
+            float r = 1 - ((144 * timerSine) / 255);
+            float g = 1 - ((72 * timerSine) / 255);
+            float b = 1 - ((13 * timerSine) / 255);
             ResourceLocation textureLoc = new ResourceLocation(ForgeHooksClient.getArmorTexture(livingEntity, itemstack, "bro_specify_your_armor_texture", EquipmentSlot.HEAD, null));
-            this.renderModel(poseStack, multiBufferSource, packedLight, crown, model,1.0F, 1.0F, 1.0F, textureLoc);
+            this.renderModel(poseStack, multiBufferSource, packedLight, crown, model,r, g, b, textureLoc);
         }
     }
     //amazing copy+paste, m'lord!

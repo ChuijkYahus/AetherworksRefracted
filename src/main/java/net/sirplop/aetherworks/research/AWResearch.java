@@ -1,5 +1,6 @@
 package net.sirplop.aetherworks.research;
 
+import com.rekindled.embers.item.EmberStorageItem;
 import com.rekindled.embers.research.ResearchBase;
 import com.rekindled.embers.research.ResearchCategory;
 import com.rekindled.embers.research.ResearchManager;
@@ -8,10 +9,11 @@ import com.rekindled.embers.research.subtypes.ResearchShowItem;
 import com.rekindled.embers.research.subtypes.ResearchSwitchCategory;
 import com.rekindled.embers.util.Vec2i;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fml.ModList;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.Aetherworks;
+import net.sirplop.aetherworks.compat.curios.CuriosCompat;
 
 public class AWResearch {
     public static final ResourceLocation PAGE_ICONS = new ResourceLocation(Aetherworks.MODID, "textures/gui/codex_index_icons.png");
@@ -19,19 +21,18 @@ public class AWResearch {
 
     public static ResearchCategory categoryAether;
     public static ResearchCategory subCategoryTools;
-
-    public static ResearchBase meteor, tuning_cylinder, gauge, amalgam, moon_harvester, focus_matrix, purify_aetherium, aspectus, forge, heat_dial, heater, cooler, vent, metal_former, anvil, tool_station, pearls, tools;
+    public static ResearchBase meteor, gauge, amalgam, moon_harvester, focus_matrix, purify_aetherium, aspectus, forge, heat_dial, heater, cooler, vent, metal_former, anvil, tool_station, pearls, tools;
     public static ResearchBase pobs, pomd, aotr, aosa, sotc, soic, cosb, cosr, crown; //TOOLS
+    public static ResearchBase tuning_cylinder;
+    public static ResearchBase moonsnare_jars, moonsnare_bulb;
 
     public static void initResearch() {
         categoryAether = new ResearchCategory("aw.aether", PAGE_ICONS, 192, 0);
         Vec2i[] ringPositions = {new Vec2i(1, 1), new Vec2i(0, 3), new Vec2i(0, 5), new Vec2i(1, 7), new Vec2i(11, 7), new Vec2i(12, 5), new Vec2i(12, 3), new Vec2i(11, 1), new Vec2i(4, 1), new Vec2i(2, 4), new Vec2i(4, 7), new Vec2i(8, 7), new Vec2i(10, 4),new Vec2i(8, 1)};
         subCategoryTools = new ResearchCategory("aw.tools", 0).pushGoodLocations(ringPositions);
 
-
         meteor = new ResearchBase("aw.meteor", new ItemStack(AWRegistry.AETHER_SHARD.get()), 12, 0);
         meteor.addPage(new ResearchShowItem("aw.meteor_2", ItemStack.EMPTY, 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.SUEVITE.get()), new ItemStack(AWRegistry.AETHERIUM_ORE.get()))));
-        tuning_cylinder = new ResearchBase("aw.tuning_cylinder", new ItemStack(AWRegistry.TUNING_CYLINDER.get()), 9, 2).addAncestor(meteor);
         gauge = new ResearchBase("aw.aetheriometer", new ItemStack(AWRegistry.AETHERIOMETER.get()), 8, 0).addAncestor(meteor);
         amalgam = new ResearchBase("aw.amalgam", new ItemStack(AWRegistry.AETHER_AMALGAM.get()), 11, 3).addAncestor(meteor);
         moon_harvester = new ResearchBase("aw.moon_harvester", new ItemStack(AWRegistry.PRISM.get()), 12, 7).addAncestor(amalgam);
@@ -67,6 +68,17 @@ public class AWResearch {
 
         crown = new ResearchBase("aw.crown", new ItemStack(AWRegistry.AETHER_CROWN.get()), subCategoryTools.popGoodLocation()).addAncestor(toolsFake);
 
+        tuning_cylinder = new ResearchBase("aw.tuning_cylinder", new ItemStack(AWRegistry.TUNING_CYLINDER.get()), ResearchManager.subCategoryWeaponAugments.popGoodLocation()).addAncestor(ResearchManager.inferno_forge);
+        ResearchManager.subCategoryWeaponAugments.addResearch(tuning_cylinder);
+
+        ItemStack fullJar = EmberStorageItem.withFill(AWRegistry.AETHER_EMBER_JAR.get(), ((EmberStorageItem)AWRegistry.AETHER_EMBER_JAR.get()).getCapacity());
+        moonsnare_jars = new ResearchBase("aw.moonsnare_jars", fullJar, 6.5, 7).addAncestor(ResearchManager.jars);
+        ResearchManager.categoryMetallurgy.addResearch(moonsnare_jars);
+
+        if (ModList.get().isLoaded("curios")) {
+            CuriosCompat.initCuriosCategory();
+        }
+
         subCategoryTools.addResearch(toolsFake);
 
         subCategoryTools
@@ -85,7 +97,6 @@ public class AWResearch {
 
         categoryAether
                 .addResearch(meteor)
-                .addResearch(tuning_cylinder)
                 .addResearch(gauge)
                 .addResearch(pearls)
                 .addResearch(amalgam)
@@ -103,7 +114,7 @@ public class AWResearch {
                 .addResearch(tool_station)
                 .addResearch(toolsSwitch);
 
-        categoryAether.addPrerequisite(ResearchManager.wildfire);
+        categoryAether.addPrerequisite(ResearchManager.dawnstone);
         ResearchManager.researches.add(categoryAether);
     }
 
