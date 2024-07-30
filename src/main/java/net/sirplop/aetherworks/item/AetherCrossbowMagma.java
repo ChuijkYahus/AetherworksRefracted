@@ -71,8 +71,8 @@ public class AetherCrossbowMagma extends AetherCrossbow{
         });
     }
 
-    public void createRay(Level level, EffectDamageCrossbowMagma effect, LivingEntity shooter, Vec3 start, Vec3 targetPos, ItemStack stack) {
-        ProjectileRay ray = new ProjectileRay(shooter, start, targetPos, false, effect);
+    public void createRay(Level level, EffectDamageCrossbowMagma effect, LivingEntity shooter, Vec3 start, Vec3 targetPos, ItemStack stack, boolean hitBefore) {
+        ProjectileRay ray = new ProjectileRay(shooter, start, targetPos, true, effect);
         ray.setColor(Utils.AETHERIUM_PROJECTILE_COLOR);
 
         EmberProjectileEvent event = new EmberProjectileEvent(shooter, stack, 1, ray);
@@ -80,6 +80,8 @@ public class AetherCrossbowMagma extends AetherCrossbow{
         if (!event.isCanceled()) {
             for (IProjectilePreset projectile : event.getProjectiles()) {
                 projectile.shoot(level);
+                if (hitBefore) //to prevent exponential amounts of diffraction barrel nonsense.
+                    break;
             }
         }
     }
@@ -89,7 +91,7 @@ public class AetherCrossbowMagma extends AetherCrossbow{
         EffectDamageCrossbowMagma effect = new EffectDamageCrossbowMagma(damage, knockback, e -> dam, fire, 1.0f,
                 List.of(new MobEffectInstance(AWRegistry.EFFECT_MOONFIRE.get(), 200, 0, false, true, true)),
                 this, id, stack);
-        createRay(level, effect, shooter, start, targetPos, stack);
+        createRay(level, effect, shooter, start, targetPos, stack, false);
     }
 
     public int getNextID() {

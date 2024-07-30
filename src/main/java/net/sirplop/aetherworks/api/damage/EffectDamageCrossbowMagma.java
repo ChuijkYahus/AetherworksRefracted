@@ -1,6 +1,7 @@
 package net.sirplop.aetherworks.api.damage;
 
 import com.rekindled.embers.api.projectile.IProjectilePreset;
+import com.rekindled.embers.api.projectile.ProjectileRay;
 import com.rekindled.embers.entity.EmberProjectileEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.damagesource.DamageSource;
@@ -38,47 +39,17 @@ public class EffectDamageCrossbowMagma extends EffectDamagePotion{
     ItemStack sourceStack;
     int groupID;
 
-    public float getDamage() {
-        return this.damage;
-    }
-
-    public void setDamage(float damage) {
-        this.damage = damage;
-    }
-
-    public Function<Entity, DamageSource> getSource() {
-        return this.source;
-    }
-
-    public void setSource(Function<Entity, DamageSource> source) {
-        this.source = source;
-    }
-
-    public int getFire() {
-        return this.fire;
-    }
-
-    public void setFire(int seconds) {
-        this.fire = seconds;
-    }
-
-    public double getInvinciblityMultiplier() {
-        return this.invinciblityMultiplier;
-    }
-
-    public void setInvinciblityMultiplier(double multiplier) {
-        this.invinciblityMultiplier = multiplier;
-    }
-
     public void onEntityImpact(Entity entity, @Nullable IProjectilePreset projectile) {
         Entity shooter = projectile != null ? projectile.getShooter() : null;
         Entity projectileEntity = projectile != null ? projectile.getEntity() : null;
         if (entity == projectileEntity || entity == null)
             return;
-        if (entity.hurt(this.source.apply(projectileEntity), damage)) {
+        boolean hurt = entity.hurt(this.source.apply(projectileEntity), damage);
+
+        if (hurt) {
             entity.setSecondsOnFire(this.fire);
         }
-        if (entity instanceof LivingEntity livingTarget) {
+        if (hurt && entity instanceof LivingEntity livingTarget) {
             livingTarget.setLastHurtMob(shooter);
             livingTarget.hurtDuration = (int)((double)livingTarget.hurtDuration * this.invinciblityMultiplier);
 
@@ -108,9 +79,12 @@ public class EffectDamageCrossbowMagma extends EffectDamagePotion{
                 }
             }
         }
-        //spawn more rays here.
+        //spawn more rays if we haven't hit this dude before.
         if (shooter instanceof LivingEntity liveShooter) {
+            boolean hitAlready = sourceItem.projectileGroups.get(this.groupID).contains(entity.getUUID());
             sourceItem.projectileGroups.get(this.groupID).add(entity.getUUID());
+            if (hitAlready && projectile instanceof ProjectileRay)
+                return; //prevent infinite chains, which cause a crash.
             if (sourceItem.projectileGroups.get(this.groupID).size() > AWConfig.CROSSBOW_MAGMA_CHAIN_LIMIT.get()) {
                 return;
             }
@@ -128,7 +102,7 @@ public class EffectDamageCrossbowMagma extends EffectDamagePotion{
             });
 
             if (closest != null)
-                sourceItem.createRay(entity.level(), this, liveShooter, entity.getBoundingBox().getCenter(), closest.getBoundingBox().getCenter(), sourceStack);
+                sourceItem.createRay(entity.level(), this, liveShooter, entity.getBoundingBox().getCenter(), closest.getBoundingBox().getCenter(), sourceStack, hitAlready);
         }
     }
 }
