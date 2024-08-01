@@ -1,5 +1,22 @@
 Changelog - Aetherworks Refracted
 =============================
+1.20.1-1.0.4
+-----------------------------
+_Additions_
+
+_Changes_
+
+- Made many blocks sounds like other Embers blocks.
+- Reordered the creative menu.
+- Retextured Aetherium Lens.
+- Remodeled and retextured the forge core, heater, and cooler.
+- The Crossbow of the Shattered Reflection now, when hitting the same mob more than once in an attack, only spawns 1 projectile if using the diffraction barrel.
+
+_Fixes_
+
+- Problem with network serialization for Tool Forge recipes.
+- The Crossbow of the Shattered Reflection could infinitely chain between 2 entities while trying to hit a third, resulting in a crash.
+
 1.20.1-1.0.3
 -----------------------------
 _Additions_

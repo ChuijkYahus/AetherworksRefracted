@@ -115,7 +115,7 @@ public class ToolStationRecipe implements IToolStationRecipe{
             int size = buffer.readInt();
             List<Ingredient> inputs = new ArrayList<>(size);
             for (int i = 0; i < size; i++)
-                inputs.set(i, Ingredient.fromNetwork(buffer));
+                inputs.add(Ingredient.fromNetwork(buffer));
             int temperature = buffer.readInt();
             double temperatureRate = buffer.readDouble();
 

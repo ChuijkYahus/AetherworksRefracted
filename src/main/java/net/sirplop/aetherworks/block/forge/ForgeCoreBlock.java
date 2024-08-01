@@ -24,7 +24,7 @@ public class ForgeCoreBlock extends BaseEntityBlock {
     protected static final VoxelShape AABB = Shapes.or(
             Block.box(1,0,1,15,1,15),
             Block.box(2,1,2,14,2,14),
-            Block.box(4,3,4,12,16,12));
+            Block.box(3,2,3,13,16,13));
 
     @Nullable
     @Override

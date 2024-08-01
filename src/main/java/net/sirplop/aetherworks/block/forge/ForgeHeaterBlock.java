@@ -22,33 +22,33 @@ public class ForgeHeaterBlock extends HorizontalWaterloggableEntityBlock {
     public ForgeHeaterBlock(Properties pProperties) { super(pProperties); }
 
     protected static final VoxelShape NORTH_AABB = Shapes.or(
-            Block.box(2,0,4,14,3,16), //base
+            Block.box(1,0,1,15,3,15), //base
             Block.box(3,3,0,13,13,1), //big panel
             Block.box(5,5,1,11,11,2), //big panel back
             Block.box(6,6,0,10,10,16), //side post
             Block.box(0,6,6,16,10,10), //side post
-            Block.box(4,3,4,12,15,12)); //center
+            Block.box(3,3,3,13,16,13)); //center
     protected static final VoxelShape SOUTH_AABB = Shapes.or(
-            Block.box(2,0,0,14,3,12), //base
+            Block.box(1,0,1,15,3,15), //base
             Block.box(3,3,15,13,13,16), //big panel
             Block.box(5,5,14,11,11,15), //big panel back
             Block.box(6,6,0,10,10,16), //side post
             Block.box(0,6,6,16,10,10), //side post
-            Block.box(4,3,4,12,15,12)); //center
+            Block.box(3,3,3,13,16,13)); //center
     protected static final VoxelShape WEST_AABB = Shapes.or(
-            Block.box(4,0,2,16,3,14), //base
+            Block.box(1,0,1,15,3,15), //base
             Block.box(0,3,3,1,13,13), //big panel
             Block.box(1,5,5,2,11,11), //big panel back
             Block.box(6,6,0,10,10,16), //side post
             Block.box(0,6,6,16,10,10), //side post
-            Block.box(4,3,4,12,15,12)); //center
+            Block.box(3,3,3,13,16,13)); //center
     protected static final VoxelShape EAST_AABB = Shapes.or(
-            Block.box(0,0,2,12,3,14), //base
+            Block.box(1,0,1,15,3,15), //base
             Block.box(15,3,3,16,13,13), //big panel
             Block.box(14,5,5,16,11,11), //big panel back
             Block.box(6,6,0,10,10,16), //side post
             Block.box(0,6,6,16,10,10), //side post
-            Block.box(4,3,4,12,15,12)); //center
+            Block.box(3,3,3,13,16,13)); //center
 
     @Override
     public RenderShape getRenderShape(BlockState pState) {
