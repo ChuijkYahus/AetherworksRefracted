@@ -1,4 +1,4 @@
-// 1.20.1	2024-08-03T17:02:58.6884764	Loot Tables
+// 1.20.1	2024-08-06T16:28:18.926124	Loot Tables
 b00cf4019b1f391e49d554e9149e195362ce9697 data/aetherworks/loot_tables/blocks/aether_prism_controller_matrix.json
 225a99bc7f31e9de898529dd3324fba3d2829f49 data/aetherworks/loot_tables/blocks/block_aether.json
 0efe87241c7adeffd506a83dcce89f4a0091337b data/aetherworks/loot_tables/blocks/block_shards_raw.json
@@ -10,7 +10,8 @@ eadd0505e9b95c525d0564285190d2963231ea05 data/aetherworks/loot_tables/blocks/for
 057c4774472c9482ca58c9a8ce8420ba02d57ac2 data/aetherworks/loot_tables/blocks/forge_metal_former.json
 1a1670cd9e657f0e23c62584566924450371ba58 data/aetherworks/loot_tables/blocks/forge_tool_station.json
 a75ced73e00ca72bdba7907e58d1ba57700734a7 data/aetherworks/loot_tables/blocks/forge_vent.json
-c4ad88eb5aa39d4e947bb678f039328541159931 data/aetherworks/loot_tables/blocks/glass_aetherium.json
+618a9a38c7b7a9247168b2e19074be7cb76f49b5 data/aetherworks/loot_tables/blocks/glass_aetherium.json
+1cd4391ae10cdf28adef19ea4d68f42e7523294f data/aetherworks/loot_tables/blocks/glass_aetherium_borderless.json
 f3cee7179e8ea7896334050b4e3c8b7b4c77b4ae data/aetherworks/loot_tables/blocks/heat_dial.json
 8286696bbe96394e6e25ab0c66088e2545c2036c data/aetherworks/loot_tables/blocks/moonlight_amplifier.json
 1075c4f8f93eb14c06129ad0354b5b4ce51602f8 data/aetherworks/loot_tables/blocks/ore_aether.json

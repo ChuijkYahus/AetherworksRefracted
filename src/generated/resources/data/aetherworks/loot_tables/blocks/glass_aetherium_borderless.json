@@ -21,11 +21,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "aetherworks:glass_aetherium"
+          "name": "aetherworks:glass_aetherium_borderless"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "aetherworks:blocks/glass_aetherium"
+  "random_sequence": "aetherworks:blocks/glass_aetherium_borderless"
 }

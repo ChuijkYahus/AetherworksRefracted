@@ -25,6 +25,7 @@
     "aetherworks:suevite",
     "aetherworks:suevite_cobble",
     "aetherworks:suevite_bricks",
-    "aetherworks:glass_aetherium"
+    "aetherworks:glass_aetherium",
+    "aetherworks:glass_aetherium_borderless"
   ]
 }

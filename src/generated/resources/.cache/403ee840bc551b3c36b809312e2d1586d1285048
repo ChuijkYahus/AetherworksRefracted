@@ -1,14 +1,14 @@
-// 1.20.1	2024-08-03T18:45:12.1852151	Tags for minecraft:block mod id aetherworks
+// 1.20.1	2024-08-06T16:28:18.9291236	Tags for minecraft:block mod id aetherworks
 ffbf59a78593db7dd7409dca7fe3babe11ab5bb7 data/aetherworks/tags/blocks/sculk_axe_mineable.json
 d634b203b660416dea3792df210f47dda2d0f7f5 data/embers/tags/blocks/dial.json
 75fb9e2ba833961f50bb2fb2a1d7e159d0d766d4 data/forge/tags/blocks/cobblestone.json
-f7fdcf78aedf05902ad3cb05d038c9a6ba76de1c data/forge/tags/blocks/glass.json
+4b498296fa2f914e9a5fbaaf0f801c3302a47d7e data/forge/tags/blocks/glass.json
 16d77e90188570787f5df63ef002453681167829 data/forge/tags/blocks/ores.json
 6fe00f86d162ece6829db1efecfc22aa7eecff50 data/forge/tags/blocks/stone.json
-72aa1335ac368d206e2c9389ed4c6126368b4189 data/minecraft/tags/blocks/mineable/pickaxe.json
+cb6359789e455c1e32e39b0c40b0e7f6dcd3892b data/minecraft/tags/blocks/mineable/pickaxe.json
 6fe00f86d162ece6829db1efecfc22aa7eecff50 data/minecraft/tags/blocks/moss_replaceable.json
 bec46e24e50aa19ab1a898001a1215bba552b25a data/minecraft/tags/blocks/needs_diamond_tool.json
-aefcf14dc369178b3264ccf85ee37a95cb6031a9 data/minecraft/tags/blocks/needs_iron_tool.json
+3b33ab8bcdf271df80e1a6c7a60be3745466e626 data/minecraft/tags/blocks/needs_iron_tool.json
 6fe00f86d162ece6829db1efecfc22aa7eecff50 data/minecraft/tags/blocks/sculk_replaceable.json
 416d836df6014773bee7d2a16f6565c4eb7920f6 data/minecraft/tags/blocks/slabs.json
 6fe00f86d162ece6829db1efecfc22aa7eecff50 data/minecraft/tags/blocks/snaps_goat_horn.json

@@ -44,7 +44,8 @@ public class AWBlockLootTables extends BlockLootSubProvider {
         decoDrops(AWRegistry.SUEVITE_COBBLE_DECO);
         dropSelf(AWRegistry.SUEVITE_BRICKS.get());
         decoDrops(AWRegistry.SUEVITE_BRICKS_DECO);
-        dropSelf(AWRegistry.GLASS_AETHERIUM.get());
+        dropWhenSilkTouch(AWRegistry.GLASS_AETHERIUM.get());
+        dropWhenSilkTouch(AWRegistry.GLASS_AETHERIUM_BORDERLESS.get());
 
         dropSelf(AWRegistry.AETHERIUM_SHARD_BLOCK.get());
         dropSelf(AWRegistry.AETHERIUM_BLOCK.get());

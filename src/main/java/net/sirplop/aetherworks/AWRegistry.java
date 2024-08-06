@@ -155,6 +155,7 @@ public class AWRegistry {
     public static final RegistryObject<Block> SUEVITE_BRICKS = registerBlock("suevite_bricks", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));;
     public static final StoneDecoBlocks SUEVITE_BRICKS_DECO = new StoneDecoBlocks("suevite_bricks", SUEVITE_BRICKS, Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f));
     public static final RegistryObject<Block> GLASS_AETHERIUM = registerBlock("glass_aetherium", () -> new StainedGlassBlock(DyeColor.LIGHT_BLUE, Properties.copy(Blocks.LIGHT_BLUE_STAINED_GLASS).explosionResistance(1800000).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> GLASS_AETHERIUM_BORDERLESS = registerBlock("glass_aetherium_borderless", () -> new StainedGlassBlock(DyeColor.LIGHT_BLUE, Properties.copy(GLASS_AETHERIUM.get())));
 
     public static final RegistryObject<Block> AETHERIUM_ORE = registerBlock("ore_aether", () -> new AetherOreBlock(Properties.copy(Blocks.STONE).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(5, 12), UniformInt.of(4, 8)));
     public static final RegistryObject<Block> AETHERIUM_SHARD_BLOCK = registerBlock("block_shards_raw", () -> new AetherBlock(Properties.copy(Blocks.STONE).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(5, 12)));

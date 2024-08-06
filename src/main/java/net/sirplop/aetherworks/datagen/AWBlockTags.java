@@ -47,7 +47,8 @@ public class AWBlockTags  extends BlockTagsProvider {
                 AWRegistry.SUEVITE.get(),
                 AWRegistry.SUEVITE_COBBLE.get(),
                 AWRegistry.SUEVITE_BRICKS.get(),
-                AWRegistry.GLASS_AETHERIUM.get()
+                AWRegistry.GLASS_AETHERIUM.get(),
+                AWRegistry.GLASS_AETHERIUM_BORDERLESS.get()
         );
         tag(BlockTags.NEEDS_DIAMOND_TOOL).add(
                 AWRegistry.AETHERIUM_ORE.get(),
@@ -68,13 +69,14 @@ public class AWBlockTags  extends BlockTagsProvider {
                 AWRegistry.FORGE_METAL_FORMER.get(),
                 AWRegistry.FORGE_TOOL_STATION.get(),
                 AWRegistry.HEAT_DIAL.get(),
-                AWRegistry.GLASS_AETHERIUM.get()
+                AWRegistry.GLASS_AETHERIUM.get(),
+                AWRegistry.GLASS_AETHERIUM_BORDERLESS.get()
         );
 
         tag(EmbersBlockTags.DIAL).add(AWRegistry.HEAT_DIAL.get());
 
         tag(BlockTags.WITHER_IMMUNE).add(AWRegistry.GLASS_AETHERIUM.get());
-        getTag("forge:glass").add(AWRegistry.GLASS_AETHERIUM.get());
+        getTag("forge:glass").add(AWRegistry.GLASS_AETHERIUM.get(), AWRegistry.GLASS_AETHERIUM_BORDERLESS.get());
 
         tag(SCULK_AXE_MINEABLE).addTags(BlockTags.MINEABLE_WITH_AXE, BlockTags.LEAVES);
 

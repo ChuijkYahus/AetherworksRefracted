@@ -519,6 +519,15 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
                 .requires(AWRegistry.AETHERIUM_SHARD_BLOCK.get())
                 .unlockedBy("has_block", has(AWRegistry.AETHERIUM_SHARD_BLOCK.get()))
                 .save(consumer, getResource("raw_aetherium_block_to_shards"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AWRegistry.GLASS_AETHERIUM_BORDERLESS.get(), 1)
+                .requires(AWRegistry.GLASS_AETHERIUM.get())
+                .unlockedBy("has_glass", has(AWRegistry.GLASS_AETHERIUM.get()))
+                .save(consumer, getResource("aether_glass_to_borderless"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AWRegistry.GLASS_AETHERIUM.get(), 1)
+                .requires(AWRegistry.GLASS_AETHERIUM_BORDERLESS.get())
+                .unlockedBy("has_glass", has(AWRegistry.GLASS_AETHERIUM.get()))
+                .save(consumer, getResource("aether_glass_to_bordered"));
     }
 
     public TagKey<Item> itemTag(String modId, String name) {

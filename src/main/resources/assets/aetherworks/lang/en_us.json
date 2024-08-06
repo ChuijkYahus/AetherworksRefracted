@@ -70,6 +70,7 @@
   "block.aetherworks.suevite_bricks_slab" : "Suevite Brick Slab",
   "block.aetherworks.suevite_bricks_wall" : "Suevite Brick Wall",
   "block.aetherworks.glass_aetherium" : "Aetherium Glass",
+  "block.aetherworks.glass_aetherium_borderless" : "Borderless Aetherium Glass",
   "block.aetherworks.ore_aether" : "Aetherium-Infused Suevite",
   "block.aetherworks.block_shards_raw" : "Block of Aetherium Shards",
   "block.aetherworks.block_aether" : "Block of Aetherium",

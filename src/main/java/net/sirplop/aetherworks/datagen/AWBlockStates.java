@@ -1,7 +1,5 @@
 package net.sirplop.aetherworks.datagen;
 
-import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.datagen.EmbersBlockStates;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -37,7 +35,8 @@ public class AWBlockStates extends BlockStateProvider {
         decoBlocks(AWRegistry.SUEVITE_COBBLE_DECO);
         blockWithItem(AWRegistry.SUEVITE_BRICKS);
         decoBlocks(AWRegistry.SUEVITE_BRICKS_DECO);
-        blockWithItem(AWRegistry.GLASS_AETHERIUM, "glass_aetherium");
+        blockWithRenderType(AWRegistry.GLASS_AETHERIUM, "glass_aetherium", "translucent");
+        blockWithRenderType(AWRegistry.GLASS_AETHERIUM_BORDERLESS, "glass_aetherium_borderless", "translucent");
         blockWithItem(AWRegistry.AETHERIUM_ORE, "ore_aether");
         blockWithItem(AWRegistry.AETHERIUM_SHARD_BLOCK);
         blockWithItem(AWRegistry.AETHERIUM_BLOCK);
@@ -95,6 +94,15 @@ public class AWBlockStates extends BlockStateProvider {
     }
     public void blockWithItem(RegistryObject<? extends Block> registryObject, String model) {
         ModelFile.ExistingModelFile modelFile = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, model));
+        //block model
+        simpleBlock(registryObject.get(), modelFile);
+        //itemblock model
+        simpleBlockItem(registryObject.get(), modelFile);
+    }
+    public void blockWithRenderType(RegistryObject<? extends Block> registryObject, String texture, String renderType) {
+        ModelFile modelFile = models().cubeAll(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(registryObject.get())).getPath(),
+                new ResourceLocation(Aetherworks.MODID, "block/" + texture))
+                .renderType(renderType);
         //block model
         simpleBlock(registryObject.get(), modelFile);
         //itemblock model
