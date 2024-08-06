@@ -65,6 +65,8 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
         PotionGemItem.setEffectsForRecipe(List.of(new MobEffectInstance(AWRegistry.EFFECT_MOONFIRE.get(), 200, 0, true, true)), moonfireGemStack, Utils.AETHERIUM_PROJECTILE_COLOR.getRGB());
         MetalFormerRecipeBuilder.create(moonfireGemStack).id(Aetherworks.MODID, "moongaze_gem").folder(metalFormerFolder).temperature(2400).craftTime(600).fluid(new FluidStack(AWRegistry.AETHERIUM_GAS.FLUID.get(), FluidAmounts.BLOCK_AMOUNT)).input(Ingredient.of(AWRegistry.POTION_GEM.get())).mustMatchExactly().save(consumer);
 
+        MetalFormerRecipeBuilder.create(AWRegistry.GLASS_AETHERIUM.get().asItem()).domain(Aetherworks.MODID).folder(metalFormerFolder).temperature(2550).craftTime(30).fluid(new FluidStack(AWRegistry.AETHERIUM_GAS.FLUID.get(), FluidAmounts.NUGGET_AMOUNT)).input(Ingredient.of(Blocks.GLASS)).save(consumer);
+
         //aetherium anvil
         AetheriumAnvilRecipeBuilder.create(AWRegistry.TOOL_ROD_CRUDE.get()).id(AWRegistry.TOOL_ROD.getId()).domain(Aetherworks.MODID).folder(anvilFolder).temperatureRange(2100, 3000).difficulty(2).hitInfo(15, 50).result(AWRegistry.TOOL_ROD.get(), 1).save(consumer);
         AetheriumAnvilRecipeBuilder.create(AWRegistry.PICKAXE_HEAD_CRUDE.get()).id(AWRegistry.PICKAXE_HEAD.getId()).domain(Aetherworks.MODID).folder(anvilFolder).temperatureRange(2400, 2900).difficulty(4).hitInfo(25, 60).result(AWRegistry.PICKAXE_HEAD.get(), 1).save(consumer);

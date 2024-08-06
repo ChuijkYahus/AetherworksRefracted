@@ -1,4 +1,4 @@
-// 1.20.1	2024-07-28T17:06:08.0128741	Recipes
+// 1.20.1	2024-08-03T18:45:12.1837152	Recipes
 517acf7e396808bd01a06777a37a841282204d7d data/aetherworks/advancements/recipes/brewing/potion_gem.json
 6ecc0a6a2f83a90281170a0dcbd575fe913b9505 data/aetherworks/advancements/recipes/building_blocks/suevite_bricks.json
 3f2e0357127bd7a13f326ab205f72f7841ea8c7b data/aetherworks/advancements/recipes/decorations/suevite_bricks_slab.json
@@ -86,6 +86,7 @@ ab6c55bc4a3ed4cd3650fd544a237fd2b8bcabd2 data/aetherworks/recipes/forge_vent_blo
 ad6729dcc586061e030b55cad7fd6d59ae48b4ad data/aetherworks/recipes/melting/aether_shard.json
 2a92176249eec4efe426372a03f1dcb41ab5ee0c data/aetherworks/recipes/metal_former/gem_aether.json
 8520942e63cff91193ae38f47df36512d211f8a2 data/aetherworks/recipes/metal_former/gem_aether_alt.json
+b02450f595be2de61f13666be4060bc128d83ac8 data/aetherworks/recipes/metal_former/glass_aetherium.json
 19a4bae2e4070fde5a9d77797f8c420378433b07 data/aetherworks/recipes/metal_former/ingot_aether.json
 f51eb328c4165049f3f934b5145aeb7595de385c data/aetherworks/recipes/metal_former/moongaze_gem.json
 6bb40645fa604ed55a518cb5de696bb5b8427193 data/aetherworks/recipes/metal_former/plate_aether.json

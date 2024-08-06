@@ -4,6 +4,8 @@ import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.api.event.EmberProjectileEvent;
 import com.rekindled.embers.api.projectile.IProjectilePreset;
 import com.rekindled.embers.api.projectile.ProjectileRay;
+import com.rekindled.embers.damage.DamageEmber;
+import com.rekindled.embers.datagen.EmbersDamageTypes;
 import com.rekindled.embers.datagen.EmbersSounds;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
@@ -87,7 +89,7 @@ public class AetherCrossbowMagma extends AetherCrossbow{
     }
 
     public void createRay(Level level, float damage, float knockback, int fire, LivingEntity shooter, Vec3 start, Vec3 targetPos, ItemStack stack, int id) {
-        DamageSource dam = new DamageMoonEmber(level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(AWDamageTypes.MOON_EMBER_KEY), shooter, true);
+        DamageSource dam = new DamageEmber(level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(EmbersDamageTypes.EMBER_KEY), shooter, true);
         EffectDamageCrossbowMagma effect = new EffectDamageCrossbowMagma(damage, knockback, e -> dam, fire, 1.0f,
                 List.of(new MobEffectInstance(AWRegistry.EFFECT_MOONFIRE.get(), 200, 0, false, true, true)),
                 this, id, stack);

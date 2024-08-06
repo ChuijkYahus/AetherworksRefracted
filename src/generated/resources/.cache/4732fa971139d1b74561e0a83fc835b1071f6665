@@ -1,4 +1,4 @@
-// 1.20.1	2024-07-27T15:36:38.7962487	Block States: aetherworks
+// 1.20.1	2024-08-03T17:22:44.4088627	Block States: aetherworks
 72428f20af5f8522098cd0ea74aa0e8d5b619702 assets/aetherworks/blockstates/aether_gas_block.json
 463d759783ac30ffb052ec59040a2c1f8bc03c11 assets/aetherworks/blockstates/aether_gas_impure_block.json
 51634286f12542c08d94a1761875c8411a1c2b6f assets/aetherworks/blockstates/aether_prism_controller_matrix.json
@@ -13,6 +13,7 @@ a889cfe32e1cbe9b4e67891bf65c91374c79d4be assets/aetherworks/blockstates/forge_he
 5d2c604e7522cc60fd9e8a5b952b1040e3a93ba9 assets/aetherworks/blockstates/forge_metal_former.json
 0a491a6d4967f1ab3ab4a8609961502731208c11 assets/aetherworks/blockstates/forge_tool_station.json
 b429ddf9f6f84612e092bd313efa9387889c9511 assets/aetherworks/blockstates/forge_vent.json
+f446b94d51a7b088cc97a6e803ccb6b1df9a6c3c assets/aetherworks/blockstates/glass_aetherium.json
 ccb1f975be0464ba0f14b3e5b0ba301a33a02d46 assets/aetherworks/blockstates/heat_dial.json
 9299064c79abf76362644d7170d37d52b8a8fe0d assets/aetherworks/blockstates/moonlight_amplifier.json
 741e802b6fa956dfa3d380b47a7ec6d668379372 assets/aetherworks/blockstates/ore_aether.json
@@ -64,6 +65,7 @@ d95724712545429e32ad63fcf12e172e0d58fced assets/aetherworks/models/item/forge_co
 caa919b3ebf9505af9a379c4a5230ea4bd8fdb3b assets/aetherworks/models/item/forge_metal_former.json
 51d4806e5ce47e50d35e66d4315b28f295dd5591 assets/aetherworks/models/item/forge_tool_station.json
 b5b5c8da7afa38548fe520422efe8130a36b79f5 assets/aetherworks/models/item/forge_vent.json
+f363a045b8d91b0d94c7b1cda1868b715041e961 assets/aetherworks/models/item/glass_aetherium.json
 733a38aca46d547b059a536907a83a1a00d87c6d assets/aetherworks/models/item/heat_dial.json
 835a56038385ea7ef21488afc2e08b846a7f8c3e assets/aetherworks/models/item/moonlight_amplifier.json
 fc60c5c189d1f921a6eb46ca64007bc2287786cf assets/aetherworks/models/item/ore_aether.json

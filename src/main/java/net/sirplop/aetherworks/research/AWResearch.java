@@ -67,6 +67,7 @@ public class AWResearch {
         cosr = new ResearchBase("aw.cosr", new ItemStack(AWRegistry.CROSSBOW_MAGMA.get()), subCategoryTools.popGoodLocation()).addAncestor(toolsFake);
 
         crown = new ResearchBase("aw.crown", new ItemStack(AWRegistry.AETHER_CROWN.get()), subCategoryTools.popGoodLocation()).addAncestor(toolsFake);
+        crown.addPage(new ResearchShowItem("aw.crown_gem", new ItemStack(AWRegistry.POTION_GEM.get()), 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.POTION_GEM.get()))));
 
         tuning_cylinder = new ResearchBase("aw.tuning_cylinder", new ItemStack(AWRegistry.TUNING_CYLINDER.get()), ResearchManager.subCategoryWeaponAugments.popGoodLocation()).addAncestor(ResearchManager.inferno_forge);
         ResearchManager.subCategoryWeaponAugments.addResearch(tuning_cylinder);

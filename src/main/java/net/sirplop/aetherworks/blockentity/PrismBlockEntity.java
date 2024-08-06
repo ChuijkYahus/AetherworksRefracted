@@ -36,6 +36,10 @@ public class PrismBlockEntity extends BlockEntity {
     public PrismBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(AWRegistry.PRISM_BLOCK_ENTITY.get(), pPos, pBlockState);
     }
+    public int renderFrame = 0;
+    public float renderTime = 0;
+
+
     public boolean isStructureValid()
     {
         return this.isStructureValid;

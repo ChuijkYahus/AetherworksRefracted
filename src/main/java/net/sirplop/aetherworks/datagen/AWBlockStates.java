@@ -37,6 +37,7 @@ public class AWBlockStates extends BlockStateProvider {
         decoBlocks(AWRegistry.SUEVITE_COBBLE_DECO);
         blockWithItem(AWRegistry.SUEVITE_BRICKS);
         decoBlocks(AWRegistry.SUEVITE_BRICKS_DECO);
+        blockWithItem(AWRegistry.GLASS_AETHERIUM, "glass_aetherium");
         blockWithItem(AWRegistry.AETHERIUM_ORE, "ore_aether");
         blockWithItem(AWRegistry.AETHERIUM_SHARD_BLOCK);
         blockWithItem(AWRegistry.AETHERIUM_BLOCK);
@@ -68,7 +69,6 @@ public class AWBlockStates extends BlockStateProvider {
         ModelFile.ExistingModelFile forgeSide = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "forge_side"));
         ModelFile.ExistingModelFile forgeCorner = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "forge_corner"));
 
-        //forge block has no inventory option.
         forgeStructure(AWRegistry.FORGE_BLOCK.get(), state -> {
             OctDirection dir = state.getValue(OctFacingHorizontalProperty.OCT_DIRECTIONS);
             switch (dir) {

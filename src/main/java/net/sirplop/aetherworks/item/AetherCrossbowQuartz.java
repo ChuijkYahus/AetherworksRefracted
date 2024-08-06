@@ -4,6 +4,8 @@ import com.rekindled.embers.api.event.EmberProjectileEvent;
 import com.rekindled.embers.api.projectile.EffectArea;
 import com.rekindled.embers.api.projectile.IProjectilePreset;
 import com.rekindled.embers.api.projectile.ProjectileFireball;
+import com.rekindled.embers.damage.DamageEmber;
+import com.rekindled.embers.datagen.EmbersDamageTypes;
 import com.rekindled.embers.datagen.EmbersSounds;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -106,8 +108,7 @@ public class AetherCrossbowQuartz extends AetherCrossbow {
                 direction.x * Math.sin(delta) + direction.z * Math.cos(delta)
         );
 
-
-        Function<Entity, DamageSource> damageSource = e -> new DamageMoonEmber(level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(AWDamageTypes.MOON_EMBER_KEY), e, entity);
+        Function<Entity, DamageSource> damageSource = e ->  new DamageEmber(level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(EmbersDamageTypes.EMBER_KEY), e, true);
         EffectDamageCrossbowQuartz dam = new EffectDamageCrossbowQuartz(damage, knockback, damageSource, fire, 1.0,
                 List.of(new MobEffectInstance(AWRegistry.EFFECT_MOONFIRE.get(), 200, 0, false, true, true)), stack);
         EffectArea effect = new EffectArea(dam, aoeSize, false);

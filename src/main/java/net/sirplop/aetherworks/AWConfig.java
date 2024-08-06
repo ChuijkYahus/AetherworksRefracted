@@ -1,10 +1,13 @@
 package net.sirplop.aetherworks;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -18,6 +21,7 @@ public class AWConfig {
 
     public static ConfigValue<Integer> MOONSNARE_STRENGTH;
     public static ConfigValue<Integer> AETHERIC_STRENGTH;
+    public static ConfigValue<List<? extends String>> MOONLIT_DIMENSIONS;
     public static ConfigValue<Double> TOOL_EMBER_USE;
     public static ConfigValue<Integer> AETHER_PICKAXE_RANGE;
     private static ConfigValue<List<? extends String>> AETHER_PICKAXE_BANNED_CONFIG;
@@ -47,12 +51,26 @@ public class AWConfig {
     private static Set<Block> SKULK_AXE_ALLOWED;
     private static Set<Block> SLIME_SHOVEL_ALLOWED;
 
+    private static Set<ResourceKey<DimensionType> > MOONLIT_DIMENSIONS_SET;
+
     public enum Tool {
         AETHER_PICKAXE,
         EMBER_PICKAXE,
         ENDER_AXE,
         SCULK_AXE,
         SLIME_SHOVEL
+    }
+
+    public static boolean isMoonlitDimension(ResourceKey<DimensionType> type) {
+        if (MOONLIT_DIMENSIONS_SET == null) {
+            MOONLIT_DIMENSIONS_SET = new HashSet<>();
+            for (String key : AWConfig.MOONLIT_DIMENSIONS.get()) {
+                ResourceLocation location = new ResourceLocation(key);
+                ResourceKey<DimensionType>  dim = ResourceKey.create(Registries.DIMENSION_TYPE, location);
+                MOONLIT_DIMENSIONS_SET.add(dim);
+            }
+        }
+        return MOONLIT_DIMENSIONS_SET.contains(type);
     }
 
     public static Set<Block> getConfigSet(Tool tool) {
@@ -124,9 +142,9 @@ public class AWConfig {
                     ret.put(ForgeRegistries.MOB_EFFECTS.getValue(left), ForgeRegistries.MOB_EFFECTS.getValue(right));
                 }
                 else
-                    Aetherworks.LOGGER.atError().log("Malformed potion effect: "+split[1]);
+                    Aetherworks.LOGGER.atError().log("Malformed output potion effect: "+split[1]);
             } else
-                Aetherworks.LOGGER.atError().log("Malformed potion effect: "+split[0]);
+                Aetherworks.LOGGER.atError().log("Malformed input potion effect: "+split[0]);
         }
         return ret;
     }
@@ -150,8 +168,11 @@ public class AWConfig {
 
         COMMON.comment("Settings for tool parameters").push("tool");
 
-        MOONSNARE_STRENGTH = COMMON.comment("How quickly do the Moonsnare jars generate ember? Set to -1 to disable. [default: 2]").defineInRange("moonsnare_strength", 2, -1, 40);
-        AETHERIC_STRENGTH = COMMON.comment("How strong is the self-repair effect of aetherium tools? Set to -1 to disable. [default: 2]").defineInRange("aetheric_strength", 2, -1, 40);
+        MOONSNARE_STRENGTH = COMMON.comment("How quickly do the Moonsnare jars generate ember? Set to -1 to disable. [default: 3]").defineInRange("moonsnare_strength", 3, -1, 40);
+        AETHERIC_STRENGTH = COMMON.comment("How strong is the self-repair effect of aetherium tools? Set to -1 to disable. [default: 3]").defineInRange("aetheric_strength", 3, -1, 40);
+        MOONLIT_DIMENSIONS = COMMON.comment("List of dimensions that are always considered moonlit for Moonsnare containers and Aetheriuc tools.").defineListAllowEmpty("aetheric_dimensions", List.of(
+                "minecraft:the_end"
+            ), (e) -> true);
         TOOL_EMBER_USE = COMMON.comment("Ember used when using the AOE mode on aetheric tools. [default: 4.0]").define("ember_use", 4.0);
 
         AETHER_PICKAXE_RANGE = COMMON.comment("Maximum vein mine radius of the Pickaxe of the Boundless Sky. [default: 8]").defineInRange("pobs.range", 8, 0, 128);
@@ -160,7 +181,7 @@ public class AWConfig {
                         "minecraft:bedrock",
                         "minecraft:reinforced_deepslate",
                         "aetherworks:forge_block"
-                ), AWConfig::validateBlockNames);
+                ), a -> true);
 
         EMBER_PICKAXE_RANGE = COMMON.comment("Maximum number of bore holes the Pickaxe of the Molten Depths makes when tunneling. [default: 8]").defineInRange("pomd.range", 8, 0, 128);
         EMBER_PICKAXE_ALLOWED_CONFIG = COMMON.comment("Blocks that the Pickaxe of the Molten Depths can vein mine.")
@@ -222,10 +243,6 @@ public class AWConfig {
         COMMON.pop();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON.build());
-    }
-    private static boolean validateBlockNames(final Object obj)
-    {
-        return obj instanceof final String blockName && ForgeRegistries.BLOCKS.containsKey(new ResourceLocation(blockName));
     }
 
     private static boolean validatePotions(final Object obj)

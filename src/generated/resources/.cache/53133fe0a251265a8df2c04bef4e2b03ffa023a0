@@ -1,4 +1,4 @@
-// 1.20.1	2024-07-28T16:28:39.0700736	Item Models: aetherworks
+// 1.20.1	2024-08-04T20:54:34.5606667	Item Models: aetherworks
 263c3fa599b16e43c5708ed4242608e4931d5e1b assets/aetherworks/models/item/aetheriometer.json
 d45f4464b3b643edba8fc5cf621a56ccd8646486 assets/aetherworks/models/item/aetherium_lens.json
 14d56331c116e7649d3b64ea7182b6f076e870e0 assets/aetherworks/models/item/aether_amalgam.json
@@ -15,8 +15,8 @@ fbc8430361123d3d8b6f0934a6512c3fb73ad137 assets/aetherworks/models/item/aether_p
 ce6d19c017143f96280be7542001aeea0950a273 assets/aetherworks/models/item/alchemic_precursor_bucket.json
 79ae357df31f9f4a442e5b74b39d8bc080f9c938 assets/aetherworks/models/item/aspectus_aetherium.json
 8ceb77d5b0cfdd2e8550e58f4d10ecd23d9e50aa assets/aetherworks/models/item/axe_ender.json
-b69090fbd79ae41b249d80a73373e174054070ca assets/aetherworks/models/item/axe_head.json
-227d9fcf083a6524fa796b814e33fc207725095f assets/aetherworks/models/item/axe_head_crude.json
+d92da9d00da7ffbb60bdd2c2f0f5e72bc6ae62d6 assets/aetherworks/models/item/axe_head.json
+69ddc2ac8658143ebd50896033c1e93f91769a72 assets/aetherworks/models/item/axe_head_crude.json
 f756c97c7b144b3232314747c89b80f70f90ae1c assets/aetherworks/models/item/axe_head_ender.json
 fc090c4f6875573c302df880da3969bb19e7caad assets/aetherworks/models/item/axe_head_sculk.json
 d2ed53bc5dfbc59cada0769a729dc2b408e34bcd assets/aetherworks/models/item/axe_sculk.json
@@ -25,8 +25,8 @@ ce1bfde984da9ae055cca28e8fe95b44941069b1 assets/aetherworks/models/item/crossbow
 b3a31802fc4750af0464db378b84216091889b30 assets/aetherworks/models/item/crossbow_frame_infused.json
 e34079e5e57625800ffe032d11dda490cc451dde assets/aetherworks/models/item/crossbow_limbs.json
 ca44ee2aaaee414c16a2be2bcfe6db02fff6ba96 assets/aetherworks/models/item/crossbow_limbs_crude.json
-66e70708152cdfd12305cc43c8b7685b50a818f1 assets/aetherworks/models/item/crossbow_limbs_magma.json
-43a00655b8cba855e7e8687ef6b140fa63be4192 assets/aetherworks/models/item/crossbow_limbs_quartz.json
+38f2efd2604104e7f06f884924f996abe18ab030 assets/aetherworks/models/item/crossbow_limbs_magma.json
+51ca469ffcab58511baae71669fc66ebcf32d2c6 assets/aetherworks/models/item/crossbow_limbs_quartz.json
 28474dd8c8122c505f3b07448b6046b286504081 assets/aetherworks/models/item/focus_crystal.json
 d70756c507122f953a0c2e7f083fa4dc535b9467 assets/aetherworks/models/item/gem_aether.json
 39f4e23dd0c1718076526563b856f5e161b0249a assets/aetherworks/models/item/geode_basic.json
@@ -45,8 +45,8 @@ d163e17d211f80b52b23ccc1f4e3853b5f0b55d5 assets/aetherworks/models/item/pickaxe_
 0dcd4bd17a38be8eb17d3c36daab0ff873381f8b assets/aetherworks/models/item/pickaxe_head_crude.json
 6ed830fc741954193a461a180b2ec049bffc406d assets/aetherworks/models/item/pickaxe_head_ember.json
 47a877bdbf02f447aac14fa8bf4ae946307a3f31 assets/aetherworks/models/item/plate_aether.json
-9cef87feb172332e0e5c69cd0dbfdfbcde9e0115 assets/aetherworks/models/item/shovel_head.json
-5ddcdb757a133ae7f6e51f36beaf43414bac6203 assets/aetherworks/models/item/shovel_head_crude.json
+8980d04b8a278a3002c3211176b837f782c831dc assets/aetherworks/models/item/shovel_head.json
+878334d9d8beed0b23d2b6f772703c4c8f7155b1 assets/aetherworks/models/item/shovel_head_crude.json
 0ddc3bbddf818b8fb02552cdfc3b9adde08b4fd3 assets/aetherworks/models/item/shovel_head_prismarine.json
 2089397ad43e9e42ce26939af8b48d6baf499be1 assets/aetherworks/models/item/shovel_head_slime.json
 943514a43aaadd977e8a5fc926b52bc5a4a2814b assets/aetherworks/models/item/shovel_prismarine.json

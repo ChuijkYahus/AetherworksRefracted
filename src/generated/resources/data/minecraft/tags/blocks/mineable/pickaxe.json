@@ -21,8 +21,10 @@
     "aetherworks:forge_anvil",
     "aetherworks:forge_metal_former",
     "aetherworks:forge_tool_station",
+    "aetherworks:heat_dial",
     "aetherworks:suevite",
     "aetherworks:suevite_cobble",
-    "aetherworks:suevite_bricks"
+    "aetherworks:suevite_bricks",
+    "aetherworks:glass_aetherium"
   ]
 }

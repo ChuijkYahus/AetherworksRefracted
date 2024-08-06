@@ -1,5 +1,6 @@
 package net.sirplop.aetherworks.datagen;
 
+import com.rekindled.embers.datagen.EmbersBlockTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -42,9 +43,11 @@ public class AWBlockTags  extends BlockTagsProvider {
                 AWRegistry.FORGE_ANVIL.get(),
                 AWRegistry.FORGE_METAL_FORMER.get(),
                 AWRegistry.FORGE_TOOL_STATION.get(),
+                AWRegistry.HEAT_DIAL.get(),
                 AWRegistry.SUEVITE.get(),
                 AWRegistry.SUEVITE_COBBLE.get(),
-                AWRegistry.SUEVITE_BRICKS.get()
+                AWRegistry.SUEVITE_BRICKS.get(),
+                AWRegistry.GLASS_AETHERIUM.get()
         );
         tag(BlockTags.NEEDS_DIAMOND_TOOL).add(
                 AWRegistry.AETHERIUM_ORE.get(),
@@ -63,8 +66,15 @@ public class AWBlockTags  extends BlockTagsProvider {
                 AWRegistry.FORGE_VENT.get(),
                 AWRegistry.FORGE_ANVIL.get(),
                 AWRegistry.FORGE_METAL_FORMER.get(),
-                AWRegistry.FORGE_TOOL_STATION.get()
+                AWRegistry.FORGE_TOOL_STATION.get(),
+                AWRegistry.HEAT_DIAL.get(),
+                AWRegistry.GLASS_AETHERIUM.get()
         );
+
+        tag(EmbersBlockTags.DIAL).add(AWRegistry.HEAT_DIAL.get());
+
+        tag(BlockTags.WITHER_IMMUNE).add(AWRegistry.GLASS_AETHERIUM.get());
+        getTag("forge:glass").add(AWRegistry.GLASS_AETHERIUM.get());
 
         tag(SCULK_AXE_MINEABLE).addTags(BlockTags.MINEABLE_WITH_AXE, BlockTags.LEAVES);
 

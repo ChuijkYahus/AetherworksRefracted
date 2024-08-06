@@ -1,5 +1,29 @@
 Changelog - Aetherworks Refracted
 =============================
+1.20.1-1.0.5
+-----------------------------
+_Additions_
+
+- Added Aetherium Glass, which is wither-proof and (mostly) blast-proof.
+- Added a second page to the Aetherium Crown codex entry describing how to imbue vessel gems.
+- Added a config option to specify dimensions that are always considered "moonlit", aka triggers Moonsnare containers and Aetheric tools.
+
+_Changes_
+
+- Increased default aetheric strength of Moonsnare containers and Aetheric tools from 2 to 3.
+- Increased span of time that is considered moonlit from 15000-21000 to 12786-23216 (lunar zeniths).
+- The End is now considered moonlit at all times.
+- Retextured all tool parts and the aetherium crown item.
+- Retextured Aetherium-Infused Suevite and Aetherium Focusing Matrix.
+
+_Fixes_
+
+- Fixed Moonsnare Jars and Aetherium Tools not checking the time when they can repair properly.
+- Forge Dial was not tagged as mineable correctly, making it impossible to pick up.
+- Moonlight Harvesters shared a frame counter, making their animations speed up the more existed.
+- Mostly fixed chaining Moonlight Harvesters together causing runes to render over one another.
+- Typo in Shovel of the Timeless Cascades' codex entry.
+
 1.20.1-1.0.4
 -----------------------------
 _Additions_

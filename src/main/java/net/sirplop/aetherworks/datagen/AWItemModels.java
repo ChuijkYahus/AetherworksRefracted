@@ -45,12 +45,12 @@ public class AWItemModels extends ItemModelProvider {
         itemWithTexture(AWRegistry.PICKAXE_HEAD, "generated", "tool/head/pickaxe_head_center", "tool/part/pickaxe_head");
         itemWithTexture(AWRegistry.PICKAXE_HEAD_AETHER, "generated", "tool/head/pickaxe_head_center", "tool/head/pickaxe_head_aether");
         itemWithTexture(AWRegistry.PICKAXE_HEAD_EMBER, "generated", "tool/head/pickaxe_head_center", "tool/head/pickaxe_head_ember");
-        itemWithTexture(AWRegistry.AXE_HEAD_CRUDE, "tool/part/axe_head_crude");
-        itemWithTexture(AWRegistry.AXE_HEAD, "tool/part/axe_head");
+        itemWithTexture(AWRegistry.AXE_HEAD_CRUDE, "generated", "tool/head/axe_head_center", "tool/part/axe_head_crude");
+        itemWithTexture(AWRegistry.AXE_HEAD, "generated", "tool/head/axe_head_center", "tool/part/axe_head");
         itemWithTexture(AWRegistry.AXE_HEAD_SCULK, "generated", "tool/head/axe_head_center", "tool/head/axe_head_sculk");
         itemWithTexture(AWRegistry.AXE_HEAD_ENDER, "generated", "tool/head/axe_head_center", "tool/head/axe_head_ender");
-        itemWithTexture(AWRegistry.SHOVEL_HEAD_CRUDE, "tool/part/shovel_head_crude");
-        itemWithTexture(AWRegistry.SHOVEL_HEAD, "tool/part/shovel_head");
+        itemWithTexture(AWRegistry.SHOVEL_HEAD_CRUDE, "generated", "tool/head/shovel_head_center", "tool/part/shovel_head_crude");
+        itemWithTexture(AWRegistry.SHOVEL_HEAD, "generated", "tool/head/shovel_head_center", "tool/part/shovel_head");
         itemWithTexture(AWRegistry.SHOVEL_HEAD_PRISMARINE, "generated", "tool/head/shovel_head_center", "tool/head/shovel_head_prismarine");
         itemWithTexture(AWRegistry.SHOVEL_HEAD_SLIME, "generated", "tool/head/shovel_head_center", "tool/head/shovel_head_slime");
         itemWithTexture(AWRegistry.AETHER_CROWN_CRUDE, "aether_crown_crude");
@@ -60,8 +60,8 @@ public class AWItemModels extends ItemModelProvider {
         itemWithTexture(AWRegistry.CROSSBOW_FRAME_INFUSED, "crossbow_frame");
         itemWithTexture(AWRegistry.CROSSBOW_LIMBS_CRUDE, "crossbow_limbs_crude");
         itemWithTexture(AWRegistry.CROSSBOW_LIMBS, "crossbow_limbs");
-        itemWithTexture(AWRegistry.CROSSBOW_LIMBS_QUARTZ, "crossbow_limbs_quartz");
-        itemWithTexture(AWRegistry.CROSSBOW_LIMBS_MAGMA, "crossbow_limbs_magma");
+        itemWithTexture(AWRegistry.CROSSBOW_LIMBS_QUARTZ, "generated", "crossbow_limbs", "crossbow_limbs_quartz");
+        itemWithTexture(AWRegistry.CROSSBOW_LIMBS_MAGMA, "generated", "crossbow_limbs", "crossbow_limbs_magma");
 
         itemWithTexture(AWRegistry.AETHER_ASPECTUS, "aspectus_aetherium");
         itemWithTexture(AWRegistry.AETHERIOMETER, "aetheriometer");

@@ -98,11 +98,12 @@ public class EffectDamageCrossbowQuartz extends EffectDamagePotion{
             if (shooter instanceof Player player)
                 player.getInventory().setChanged();
         }
-        if (entity.hurt(this.source.apply(projectileEntity), damage)) {
+        boolean hurt = entity.hurt(this.source.apply(projectileEntity), damage);
+        if (hurt) {
             entity.setSecondsOnFire(this.fire);
         }
 
-        if (entity instanceof LivingEntity livingTarget) {
+        if (hurt && entity instanceof LivingEntity livingTarget) {
             livingTarget.setLastHurtMob(shooter);
             livingTarget.hurtDuration = (int)((double)livingTarget.hurtDuration * this.invinciblityMultiplier);
 
