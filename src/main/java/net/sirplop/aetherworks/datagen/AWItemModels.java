@@ -1,7 +1,5 @@
 package net.sirplop.aetherworks.datagen;
 
-import net.minecraft.client.renderer.block.model.ItemModelGenerator;
-import net.minecraft.client.resources.model.BuiltInModel;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BucketItem;
@@ -16,8 +14,6 @@ import net.minecraftforge.registries.RegistryObject;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.Aetherworks;
 import net.sirplop.aetherworks.compat.curios.CuriosCompat;
-
-import java.util.List;
 
 public class AWItemModels extends ItemModelProvider {
     public AWItemModels(PackOutput gen, ExistingFileHelper existingFileHelper) {
@@ -71,6 +67,7 @@ public class AWItemModels extends ItemModelProvider {
         layeredItem(CuriosCompat.AETHER_EMBER_BULB, "item/generated", "aether_ember_bulb_glass", "aether_ember_bulb_shine", "aether_ember_bulb");
 
         itemWithTexture(AWRegistry.TUNING_CYLINDER, "tuning_cylinder");
+        itemWithTexture(AWRegistry.VOLANT_CALCIFIER, "volant_calcifier");
 
         itemWithTexture(AWRegistry.GEODE_END, "geode_end");
         itemWithTexture(AWRegistry.GEODE_NETHER, "geode_nether");

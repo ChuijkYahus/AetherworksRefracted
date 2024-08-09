@@ -7,7 +7,6 @@ import com.rekindled.embers.datagen.EmbersRecipes;
 import com.rekindled.embers.recipe.*;
 import com.rekindled.embers.util.ConsumerWrapperBuilder;
 import com.rekindled.embers.util.FluidAmounts;
-import com.rekindled.embers.util.Misc;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
@@ -20,7 +19,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
@@ -35,7 +33,6 @@ import net.sirplop.aetherworks.recipe.*;
 import net.sirplop.aetherworks.util.Utils;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -54,6 +51,7 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
     protected void buildRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
         //dawnstone anvil
         AnvilAugmentRecipeBuilder.create(AWRegistry.TUNING_CYLINDER_AUGMENT).folder(EmbersRecipes.anvilFolder).tool(HeatIngredient.of(Ingredient.of(EmbersItemTags.AUGMENTABLE_TOOLS))).input(AWRegistry.TUNING_CYLINDER.get()).save(consumer);
+        AnvilAugmentRecipeBuilder.create(AWRegistry.VOLANT_CALCIFIER_AUGMENT).folder(EmbersRecipes.anvilFolder).tool(HeatIngredient.of(Ingredient.of(EmbersItemTags.AUGMENTABLE_PROJECTILE_WEAPONS))).input(AWRegistry.VOLANT_CALCIFIER.get()).save(consumer);
 
         //metal former
         MetalFormerRecipeBuilder.create(AWRegistry.INGOT_AETHER.get()).domain(Aetherworks.MODID).folder(metalFormerFolder).temperature(2100).craftTime(200).fluid(new FluidStack(AWRegistry.AETHERIUM_GAS.FLUID.get(), FluidAmounts.INGOT_AMOUNT)).input(Ingredient.of(RegistryManager.DAWNSTONE_INGOT.get())).save(consumer);
@@ -476,6 +474,17 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
                 .define('L', RegistryManager.SILVER_PLATE.get())
                 .unlockedBy("has_aether_shard", has(AWRegistry.AETHER_SHARD.get()))
                 .save(consumer, getResource("tuning_cylinder"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AWRegistry.VOLANT_CALCIFIER.get())
+                .pattern("CIC")
+                .pattern("CEC")
+                .pattern("PAP")
+                .define('I', RegistryManager.ISOLATED_MATERIA.get())
+                .define('C', RegistryManager.CAMINITE_BLEND.get())
+                .define('P', RegistryManager.DAWNSTONE_PLATE.get())
+                .define('E', RegistryManager.EMBER_CRYSTAL.get())
+                .define('A', RegistryManager.ARCHAIC_CIRCUIT.get())
+                .unlockedBy("has_dawnstone", has(RegistryManager.DAWNSTONE_INGOT.get()))
+                .save(consumer, getResource("volant_calcifier"));
         ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, AWRegistry.POTION_GEM.get())
                 .pattern(" X ")
                 .pattern("GIG")

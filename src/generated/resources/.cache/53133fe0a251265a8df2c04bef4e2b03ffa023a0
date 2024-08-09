@@ -1,4 +1,4 @@
-// 1.20.1	2024-08-04T20:54:34.5606667	Item Models: aetherworks
+// 1.20.1	2024-08-08T14:44:38.3437964	Item Models: aetherworks
 263c3fa599b16e43c5708ed4242608e4931d5e1b assets/aetherworks/models/item/aetheriometer.json
 d45f4464b3b643edba8fc5cf621a56ccd8646486 assets/aetherworks/models/item/aetherium_lens.json
 14d56331c116e7649d3b64ea7182b6f076e870e0 assets/aetherworks/models/item/aether_amalgam.json
@@ -55,3 +55,4 @@ d163e17d211f80b52b23ccc1f4e3853b5f0b55d5 assets/aetherworks/models/item/pickaxe_
 e5586b1543325418c4904cac2b46a68d1888d0f9 assets/aetherworks/models/item/tool_rod_crude.json
 6f28d4422bc15bcb531442345a4c3d1187820355 assets/aetherworks/models/item/tool_rod_infused.json
 eca7b6f8822170963733498f2d6247bb77a9903d assets/aetherworks/models/item/tuning_cylinder.json
+2aba0feb7079a6518590d027a4c31d1f548cb999 assets/aetherworks/models/item/volant_calcifier.json

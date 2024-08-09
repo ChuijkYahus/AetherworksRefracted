@@ -44,6 +44,7 @@
   "item.aetherworks.geode_basic" : "Stone Geode",
   "item.aetherworks.aspectus_aetherium" : "Aetherium Aspectus",
   "item.aetherworks.tuning_cylinder" : "Tuning Cylinder",
+  "item.aetherworks.volant_calcifier" : "Volant Calcifier",
   "item.aetherworks.aetheriometer" : "Aetheriometer",
 
   "item.aetherworks.aether_ember_jar" : "Moonsnare Jar",
@@ -124,12 +125,14 @@
   "aetherworks.tooltip.crossbow_limbs_magma" : "§oMagma Infused",
 
   "effect.aetherworks.moonfire" : "Moongaze",
+  "effect.aetherworks.pulldown" : "Anchored",
 
   "death.attack.moon_ember" : "%1$s was revealed to the moon",
   "death.attack.moon_ember.player" : "%1$s was revealed to the moon by %2$s",
   "death.attack.moon_ember.item" : "%1$s was revealed to the moon by %2$s using %3$s",
 
-  "embers.tooltip.augment.aetherworks.tuning_cylinder" : "Aetheric Tuning",
+  "embers.tooltip.augment.aetherworks.tuning_cylinder" : "Aetheric Tuning %s",
+  "embers.tooltip.augment.aetherworks.volant_calcifier" : "Wing Clipping %s",
 
   "aetherworks.decimal_format.heat" : "0",
   "aetherworks.tooltip.heatdial.heat" : "Heat: %s/%s",
@@ -250,6 +253,9 @@
   "embers.research.page.aw.tuning_cylinder" : "Tuning Cylinder",
   "embers.research.page.aw.tuning_cylinder.title" : "Resonant Mining",
   "embers.research.page.aw.tuning_cylinder.desc" : "The Tuning Cylinder is an augment that makes a mining tool sensitive to the trace amounts of Aetherium permeating the earth. When mining a block with the tool, you have a chance to receive a geode, the type of which depends on biome and depth. These geodes can be cracked open on an Aetherium Anvil to retrieve the bounty within.",
+  "embers.research.page.aw.volant_calcifier" : "Volant Calcifier",
+  "embers.research.page.aw.volant_calcifier.title" : "Dragonrend",
+  "embers.research.page.aw.volant_calcifier.desc" : "You've had it with these flying creatures always pestering you - time to bring them down to your level so you can give them a piece of your mind! The Volant Calcifier will cause your Ember projectiles to apply the Anchored effect to hit mobs, constantly pushing them down towards the ground.",
 
   "embers.research.page.aw.moonsnare_jars" : "Moonsnare Containers",
   "embers.research.page.aw.moonsnare_jars.title" : "Moonlight On The Go",

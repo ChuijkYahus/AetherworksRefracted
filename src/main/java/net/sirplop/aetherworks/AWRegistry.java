@@ -15,7 +15,6 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.api.augment.AugmentUtil;
 import com.rekindled.embers.api.augment.IAugment;
-import com.rekindled.embers.block.AtmosphericGaugeBlock;
 import com.rekindled.embers.fluidtypes.EmbersFluidType;
 import com.rekindled.embers.item.EmberStorageItem;
 import com.rekindled.embers.util.AshenArmorMaterial;
@@ -48,7 +47,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.material.*;
@@ -63,11 +61,13 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import net.sirplop.aetherworks.augment.VolantCalcifierAugment;
 import net.sirplop.aetherworks.augment.TuningCylinderAugment;
 import net.sirplop.aetherworks.block.*;
 import net.sirplop.aetherworks.block.forge.*;
 import net.sirplop.aetherworks.blockentity.*;
 import net.sirplop.aetherworks.effect.MoonfireEffect;
+import net.sirplop.aetherworks.effect.PullDownEffect;
 import net.sirplop.aetherworks.enchantment.AethericEnchantment;
 import net.sirplop.aetherworks.entity.DummyArmorLoaderEntity;
 import net.sirplop.aetherworks.fluid.AWViscousFluidType;
@@ -203,10 +203,11 @@ public class AWRegistry {
     public static final RegistryObject<Item> GEODE_BASIC = ITEMS.register("geode_basic", () -> new TooltipItem(new Item.Properties(), "aetherworks.tooltip.geode", false));
     public static final RegistryObject<Item> AETHER_ASPECTUS = ITEMS.register("aspectus_aetherium", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TUNING_CYLINDER = ITEMS.register("tuning_cylinder", () -> new Item(new Item.Properties()));
-
+    public static final RegistryObject<Item> VOLANT_CALCIFIER = ITEMS.register("volant_calcifier", () -> new Item(new Item.Properties()));
 
     //Augments
     public static final IAugment TUNING_CYLINDER_AUGMENT = AugmentUtil.registerAugment(new TuningCylinderAugment(new ResourceLocation(Aetherworks.MODID, "tuning_cylinder")));
+    public static final IAugment VOLANT_CALCIFIER_AUGMENT = AugmentUtil.registerAugment(new VolantCalcifierAugment(new ResourceLocation(Aetherworks.MODID, "volant_calcifier")));
 
     //Fluids
     public static final FluidStuff AETHERIUM_GAS_IMPURE = addFluid(new EmbersFluidType.FluidInfo("aether_gas_impure", 0xff6c829f, 0.1F, 1.5F),
@@ -304,6 +305,7 @@ public class AWRegistry {
 
     //Mob Effects & Potions
     public static final RegistryObject<MobEffect> EFFECT_MOONFIRE = MOB_EFFECTS.register("moonfire", () -> new MoonfireEffect(MobEffectCategory.HARMFUL, Utils.AETHERIUM_PROJECTILE_COLOR.getRGB()));
+    public static final RegistryObject<MobEffect> EFFECT_PULLDOWN = MOB_EFFECTS.register("pulldown", () -> new PullDownEffect(MobEffectCategory.NEUTRAL, PullDownEffect.COLOR.getRGB()));
 
     //Recipe Types
     public static final RegistryObject<RecipeType<IMetalFormerRecipe>> METAL_FORMING = registerRecipeType("metal_forming");

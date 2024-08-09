@@ -23,7 +23,7 @@ public class AWResearch {
     public static ResearchCategory subCategoryTools;
     public static ResearchBase meteor, gauge, amalgam, moon_harvester, focus_matrix, purify_aetherium, aspectus, forge, heat_dial, heater, cooler, vent, metal_former, anvil, tool_station, pearls, tools;
     public static ResearchBase pobs, pomd, aotr, aosa, sotc, soic, cosb, cosr, crown; //TOOLS
-    public static ResearchBase tuning_cylinder;
+    public static ResearchBase tuning_cylinder, volant_calcifier;
     public static ResearchBase moonsnare_jars, moonsnare_bulb;
 
     public static void initResearch() {
@@ -71,6 +71,8 @@ public class AWResearch {
 
         tuning_cylinder = new ResearchBase("aw.tuning_cylinder", new ItemStack(AWRegistry.TUNING_CYLINDER.get()), ResearchManager.subCategoryWeaponAugments.popGoodLocation()).addAncestor(ResearchManager.inferno_forge);
         ResearchManager.subCategoryWeaponAugments.addResearch(tuning_cylinder);
+        volant_calcifier = new ResearchBase("aw.volant_calcifier", new ItemStack(AWRegistry.VOLANT_CALCIFIER.get()), ResearchManager.subCategoryProjectileAugments.popGoodLocation()).addAncestor(ResearchManager.inferno_forge);
+        ResearchManager.subCategoryProjectileAugments.addResearch(volant_calcifier);
 
         ItemStack fullJar = EmberStorageItem.withFill(AWRegistry.AETHER_EMBER_JAR.get(), ((EmberStorageItem)AWRegistry.AETHER_EMBER_JAR.get()).getCapacity());
         moonsnare_jars = new ResearchBase("aw.moonsnare_jars", fullJar, 6.5, 7).addAncestor(ResearchManager.jars);

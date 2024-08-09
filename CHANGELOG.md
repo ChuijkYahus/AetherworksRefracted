@@ -1,5 +1,17 @@
 Changelog - Aetherworks Refracted
 =============================
+1.20.1-1.0.6
+-----------------------------
+_Additions_
+
+- Added the Volant Calcifier augment, which makes your ember projectiles force flying enemies to the ground.
+
+_Changes_
+
+- The Tuning Cylinder augment now displays its level.
+
+_Fixes_
+
 1.20.1-1.0.5
 -----------------------------
 _Additions_
