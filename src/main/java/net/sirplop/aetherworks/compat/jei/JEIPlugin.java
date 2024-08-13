@@ -3,7 +3,6 @@ package net.sirplop.aetherworks.compat.jei;
 import com.rekindled.embers.recipe.IVisuallySplitRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -13,16 +12,18 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 
-import mezz.jei.api.registration.IRecipeCategoryRegistration;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.Aetherworks;
 import net.sirplop.aetherworks.recipe.IAetheriumAnvilRecipe;
 import net.sirplop.aetherworks.recipe.IMetalFormerRecipe;
 import net.sirplop.aetherworks.recipe.IToolStationRecipe;
+import net.sirplop.aetherworks.recipe.PotionGemImbueRecipe;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,9 +63,8 @@ public class JEIPlugin  implements IModPlugin {
         }
         register.addRecipes(jeiType, visualRecipes);
     }
-    @SuppressWarnings("resource")
     @Override
-    public void registerRecipes(IRecipeRegistration register) {
+    public void registerRecipes(@NotNull IRecipeRegistration register) {
         assert Minecraft.getInstance().level != null;
         RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
 

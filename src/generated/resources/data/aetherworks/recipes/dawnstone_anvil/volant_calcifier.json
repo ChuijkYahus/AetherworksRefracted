@@ -6,8 +6,18 @@
   },
   "tool": {
     "type": "embers:has_heat",
-    "base": {
-      "tag": "embers:augmentables/projectiles"
-    }
+    "base": [
+      {
+        "type": "embers:has_augment",
+        "augment": "embers:caster_orb",
+        "base": {
+          "tag": "embers:augmentables/tools"
+        },
+        "level": 1
+      },
+      {
+        "tag": "embers:augmentables/projectiles"
+      }
+    ]
   }
 }

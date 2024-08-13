@@ -139,7 +139,7 @@ public class ForgeToolStation extends HorizontalWaterloggableEntityBlock {
                 x = 16 - z;
                 z = tX;
             }
-            case SOUTH -> {
+            case NORTH -> {
                 x = 16 - x;
                 z = 16 - z;
             }
@@ -148,7 +148,7 @@ public class ForgeToolStation extends HorizontalWaterloggableEntityBlock {
                 x = z;
                 z = 16 - tX;
             }
-            //north is the default direction
+            //south is the default direction
         }
 
         //check center

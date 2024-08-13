@@ -96,7 +96,7 @@ public class RenderToolStation implements BlockEntityRenderer<ToolStationBlockEn
                 x = z;
                 z = 1 - tX;
             }
-            case SOUTH -> {
+            case NORTH -> {
                 x = 1 - x;
                 z = 1 - z;
             }
@@ -105,7 +105,7 @@ public class RenderToolStation implements BlockEntityRenderer<ToolStationBlockEn
                 x = 1 - z;
                 z = tX;
             }
-            //north is the default direction
+            //south is the default direction
         }
         return new Vec3(x, y, z);
     }

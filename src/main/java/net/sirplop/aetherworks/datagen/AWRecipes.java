@@ -20,6 +20,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
@@ -50,8 +51,10 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
     @Override
     protected void buildRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
         //dawnstone anvil
+        Ingredient projectileWeapons = CompoundIngredient.of(Ingredient.of(EmbersItemTags.AUGMENTABLE_PROJECTILE_WEAPONS),
+                AugmentIngredient.of(Ingredient.of(EmbersItemTags.AUGMENTABLE_TOOLS), RegistryManager.CASTER_ORB_AUGMENT));
         AnvilAugmentRecipeBuilder.create(AWRegistry.TUNING_CYLINDER_AUGMENT).folder(EmbersRecipes.anvilFolder).tool(HeatIngredient.of(Ingredient.of(EmbersItemTags.AUGMENTABLE_TOOLS))).input(AWRegistry.TUNING_CYLINDER.get()).save(consumer);
-        AnvilAugmentRecipeBuilder.create(AWRegistry.VOLANT_CALCIFIER_AUGMENT).folder(EmbersRecipes.anvilFolder).tool(HeatIngredient.of(Ingredient.of(EmbersItemTags.AUGMENTABLE_PROJECTILE_WEAPONS))).input(AWRegistry.VOLANT_CALCIFIER.get()).save(consumer);
+        AnvilAugmentRecipeBuilder.create(AWRegistry.VOLANT_CALCIFIER_AUGMENT).folder(EmbersRecipes.anvilFolder).tool(HeatIngredient.of(projectileWeapons)).input(AWRegistry.VOLANT_CALCIFIER.get()).save(consumer);
 
         //metal former
         MetalFormerRecipeBuilder.create(AWRegistry.INGOT_AETHER.get()).domain(Aetherworks.MODID).folder(metalFormerFolder).temperature(2100).craftTime(200).fluid(new FluidStack(AWRegistry.AETHERIUM_GAS.FLUID.get(), FluidAmounts.INGOT_AMOUNT)).input(Ingredient.of(RegistryManager.DAWNSTONE_INGOT.get())).save(consumer);

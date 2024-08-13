@@ -9,8 +9,11 @@ _Additions_
 _Changes_
 
 - The Tuning Cylinder augment now displays its level.
+- Retextured Tuning Cylinder
 
 _Fixes_
+
+- Fixed the Tool Forge being flipped when facing north or south.
 
 1.20.1-1.0.5
 -----------------------------
