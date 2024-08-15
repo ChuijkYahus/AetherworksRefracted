@@ -243,6 +243,9 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
         AlchemyRecipeBuilder.create(AWRegistry.AETHER_PEARL.get()).tablet(AWRegistry.GEM_AETHER.get()).folder(EmbersRecipes.alchemyFolder)
                 .inputs(AWRegistry.AETHER_AMALGAM.get(), AWRegistry.GEM_AETHER.get(), AWRegistry.AETHER_AMALGAM.get(), AWRegistry.AETHER_AMALGAM.get(), AWRegistry.GEM_AETHER.get())
                 .aspects(EmbersItemTags.SILVER_ASPECTUS, AWItemTags.AETHERIUM_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
+        AlchemyRecipeBuilder.create(AWRegistry.SEETHING_AETHERIUM.FLUID_BUCKET.get()).tablet(AWRegistry.AETHERIUM_GAS.FLUID_BUCKET.get()).folder(EmbersRecipes.alchemyFolder)
+                .inputs(RegistryManager.ALCHEMICAL_WASTE.get(), RegistryManager.ALCHEMICAL_WASTE.get(),RegistryManager.ALCHEMICAL_WASTE.get(), Items.GHAST_TEAR, Items.GHAST_TEAR, Items.GHAST_TEAR)
+                .aspects(EmbersItemTags.LEAD_ASPECTUS, EmbersItemTags.IRON_ASPECTUS, AWItemTags.AETHERIUM_ASPECTUS).save(consumer);
 
         AlchemyRecipeBuilder.create(AWRegistry.TOOL_ROD_INFUSED.get()).tablet(AWRegistry.TOOL_ROD.get()).folder(EmbersRecipes.alchemyFolder)
                 .inputs(RegistryManager.EMBER_GRIT.get(), RegistryManager.ASH.get(), RegistryManager.EMBER_GRIT.get(), RegistryManager.ASH.get())

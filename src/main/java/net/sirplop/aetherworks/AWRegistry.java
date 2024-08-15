@@ -70,6 +70,7 @@ import net.sirplop.aetherworks.effect.MoonfireEffect;
 import net.sirplop.aetherworks.effect.PullDownEffect;
 import net.sirplop.aetherworks.enchantment.AethericEnchantment;
 import net.sirplop.aetherworks.entity.DummyArmorLoaderEntity;
+import net.sirplop.aetherworks.fluid.AWPainFluidType;
 import net.sirplop.aetherworks.fluid.AWViscousFluidType;
 import net.sirplop.aetherworks.fluid.AWMoltenMetalFluidType;
 import net.sirplop.aetherworks.item.*;
@@ -244,9 +245,26 @@ public class AWRegistry {
                     .viscosity(10)
                     .temperature(1020)
                     .lightLevel(10));
+    public static final FluidStuff SEETHING_AETHERIUM = addFluid(new EmbersFluidType.FluidInfo("aether_gas_painful", 0xff00b8ff, 0.1F, 1.5F),
+            AWPainFluidType::new, LiquidBlock::new,
+            prop -> prop.explosionResistance(1000F).tickRate(1).slopeFindDistance(2).levelDecreasePerBlock(2),
+            FluidType.Properties.create()
+                    .canSwim(false)
+                    .canDrown(true)
+                    .pathType(BlockPathTypes.LAVA)
+                    .adjacentPathType(null)
+                    .motionScale(0.0023333333333333335D)
+                    .canPushEntity(true)
+                    .canHydrate(false)
+                    .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
+                    .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
+                    .density(100)
+                    .viscosity(10)
+                    .temperature(6840)
+                    .lightLevel(5));
     public static final FluidStuff ALCHEMIC_PRECURSOR = addFluid(new EmbersFluidType.FluidInfo("alchemic_precursor", 0x9a5e45, 0.1F, 1.5F),
             AWMoltenMetalFluidType::new, LiquidBlock::new,
-            prop -> prop.explosionResistance(1000F).tickRate(3),
+            prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
             FluidType.Properties.create()
                     .canSwim(true)
                     .canDrown(true)

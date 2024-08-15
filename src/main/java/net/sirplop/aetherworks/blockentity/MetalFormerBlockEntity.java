@@ -119,7 +119,9 @@ public class MetalFormerBlockEntity extends FluidHandlerBlockEntity implements I
     @Override
     public void addCapabilityDescription(List<Component> strings, Capability<?> capability, Direction facing) {
         if (capability == ForgeCapabilities.FLUID_HANDLER)
-            strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.INPUT, Embers.MODID + ".tooltip.goggles.fluid", Component.translatable(Aetherworks.MODID + ".tooltip.goggles.fluid.aether")));
+            strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.INPUT, Embers.MODID + ".tooltip.goggles.fluid", null));
+        else if (capability == ForgeCapabilities.ITEM_HANDLER)
+            strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.BOTH, Embers.MODID + ".tooltip.goggles.item", null));
     }
 
     @Override

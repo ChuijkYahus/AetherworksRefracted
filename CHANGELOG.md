@@ -5,15 +5,28 @@ Changelog - Aetherworks Refracted
 _Additions_
 
 - Added the Volant Calcifier augment, which makes your ember projectiles force flying enemies to the ground.
+- Added Seething Aetherium, a horrible fluid that kills everything it touches, and is, in fact, several OSHA violations.
+- Added Tinker Lens info to the Aetherium Anvil and Tool Forge.
+- Moved some entries around the codex and added new entries.
 
 _Changes_
 
 - The Tuning Cylinder augment now displays its level.
-- Retextured Tuning Cylinder
+- Retextured the Tuning Cylinder.
+- Changed the Tinker Lens info for the Metal Former.
+- The Metal Former codex now specifies that you can use a bucket on the metal former to add and remove fluids.
+- Tweaked the Tool Forge and Ecclesia Pearls codex entries.
+- Changed the flow rate and distance of Alchemic Precursor.
 
 _Fixes_
 
-- Fixed the Tool Forge being flipped when facing north or south.
+- The Tool Forge was flipped when facing north or south.
+- More codex typos.
+- Liquids did not have their renderers set correctly.
+- Aetherium Forge was not serializing the structure's validity correctly.
+- Aetherium Forge losing a little bit of heat whenever it was reloaded.
+- Remixed forge_groan.ogg from stereo to mono so the sound will fade with distance.
+- Fixed dying to Moongaze saying the player killed themself.
 
 1.20.1-1.0.5
 -----------------------------

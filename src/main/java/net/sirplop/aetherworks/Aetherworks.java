@@ -146,9 +146,11 @@ public class Aetherworks
                 ItemBlockRenderTypes.setRenderLayer(AWRegistry.AETHERIUM_GAS.FLUID.get(), RenderType.translucent());
                 ItemBlockRenderTypes.setRenderLayer(AWRegistry.AETHERIUM_GAS.FLUID_FLOW.get(), RenderType.translucent());
                 ItemBlockRenderTypes.setRenderLayer(AWRegistry.AETHERIUM_GAS_IMPURE.FLUID.get(), RenderType.translucent());
-                ItemBlockRenderTypes.setRenderLayer(AWRegistry.AETHERIUM_GAS_IMPURE.FLUID.get(), RenderType.translucent());
+                ItemBlockRenderTypes.setRenderLayer(AWRegistry.AETHERIUM_GAS_IMPURE.FLUID_FLOW.get(), RenderType.translucent());
+                ItemBlockRenderTypes.setRenderLayer(AWRegistry.ALCHEMIC_PRECURSOR.FLUID.get(), RenderType.translucent());
                 ItemBlockRenderTypes.setRenderLayer(AWRegistry.ALCHEMIC_PRECURSOR.FLUID_FLOW.get(), RenderType.translucent());
-                ItemBlockRenderTypes.setRenderLayer(AWRegistry.ALCHEMIC_PRECURSOR.FLUID_FLOW.get(), RenderType.translucent());
+                ItemBlockRenderTypes.setRenderLayer(AWRegistry.SEETHING_AETHERIUM.FLUID.get(), RenderType.translucent());
+                ItemBlockRenderTypes.setRenderLayer(AWRegistry.SEETHING_AETHERIUM.FLUID_FLOW.get(), RenderType.translucent());
             });
         }
         @OnlyIn(Dist.CLIENT)

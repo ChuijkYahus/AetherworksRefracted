@@ -1,5 +1,6 @@
 package net.sirplop.aetherworks.blockentity;
 
+import com.rekindled.embers.Embers;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.SparkParticleOptions;
@@ -7,6 +8,7 @@ import com.rekindled.embers.util.Misc;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -27,6 +29,8 @@ import net.sirplop.aetherworks.recipe.AetheriumAnvilContext;
 import net.sirplop.aetherworks.recipe.IAetheriumAnvilRecipe;
 import net.sirplop.aetherworks.util.Utils;
 import org.joml.Vector3f;
+
+import java.util.List;
 
 public class AetheriumAnvilBlockEntity extends BlockEntity implements IForgePart, IExtraCapabilityInformation {
 
@@ -102,6 +106,12 @@ public class AetheriumAnvilBlockEntity extends BlockEntity implements IForgePart
     @Override
     public boolean hasCapabilityDescription(Capability<?> capability) {
         return capability == ForgeCapabilities.ITEM_HANDLER;
+    }
+
+    @Override
+    public void addCapabilityDescription(List<Component> strings, Capability<?> capability, Direction facing) {
+        if (capability == ForgeCapabilities.ITEM_HANDLER)
+            strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.BOTH, Embers.MODID + ".tooltip.goggles.item", null));
     }
 
     @Override

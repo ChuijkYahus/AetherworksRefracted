@@ -178,7 +178,7 @@ public class ForgeCoreBlockEntity extends BlockEntity implements IForge {
 
             if (blockEntity.groanTick++ % 200 == 0) { //every ten seconds
                 level.playSound(Minecraft.getInstance().player, blockEntity.getBlockPos(), AWSounds.FORGE_GROAN.get(),
-                        SoundSource.BLOCKS, 0.25f, 0.75f + level.random.nextFloat() * 0.5f);
+                        SoundSource.BLOCKS, 1.5f, 0.75f + level.random.nextFloat() * 0.5f);
             }
         } else {
             blockEntity.groanTick = 160;
@@ -342,6 +342,10 @@ public class ForgeCoreBlockEntity extends BlockEntity implements IForge {
         super.load(nbt);
         emberCapability.deserializeNBT(nbt);
         heatCapability.deserializeNBT(nbt);
+        if (nbt.contains("storedheat"))
+            storedHeat = nbt.getDouble("storedheat");
+        if (nbt.contains("danger"))
+            ticksInDanger = nbt.getInt("danger");
         if (nbt.contains("valid"))
             isStructureValid = nbt.getBoolean("valid");
     }
@@ -351,8 +355,9 @@ public class ForgeCoreBlockEntity extends BlockEntity implements IForge {
         super.saveAdditional(nbt);
         emberCapability.writeToNBT(nbt);
         heatCapability.writeToNBT(nbt);
-        if (nbt.contains("valid"))
-            isStructureValid = nbt.getBoolean("valid");
+        nbt.putDouble("storedheat", storedHeat);
+        nbt.putInt("danger", ticksInDanger);
+        nbt.putBoolean("valid", isStructureValid);
     }
 
     @Override

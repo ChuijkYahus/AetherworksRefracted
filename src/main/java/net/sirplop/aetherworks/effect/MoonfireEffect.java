@@ -18,7 +18,7 @@ public class MoonfireEffect extends MobEffect {
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
         if (!pLivingEntity.level().isClientSide()) {
             DamageSource source = new DamageMoonEmber(pLivingEntity.level().registryAccess().registry(Registries.DAMAGE_TYPE).get()
-                    .getHolderOrThrow(AWDamageTypes.MOON_EMBER_KEY), pLivingEntity, null);
+                    .getHolderOrThrow(AWDamageTypes.MOON_EMBER_KEY), null, null);
             pLivingEntity.hurt(source, 4.0F);
         }
 

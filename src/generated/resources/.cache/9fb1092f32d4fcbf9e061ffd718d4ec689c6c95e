@@ -1,4 +1,4 @@
-// 1.20.1	2024-08-12T18:42:23.3304358	Recipes
+// 1.20.1	2024-08-14T15:57:11.8361998	Recipes
 517acf7e396808bd01a06777a37a841282204d7d data/aetherworks/advancements/recipes/brewing/potion_gem.json
 6ecc0a6a2f83a90281170a0dcbd575fe913b9505 data/aetherworks/advancements/recipes/building_blocks/suevite_bricks.json
 3f2e0357127bd7a13f326ab205f72f7841ea8c7b data/aetherworks/advancements/recipes/decorations/suevite_bricks_slab.json
@@ -64,6 +64,7 @@ aa773923ba67d051a8e6acdf0a13c4701e5226b4 data/aetherworks/recipes/aether_glass_t
 4239fb6f74a839f1b22367cb943696a14212bef5 data/aetherworks/recipes/aether_shard_to_block.json
 b10b1b5317b6bab191764d651efab00474eefb85 data/aetherworks/recipes/alchemy/aether_amalgam.json
 7e9e47ec47180f10f8997663c634fbc576addae5 data/aetherworks/recipes/alchemy/aether_crown.json
+351f1142794aa7bd0fd37856a6d4e313b0b84c49 data/aetherworks/recipes/alchemy/aether_gas_painful_bucket.json
 bdc8539046c06d39134a1dd9b6dc7bd35bfa689e data/aetherworks/recipes/alchemy/aether_pearl.json
 95c47032c7cf796e02d69a698a0859576bf20b06 data/aetherworks/recipes/alchemy/axe_head_ender.json
 f5841cab5575bdde72c975344abd4b2f68a2e795 data/aetherworks/recipes/alchemy/axe_head_sculk.json

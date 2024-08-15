@@ -21,15 +21,18 @@ public class AWResearch {
 
     public static ResearchCategory categoryAether;
     public static ResearchCategory subCategoryTools;
-    public static ResearchBase meteor, gauge, amalgam, moon_harvester, focus_matrix, purify_aetherium, aspectus, forge, heat_dial, heater, cooler, vent, metal_former, anvil, tool_station, pearls, tools;
+    public static ResearchCategory subCategoryAlchemy;
+    public static ResearchBase meteor, gauge, amalgam, moon_harvester, focus_matrix, purify_aetherium, alchemy, forge, heat_dial, heater, cooler, vent, metal_former, anvil, tool_station, pearls, tools;
     public static ResearchBase pobs, pomd, aotr, aosa, sotc, soic, cosb, cosr, crown; //TOOLS
     public static ResearchBase tuning_cylinder, volant_calcifier;
     public static ResearchBase moonsnare_jars, moonsnare_bulb;
+    public static ResearchBase seething_aetherium, aetherium_glass, aspectus;
 
     public static void initResearch() {
         categoryAether = new ResearchCategory("aw.aether", PAGE_ICONS, 192, 0);
         Vec2i[] ringPositions = {new Vec2i(1, 1), new Vec2i(0, 3), new Vec2i(0, 5), new Vec2i(1, 7), new Vec2i(11, 7), new Vec2i(12, 5), new Vec2i(12, 3), new Vec2i(11, 1), new Vec2i(4, 1), new Vec2i(2, 4), new Vec2i(4, 7), new Vec2i(8, 7), new Vec2i(10, 4),new Vec2i(8, 1)};
         subCategoryTools = new ResearchCategory("aw.tools", 0).pushGoodLocations(ringPositions);
+        subCategoryAlchemy = new ResearchCategory("aw.alchemy", 0);
 
         meteor = new ResearchBase("aw.meteor", new ItemStack(AWRegistry.AETHER_SHARD.get()), 12, 0);
         meteor.addPage(new ResearchShowItem("aw.meteor_2", ItemStack.EMPTY, 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.SUEVITE.get()), new ItemStack(AWRegistry.AETHERIUM_ORE.get()))));
@@ -38,9 +41,9 @@ public class AWResearch {
         moon_harvester = new ResearchBase("aw.moon_harvester", new ItemStack(AWRegistry.PRISM.get()), 12, 7).addAncestor(amalgam);
         moon_harvester.addPage(new ResearchShowItem("aw.moon_harvester_2", ItemStack.EMPTY, 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.PRISM.get()), new ItemStack(AWRegistry.PRISM_SUPPORT.get()), new ItemStack(AWRegistry.MOONLIGHT_AMPLIFIER.get()))));
         moon_harvester.addPage(new ResearchShowItem("aw.moon_harvester_3", ItemStack.EMPTY, 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.PRISM.get()), new ItemStack(AWRegistry.PRISM_SUPPORT.get()), new ItemStack(AWRegistry.MOONLIGHT_AMPLIFIER.get()))));
-        focus_matrix = new ResearchBase("aw.focus_matrix", new ItemStack(AWRegistry.CONTROL_MATRIX.get()), 7, 4).addAncestor(moon_harvester);
-        purify_aetherium = new ResearchBase("aw.purify_aetherium", new ItemStack(AWRegistry.AETHERIUM_GAS.FLUID_BUCKET.get()), 9, 6).addAncestor(moon_harvester);
-        aspectus = new ResearchBase("aw.aspectus", new ItemStack(AWRegistry.AETHER_ASPECTUS.get()), 7, 7).addAncestor(purify_aetherium);
+        focus_matrix = new ResearchBase("aw.focus_matrix", new ItemStack(AWRegistry.CONTROL_MATRIX.get()), 9, 6).addAncestor(moon_harvester);
+        purify_aetherium = new ResearchBase("aw.purify_aetherium", new ItemStack(AWRegistry.AETHERIUM_GAS.FLUID_BUCKET.get()), 7, 7).addAncestor(moon_harvester);
+        alchemy = new ResearchBase("aw.alchemy", new ItemStack(AWRegistry.AETHER_ASPECTUS.get()), 7, 4).addAncestor(purify_aetherium);
 
         forge = new ResearchBase("aw.forge", new ItemStack(AWRegistry.FORGE_CORE.get()), 2, 5).addAncestor(purify_aetherium);
         forge.addPage(new ResearchBase("aw.forge_2", ItemStack.EMPTY, 0, 0));
@@ -69,6 +72,10 @@ public class AWResearch {
         crown = new ResearchBase("aw.crown", new ItemStack(AWRegistry.AETHER_CROWN.get()), subCategoryTools.popGoodLocation()).addAncestor(toolsFake);
         crown.addPage(new ResearchShowItem("aw.crown_gem", new ItemStack(AWRegistry.POTION_GEM.get()), 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.POTION_GEM.get()))));
 
+        aspectus = new ResearchBase("aw.aspectus", new ItemStack(AWRegistry.AETHER_ASPECTUS.get()), 7, 4);
+        seething_aetherium = new ResearchBase("aw.seething", new ItemStack(AWRegistry.SEETHING_AETHERIUM.FLUID_BUCKET.get()), 4, 4).addAncestor(aspectus);
+        aetherium_glass = new ResearchShowItem("aw.glass", new ItemStack(AWRegistry.GLASS_AETHERIUM.get()), 2, 6).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.GLASS_AETHERIUM.get()), new ItemStack(AWRegistry.GLASS_AETHERIUM_BORDERLESS.get())));
+
         tuning_cylinder = new ResearchBase("aw.tuning_cylinder", new ItemStack(AWRegistry.TUNING_CYLINDER.get()), ResearchManager.subCategoryWeaponAugments.popGoodLocation()).addAncestor(ResearchManager.inferno_forge);
         ResearchManager.subCategoryWeaponAugments.addResearch(tuning_cylinder);
         volant_calcifier = new ResearchBase("aw.volant_calcifier", new ItemStack(AWRegistry.VOLANT_CALCIFIER.get()), ResearchManager.subCategoryProjectileAugments.popGoodLocation()).addAncestor(ResearchManager.inferno_forge);
@@ -82,9 +89,8 @@ public class AWResearch {
             CuriosCompat.initCuriosCategory();
         }
 
-        subCategoryTools.addResearch(toolsFake);
-
         subCategoryTools
+                .addResearch(toolsFake)
                 .addResearch(pobs)
                 .addResearch(pomd)
                 .addResearch(aotr)
@@ -95,8 +101,16 @@ public class AWResearch {
                 .addResearch(cosr)
                 .addResearch(crown);
 
+        subCategoryAlchemy
+                .addResearch(aspectus)
+                .addResearch(aetherium_glass)
+                .addResearch(seething_aetherium);
+
         ResearchBase toolsSwitch = makeCategorySwitch(subCategoryTools, 0, 0, new ItemStack(AWRegistry.AETHER_CROWN.get()), 0, 1);
         tools.subCategory = toolsSwitch.addAncestor(tool_station).addAncestor(pearls);
+
+        ResearchBase alchemySwitch = makeCategorySwitch(subCategoryAlchemy, 7, 4, new ItemStack(AWRegistry.AETHER_ASPECTUS.get()), 0, 1);
+        alchemy.subCategory = alchemySwitch.addAncestor(purify_aetherium);
 
         categoryAether
                 .addResearch(meteor)
@@ -106,7 +120,6 @@ public class AWResearch {
                 .addResearch(moon_harvester)
                 .addResearch(focus_matrix)
                 .addResearch(purify_aetherium)
-                .addResearch(aspectus)
                 .addResearch(forge)
                 .addResearch(heat_dial)
                 .addResearch(heater)
@@ -115,7 +128,8 @@ public class AWResearch {
                 .addResearch(metal_former)
                 .addResearch(anvil)
                 .addResearch(tool_station)
-                .addResearch(toolsSwitch);
+                .addResearch(toolsSwitch)
+                .addResearch(alchemySwitch);
 
         categoryAether.addPrerequisite(ResearchManager.dawnstone);
         ResearchManager.researches.add(categoryAether);
