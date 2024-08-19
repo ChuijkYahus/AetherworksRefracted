@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "aetherworks:forge_core"
+          "name": "aetherworks:aether_forge"
         }
       ],
       "rolls": 1.0

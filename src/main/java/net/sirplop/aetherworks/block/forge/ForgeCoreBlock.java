@@ -41,12 +41,6 @@ public class ForgeCoreBlock extends BaseEntityBlock {
     public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.MODEL;
     }
-
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return pLevel.isClientSide ? createTickerHelper(pBlockEntityType, AWRegistry.FORGE_CORE_BLOCK_ENTITY.get(), ForgeCoreBlockEntity::clientTick)
-                : createTickerHelper(pBlockEntityType, AWRegistry.FORGE_CORE_BLOCK_ENTITY.get(), ForgeCoreBlockEntity::serverTick);
-    }
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return AABB;

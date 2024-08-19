@@ -1,5 +1,26 @@
 Changelog - Aetherworks Refracted
 =============================
+1.20.1-1.0.7
+-----------------------------
+_Additions_
+
+- Replaced the Aetherium Forge with a proper Embers-style multiblock machine version of it. Break your old Aetherium Forge Core to receive the new forge (and enjoy the free dawnstone blocks I guess).
+- Added Suevite Big Tile block set.
+
+_Changes_
+
+- Combined the Forge Cooler, Heater, and Vent codex entries.
+- Added a page to Aetherium Purification detailing suevite renewability.
+- Assorted codex entry tweaks.
+- Remodeled and retextured Forge Heat Vent, and changed its crafting recipe.
+- Adjusted how several blocks appear in the player's hand. No more floating things!
+- Added Suevite Bricks to the #minecraft:stone_bricks tag.
+
+_Fixes_
+
+- Moonsnare Bulb making the reequip sound every time its data changes.
+- Suevite dropping suevite cobblestone when mined with silk touch.
+
 1.20.1-1.0.6
 -----------------------------
 _Additions_

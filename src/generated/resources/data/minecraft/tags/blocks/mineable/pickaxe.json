@@ -6,6 +6,9 @@
     "aetherworks:suevite_bricks_stairs",
     "aetherworks:suevite_bricks_slab",
     "aetherworks:suevite_bricks_wall",
+    "aetherworks:suevite_big_tile_stairs",
+    "aetherworks:suevite_big_tile_slab",
+    "aetherworks:suevite_big_tile_wall",
     "aetherworks:ore_aether",
     "aetherworks:block_shards_raw",
     "aetherworks:block_aether",
@@ -13,6 +16,8 @@
     "aetherworks:prism",
     "aetherworks:moonlight_amplifier",
     "aetherworks:aether_prism_controller_matrix",
+    "aetherworks:aether_forge",
+    "aetherworks:aether_forge_edge",
     "aetherworks:forge_block",
     "aetherworks:forge_core",
     "aetherworks:forge_heater",
@@ -25,6 +30,7 @@
     "aetherworks:suevite",
     "aetherworks:suevite_cobble",
     "aetherworks:suevite_bricks",
+    "aetherworks:suevite_big_tile",
     "aetherworks:glass_aetherium",
     "aetherworks:glass_aetherium_borderless"
   ]

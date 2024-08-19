@@ -1,17 +1,20 @@
-// 1.20.1	2024-08-06T16:28:18.9291236	Tags for minecraft:block mod id aetherworks
+// 1.20.1	2024-08-19T14:18:05.789965	Tags for minecraft:block mod id aetherworks
 ffbf59a78593db7dd7409dca7fe3babe11ab5bb7 data/aetherworks/tags/blocks/sculk_axe_mineable.json
 d634b203b660416dea3792df210f47dda2d0f7f5 data/embers/tags/blocks/dial.json
+add7817a07206ad3d842b09a5feb0677fb8d6527 data/embers/tags/blocks/mech_core_proxyable/bottom.json
 75fb9e2ba833961f50bb2fb2a1d7e159d0d766d4 data/forge/tags/blocks/cobblestone.json
 4b498296fa2f914e9a5fbaaf0f801c3302a47d7e data/forge/tags/blocks/glass.json
 16d77e90188570787f5df63ef002453681167829 data/forge/tags/blocks/ores.json
+290f142c10d37d5f4c58e3a7ce2e5469db082392 data/forge/tags/blocks/relocation_not_supported.json
 6fe00f86d162ece6829db1efecfc22aa7eecff50 data/forge/tags/blocks/stone.json
-cb6359789e455c1e32e39b0c40b0e7f6dcd3892b data/minecraft/tags/blocks/mineable/pickaxe.json
+572cc14c9c5612be93a040692cd748103fd536f4 data/minecraft/tags/blocks/mineable/pickaxe.json
 6fe00f86d162ece6829db1efecfc22aa7eecff50 data/minecraft/tags/blocks/moss_replaceable.json
 bec46e24e50aa19ab1a898001a1215bba552b25a data/minecraft/tags/blocks/needs_diamond_tool.json
-3b33ab8bcdf271df80e1a6c7a60be3745466e626 data/minecraft/tags/blocks/needs_iron_tool.json
+4b498296fa2f914e9a5fbaaf0f801c3302a47d7e data/minecraft/tags/blocks/needs_iron_tool.json
 6fe00f86d162ece6829db1efecfc22aa7eecff50 data/minecraft/tags/blocks/sculk_replaceable.json
-416d836df6014773bee7d2a16f6565c4eb7920f6 data/minecraft/tags/blocks/slabs.json
+437ebbef30a2980ce5ff78904cb7eabce3146d3b data/minecraft/tags/blocks/slabs.json
 6fe00f86d162ece6829db1efecfc22aa7eecff50 data/minecraft/tags/blocks/snaps_goat_horn.json
-1552ae5f4e954154f6cba3f4eed28710807b1271 data/minecraft/tags/blocks/stairs.json
-4c43d1e6460468f43184b29a2bfd0d484f7fa49d data/minecraft/tags/blocks/walls.json
+a788cdf93a978d135d6f0e5b8fc3210a2e9d3e38 data/minecraft/tags/blocks/stairs.json
+9d985448ba9220120bfb03c67df0ab17b511dd14 data/minecraft/tags/blocks/stone_bricks.json
+b16f2e9c3b83bf71a6543e007859b0296eac7d31 data/minecraft/tags/blocks/walls.json
 f7fdcf78aedf05902ad3cb05d038c9a6ba76de1c data/minecraft/tags/blocks/wither_immune.json

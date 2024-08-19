@@ -26,6 +26,7 @@ public class AWBlockTags  extends BlockTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         decoTags(AWRegistry.SUEVITE_COBBLE_DECO);
         decoTags(AWRegistry.SUEVITE_BRICKS_DECO);
+        decoTags(AWRegistry.SUEVITE_BIG_TILE_DECO);
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 AWRegistry.AETHERIUM_ORE.get(),
@@ -35,6 +36,8 @@ public class AWBlockTags  extends BlockTagsProvider {
                 AWRegistry.PRISM.get(),
                 AWRegistry.MOONLIGHT_AMPLIFIER.get(),
                 AWRegistry.CONTROL_MATRIX.get(),
+                AWRegistry.AETHER_FORGE.get(),
+                AWRegistry.AETHER_FORGE_EDGE.get(),
                 AWRegistry.FORGE_BLOCK.get(),
                 AWRegistry.FORGE_CORE.get(),
                 AWRegistry.FORGE_HEATER.get(),
@@ -47,6 +50,7 @@ public class AWBlockTags  extends BlockTagsProvider {
                 AWRegistry.SUEVITE.get(),
                 AWRegistry.SUEVITE_COBBLE.get(),
                 AWRegistry.SUEVITE_BRICKS.get(),
+                AWRegistry.SUEVITE_BIG_TILE.get(),
                 AWRegistry.GLASS_AETHERIUM.get(),
                 AWRegistry.GLASS_AETHERIUM_BORDERLESS.get()
         );
@@ -56,24 +60,18 @@ public class AWBlockTags  extends BlockTagsProvider {
                 AWRegistry.AETHERIUM_BLOCK.get()
         );
         tag(BlockTags.NEEDS_IRON_TOOL).add(
-                AWRegistry.PRISM_SUPPORT.get(),
-                AWRegistry.PRISM.get(),
-                AWRegistry.MOONLIGHT_AMPLIFIER.get(),
-                AWRegistry.CONTROL_MATRIX.get(),
-                AWRegistry.FORGE_BLOCK.get(),
-                AWRegistry.FORGE_CORE.get(),
-                AWRegistry.FORGE_HEATER.get(),
-                AWRegistry.FORGE_COOLER.get(),
-                AWRegistry.FORGE_VENT.get(),
-                AWRegistry.FORGE_ANVIL.get(),
-                AWRegistry.FORGE_METAL_FORMER.get(),
-                AWRegistry.FORGE_TOOL_STATION.get(),
-                AWRegistry.HEAT_DIAL.get(),
                 AWRegistry.GLASS_AETHERIUM.get(),
                 AWRegistry.GLASS_AETHERIUM_BORDERLESS.get()
         );
 
         tag(EmbersBlockTags.DIAL).add(AWRegistry.HEAT_DIAL.get());
+        tag(EmbersBlockTags.RELOCATION_NOT_SUPPORTED).add(
+                AWRegistry.AETHER_FORGE.get(),
+                AWRegistry.AETHER_FORGE_EDGE.get()
+        );
+        tag(EmbersBlockTags.MECH_CORE_PROXYABLE_BOTTOM).add(
+                AWRegistry.AETHER_FORGE.get()
+        );
 
         tag(BlockTags.WITHER_IMMUNE).add(AWRegistry.GLASS_AETHERIUM.get());
         getTag("forge:glass").add(AWRegistry.GLASS_AETHERIUM.get(), AWRegistry.GLASS_AETHERIUM_BORDERLESS.get());
@@ -86,6 +84,7 @@ public class AWBlockTags  extends BlockTagsProvider {
         getTag("forge:stone").add(AWRegistry.SUEVITE.get());
         getTag("minecraft:snaps_goat_horn").add(AWRegistry.SUEVITE.get());
         getTag("minecraft:moss_replaceable").add(AWRegistry.SUEVITE.get());
+        getTag("minecraft:stone_bricks").add(AWRegistry.SUEVITE_BRICKS.get());
 
         getTag("forge:ores").add(AWRegistry.AETHERIUM_ORE.get());
     }

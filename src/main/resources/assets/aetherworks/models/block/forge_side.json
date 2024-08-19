@@ -3,6 +3,6 @@
     "textures": {
 			"down" : "aetherworks:block/forge/forge_tb_side_inv",
 			"up" : "aetherworks:block/forge/forge_tb_side_inv",
-			"east" : "aetherworks:block/forge/forge_side"
+			"east" : "aetherworks:block/forge/forge_side_old"
     }
 }

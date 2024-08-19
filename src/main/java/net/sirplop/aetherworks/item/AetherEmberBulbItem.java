@@ -6,13 +6,17 @@ import com.rekindled.embers.item.EmberStorageItem;
 import com.rekindled.embers.item.IEmbersCurioItem;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.sirplop.aetherworks.AWConfig;
+import net.sirplop.aetherworks.Aetherworks;
 import net.sirplop.aetherworks.util.MoonlightRepair;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotContext;
 
 public class AetherEmberBulbItem extends EmberStorageItem implements IEmbersCurioItem {
 
@@ -37,5 +41,16 @@ public class AetherEmberBulbItem extends EmberStorageItem implements IEmbersCuri
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
         return new AetherEmberJarItem.EmberJarCapability(stack, getCapacity());
+    }
+
+    @Override
+    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
+        if (prevStack.getItem() != stack.getItem())
+            this.playEquipSound(slotContext, false);
+    }
+    @Override
+    public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
+        if (newStack.getItem() != stack.getItem())
+            this.playEquipSound(slotContext, true);
     }
 }

@@ -7,7 +7,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.sirplop.aetherworks.AWEvents;
+import net.sirplop.aetherworks.blockentity.ForgeCoreBlockEntity;
 import net.sirplop.aetherworks.lib.OctDirection;
 import net.sirplop.aetherworks.lib.OctFacingHorizontalProperty;
 import org.jetbrains.annotations.NotNull;
@@ -35,7 +35,7 @@ public class ForgeStructureBlock extends Block {
         BlockPos center = pos.offset(offsets[0], 0, offsets[1]);
 
         boolean structValid = true;
-        for (int[] ints : AWEvents.FORGE_OFFSETS)
+        for (int[] ints : ForgeCoreBlockEntity.FORGE_OFFSETS)
         {
             BlockPos at = center.offset(ints[0], 0, ints[1]);
             if (!level.getBlockState(at).is(state.getBlock()))
@@ -46,7 +46,7 @@ public class ForgeStructureBlock extends Block {
         };
         if (!structValid) {
             BlockState dawnstoneBlock = RegistryManager.DAWNSTONE_BLOCK.get().defaultBlockState();
-            for (int[] ints : AWEvents.FORGE_OFFSETS)
+            for (int[] ints : ForgeCoreBlockEntity.FORGE_OFFSETS)
             {
                 BlockPos at = center.offset(ints[0], 0, ints[1]);
                 if (level.getBlockState(at).is(state.getBlock()))

@@ -165,7 +165,7 @@ public class Aetherworks
             event.registerEntityRenderer(AWRegistry.DUMMY_LOADER.get(), DummyAetherCrownRender::new);
 
             event.registerBlockEntityRenderer(AWRegistry.PRISM_BLOCK_ENTITY.get(), RenderPrism::new);
-            event.registerBlockEntityRenderer(AWRegistry.FORGE_CORE_BLOCK_ENTITY.get(), RenderForge::new);
+            event.registerBlockEntityRenderer(AWRegistry.AETHER_FORGE_BLOCK_ENTITY.get(), RenderAetherForge::new);
             event.registerBlockEntityRenderer(AWRegistry.METAL_FORMER_BLOCK_ENTITY.get(), RenderMetalFormer::new);
             event.registerBlockEntityRenderer(AWRegistry.AETHERIUM_ANVIL_BLOCK_ENTITY.get(), RenderAetherAnvil::new);
             event.registerBlockEntityRenderer(AWRegistry.TOOL_STATION_BLOCK_ENTITY.get(), RenderToolStation::new);

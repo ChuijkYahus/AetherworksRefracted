@@ -40,10 +40,13 @@ public class AWBlockLootTables extends BlockLootSubProvider {
         add(AWRegistry.AETHERIUM_ORE.get(), (block) -> createAetherOreDrops(block, AWRegistry.AETHER_SHARD.get()));
 
         dropOther(AWRegistry.SUEVITE.get(), AWRegistry.SUEVITE_COBBLE.get());
+        dropWhenSilkTouch(AWRegistry.SUEVITE.get());
         dropSelf(AWRegistry.SUEVITE_COBBLE.get());
         decoDrops(AWRegistry.SUEVITE_COBBLE_DECO);
         dropSelf(AWRegistry.SUEVITE_BRICKS.get());
         decoDrops(AWRegistry.SUEVITE_BRICKS_DECO);
+        dropSelf(AWRegistry.SUEVITE_BIG_TILE.get());
+        decoDrops(AWRegistry.SUEVITE_BIG_TILE_DECO);
         dropWhenSilkTouch(AWRegistry.GLASS_AETHERIUM.get());
         dropWhenSilkTouch(AWRegistry.GLASS_AETHERIUM_BORDERLESS.get());
 
@@ -53,7 +56,7 @@ public class AWBlockLootTables extends BlockLootSubProvider {
         dropSelf(AWRegistry.PRISM.get());
         dropSelf(AWRegistry.MOONLIGHT_AMPLIFIER.get());
         dropSelf(AWRegistry.CONTROL_MATRIX.get());
-        dropSelf(AWRegistry.FORGE_CORE.get());
+        dropOther(AWRegistry.FORGE_CORE.get(), AWRegistry.AETHER_FORGE.get());
         dropSelf(AWRegistry.FORGE_COOLER.get());
         dropSelf(AWRegistry.FORGE_HEATER.get());
         dropSelf(AWRegistry.FORGE_VENT.get());
@@ -62,6 +65,9 @@ public class AWBlockLootTables extends BlockLootSubProvider {
         dropSelf(AWRegistry.FORGE_TOOL_STATION.get());
         dropOther(AWRegistry.FORGE_BLOCK.get(), RegistryManager.DAWNSTONE_BLOCK_ITEM.get());
         dropSelf(AWRegistry.HEAT_DIAL.get());
+
+        dropOther(AWRegistry.AETHER_FORGE_EDGE.get(), AWRegistry.AETHER_FORGE.get());
+        dropSelf(AWRegistry.AETHER_FORGE.get());
     }
 
     protected LootTable.Builder createAetherOreDrops(Block pBlock, ItemLike item) {

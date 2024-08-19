@@ -5,6 +5,9 @@
     "B": {
       "item": "minecraft:iron_bars"
     },
+    "C": {
+      "item": "embers:copper_plate"
+    },
     "I": {
       "item": "embers:iron_plate"
     },
@@ -14,8 +17,8 @@
   },
   "pattern": [
     "PIP",
-    "IBI",
-    "PIP"
+    "CBC",
+    "PCP"
   ],
   "result": {
     "item": "aetherworks:forge_vent"

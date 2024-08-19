@@ -15,6 +15,7 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.api.augment.AugmentUtil;
 import com.rekindled.embers.api.augment.IAugment;
+import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.fluidtypes.EmbersFluidType;
 import com.rekindled.embers.item.EmberStorageItem;
 import com.rekindled.embers.util.AshenArmorMaterial;
@@ -140,7 +141,10 @@ public class AWRegistry {
     public static final RegistryObject<Block> PRISM_SUPPORT = registerBlock("prism_support", () -> new PrismSupportBlock(Properties.copy(RegistryManager.CAMINITE_BRICKS.get()).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> MOONLIGHT_AMPLIFIER = registerBlock("moonlight_amplifier", () -> new MoonlightAmplifierBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).requiresCorrectToolForDrops().strength(3, 6).sound(SoundType.GLASS)));
     public static final RegistryObject<Block> CONTROL_MATRIX = registerBlock("aether_prism_controller_matrix", () -> new ControlMatrixBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).strength(3, 6).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> FORGE_CORE = registerBlock("forge_core", () -> new ForgeCoreBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).strength(3, 10).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> AETHER_FORGE = registerBlock("aether_forge", () -> new AetherForgeBlock(Properties.of().mapColor(MapColor.WOOD).pushReaction(PushReaction.BLOCK).sound(EmbersSounds.MULTIBLOCK_CENTER).requiresCorrectToolForDrops().strength(1.6f).noOcclusion(), EmbersSounds.MULTIBLOCK_EXTRA));
+    public static final RegistryObject<Block> AETHER_FORGE_EDGE = BLOCKS.register("aether_forge_edge", () -> new AetherForgeEdgeBlock(Properties.of().mapColor(MapColor.WOOD).sound(EmbersSounds.MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
+    public static final RegistryObject<Block> FORGE_CORE = BLOCKS.register("forge_core", () -> new ForgeCoreBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).strength(3, 10).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> FORGE_VENT = registerBlock("forge_vent", () -> new ForgeVentBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).strength(3, 10).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> FORGE_HEATER = registerBlock("forge_heater", () -> new ForgeHeaterBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).strength(3, 10).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> FORGE_COOLER = registerBlock("forge_cooler", () -> new ForgeCoolerBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).strength(3, 10).requiresCorrectToolForDrops()));
@@ -155,6 +159,9 @@ public class AWRegistry {
     public static final StoneDecoBlocks SUEVITE_COBBLE_DECO = new StoneDecoBlocks("suevite_cobble", SUEVITE_COBBLE, Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f));
     public static final RegistryObject<Block> SUEVITE_BRICKS = registerBlock("suevite_bricks", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));;
     public static final StoneDecoBlocks SUEVITE_BRICKS_DECO = new StoneDecoBlocks("suevite_bricks", SUEVITE_BRICKS, Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f));
+    public static final RegistryObject<Block> SUEVITE_BIG_TILE = registerBlock("suevite_big_tile", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));;
+    public static final StoneDecoBlocks SUEVITE_BIG_TILE_DECO = new StoneDecoBlocks("suevite_big_tile", SUEVITE_BIG_TILE, Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f));
+
     public static final RegistryObject<Block> GLASS_AETHERIUM = registerBlock("glass_aetherium", () -> new StainedGlassBlock(DyeColor.LIGHT_BLUE, Properties.copy(Blocks.LIGHT_BLUE_STAINED_GLASS).explosionResistance(1800000).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> GLASS_AETHERIUM_BORDERLESS = registerBlock("glass_aetherium_borderless", () -> new StainedGlassBlock(DyeColor.LIGHT_BLUE, Properties.copy(GLASS_AETHERIUM.get())));
 
@@ -290,6 +297,9 @@ public class AWRegistry {
     public static final RegistryObject<BlockEntityType<MetalFormerBlockEntity>> METAL_FORMER_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("metal_former_block_entity", () -> BlockEntityType.Builder.of(MetalFormerBlockEntity::new, FORGE_METAL_FORMER.get()).build(null));
     public static final RegistryObject<BlockEntityType<AetheriumAnvilBlockEntity>> AETHERIUM_ANVIL_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("aetherium_anvil_block_entity", () -> BlockEntityType.Builder.of(AetheriumAnvilBlockEntity::new, FORGE_ANVIL.get()).build(null));
     public static final RegistryObject<BlockEntityType<ToolStationBlockEntity>> TOOL_STATION_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("tool_station_block_entity", () -> BlockEntityType.Builder.of(ToolStationBlockEntity::new, FORGE_TOOL_STATION.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<AetherForgeBlockEntity>> AETHER_FORGE_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("aether_forge_block_entity", () -> BlockEntityType.Builder.of(AetherForgeBlockEntity::new, AETHER_FORGE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<AetherForgeTopBlockEntity>> AETHER_FORGE_TOP_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("aether_forge_top_block_entity", () -> BlockEntityType.Builder.of(AetherForgeTopBlockEntity::new, AETHER_FORGE.get()).build(null));
 
     //Creative Tabs
     public static final RegistryObject<CreativeModeTab> AW_TAB = CREATIVE_MODE_TAB.register("aetherworks_tab",

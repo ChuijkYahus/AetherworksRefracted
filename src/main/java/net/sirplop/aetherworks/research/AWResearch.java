@@ -10,6 +10,7 @@ import com.rekindled.embers.research.subtypes.ResearchSwitchCategory;
 import com.rekindled.embers.util.Vec2i;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.fml.ModList;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.Aetherworks;
@@ -22,7 +23,7 @@ public class AWResearch {
     public static ResearchCategory categoryAether;
     public static ResearchCategory subCategoryTools;
     public static ResearchCategory subCategoryAlchemy;
-    public static ResearchBase meteor, gauge, amalgam, moon_harvester, focus_matrix, purify_aetherium, alchemy, forge, heat_dial, heater, cooler, vent, metal_former, anvil, tool_station, pearls, tools;
+    public static ResearchBase meteor, gauge, amalgam, moon_harvester, focus_matrix, purify_aetherium, alchemy, forge, heat_dial, forge_heat, metal_former, anvil, tool_station, pearls, tools;
     public static ResearchBase pobs, pomd, aotr, aosa, sotc, soic, cosb, cosr, crown; //TOOLS
     public static ResearchBase tuning_cylinder, volant_calcifier;
     public static ResearchBase moonsnare_jars, moonsnare_bulb;
@@ -43,16 +44,18 @@ public class AWResearch {
         moon_harvester.addPage(new ResearchShowItem("aw.moon_harvester_3", ItemStack.EMPTY, 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.PRISM.get()), new ItemStack(AWRegistry.PRISM_SUPPORT.get()), new ItemStack(AWRegistry.MOONLIGHT_AMPLIFIER.get()))));
         focus_matrix = new ResearchBase("aw.focus_matrix", new ItemStack(AWRegistry.CONTROL_MATRIX.get()), 9, 6).addAncestor(moon_harvester);
         purify_aetherium = new ResearchBase("aw.purify_aetherium", new ItemStack(AWRegistry.AETHERIUM_GAS.FLUID_BUCKET.get()), 7, 7).addAncestor(moon_harvester);
+        purify_aetherium.addPage(new ResearchShowItem("aw.purify_aetherium_2", ItemStack.EMPTY, 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.AETHERIUM_GAS.FLUID_BUCKET.get()), new ItemStack(AWRegistry.SUEVITE_COBBLE.get()), new ItemStack(Items.WATER_BUCKET))));
         alchemy = new ResearchBase("aw.alchemy", new ItemStack(AWRegistry.AETHER_ASPECTUS.get()), 7, 4).addAncestor(purify_aetherium);
 
-        forge = new ResearchBase("aw.forge", new ItemStack(AWRegistry.FORGE_CORE.get()), 2, 5).addAncestor(purify_aetherium);
+        forge = new ResearchBase("aw.forge", new ItemStack(AWRegistry.AETHER_FORGE.get()), 2, 5).addAncestor(purify_aetherium);
         forge.addPage(new ResearchBase("aw.forge_2", ItemStack.EMPTY, 0, 0));
-        heat_dial = new ResearchBase("aw.heat_dial", new ItemStack(AWRegistry.HEAT_DIAL.get()), 0, 5).addAncestor(forge);
-        heater = new ResearchBase("aw.heater", new ItemStack(AWRegistry.FORGE_HEATER.get()), 4, 7).addAncestor(forge);
-        cooler = new ResearchBase("aw.cooler", new ItemStack(AWRegistry.FORGE_COOLER.get()), 2, 7).addAncestor(forge);
-        vent = new ResearchBase("aw.vent", new ItemStack(AWRegistry.FORGE_VENT.get()), 0, 7).addAncestor(forge);
+        heat_dial = new ResearchBase("aw.heat_dial", new ItemStack(AWRegistry.HEAT_DIAL.get()), 1, 7).addAncestor(forge);
+        forge_heat = new ResearchShowItem("aw.forge_heat", new ItemStack(AWRegistry.FORGE_HEATER.get()), 3, 7).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.FORGE_VENT.get()), new ItemStack(AWRegistry.FORGE_HEATER.get()), new ItemStack(AWRegistry.FORGE_COOLER.get()))).addAncestor(forge);
+        forge_heat.addPage(new ResearchShowItem("aw.forge_heat_2", ItemStack.EMPTY, 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.FORGE_HEATER.get()))));
+        forge_heat.addPage(new ResearchShowItem("aw.forge_heat_3", ItemStack.EMPTY, 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.FORGE_COOLER.get()))));
+        forge_heat.addPage(new ResearchShowItem("aw.forge_heat_4", ItemStack.EMPTY, 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.FORGE_VENT.get()))));
         metal_former = new ResearchBase("aw.metal_former", new ItemStack(AWRegistry.FORGE_METAL_FORMER.get()), 4, 3).addAncestor(forge);
-        anvil = new ResearchBase("aw.anvil", new ItemStack(AWRegistry.FORGE_ANVIL.get()), 2, 3).addAncestor(forge);
+        anvil = new ResearchBase("aw.anvil", new ItemStack(AWRegistry.FORGE_ANVIL.get()), 2, 2).addAncestor(forge);
         tool_station = new ResearchBase("aw.tool_station", new ItemStack(AWRegistry.FORGE_TOOL_STATION.get()), 0, 3).addAncestor(forge);
 
         pearls = new ResearchBase("aw.pearls", new ItemStack(AWRegistry.AETHER_PEARL.get()), 4, 0).addAncestor(metal_former);
@@ -122,9 +125,7 @@ public class AWResearch {
                 .addResearch(purify_aetherium)
                 .addResearch(forge)
                 .addResearch(heat_dial)
-                .addResearch(heater)
-                .addResearch(cooler)
-                .addResearch(vent)
+                .addResearch(forge_heat)
                 .addResearch(metal_former)
                 .addResearch(anvil)
                 .addResearch(tool_station)

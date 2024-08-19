@@ -1,11 +1,15 @@
 package net.sirplop.aetherworks.datagen;
 
+import com.rekindled.embers.block.MechEdgeBlockBase;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraftforge.client.model.generators.*;
+import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -24,6 +28,21 @@ public class AWBlockStates extends BlockStateProvider {
         super(gen, Aetherworks.MODID, exFileHelper);
     }
 
+    public static final Vector3f ZERO = new Vector3f(0, 0, 0);
+
+    public static final Vector3f ROT_FPR = new Vector3f(0, 45, 0);
+    public static final Vector3f ROT_TPR = new Vector3f(75, 45, 0);
+    public static final Vector3f ROT_GUI = new Vector3f(30, 225, 0);
+
+    public static final Vector3f TRANS_TPR = new Vector3f(0, 2.5f, 0);
+    public static final Vector3f TRANS_GROUND = new Vector3f(0, 3, 0);
+
+    public static final float SCALE_FPR = 0.4f;
+    public static final float SCALE_TPR = 0.375f;
+    public static final float SCALE_GUI = 0.625f;
+    public static final float SCALE_GROUND = 0.25f;
+    public static final float SCALE_FIXED = 0.5f;
+
     @Override
     protected void registerStatesAndModels() {
         //this is just to give them proper particles
@@ -35,6 +54,8 @@ public class AWBlockStates extends BlockStateProvider {
         decoBlocks(AWRegistry.SUEVITE_COBBLE_DECO);
         blockWithItem(AWRegistry.SUEVITE_BRICKS);
         decoBlocks(AWRegistry.SUEVITE_BRICKS_DECO);
+        blockWithItem(AWRegistry.SUEVITE_BIG_TILE);
+        decoBlocks(AWRegistry.SUEVITE_BIG_TILE_DECO);
         blockWithRenderType(AWRegistry.GLASS_AETHERIUM, "glass_aetherium", "translucent");
         blockWithRenderType(AWRegistry.GLASS_AETHERIUM_BORDERLESS, "glass_aetherium_borderless", "translucent");
         blockWithItem(AWRegistry.AETHERIUM_ORE, "ore_aether");
@@ -43,30 +64,87 @@ public class AWBlockStates extends BlockStateProvider {
         blockWithItem(AWRegistry.PRISM_SUPPORT, "prism_support");
         blockWithItem(AWRegistry.PRISM, "prism");
 
-        ModelFile.ExistingModelFile moonlightAmplifier = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "moonlight_amplifier"));
-        horizontalBlock(AWRegistry.MOONLIGHT_AMPLIFIER.get(), moonlightAmplifier);
-        blockItemWithAdjustment(AWRegistry.MOONLIGHT_AMPLIFIER, moonlightAmplifier,
-                new Vector3f(30f, 130f, 0f), new Vector3f(0, 0f, 0),.6f);
+        ItemModelBuilder moonlightAmplifier = horzBlockAndItemAdjust(AWRegistry.MOONLIGHT_AMPLIFIER, "moonlight_amplifier");
+        itemWithAdjustment(moonlightAmplifier, ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, ROT_FPR, new Vector3f(0, 2, 2), SCALE_FPR);
+        itemWithAdjustment(moonlightAmplifier, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, ROT_TPR, new Vector3f(TRANS_TPR.x, TRANS_TPR.y, TRANS_TPR.z + 2), SCALE_TPR);
 
-        ModelFile.ExistingModelFile controlMatrix = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "aether_prism_control_matrix"));
-        simpleBlock(AWRegistry.CONTROL_MATRIX.get(), controlMatrix);
-        blockItemWithAdjustment(AWRegistry.CONTROL_MATRIX, controlMatrix,
-                new Vector3f(30f, 40f, 0f), new Vector3f(0, -0.15f, 0),.6f);
+        ItemModelBuilder controlMatrix = simpleBlockAndItemAdjust(AWRegistry.CONTROL_MATRIX, "aether_prism_control_matrix");
+        itemWithAdjustment(controlMatrix, ItemDisplayContext.GUI, ROT_GUI, new Vector3f(0, -0.15f, 0), SCALE_GUI);
+        itemWithAdjustment(controlMatrix, ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, ROT_FPR, new Vector3f(0, 0, 2), SCALE_FPR);
+        itemWithAdjustment(controlMatrix, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, ROT_TPR, new Vector3f(TRANS_TPR.x, TRANS_TPR.y, TRANS_TPR.z + 2), SCALE_TPR);
+
 
         blockWithItem(AWRegistry.FORGE_CORE, "forge_core");
         horizontalblockWithItem(AWRegistry.FORGE_HEATER, "forge_heater");
         horizontalblockWithItem(AWRegistry.FORGE_COOLER, "forge_cooler");
-        horizontalblockWithItem(AWRegistry.FORGE_ANVIL, "anvil");
-        horizontalblockWithItem(AWRegistry.FORGE_METAL_FORMER, "metal_former");
-        horizontalblockWithItem(AWRegistry.FORGE_TOOL_STATION, "tool_station");
-        ModelFile.ExistingModelFile forgeVent = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "forge_vent"));
-        horizontalBlock(AWRegistry.FORGE_VENT.get(), forgeVent);
-        blockItemWithAdjustment(AWRegistry.FORGE_VENT, forgeVent,
-               new Vector3f(30f, -40f, 0f), new Vector3f(-3f, -2f, 0),.7f);
 
-        ModelFile.ExistingModelFile forgeCenter = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "forge_center"));
-        ModelFile.ExistingModelFile forgeSide = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "forge_side"));
-        ModelFile.ExistingModelFile forgeCorner = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "forge_corner"));
+        ItemModelBuilder forgeAnvil = horzBlockAndItemAdjust(AWRegistry.FORGE_ANVIL, "anvil");
+        itemWithAdjustment(forgeAnvil, ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, ROT_FPR, new Vector3f(0, 5, 2), SCALE_FPR);
+        itemWithAdjustment(forgeAnvil, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, ROT_TPR, new Vector3f(TRANS_TPR.x, TRANS_TPR.y, TRANS_TPR.z + 2), SCALE_TPR);
+
+        ItemModelBuilder metalFormer = horzBlockAndItemAdjust(AWRegistry.FORGE_METAL_FORMER, "metal_former");
+        itemWithAdjustment(metalFormer, ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, ROT_FPR, new Vector3f(0, 5, 2), SCALE_FPR);
+        itemWithAdjustment(metalFormer, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, ROT_TPR, new Vector3f(TRANS_TPR.x, TRANS_TPR.y, TRANS_TPR.z + 2), SCALE_TPR);
+
+        ItemModelBuilder toolStation = horzBlockAndItemAdjust(AWRegistry.FORGE_TOOL_STATION, "tool_station");
+        itemWithAdjustment(toolStation, ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, ROT_FPR, new Vector3f(0, 5, 2), SCALE_FPR);
+        itemWithAdjustment(toolStation, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, ROT_TPR, new Vector3f(TRANS_TPR.x, TRANS_TPR.y, TRANS_TPR.z + 2), SCALE_TPR);
+
+        //horizontalblockWithItem(AWRegistry.FORGE_ANVIL, "anvil");
+        //horizontalblockWithItem(AWRegistry.FORGE_METAL_FORMER, "metal_former");
+        //horizontalblockWithItem(AWRegistry.FORGE_TOOL_STATION, "tool_station");
+
+        ItemModelBuilder forgeVent = horzBlockAndItemAdjust(AWRegistry.FORGE_VENT, "forge_vent");
+        itemWithAdjustment(forgeVent, ItemDisplayContext.GUI, new Vector3f(ROT_GUI.x, 40, ROT_GUI.z), new Vector3f(3, -2f, 0), SCALE_GUI);
+        itemWithAdjustment(forgeVent, ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, new Vector3f(0, -90, 25), new Vector3f( -1.13f, 3.2f, 1.13f), 0.55f);
+        itemWithAdjustment(forgeVent, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, ZERO, new Vector3f(TRANS_TPR.x, TRANS_TPR.y, TRANS_TPR.z + 4), SCALE_TPR + 0.1f);
+
+        ExistingModelFile forgeBottom = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "aether_forge_center"));
+        ExistingModelFile forgeTop = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "aether_forge_top"));
+
+        getVariantBuilder(AWRegistry.AETHER_FORGE.get()).forAllStates(state -> {
+            DoubleBlockHalf half = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF);
+
+            return ConfiguredModel.builder()
+                    .modelFile(half == DoubleBlockHalf.LOWER ? forgeBottom : forgeTop)
+                    .build();
+        });
+        simpleBlockItem(AWRegistry.AETHER_FORGE.get(), models().cubeAll("crate_aether_forge", new ResourceLocation(Aetherworks.MODID, "block/crate_aether_forge")));
+
+        ExistingModelFile forgeEdgeModel = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "aether_forge_side"));
+        ExistingModelFile forgeCornerModel = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "aether_forge_corner"));
+        ExistingModelFile forgeConnectorModel = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "aether_forge_connector"));
+
+        getMultipartBuilder(AWRegistry.AETHER_FORGE_EDGE.get())
+                .part().modelFile(forgeEdgeModel).rotationY(0).addModel()
+                .condition(MechEdgeBlockBase.EDGE, MechEdgeBlockBase.MechEdge.NORTH).end()
+                .part().modelFile(forgeEdgeModel).rotationY(90).addModel()
+                .condition(MechEdgeBlockBase.EDGE, MechEdgeBlockBase.MechEdge.EAST).end()
+                .part().modelFile(forgeEdgeModel).rotationY(180).addModel()
+                .condition(MechEdgeBlockBase.EDGE, MechEdgeBlockBase.MechEdge.SOUTH).end()
+                .part().modelFile(forgeEdgeModel).rotationY(270).addModel()
+                .condition(MechEdgeBlockBase.EDGE, MechEdgeBlockBase.MechEdge.WEST).end()
+                .part().modelFile(forgeCornerModel).rotationY(0).addModel()
+                .condition(MechEdgeBlockBase.EDGE, MechEdgeBlockBase.MechEdge.NORTHEAST).end()
+                .part().modelFile(forgeCornerModel).rotationY(90).addModel()
+                .condition(MechEdgeBlockBase.EDGE, MechEdgeBlockBase.MechEdge.SOUTHEAST).end()
+                .part().modelFile(forgeCornerModel).rotationY(180).addModel()
+                .condition(MechEdgeBlockBase.EDGE, MechEdgeBlockBase.MechEdge.SOUTHWEST).end()
+                .part().modelFile(forgeCornerModel).rotationY(270).addModel()
+                .condition(MechEdgeBlockBase.EDGE, MechEdgeBlockBase.MechEdge.NORTHWEST).end()
+
+                .part().modelFile(forgeConnectorModel).addModel()
+                .condition(BlockStateProperties.NORTH, true).end()
+                .part().modelFile(forgeConnectorModel).rotationY(90).addModel()
+                .condition(BlockStateProperties.EAST, true).end()
+                .part().modelFile(forgeConnectorModel).rotationY(180).addModel()
+                .condition(BlockStateProperties.SOUTH, true).end()
+                .part().modelFile(forgeConnectorModel).rotationY(270).addModel()
+                .condition(BlockStateProperties.WEST, true).end();
+
+        ExistingModelFile forgeCenter = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "forge_center"));
+        ExistingModelFile forgeSide = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "forge_side"));
+        ExistingModelFile forgeCorner = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "forge_corner"));
 
         forgeStructure(AWRegistry.FORGE_BLOCK.get(), state -> {
             OctDirection dir = state.getValue(OctFacingHorizontalProperty.OCT_DIRECTIONS);
@@ -164,16 +242,25 @@ public class AWBlockStates extends BlockStateProvider {
         simpleBlock(fluid.get(), models().cubeAll(name, new ResourceLocation(Aetherworks.MODID, ModelProvider.BLOCK_FOLDER + "/fluid/" + name + "_still")));
     }
 
-    public void blockItemWithAdjustment(RegistryObject<? extends Block> registryObject, ModelFile model,
-                                        Vector3f rotationInv, Vector3f translationInv, float scaleInv)
-    {
-        itemModels().getBuilder(ForgeRegistries.BLOCKS.getKey(registryObject.get())
-                .getPath()).parent(model)
-                .transforms().transform(ItemDisplayContext.GUI)
-                .rotation(rotationInv.x, rotationInv.y, rotationInv.z)
-                .scale(scaleInv)
-                .translation(translationInv.x, translationInv.y, translationInv.z)
-                .end();
+    public static void itemWithAdjustment(ItemModelBuilder builder, ItemDisplayContext ctx,
+                                          Vector3f rot, Vector3f trans, float scale) {
+        builder.transforms().transform(ctx)
+                .rotation(rot.x, rot.y, rot.z)
+                .translation(trans.x, trans.y, trans.z)
+                .scale(scale)
+                .end().end();
+    }
+    public ItemModelBuilder simpleBlockAndItemAdjust(RegistryObject<? extends Block> registryObject, String model) {
+        ExistingModelFile file = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, model));
+        simpleBlock(registryObject.get(), file);
+        return itemModels().getBuilder(ForgeRegistries.BLOCKS.getKey(registryObject.get())
+                .getPath()).parent(file);
+    }
+    public ItemModelBuilder horzBlockAndItemAdjust(RegistryObject<? extends Block> registryObject, String model) {
+        ExistingModelFile file = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, model));
+        horizontalBlock(registryObject.get(), file);
+        return itemModels().getBuilder(ForgeRegistries.BLOCKS.getKey(registryObject.get())
+                .getPath()).parent(file);
     }
 
     private void forgeStructure(Block block, Function<BlockState, ModelFile> modelFunc) {

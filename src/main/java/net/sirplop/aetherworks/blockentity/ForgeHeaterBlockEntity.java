@@ -12,6 +12,6 @@ public class ForgeHeaterBlockEntity extends HeaterBaseBlockEntity {
     public ForgeHeaterBlockEntity(BlockPos pos, BlockState state) {
         super(AWRegistry.FORGE_HEATER_BLOCK_ENTITY.get(), pos, state, 1, 1,
                 Fluids.WATER, null, new ArrayList<>() {{ add(Fluids.LAVA); }},
-                false, 0.25, false, 0, null);
+                false, 1, false, 0, null);
     }
 }

@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_ember_cluster": {
+    "has_suevite_big_tile": {
       "conditions": {
         "items": [
           {
             "items": [
-              "embers:ember_crystal_cluster"
+              "aetherworks:suevite_big_tile"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "aetherworks:forge_core_block"
+        "recipe": "aetherworks:suevite_big_tile_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_ember_cluster",
+      "has_suevite_big_tile",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "aetherworks:forge_core_block"
+      "aetherworks:suevite_big_tile_slab"
     ]
   },
   "sends_telemetry_event": false

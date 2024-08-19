@@ -288,6 +288,7 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
         //deco
         decoRecipes(AWRegistry.SUEVITE_COBBLE_DECO, consumer);
         decoRecipes(AWRegistry.SUEVITE_BRICKS_DECO, consumer);
+        decoRecipes(AWRegistry.SUEVITE_BIG_TILE_DECO, consumer);
 
         //normal smelting
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(AWRegistry.SUEVITE_COBBLE.get()), RecipeCategory.MISC, AWRegistry.SUEVITE.get(), 0.1F, 200)
@@ -300,6 +301,18 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
                 .define('X', AWRegistry.SUEVITE.get())
                 .unlockedBy("has_suevite", has(AWRegistry.SUEVITE.get()))
                 .save(consumer, getResource("suevite_bricks"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, AWRegistry.SUEVITE_BIG_TILE.get(), 4)
+                .pattern("XX")
+                .pattern("XX")
+                .define('X', AWRegistry.SUEVITE_BRICKS.get())
+                .unlockedBy("has_suevite", has(AWRegistry.SUEVITE.get()))
+                .save(consumer, getResource("suevite_big_tile_convert"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, AWRegistry.SUEVITE_BRICKS.get(), 4)
+                .pattern("XX")
+                .pattern("XX")
+                .define('X', AWRegistry.SUEVITE_BIG_TILE.get())
+                .unlockedBy("has_suevite", has(AWRegistry.SUEVITE.get()))
+                .save(consumer, getResource("suevite_bricks_convert"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AWRegistry.AETHERIUM_LENS.get())
                 .pattern(" P ")
@@ -399,16 +412,16 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
                 .define('C', RegistryManager.ARCHAIC_CIRCUIT.get())
                 .unlockedBy("has_aether_shard", has(AWRegistry.AETHER_SHARD.get()))
                 .save(consumer, getResource("prism_block"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AWRegistry.FORGE_CORE.get())
-                .pattern("BSB")
-                .pattern("BCB")
-                .pattern("PPP")
-                .define('B', RegistryManager.CAMINITE_BRICK.get())
-                .define('S', RegistryManager.EMBER_CRYSTAL.get())
-                .define('C', RegistryManager.WILDFIRE_CORE.get())
-                .define('P', RegistryManager.DAWNSTONE_PLATE.get())
-                .unlockedBy("has_ember_cluster", has(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()))
-                .save(consumer, getResource("forge_core_block"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AWRegistry.AETHER_FORGE.get())
+                .pattern("BWB")
+                .pattern("BBB")
+                .pattern("PCP")
+                .define('B', RegistryManager.DAWNSTONE_BLOCK.get())
+                .define('C', RegistryManager.CAMINITE_BRICKS.get())
+                .define('W', RegistryManager.WILDFIRE_CORE.get())
+                .define('P', Blocks.COPPER_BLOCK)
+                .unlockedBy("has_wildfire_core", has(RegistryManager.WILDFIRE_CORE.get()))
+                .save(consumer, getResource("aether_forge_block"));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AWRegistry.FORGE_HEATER.get())
                 .pattern(" S ")
                 .pattern("HVH")
@@ -433,9 +446,10 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
                 .save(consumer, getResource("forge_cooler_block"));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AWRegistry.FORGE_VENT.get())
                 .pattern("PIP")
-                .pattern("IBI")
-                .pattern("PIP")
+                .pattern("CBC")
+                .pattern("PCP")
                 .define('I', RegistryManager.IRON_PLATE.get())
+                .define('C', RegistryManager.COPPER_PLATE.get())
                 .define('B', Items.IRON_BARS)
                 .define('P', RegistryManager.DAWNSTONE_PLATE.get())
                 .unlockedBy("has_ember_cluster", has(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()))
