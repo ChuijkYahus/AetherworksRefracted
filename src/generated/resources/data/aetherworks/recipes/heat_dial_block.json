@@ -6,7 +6,7 @@
       "item": "minecraft:paper"
     },
     "P": {
-      "item": "embers:dawnstone_plate"
+      "tag": "forge:plates/dawnstone"
     }
   },
   "pattern": [

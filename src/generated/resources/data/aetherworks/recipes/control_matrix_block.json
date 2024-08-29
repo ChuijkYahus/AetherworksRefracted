@@ -6,7 +6,7 @@
       "item": "embers:archaic_brick"
     },
     "D": {
-      "item": "embers:dawnstone_ingot"
+      "tag": "forge:ingots/dawnstone"
     },
     "F": {
       "item": "aetherworks:focus_crystal"

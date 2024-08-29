@@ -6,10 +6,10 @@
       "item": "embers:archaic_circuit"
     },
     "H": {
-      "item": "embers:silver_plate"
+      "tag": "forge:plates/silver"
     },
     "P": {
-      "item": "embers:dawnstone_plate"
+      "tag": "forge:plates/dawnstone"
     },
     "S": {
       "item": "embers:wildfire_core"

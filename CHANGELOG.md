@@ -1,5 +1,34 @@
 Changelog - Aetherworks Refracted
 =============================
+1.20.1-1.1.0
+-----------------------------
+_Additions_
+
+- Added the Hoe of the Villatic Harvest, an aetherium hoe that excels at farming crops.
+- Added the Hoe of the Hyalopterous Shepherd, an aetherium hoe that excels at animal handling.
+- Added the Agrarian Liners augment, which prevents you from trampling farmland when applied to boots.
+- Added Suevite Small Bricks block set.
+- Added Suevite Small Tile block set.
+- Added the "Same Block" config list, which allows certain aetherium tools to treat the specified blocks like they are others, I.E. treating Azalea Leaves as if they were Flowering Azalea Leaves, and vice versa, for vein-mining with the Axe of the Sonorous Archive.
+
+_Changes_
+
+- Aetherium items no longer change modes via sneak+use. They now change modes via keybind (default: V).
+- Added a keybind reminder to the tooltips of aetherium items with different modes.
+- Added overlay messages when changing modes of aetherium items.
+- All recipes now use item tags as input where applicable.
+- Added tags to the fluids.
+- The forge heater and cooler now use tags to determine what blocks and fluids are allowed beneath them.
+- All molten metals are now allowed under the forge heater.
+- Mixing recipes now use the minimum quantity of fluid, like normal Embers recipes.
+- Tweaked Suevite Tile texture to better tile.
+
+_Fixes_
+
+- Suevite now properly drops cobblestone when not silk touched, and itself when silk touched.
+- Aetherium tools now have the proper "perform actions", so they are counted as the appropriate tool type by various mods.
+- Water now properly flows out of waterlogged blocks.
+
 1.20.1-1.0.7
 -----------------------------
 _Additions_

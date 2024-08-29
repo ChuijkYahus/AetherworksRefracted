@@ -15,7 +15,7 @@ import java.util.List;
 
 public class AetheriumTiers {
     public static final Tier AETHERIUM = new ForgeTier(
-            4, 3841, 9.5f, 2.5f, 18,
+            4, 3841, 9.5f, 2f, 18,
             AWBlockTags.NEEDS_AETHERIUM_TOOL, () -> Ingredient.of(AWItemTags.AETHERIUM_INGOT));
 
     static {

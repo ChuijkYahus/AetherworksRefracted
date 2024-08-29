@@ -14,6 +14,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
@@ -26,6 +27,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.sirplop.aetherworks.blockentity.render.*;
+import net.sirplop.aetherworks.client.AWClientEvents;
+import net.sirplop.aetherworks.client.AWKeybinds;
 import net.sirplop.aetherworks.compat.curios.CuriosCompat;
 import net.sirplop.aetherworks.datagen.*;
 import net.sirplop.aetherworks.entity.render.DummyAetherCrownRender;
@@ -117,7 +120,7 @@ public class Aetherworks
             BlockTagsProvider blockTags = new AWBlockTags(output, lookupProvider, existingFileHelper);
             gen.addProvider(true, blockTags);
             gen.addProvider(true, new AWItemTags(output, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
-            //gen.addProvider(true, new EmbersFluidTags(output, lookupProvider, existingFileHelper));
+            gen.addProvider(true, new AWFluidTags(output, lookupProvider, existingFileHelper));
             gen.addProvider(true, new DatapackBuiltinEntriesProvider(output, lookupProvider, new RegistrySetBuilder()
                     //.add(Registries.CONFIGURED_FEATURE, AWConfiguredFeatures::generate)
                     //.add(Registries.PLACED_FEATURE, AWPlacedFeatures::generate)
@@ -199,6 +202,13 @@ public class Aetherworks
             if (ModList.get().isLoaded("curios"))
                 CuriosCompat.registerColorHandler(event, emberColor);
             event.register(emberColor, AWRegistry.AETHER_EMBER_JAR.get(), AWRegistry.AETHER_EMBER_CARTRIDGE.get());
+        }
+
+        @OnlyIn(Dist.CLIENT)
+        @SubscribeEvent
+        public static void registerKeyMappings(final RegisterKeyMappingsEvent event) {
+
+            event.register(AWKeybinds.MODE_CHANGE);
         }
     }
 }

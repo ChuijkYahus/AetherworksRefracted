@@ -1,0 +1,4 @@
+// 1.20.1	2024-08-25T00:47:10.0423843	Tags for minecraft:fluid mod id aetherworks
+44bfe88fd4bb571cc620472d5750e3aad8ae9f67 data/aetherworks/tags/fluids/aetherium.json
+bc8bdbf38b22e28828a5984281c17ef2caf35e66 data/aetherworks/tags/fluids/forge_heater_below.json
+e46214da26ece6dd94d6a90ac3f5cfe2a0c6b1dd data/embers/tags/fluids/ingot_tooltip.json

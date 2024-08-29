@@ -1,4 +1,4 @@
-// 1.20.1	2024-08-14T03:49:47.6349873	Item Models: aetherworks
+// 1.20.1	2024-08-28T17:15:48.9701609	Item Models: aetherworks
 263c3fa599b16e43c5708ed4242608e4931d5e1b assets/aetherworks/models/item/aetheriometer.json
 d45f4464b3b643edba8fc5cf621a56ccd8646486 assets/aetherworks/models/item/aetherium_lens.json
 14d56331c116e7649d3b64ea7182b6f076e870e0 assets/aetherworks/models/item/aether_amalgam.json
@@ -13,6 +13,7 @@ b47ee9359e93621f4b6adf9d345d037c629ce41b assets/aetherworks/models/item/aether_c
 4bb1efe1a390c769d41c89fc939de03a366a7a0f assets/aetherworks/models/item/aether_gas_painful_bucket.json
 fbc8430361123d3d8b6f0934a6512c3fb73ad137 assets/aetherworks/models/item/aether_pearl.json
 0b718e1b3586e6a0237231dbe4812574db3a24c2 assets/aetherworks/models/item/aether_shard.json
+70319a91ad6ce7cd4961b6e8620f657c388ff1a2 assets/aetherworks/models/item/agrarian_liners.json
 ce6d19c017143f96280be7542001aeea0950a273 assets/aetherworks/models/item/alchemic_precursor_bucket.json
 79ae357df31f9f4a442e5b74b39d8bc080f9c938 assets/aetherworks/models/item/aspectus_aetherium.json
 8ceb77d5b0cfdd2e8550e58f4d10ecd23d9e50aa assets/aetherworks/models/item/axe_ender.json
@@ -38,6 +39,12 @@ a6e9feb160f054c4891e0a4eb532b352b2085266 assets/aetherworks/models/item/geode_co
 7df65fc8fed02eaeaf71527ccc32d34bd8562e79 assets/aetherworks/models/item/geode_magical.json
 e2708c3122b06d0b2ad48a48ad5cbdff8cfeb997 assets/aetherworks/models/item/geode_nether.json
 7a5803f1ae254eebae997be41c392234a6457f16 assets/aetherworks/models/item/geode_ocean.json
+9f6d50194a6ce37f6fa33dc5b2d99f8766f5dd92 assets/aetherworks/models/item/hoe_amethyst.json
+31ade2a7fff4b2a80e2db4db155a5887c58f7d71 assets/aetherworks/models/item/hoe_head.json
+bc67a1b146b2a9c8819702a7536ac991a31e8238 assets/aetherworks/models/item/hoe_head_amethyst.json
+578effe241bcb9d5941b6fd28b2ea779787a5ca8 assets/aetherworks/models/item/hoe_head_crude.json
+0aa1e029e4c17e33354c3764f2efb12834552fd3 assets/aetherworks/models/item/hoe_head_honey.json
+c490afc4285ba4a20b363bd5e13fa218cfd4a0fb assets/aetherworks/models/item/hoe_honey.json
 187efbe64cff14e4592b07cbe43c4cfb29bcc25b assets/aetherworks/models/item/ingot_aether.json
 9e4ec3b2280b00466055082c6fffff46a5df5346 assets/aetherworks/models/item/pickaxe_aether.json
 18330ad568f0dcbadb155ddf9222a47fc3bbb0be assets/aetherworks/models/item/pickaxe_ember.json

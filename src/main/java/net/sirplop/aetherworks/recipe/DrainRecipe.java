@@ -1,6 +1,5 @@
 package net.sirplop.aetherworks.recipe;
 
-import ca.weblite.objc.Message;
 import com.google.gson.JsonObject;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -15,7 +14,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.sirplop.aetherworks.AWConfig;
 import net.sirplop.aetherworks.AWRegistry;
-import net.sirplop.aetherworks.item.PrismarineShovel;
+import net.sirplop.aetherworks.item.tool.PrismarineShovel;
 import net.sirplop.aetherworks.network.MessageFluidSync;
 import org.jetbrains.annotations.NotNull;
 

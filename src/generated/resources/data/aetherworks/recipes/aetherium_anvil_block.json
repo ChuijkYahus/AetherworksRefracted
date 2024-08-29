@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "D": {
-      "item": "embers:dawnstone_block"
+      "tag": "forge:storage_blocks/dawnstone"
     },
     "P": {
       "item": "aetherworks:plate_aether"

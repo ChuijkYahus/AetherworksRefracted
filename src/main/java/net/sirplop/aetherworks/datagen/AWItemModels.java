@@ -49,6 +49,10 @@ public class AWItemModels extends ItemModelProvider {
         itemWithTexture(AWRegistry.SHOVEL_HEAD, "generated", "tool/head/shovel_head_center", "tool/part/shovel_head");
         itemWithTexture(AWRegistry.SHOVEL_HEAD_PRISMARINE, "generated", "tool/head/shovel_head_center", "tool/head/shovel_head_prismarine");
         itemWithTexture(AWRegistry.SHOVEL_HEAD_SLIME, "generated", "tool/head/shovel_head_center", "tool/head/shovel_head_slime");
+        itemWithTexture(AWRegistry.HOE_HEAD_CRUDE, "generated", "tool/head/hoe_head_center", "tool/part/hoe_head_crude");
+        itemWithTexture(AWRegistry.HOE_HEAD, "generated", "tool/head/hoe_head_center", "tool/part/hoe_head");
+        itemWithTexture(AWRegistry.HOE_HEAD_HONEY, "generated", "tool/head/hoe_head_center", "tool/head/hoe_head_honey");
+        itemWithTexture(AWRegistry.HOE_HEAD_AMETHYST, "generated", "tool/head/hoe_head_center", "tool/head/hoe_head_amethyst");
         itemWithTexture(AWRegistry.AETHER_CROWN_CRUDE, "aether_crown_crude");
         itemWithTexture(AWRegistry.AETHER_CROWN_MUNDANE, "aether_crown_mundane");
         itemWithTexture(AWRegistry.CROSSBOW_FRAME_CRUDE, "crossbow_frame_crude");
@@ -68,6 +72,7 @@ public class AWItemModels extends ItemModelProvider {
 
         itemWithTexture(AWRegistry.TUNING_CYLINDER, "tuning_cylinder");
         itemWithTexture(AWRegistry.VOLANT_CALCIFIER, "volant_calcifier");
+        itemWithTexture(AWRegistry.AGRARIAN_LINERS, "agrarian_liners");
 
         itemWithTexture(AWRegistry.GEODE_END, "geode_end");
         itemWithTexture(AWRegistry.GEODE_NETHER, "geode_nether");
@@ -84,6 +89,8 @@ public class AWItemModels extends ItemModelProvider {
         toolWithTexture(AWRegistry.AXE_SCULK, "tool/tool_base", "tool/axe_sculk");
         toolWithTexture(AWRegistry.SHOVEL_SLIME, "tool/tool_base_shovel", "tool/shovel_slime");
         toolWithTexture(AWRegistry.SHOVEL_PRISMARINE, "tool/tool_base_shovel", "tool/shovel_prismarine");
+        toolWithTexture(AWRegistry.HOE_HONEY, "tool/tool_base", "tool/hoe_honey");
+        toolWithTexture(AWRegistry.HOE_AMETHYST, "tool/tool_base", "tool/hoe_amethyst");
 
         itemWithTexture(AWRegistry.AETHER_CROWN, "generated", "aether_crown", "aether_crown_overlay");
         //potion gem now in own model file because overrides

@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "P": {
-      "item": "embers:dawnstone_plate"
+      "tag": "forge:plates/dawnstone"
     },
     "S": {
       "item": "aetherworks:aether_amalgam"

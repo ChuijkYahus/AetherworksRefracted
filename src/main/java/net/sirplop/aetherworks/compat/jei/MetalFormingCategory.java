@@ -63,7 +63,7 @@ public class MetalFormingCategory implements IRecipeCategory<IMetalFormerRecipe>
 
         builder.addSlot(RecipeIngredientRole.INPUT, 5, 39)
                 .addTooltipCallback(IngotTooltipCallback.INSTANCE)
-                .setFluidRenderer(1000, true, 16, 34)
+                .setFluidRenderer(1000, false, 16, 34)
                 .addIngredients(ForgeTypes.FLUID_STACK, recipe.getDisplayInputFluid().getFluids());
     }
 

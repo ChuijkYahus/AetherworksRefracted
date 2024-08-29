@@ -88,41 +88,54 @@ public class Utils {
      * Tries to harvest the block at the given location using the given item.
      * @return  True if successful
      */
-    public static boolean breakAndHarvestBlock(ServerLevel level, BlockPos pos, ServerPlayer player, ItemStack itemInHand,
-                                               Direction dropDirection, @Nullable Predicate<BlockState> matchBlock, boolean allowBreakBlockEntities, boolean makeSuck) {
+    public static List<ItemStack> breakAndHarvestBlock(ServerLevel level, BlockPos pos, ServerPlayer player, ItemStack itemInHand,
+                                               @Nullable Direction dropDirection, @Nullable Predicate<BlockState> matchBlock, boolean allowBreakBlockEntities, boolean makeSuck) {
         if (level.isClientSide() || !level.isLoaded(pos))
-            return false; //clients can't mine, and unloaded chunks can't have stuff broken in them!
+            return List.of(); //clients can't mine, and unloaded chunks can't have stuff broken in them!
 
         BlockState targetState = level.getBlockState(pos);
         if (targetState.isAir())
-            return false; //can't harvest air!
+            return List.of(); //can't harvest air!
 
         if (!allowBreakBlockEntities && level.getBlockEntity(pos) != null)
-            return false; //don't break block entities if we don't want to!
+            return List.of(); //don't break block entities if we don't want to!
 
         boolean canHarvest = targetState.getBlock().canHarvestBlock(targetState, level, pos, player);
         boolean match = matchBlock == null || matchBlock.test(targetState);
 
         if (!match || !canHarvest)
-            return false;
+            return List.of();
 
         ForgeHooks.onBlockBreakEvent(level, player.gameMode.getGameModeForPlayer(), player, pos);
         level.destroyBlock(pos, false, player);
+        List<ItemStack> drops = List.of();
         if (!player.isCreative()) {
             boolean correctToolForDrops = itemInHand.isCorrectToolForDrops(targetState);
             if (correctToolForDrops) {
                 targetState.spawnAfterBreak(level, pos, itemInHand, true);
-                List<ItemStack> drops = Block.getDrops(targetState, level, pos, level.getBlockEntity(pos), player, itemInHand);
-                drops.forEach(e ->  {
+                drops = Block.getDrops(targetState, level, pos, level.getBlockEntity(pos), player, itemInHand);
+                if (dropDirection == null) {
+                    drops.forEach(e -> {
+                        List<ItemEntity> entities = dropItemStack(level, pos.getCenter(), e);
+                        for (ItemEntity ent : entities) {
+                            if (makeSuck && ent != null) {
+                                ent.addTag(SUCK_ITEM_TAG);
+                                PacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new MessageSyncItemEntityTag(ent, SUCK_ITEM_TAG));
+                            }
+                        }
+                    });
+                } else {
+                    drops.forEach(e -> {
                         ItemEntity ent = popResourceFromFace(level, pos, dropDirection, e);
                         if (makeSuck && ent != null) {
                             ent.addTag(SUCK_ITEM_TAG);
                             PacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new MessageSyncItemEntityTag(ent, SUCK_ITEM_TAG));
                         }
-                });
+                    });
+                }
             }
         }
-        return true;
+        return drops;
     }
 
     public static List<Integer> getAllSlotsContaining(Item item, Inventory inventory) {
@@ -268,7 +281,7 @@ public class Utils {
         return arr;
     }
 
-    //copied out of Block because the Block implementation does not return the created entity. for some reason.
+    //copied out of Block because the implementation does not return the created entity.
     public static ItemEntity popResourceFromFace(Level pLevel, BlockPos pPos, Direction pDirection, ItemStack pStack) {
         int i = pDirection.getStepX();
         int j = pDirection.getStepY();
@@ -292,6 +305,24 @@ public class Utils {
             return itementity;
         }
         return null;
+    }
+    //copied out of Container because the implementation does not return the created entities.
+    public static List<ItemEntity> dropItemStack(Level pLevel, Vec3 pos, ItemStack pStack) {
+        double d0 = EntityType.ITEM.getWidth();
+        double d1 = 1.0D - d0;
+        double d2 = d0 / 2.0D;
+        double d3 = Math.floor(pos.x) + pLevel.random.nextDouble() * d1 + d2;
+        double d4 = Math.floor(pos.y) + pLevel.random.nextDouble() * d1;
+        double d5 = Math.floor(pos.z) + pLevel.random.nextDouble() * d1 + d2;
+        List<ItemEntity> ret = new ArrayList<>();
+        while(!pStack.isEmpty()) {
+            ItemEntity itementity = new ItemEntity(pLevel, d3, d4, d5, pStack.split(pLevel.random.nextInt(21) + 10));
+            float f = 0.05F;
+            itementity.setDeltaMovement(pLevel.random.triangle(0.0D, 0.11485000171139836D), pLevel.random.triangle(0.2D, 0.11485000171139836D), pLevel.random.triangle(0.0D, 0.11485000171139836D));
+            pLevel.addFreshEntity(itementity);
+            ret.add(itementity);
+        }
+        return ret;
     }
 
     public static BlockHitResult getEntityPOVHitResult(Level pLevel, LivingEntity entity, double range, ClipContext.Fluid pFluidMode) {

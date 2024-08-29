@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "X": {
-      "item": "aetherworks:suevite_big_tile"
+      "item": "aetherworks:suevite_bricks"
     }
   },
   "pattern": [
@@ -12,7 +12,7 @@
   ],
   "result": {
     "count": 4,
-    "item": "aetherworks:suevite_bricks"
+    "item": "aetherworks:suevite_small_bricks"
   },
   "show_notification": true
 }

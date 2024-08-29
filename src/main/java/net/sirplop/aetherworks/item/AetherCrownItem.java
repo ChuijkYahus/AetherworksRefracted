@@ -6,8 +6,10 @@ import com.rekindled.embers.Embers;
 import com.rekindled.embers.EmbersClientEvents;
 import com.rekindled.embers.util.Misc;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -50,30 +52,23 @@ public class AetherCrownItem extends ArmorItem implements IToggleItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
-        ItemStack stack = playerIn.getItemInHand(handIn);
-        return useDelegate(stack, playerIn, handIn) ? InteractionResultHolder.success(stack) : super.use(worldIn, playerIn, handIn);
-    }
+    public byte getToggleMax() { return 2; }
+
     @Override
-    public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
-        return useDelegate(stack, context.getPlayer(), context.getHand()) ? InteractionResult.SUCCESS : InteractionResult.PASS;
-    }
-
-    private boolean useDelegate(ItemStack stack, Player player, InteractionHand hand) {
-        if (Utils.isFakePlayer(player))
-            return false;
-        if (hand != InteractionHand.MAIN_HAND || !player.isShiftKeyDown())
-            return false;
-
-        Level level = player.getCommandSenderWorld();
-        if (!level.isClientSide()) { //send toggle message to client.
-            toggleItem(stack, player, (byte)2);
-        } else { //play sounds as client
-            level.playSound(player, player.getOnPos(),
-                    SoundEvents.EXPERIENCE_ORB_PICKUP,
-                    SoundSource.PLAYERS, 0.6f, 0.9F);
+    public void clientModeChanged(ItemStack stack, Player player, byte oldValue, byte newValue, byte stateFlag) {
+        player.getCommandSenderWorld().playSound(player, player.getOnPos(),
+                SoundEvents.EXPERIENCE_ORB_PICKUP,
+                SoundSource.PLAYERS, 0.6f, 0.9F);
+        MutableComponent message = null;
+        if (newValue == 0) { //self
+            message = Component.translatable(Aetherworks.MODID + ".tooltip.crown_target.self");
+        } else if (newValue == 1) {
+            message = Component.translatable(Aetherworks.MODID + ".tooltip.crown_target.friends");
+        } else {
+            message = Component.translatable(Aetherworks.MODID + ".tooltip.crown_target.hostiles");
         }
-        return true;
+        if (!Utils.isFakePlayer(player))
+            Minecraft.getInstance().gui.setOverlayMessage(message, false);
     }
 
     private int ticks = 0;
@@ -188,7 +183,9 @@ public class AetherCrownItem extends ArmorItem implements IToggleItem {
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
         super.appendHoverText(stack, level, tooltip, isAdvanced);
-        int target = getToggled(stack);
+        tooltip.add(Component.translatable("aetherworks.tooltip.cycle_mode", Component.keybind("key.aetherworks.mode_change")).withStyle(ChatFormatting.GOLD));
+
+        byte target = getToggled(stack);
         if (target == 0) { //self
             tooltip.add(Component.translatable(Aetherworks.MODID + ".tooltip.crown_target.self").withStyle(ChatFormatting.GRAY));
         } else if (target == 1) {

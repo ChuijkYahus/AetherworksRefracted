@@ -8,7 +8,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.sirplop.aetherworks.AWConfig;
 import net.sirplop.aetherworks.util.Utils;
 
 import javax.annotation.Nullable;
@@ -28,6 +30,8 @@ public class AWHarvestNode {
     protected final GlowParticleOptions particle;
     protected final ItemStack usedItem;
     protected double damageChance;
+
+    public boolean allowSimilarBlocks = true;
 
     public boolean isInvalid()
     {
@@ -83,6 +87,7 @@ public class AWHarvestNode {
         Stack<BlockPos> check = new Stack<>();
         check.add(from);
         this.toHarvest.add(0, from);
+        Set<Block> sameBlocks = AWConfig.getSameBlocks(level.getBlockState(from).getBlock());
         while (!check.isEmpty()) {
             BlockPos pos = check.pop();
             if (pos.distToCenterSqr(this.beginning.getX() + 0.5, this.beginning.getY() + 0.5, this.beginning.getZ() + 0.5) >= (range * range)-1)
@@ -98,8 +103,8 @@ public class AWHarvestNode {
                     continue;
                 }
 
-                BlockState state = this.level.getBlockState(offset);
-                if (state.getBlock().equals(this.baseState.getBlock())) {
+                Block block = this.level.getBlockState(offset).getBlock();
+                if (block.equals(this.baseState.getBlock()) || (allowSimilarBlocks && sameBlocks.contains(block))) {
                     this.toHarvest.add(0, offset);
                     check.add(offset);
                 }
@@ -119,7 +124,7 @@ public class AWHarvestNode {
         }
         BlockPos pos = this.toHarvest.pop();
         boolean val = Utils.breakAndHarvestBlock((ServerLevel)level, pos, (ServerPlayer)harvester, harvester.getMainHandItem(),
-                Direction.getRandom(level.random), (state) -> state.getBlock().equals(baseState.getBlock()), false, true);
+                Direction.getRandom(level.random), (state) -> state.getBlock().equals(baseState.getBlock()) || (allowSimilarBlocks && AWConfig.getSameBlocks(baseState.getBlock()).contains(state.getBlock())), false, true).isEmpty();
         if (val) {
             if (!harvester.isCreative() && level.random.nextFloat() <= damageChance)
                 harvester.getMainHandItem().hurt(1, level.random, (ServerPlayer) harvester);

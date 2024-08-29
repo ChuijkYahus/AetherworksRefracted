@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
-public class AWTunnelNode extends AWHarvestNode{
+public class AWTunnelNode extends AWHarvestNode {
     public AWTunnelNode(Player harvester, Level level, BlockPos beginning, int range,
                         Predicate<Player> canHarvest, @Nullable GlowParticleOptions particle, double damageChance, Direction direction,
                         Predicate<BlockState> checkStateMatch) {
@@ -34,12 +34,6 @@ public class AWTunnelNode extends AWHarvestNode{
     @Override
     public void initNode()
     {
-        if (!isLoaded(this.beginning))
-        {
-            this.invalid = true;
-            return;
-        }
-
         if (!isLoaded(this.beginning))
         {
             this.invalid = true;
@@ -163,9 +157,9 @@ public class AWTunnelNode extends AWHarvestNode{
             this.invalid = true;
     }
 
-    private void harvest(BlockPos pos) {
+    protected void harvest(BlockPos pos) {
         boolean val = Utils.breakAndHarvestBlock((ServerLevel)level, pos, (ServerPlayer)harvester, harvester.getMainHandItem(),
-                Direction.getRandom(level.random), (state) -> true, false, true);
+                Direction.getRandom(level.random), (state) -> true, false, true).isEmpty();
         if (val) {
             if (!harvester.isCreative())
                 harvester.getMainHandItem().hurt(1, level.random, (ServerPlayer) harvester);

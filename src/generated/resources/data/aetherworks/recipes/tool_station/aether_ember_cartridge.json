@@ -5,13 +5,13 @@
       "item": "aetherworks:aether_shard"
     },
     {
-      "item": "embers:dawnstone_plate"
+      "tag": "forge:plates/dawnstone"
     },
     {
       "item": "embers:ember_cartridge"
     },
     {
-      "item": "embers:dawnstone_plate"
+      "tag": "forge:plates/dawnstone"
     },
     {
       "item": "aetherworks:aether_shard"

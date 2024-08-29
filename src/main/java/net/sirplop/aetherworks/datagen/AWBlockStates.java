@@ -54,8 +54,12 @@ public class AWBlockStates extends BlockStateProvider {
         decoBlocks(AWRegistry.SUEVITE_COBBLE_DECO);
         blockWithItem(AWRegistry.SUEVITE_BRICKS);
         decoBlocks(AWRegistry.SUEVITE_BRICKS_DECO);
+        blockWithItem(AWRegistry.SUEVITE_SMALL_BRICKS);
+        decoBlocks(AWRegistry.SUEVITE_SMALL_BRICKS_DECO);
         blockWithItem(AWRegistry.SUEVITE_BIG_TILE);
         decoBlocks(AWRegistry.SUEVITE_BIG_TILE_DECO);
+        blockWithItem(AWRegistry.SUEVITE_SMALL_TILE);
+        decoBlocks(AWRegistry.SUEVITE_SMALL_TILE_DECO);
         blockWithRenderType(AWRegistry.GLASS_AETHERIUM, "glass_aetherium", "translucent");
         blockWithRenderType(AWRegistry.GLASS_AETHERIUM_BORDERLESS, "glass_aetherium_borderless", "translucent");
         blockWithItem(AWRegistry.AETHERIUM_ORE, "ore_aether");

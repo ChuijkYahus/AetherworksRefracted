@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "C": {
-      "item": "embers:copper_plate"
+      "tag": "forge:plates/copper"
     },
     "H": {
       "item": "embers:superheater"
     },
     "P": {
-      "item": "embers:dawnstone_plate"
+      "tag": "forge:plates/dawnstone"
     },
     "S": {
       "item": "embers:wildfire_core"

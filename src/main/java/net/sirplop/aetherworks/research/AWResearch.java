@@ -24,8 +24,8 @@ public class AWResearch {
     public static ResearchCategory subCategoryTools;
     public static ResearchCategory subCategoryAlchemy;
     public static ResearchBase meteor, gauge, amalgam, moon_harvester, focus_matrix, purify_aetherium, alchemy, forge, heat_dial, forge_heat, metal_former, anvil, tool_station, pearls, tools;
-    public static ResearchBase pobs, pomd, aotr, aosa, sotc, soic, cosb, cosr, crown; //TOOLS
-    public static ResearchBase tuning_cylinder, volant_calcifier;
+    public static ResearchBase pobs, pomd, aotr, aosa, sotc, soic, hovh, hohs, cosb, cosr, crown; //TOOLS
+    public static ResearchBase tuning_cylinder, volant_calcifier, agrarian_liners;
     public static ResearchBase moonsnare_jars, moonsnare_bulb;
     public static ResearchBase seething_aetherium, aetherium_glass, aspectus;
 
@@ -69,6 +69,8 @@ public class AWResearch {
         aosa = new ResearchBase("aw.aosa", new ItemStack(AWRegistry.AXE_SCULK.get()), subCategoryTools.popGoodLocation()).addAncestor(toolsFake);
         soic = new ResearchBase("aw.soic", new ItemStack(AWRegistry.SHOVEL_SLIME.get()), subCategoryTools.popGoodLocation()).addAncestor(toolsFake);
         sotc = new ResearchBase("aw.sotc", new ItemStack(AWRegistry.SHOVEL_PRISMARINE.get()), subCategoryTools.popGoodLocation()).addAncestor(toolsFake);
+        hovh = new ResearchBase("aw.hovh", new ItemStack(AWRegistry.HOE_AMETHYST.get()), subCategoryTools.popGoodLocation()).addAncestor(toolsFake);
+        hohs = new ResearchBase("aw.hohs", new ItemStack(AWRegistry.HOE_HONEY.get()), subCategoryTools.popGoodLocation()).addAncestor(toolsFake);
         cosb = new ResearchBase("aw.cosb", new ItemStack(AWRegistry.CROSSBOW_QUARTZ.get()), subCategoryTools.popGoodLocation()).addAncestor(toolsFake);
         cosr = new ResearchBase("aw.cosr", new ItemStack(AWRegistry.CROSSBOW_MAGMA.get()), subCategoryTools.popGoodLocation()).addAncestor(toolsFake);
 
@@ -83,6 +85,8 @@ public class AWResearch {
         ResearchManager.subCategoryWeaponAugments.addResearch(tuning_cylinder);
         volant_calcifier = new ResearchBase("aw.volant_calcifier", new ItemStack(AWRegistry.VOLANT_CALCIFIER.get()), ResearchManager.subCategoryProjectileAugments.popGoodLocation()).addAncestor(ResearchManager.inferno_forge);
         ResearchManager.subCategoryProjectileAugments.addResearch(volant_calcifier);
+        agrarian_liners = new ResearchBase("aw.agrarian_liners", new ItemStack(AWRegistry.AGRARIAN_LINERS.get()), ResearchManager.subCategoryArmorAugments.popGoodLocation()).addAncestor(ResearchManager.inferno_forge);
+        ResearchManager.subCategoryArmorAugments.addResearch(agrarian_liners);
 
         ItemStack fullJar = EmberStorageItem.withFill(AWRegistry.AETHER_EMBER_JAR.get(), ((EmberStorageItem)AWRegistry.AETHER_EMBER_JAR.get()).getCapacity());
         moonsnare_jars = new ResearchBase("aw.moonsnare_jars", fullJar, 6.5, 7).addAncestor(ResearchManager.jars);
@@ -100,6 +104,8 @@ public class AWResearch {
                 .addResearch(aosa)
                 .addResearch(soic)
                 .addResearch(sotc)
+                .addResearch(hovh)
+                .addResearch(hohs)
                 .addResearch(cosb)
                 .addResearch(cosr)
                 .addResearch(crown);

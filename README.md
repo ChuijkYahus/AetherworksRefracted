@@ -33,7 +33,6 @@ You can contact me about the port in RCXcrafter's discord, in the Embers channel
 - Allow upgrades (catalytic plug, wildfire stirling) to interact with the Aetherium Forge.
 - Rework the heating and cooling of the Aetherium Forge so you'll want to use all 3 components, instead of just 1 heater + 2 heat vents.
 - Add an aetherium shield that turns projectiles that hit it into ember projectiles that home towards whomever fired it.
-- Add a pair of aetheric hoes that excel at farming and shepherding.
 - Add more embers-based stuff, since the original mod didn't have a lot of actual integration.
 - Semi-automatable Aetherium Forge (aka make automatic hammer work with certain forging recipes)
 - Long-term dangers from processing aetherium? Nothing annoying, of course.

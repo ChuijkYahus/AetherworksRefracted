@@ -9,8 +9,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -21,13 +24,12 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.FluidHandlerBlockEntity;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 public class HeaterBaseBlockEntity extends FluidHandlerBlockEntity implements IForgePart {
     public HeaterBaseBlockEntity(BlockEntityType<?> pType, BlockPos pos, BlockState state,
-                                 int heatPerOperation, int fluidPerOperation, Fluid fluid, List<Block> belowBlocksAllowed,
-                                 List<Fluid> belowFluidsAllowed, boolean consumeBelowBlock, double emberPerOperation,
+                                 int heatPerOperation, int fluidPerOperation, @NotNull Fluid fluid, @NotNull TagKey<Block> belowBlocksAllowed,
+                                 @NotNull TagKey<Fluid> belowFluidsAllowed, boolean consumeBelowBlock, double emberPerOperation,
                                  boolean instantHeat, double cooldown, SoundEvent sound) {
         super(pType, pos, state);
         this.heatPerOperation = heatPerOperation;
@@ -48,8 +50,8 @@ public class HeaterBaseBlockEntity extends FluidHandlerBlockEntity implements IF
     public final double emberPerOperation;
     public final int heatPerOperation;
     public final boolean consumesBelowBlock;
-    public final List<Block> belowBlocksAllowed;
-    public final List<Fluid> belowFluidsAllowed;
+    public final TagKey<Block> belowBlocksAllowed;
+    public final TagKey<Fluid> belowFluidsAllowed;
     public final int fluidPerOperation;
     public final Fluid tankFluid;
     public final boolean instantHeat;
@@ -57,6 +59,10 @@ public class HeaterBaseBlockEntity extends FluidHandlerBlockEntity implements IF
     public final double cooldownSet;
 
     protected double cooldown;
+
+    protected Block currentBelowBlock;
+    protected Fluid currentBelowFluid;
+    protected boolean currentPasses;
 
     public IEmberCapability emberCapability = new DefaultEmberCapability() {
         @Override
@@ -86,9 +92,15 @@ public class HeaterBaseBlockEntity extends FluidHandlerBlockEntity implements IF
         if (cooldown <= 0 && level.hasNeighborSignal(getBlockPos())) {
             Block belowBlock = level.getBlockState(getBlockPos().below()).getBlock();
             Fluid belowFluid = level.getFluidState(getBlockPos().below()).getType();
-            if ((belowBlocksAllowed == null || belowBlocksAllowed.isEmpty() || belowBlocksAllowed.contains(belowBlock)) &&
-                (belowFluidsAllowed == null || belowFluidsAllowed.isEmpty() || belowFluidsAllowed.contains(belowFluid)))
-            {
+
+            if (belowBlock != currentBelowBlock || belowFluid != currentBelowFluid) {
+                currentBelowFluid = belowFluid;
+                currentBelowBlock = belowBlock;
+                currentPasses = belowBlock.defaultBlockState().getTags().anyMatch((pred) -> pred == belowBlocksAllowed)
+                        || belowFluid.defaultFluidState().getTags().anyMatch((pred) -> pred == belowFluidsAllowed);
+            }
+
+            if (currentPasses) {
                 FluidStack tankReq = new FluidStack(tankFluid, fluidPerOperation);
 
                 if (tank.drain(tankReq, IFluidHandler.FluidAction.SIMULATE).getAmount() >= 0 &&

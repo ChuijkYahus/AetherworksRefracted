@@ -15,18 +15,23 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
+@SuppressWarnings("unchecked")
 public class AWBlockTags  extends BlockTagsProvider {
     public AWBlockTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, Aetherworks.MODID, existingFileHelper);
     }
     public static final TagKey<Block> NEEDS_AETHERIUM_TOOL = BlockTags.create(new ResourceLocation(Aetherworks.MODID, "needs_aetherium_tool"));
     public static final TagKey<Block> SCULK_AXE_MINEABLE = BlockTags.create(new ResourceLocation(Aetherworks.MODID, "sculk_axe_mineable"));
+    public static final TagKey<Block> FORGE_HEATER_BELOW = BlockTags.create(new ResourceLocation(Aetherworks.MODID, "forge_heater_below"));
+    public static final TagKey<Block> FORGE_COOLER_BELOW = BlockTags.create(new ResourceLocation(Aetherworks.MODID, "forge_cooler_below"));
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         decoTags(AWRegistry.SUEVITE_COBBLE_DECO);
         decoTags(AWRegistry.SUEVITE_BRICKS_DECO);
+        decoTags(AWRegistry.SUEVITE_SMALL_BRICKS_DECO);
         decoTags(AWRegistry.SUEVITE_BIG_TILE_DECO);
+        decoTags(AWRegistry.SUEVITE_SMALL_TILE_DECO);
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 AWRegistry.AETHERIUM_ORE.get(),
@@ -50,7 +55,9 @@ public class AWBlockTags  extends BlockTagsProvider {
                 AWRegistry.SUEVITE.get(),
                 AWRegistry.SUEVITE_COBBLE.get(),
                 AWRegistry.SUEVITE_BRICKS.get(),
+                AWRegistry.SUEVITE_SMALL_BRICKS.get(),
                 AWRegistry.SUEVITE_BIG_TILE.get(),
+                AWRegistry.SUEVITE_SMALL_TILE.get(),
                 AWRegistry.GLASS_AETHERIUM.get(),
                 AWRegistry.GLASS_AETHERIUM_BORDERLESS.get()
         );
@@ -77,6 +84,10 @@ public class AWBlockTags  extends BlockTagsProvider {
         getTag("forge:glass").add(AWRegistry.GLASS_AETHERIUM.get(), AWRegistry.GLASS_AETHERIUM_BORDERLESS.get());
 
         tag(SCULK_AXE_MINEABLE).addTags(BlockTags.MINEABLE_WITH_AXE, BlockTags.LEAVES);
+
+        tag(FORGE_COOLER_BELOW).addTags(
+                BlockTags.ICE
+        );
 
         //individual tags
         getTag("forge:cobblestone").add(AWRegistry.SUEVITE_COBBLE.get());

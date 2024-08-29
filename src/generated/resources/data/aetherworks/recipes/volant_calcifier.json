@@ -15,7 +15,7 @@
       "item": "embers:isolated_materia"
     },
     "P": {
-      "item": "embers:dawnstone_plate"
+      "tag": "forge:plates/dawnstone"
     }
   },
   "pattern": [

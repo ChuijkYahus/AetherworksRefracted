@@ -2,13 +2,18 @@ package net.sirplop.aetherworks.datagen;
 
 import com.rekindled.embers.RegistryManager;
 import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntries;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntry;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -38,15 +43,17 @@ public class AWBlockLootTables extends BlockLootSubProvider {
     @Override
     protected void generate() {
         add(AWRegistry.AETHERIUM_ORE.get(), (block) -> createAetherOreDrops(block, AWRegistry.AETHER_SHARD.get()));
-
-        dropOther(AWRegistry.SUEVITE.get(), AWRegistry.SUEVITE_COBBLE.get());
-        dropWhenSilkTouch(AWRegistry.SUEVITE.get());
+        add(AWRegistry.SUEVITE.get(), (block) -> createStoneDrops(block, AWRegistry.SUEVITE_COBBLE.get()));
         dropSelf(AWRegistry.SUEVITE_COBBLE.get());
         decoDrops(AWRegistry.SUEVITE_COBBLE_DECO);
         dropSelf(AWRegistry.SUEVITE_BRICKS.get());
-        decoDrops(AWRegistry.SUEVITE_BRICKS_DECO);
+        decoDrops(AWRegistry.SUEVITE_BRICKS_DECO);;
+        dropSelf(AWRegistry.SUEVITE_SMALL_BRICKS.get());
+        decoDrops(AWRegistry.SUEVITE_SMALL_BRICKS_DECO);
         dropSelf(AWRegistry.SUEVITE_BIG_TILE.get());
         decoDrops(AWRegistry.SUEVITE_BIG_TILE_DECO);
+        dropSelf(AWRegistry.SUEVITE_SMALL_TILE.get());
+        decoDrops(AWRegistry.SUEVITE_SMALL_TILE_DECO);
         dropWhenSilkTouch(AWRegistry.GLASS_AETHERIUM.get());
         dropWhenSilkTouch(AWRegistry.GLASS_AETHERIUM_BORDERLESS.get());
 
@@ -75,6 +82,11 @@ public class AWBlockLootTables extends BlockLootSubProvider {
                 LootItem.lootTableItem(item)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
                         .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
+    }
+
+    protected  LootTable.Builder createStoneDrops(Block block, ItemLike item) {
+        return createSilkTouchDispatchTable(block, this.applyExplosionCondition(block,
+                LootItem.lootTableItem(item)));
     }
 
     public void decoDrops(AWRegistry.StoneDecoBlocks deco) {

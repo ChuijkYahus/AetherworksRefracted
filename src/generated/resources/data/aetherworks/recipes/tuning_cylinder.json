@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "L": {
-      "item": "embers:silver_plate"
+      "tag": "forge:plates/silver"
     },
     "P": {
-      "item": "embers:dawnstone_plate"
+      "tag": "forge:plates/dawnstone"
     },
     "S": {
       "item": "aetherworks:aether_shard"

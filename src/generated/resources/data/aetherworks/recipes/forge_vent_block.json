@@ -6,13 +6,13 @@
       "item": "minecraft:iron_bars"
     },
     "C": {
-      "item": "embers:copper_plate"
+      "tag": "forge:plates/copper"
     },
     "I": {
-      "item": "embers:iron_plate"
+      "tag": "forge:plates/iron"
     },
     "P": {
-      "item": "embers:dawnstone_plate"
+      "tag": "forge:plates/dawnstone"
     }
   },
   "pattern": [

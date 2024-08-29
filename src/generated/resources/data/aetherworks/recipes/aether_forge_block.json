@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "B": {
-      "item": "embers:dawnstone_block"
+      "tag": "forge:storage_blocks/dawnstone"
     },
     "C": {
       "item": "embers:caminite_bricks"

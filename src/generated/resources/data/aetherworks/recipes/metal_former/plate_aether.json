@@ -6,7 +6,7 @@
     "name": "aetherworks:aether_gas"
   },
   "input": {
-    "item": "embers:dawnstone_plate"
+    "tag": "forge:plates/dawnstone"
   },
   "match_exactly": false,
   "output": {

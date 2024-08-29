@@ -62,12 +62,12 @@ public class ToolStationRecipeBuilder {
         return this;
     }
 
-    public ToolStationRecipeBuilder input(ItemLike i1, ItemLike i2, ItemLike i3, ItemLike i4, ItemLike i5) {
-        input(0, i1 == null ? Ingredient.EMPTY : Ingredient.of(i1));
-        input(1, i2 == null ? Ingredient.EMPTY : Ingredient.of(i2));
-        input(2, i3 == null ? Ingredient.EMPTY : Ingredient.of(i3));
-        input(3, i4 == null ? Ingredient.EMPTY : Ingredient.of(i4));
-        input(4, i5 == null ? Ingredient.EMPTY : Ingredient.of(i5));
+    public ToolStationRecipeBuilder input(Ingredient i1, Ingredient i2, Ingredient i3, Ingredient i4, Ingredient i5) {
+        input(0, i1 == null ? Ingredient.EMPTY : i1);
+        input(1, i2 == null ? Ingredient.EMPTY : i2);
+        input(2, i3 == null ? Ingredient.EMPTY : i3);
+        input(3, i4 == null ? Ingredient.EMPTY : i4);
+        input(4, i5 == null ? Ingredient.EMPTY : i5);
         return this;
     }
 

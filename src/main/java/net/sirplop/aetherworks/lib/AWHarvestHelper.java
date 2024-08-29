@@ -76,6 +76,10 @@ public class AWHarvestHelper {
         }
     }
 
+    public static boolean alreadyHasPlayer(Player player) {
+        return nodes.containsKey(player.getUUID());
+    }
+
 
     public static boolean addNode(Player invoker, AWHarvestNode node)
     {

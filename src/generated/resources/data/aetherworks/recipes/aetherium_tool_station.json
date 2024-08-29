@@ -6,10 +6,10 @@
       "item": "aetherworks:gem_aether"
     },
     "P": {
-      "item": "embers:dawnstone_plate"
+      "tag": "forge:plates/dawnstone"
     },
     "S": {
-      "item": "embers:silver_block"
+      "tag": "forge:storage_blocks/silver"
     }
   },
   "pattern": [
