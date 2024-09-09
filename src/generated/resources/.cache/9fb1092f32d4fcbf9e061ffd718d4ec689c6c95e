@@ -1,4 +1,4 @@
-// 1.20.1	2024-08-28T18:24:38.1064266	Recipes
+// 1.20.1	2024-09-09T13:20:42.4733094	Recipes
 517acf7e396808bd01a06777a37a841282204d7d data/aetherworks/advancements/recipes/brewing/potion_gem.json
 6a3cd987dfb665f392252cea4b983c30855fe1a9 data/aetherworks/advancements/recipes/building_blocks/suevite_big_tile_convert.json
 6ecc0a6a2f83a90281170a0dcbd575fe913b9505 data/aetherworks/advancements/recipes/building_blocks/suevite_bricks.json
@@ -53,7 +53,7 @@ fa801f87ad8b7a3a774e1b4064c63a51d624ad11 data/aetherworks/recipes/aetherium_anvi
 4c567af56dc3ffc9e245d8f550dc2bf34ebb08a2 data/aetherworks/recipes/aetherium_anvil/crossbow_limbs.json
 efad6ffd72d4f37408ddec9b367481d9e2f8017e data/aetherworks/recipes/aetherium_anvil/geode_basic.json
 da302675f9bd02e1b88dc2eccdaade865f6281c7 data/aetherworks/recipes/aetherium_anvil/geode_cold.json
-6b0ff7ac80abb97402c80a4543394c42a469573d data/aetherworks/recipes/aetherium_anvil/geode_deep.json
+bbecd965951cc822cab664bf916e30e81528bd55 data/aetherworks/recipes/aetherium_anvil/geode_deep.json
 b557e5b5e288572a5401e1a02d9c9482a6e835b1 data/aetherworks/recipes/aetherium_anvil/geode_end.json
 22f4a83291cd2eea7700ee1ceee66bcdc1867d49 data/aetherworks/recipes/aetherium_anvil/geode_hot.json
 a54abad4ea3fa2b6cf4a90dd34e97a770e2867de data/aetherworks/recipes/aetherium_anvil/geode_magical.json
@@ -106,6 +106,7 @@ e5cb172fb5e9f5566c0d3a580e71baf2f0cb9f25 data/aetherworks/recipes/dawnstone_anvi
 34aaa1c5c1d650beebf3e3d7a08e6ddaee3fe8e1 data/aetherworks/recipes/heat_dial_block.json
 1ab1c0f1e55a972a8e72e794a1642b1c70c1185f data/aetherworks/recipes/hoe_head_crude.json
 ad6729dcc586061e030b55cad7fd6d59ae48b4ad data/aetherworks/recipes/melting/aether_shard.json
+3b7071875983095f4bb05dfa7029b2b84f381769 data/aetherworks/recipes/melting/block_shards_raw.json
 2a92176249eec4efe426372a03f1dcb41ab5ee0c data/aetherworks/recipes/metal_former/gem_aether.json
 8520942e63cff91193ae38f47df36512d211f8a2 data/aetherworks/recipes/metal_former/gem_aether_alt.json
 b02450f595be2de61f13666be4060bc128d83ac8 data/aetherworks/recipes/metal_former/glass_aetherium.json

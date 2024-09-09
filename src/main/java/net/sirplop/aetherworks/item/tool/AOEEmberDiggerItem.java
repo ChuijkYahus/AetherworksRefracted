@@ -19,7 +19,10 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DiggerItem;
@@ -33,6 +36,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.Aetherworks;
 import net.sirplop.aetherworks.AWConfig;
 import net.sirplop.aetherworks.api.item.IToggleEmberItem;
@@ -50,6 +54,7 @@ import java.util.Set;
 public abstract class AOEEmberDiggerItem extends DiggerItem implements IToggleEmberItem {
 
     public TagKey<Block> blocks;
+    public boolean moongazeOnStrike = true;
 
     public AOEEmberDiggerItem(float pAttackDamageModifier, float pAttackSpeedModifier, Tier pTier, TagKey<Block> pBlocks, Properties pProperties) {
         super(pAttackDamageModifier, pAttackSpeedModifier, pTier, pBlocks, pProperties);
@@ -267,5 +272,15 @@ public abstract class AOEEmberDiggerItem extends DiggerItem implements IToggleEm
             return slotChanged || oldStack.getTag().getBoolean("poweredOn") != newStack.getTag().getBoolean("poweredOn") || newStack.getItem() != oldStack.getItem();
         }
         return slotChanged || newStack.getItem() != oldStack.getItem();
+    }
+
+    @Override
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        boolean hurt = super.hurtEnemy(stack, target, attacker);;
+        if (moongazeOnStrike && hurt && target.isAffectedByPotions()) {
+            MobEffectInstance mobeffect = new MobEffectInstance(AWRegistry.EFFECT_MOONFIRE.get(), 100, 1, false, true, true);
+            target.addEffect(mobeffect, attacker);
+        }
+        return hurt;
     }
 }

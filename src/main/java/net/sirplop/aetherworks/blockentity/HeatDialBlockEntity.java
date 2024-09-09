@@ -58,6 +58,8 @@ public class HeatDialBlockEntity extends BlockEntity  implements IDialEntity {
 
     //@Override
     public Packet<ClientGamePacketListener> getUpdatePacket(int maxLines) {
-        return ClientboundBlockEntityDataPacket.create(this);
+        return ClientboundBlockEntityDataPacket.create(this, (BE) -> {
+            return this.getUpdateTag();
+        });
     }
 }

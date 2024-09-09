@@ -120,8 +120,8 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
                 .result(Items.RAW_GOLD, 5)
                 .result(RegistryManager.RAW_LEAD.get(), 5)
                 .result(RegistryManager.RAW_SILVER.get(), 5)
-                .result(Items.DIAMOND, 1)
-                .result(Items.ECHO_SHARD, 0.25)
+                .result(Items.DIAMOND, 1.5)
+                .result(Items.ECHO_SHARD, 0.5)
                 .save(consumer);
         AetheriumAnvilRecipeBuilder.create(AWRegistry.GEODE_HOT.get()).domain(Aetherworks.MODID).folder(anvilFolder).temperatureRange(700, 2100).difficulty(1).hitInfo(1, 10)
                 .result(RegistryManager.RAW_LEAD.get(), 10)
@@ -237,6 +237,7 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
 
         //melting
         MeltingRecipeBuilder.create(AWRegistry.AETHER_SHARD.get()).domain(Aetherworks.MODID).folder(EmbersRecipes.meltingFolder).output(new FluidStack(AWRegistry.AETHERIUM_GAS_IMPURE.FLUID.get(), FluidAmounts.NUGGET_AMOUNT)).save(ConsumerWrapperBuilder.wrap().build(consumer));
+        MeltingRecipeBuilder.create(AWRegistry.AETHERIUM_SHARD_BLOCK.get().asItem()).domain(Aetherworks.MODID).folder(EmbersRecipes.meltingFolder).output(new FluidStack(AWRegistry.AETHERIUM_GAS_IMPURE.FLUID.get(), FluidAmounts.INGOT_AMOUNT)).save(ConsumerWrapperBuilder.wrap().build(consumer));
 
         //special recipes
         GenericRecipeBuilder.create(new PotionGemSocketRecipe(new ResourceLocation(Aetherworks.MODID, "crown_socket"))).save(consumer);

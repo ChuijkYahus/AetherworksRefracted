@@ -1,6 +1,9 @@
 package net.sirplop.aetherworks;
 
 import com.mojang.logging.LogUtils;
+import com.rekindled.embers.blockentity.ItemPipeBlockEntity;
+import com.rekindled.embers.blockentity.ItemTransferBlockEntity;
+import com.rekindled.embers.item.InflictorGemItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;

@@ -164,7 +164,8 @@ public class AetherCrossbow extends CrossbowItem implements IProjectileWeapon {
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         if (enchantment.equals(Enchantments.FLAMING_ARROWS)
                 || enchantment.equals(Enchantments.POWER_ARROWS)
-                || enchantment.equals(Enchantments.PUNCH_ARROWS))
+                || enchantment.equals(Enchantments.PUNCH_ARROWS)
+                || enchantment.equals(Enchantments.MULTISHOT))
             return true;
         if (enchantment.equals(Enchantments.PIERCING))
             return false;

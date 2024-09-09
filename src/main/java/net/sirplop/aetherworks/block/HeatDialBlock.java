@@ -48,6 +48,8 @@ public class HeatDialBlock extends DialBaseBlock {
             if (cap != null) {
                 if (cap.getHeat() >= cap.getHeatCapacity())
                     return 15;
+                else if (cap.getHeat() < 1)
+                    return 0;
                 return (int) (Math.ceil(14.0 * cap.getHeat() / cap.getHeatCapacity()));
             }
         }

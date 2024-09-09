@@ -38,6 +38,7 @@ import net.sirplop.aetherworks.api.capabilities.IHeatCapability;
 import net.sirplop.aetherworks.capabilities.AWCapabilities;
 import net.sirplop.aetherworks.datagen.AWSounds;
 import net.sirplop.aetherworks.power.DefaultHeatCapability;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +80,8 @@ public class AetherForgeBlockEntity extends BlockEntity implements IForge, IExtr
         public void onContentsChanged() {
             super.onContentsChanged();
             AetherForgeBlockEntity.this.setChanged();
+            if (level.getBlockEntity(worldPosition.above()) instanceof AetherForgeTopBlockEntity ent)
+                ent.setChanged();
         }
     };
 
@@ -87,6 +90,8 @@ public class AetherForgeBlockEntity extends BlockEntity implements IForge, IExtr
         public void onContentsChanged() {
             super.onContentsChanged();
             AetherForgeBlockEntity.this.setChanged();
+            if (level.getBlockEntity(worldPosition.above()) instanceof AetherForgeTopBlockEntity ent)
+                ent.setChanged();
         }
     };
 
@@ -309,7 +314,7 @@ public class AetherForgeBlockEntity extends BlockEntity implements IForge, IExtr
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
+    public @NotNull CompoundTag getUpdateTag() {
         CompoundTag nbt = super.getUpdateTag();
         emberCapability.writeToNBT(nbt);
         heatCapability.writeToNBT(nbt);

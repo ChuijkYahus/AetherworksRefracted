@@ -4,10 +4,10 @@ import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.api.augment.AugmentUtil;
 import com.rekindled.embers.augment.AugmentBase;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -17,7 +17,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.AWConfig;
 import net.sirplop.aetherworks.util.Utils;
@@ -57,15 +56,14 @@ public class TuningCylinderAugment extends AugmentBase {
     }
 
     private void spawnGeode(Level level, BlockPos pos) {
-        Biome currentBiome = level.getBiome(pos).get();
-        boolean isEnd = tagHasBiome(currentBiome, BiomeTags.IS_END);
-        boolean isNether = tagHasBiome(currentBiome, BiomeTags.IS_NETHER);
-        boolean isOcean = tagHasBiome(currentBiome, BiomeTags.IS_OCEAN);
-        boolean isHot = tagHasBiome(currentBiome, Tags.Biomes.IS_HOT);
-        boolean isCold = tagHasBiome(currentBiome, Tags.Biomes.IS_COLD);
-        boolean isMagic = tagHasBiome(currentBiome, Tags.Biomes.IS_MAGICAL);
+        Holder<Biome> currentBiome = level.getBiome(pos);
+        boolean isEnd = currentBiome.is(BiomeTags.IS_END);
+        boolean isNether = currentBiome.is(BiomeTags.IS_NETHER);
+        boolean isOcean = currentBiome.is(BiomeTags.IS_OCEAN);
+        boolean isHot = currentBiome.is(Tags.Biomes.IS_HOT);
+        boolean isCold = currentBiome.is(Tags.Biomes.IS_COLD);
+        boolean isMagic = currentBiome.is(Tags.Biomes.IS_MAGICAL);
         boolean isDeep = pos.getY() < 0;
-
         //EITHER end OR nether OR (Hot Cold Magic Deep) OR Deep OR Basic
 
         ItemStack geode;
@@ -88,16 +86,5 @@ public class TuningCylinderAugment extends AugmentBase {
         }
 
         Utils.dropItemIntoWorld(level, pos, geode);
-    }
-
-    private boolean tagHasBiome(Biome biome, TagKey<Biome> tag)
-    {
-        try
-        {
-            return ForgeRegistries.BIOMES.tags().getTag(tag).contains(biome);
-        } catch (Exception e)
-        { //might be an invalid tag.
-            return false;
-        }
     }
 }

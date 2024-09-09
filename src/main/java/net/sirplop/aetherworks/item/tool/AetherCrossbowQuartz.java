@@ -104,7 +104,7 @@ public class AetherCrossbowQuartz extends AetherCrossbow {
 
         Function<Entity, DamageSource> damageSource = e ->  new DamageEmber(level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(EmbersDamageTypes.EMBER_KEY), e, true);
         EffectDamageCrossbowQuartz dam = new EffectDamageCrossbowQuartz(damage, knockback, damageSource, fire, 1.0,
-                List.of(new MobEffectInstance(AWRegistry.EFFECT_MOONFIRE.get(), 200, 0, false, true, true)), stack);
+                List.of(new MobEffectInstance(AWRegistry.EFFECT_MOONFIRE.get(), 200, 1, false, true, true)), stack);
         EffectArea effect = new EffectArea(dam, aoeSize, false);
         ProjectileFireball fireball = new ProjectileFireball(entity, launchPos, direction, size, lifetime, effect);
         fireball.setColor(Utils.AETHERIUM_PROJECTILE_COLOR);
@@ -117,9 +117,10 @@ public class AetherCrossbowQuartz extends AetherCrossbow {
         }
 
         SoundEvent sound = EmbersSounds.FIREBALL_BIG.get();
-        level.playSound(null, launchPos.x, launchPos.y, launchPos.z, sound, SoundSource.PLAYERS, 1.0f, 1.0f);
-        level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1.0F, pSoundPitch);
-
+        if (rotation == 0) {
+            level.playSound(null, launchPos.x, launchPos.y, launchPos.z, sound, SoundSource.PLAYERS, 1.0f, 1.0f);
+            level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1.0F, pSoundPitch);
+        }
         if (entity instanceof Player player && player.getAbilities().instabuild)
             return;
         stack.hurtAndBreak(1, entity, (ent) -> {

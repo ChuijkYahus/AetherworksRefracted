@@ -1,5 +1,23 @@
 Changelog - Aetherworks Refracted
 =============================
+1.20.1-1.1.1
+-----------------------------
+_Additions_
+
+- Added a melting recipe for the Aetherium Shard Block to align with other raw ore melting recipes.
+
+_Changes_
+
+- Boosted diamond and echo shard drop rate from deepslate geodes.
+- Increased Moongaze effect strength from 1 to 2 for aetheric crossbows.
+- Fixed up multishot functionality on aetheric crossbows, and enabled the enchantment to be applied to them.
+- Aetherium tools now apply Moongaze 2 when hitting mobs. The Hoe of the Hyalopterous Shepherd does not apply Moongaze to animals.
+
+_Fixes_
+
+- The Aetherium Forge now sends block updates from the top forge block, making dials update their comparator outputs correctly.
+- The Tuning Cylinder now checks biome tags correctly - it now correctly drops the appropriate geodes.
+
 1.20.1-1.1.0
 -----------------------------
 _Additions_

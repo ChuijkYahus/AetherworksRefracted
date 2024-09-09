@@ -11,7 +11,6 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.sirplop.aetherworks.Aetherworks;
 import net.sirplop.aetherworks.util.AetheriumTiers;
 import net.sirplop.aetherworks.util.Utils;
 import org.jetbrains.annotations.NotNull;
@@ -53,13 +52,17 @@ public class HoneyHoe extends AOEEmberHoeItem {
 
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        super.hurtEnemy(stack, target, attacker);
         if (target.level() instanceof ServerLevel level) {
             if (target instanceof Animal animal) {
                 animal.setLastHurtByMob(null);//this will kill animals that have half a heart
                 animal.heal(6);   //because hurtEnemy is called after death checks (why???)
-                return false;
+                moongazeOnStrike = false;
             }
+        }
+        super.hurtEnemy(stack, target, attacker);
+        if (!moongazeOnStrike) {
+            moongazeOnStrike = true;
+            return false;
         }
         return true;
     }

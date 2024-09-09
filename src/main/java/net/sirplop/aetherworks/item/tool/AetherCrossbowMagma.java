@@ -45,12 +45,16 @@ public class AetherCrossbowMagma extends AetherCrossbow{
         double posZ = entity.getZ() + entity.getLookAngle().z;
 
         double delta = Math.toRadians(rotation); //handle multishot
-        double x = posX * Math.cos(delta) - posZ * Math.sin(delta);
-        double z = posZ * Math.sin(delta) + posZ * Math.cos(delta);
+        Vec3 direction = entity.getLookAngle().scale(1.5f);
+        direction = new Vec3(
+                direction.x * Math.cos(delta) - direction.z * Math.sin(delta),
+                direction.y,
+                direction.x * Math.sin(delta) + direction.z * Math.cos(delta)
+        );
 
-        double targX = entity.getX() + entity.getLookAngle().x * ConfigManager.BLAZING_RAY_MAX_DISTANCE.get();
-        double targY = entity.getY() + 2 + entity.getLookAngle().y * ConfigManager.BLAZING_RAY_MAX_DISTANCE.get();
-        double targZ = entity.getZ() + entity.getLookAngle().z * ConfigManager.BLAZING_RAY_MAX_DISTANCE.get();
+        double targX = entity.getX() + direction.x * ConfigManager.BLAZING_RAY_MAX_DISTANCE.get();
+        double targY = entity.getY() + 2 + direction.y * ConfigManager.BLAZING_RAY_MAX_DISTANCE.get();
+        double targZ = entity.getZ() + direction.z * ConfigManager.BLAZING_RAY_MAX_DISTANCE.get();
 
         int powerLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER_ARROWS, entity);
         int knockback = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH_ARROWS, entity);
@@ -58,11 +62,12 @@ public class AetherCrossbowMagma extends AetherCrossbow{
 
         float damage = ConfigManager.BLAZING_RAY_DAMAGE.get().floatValue() + (powerLevel * 0.5f);
 
-        createRay(level, damage, knockback, fire, entity, new Vec3(x, y, z), new Vec3(targX, targY, targZ), stack, getNextID());
+        createRay(level, damage, knockback, fire, entity, new Vec3(posX, y, posZ), new Vec3(targX, targY, targZ), stack, getNextID());
 
-        level.playSound(null, entity, EmbersSounds.BLAZING_RAY_FIRE.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
-        level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1.0F, pSoundPitch);
-
+        if (rotation == 0) { //stop us from going deaf.
+            level.playSound(null, entity, EmbersSounds.BLAZING_RAY_FIRE.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
+            level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1.0F, pSoundPitch);
+        }
         if (entity instanceof Player player && player.getAbilities().instabuild)
             return;
         stack.hurtAndBreak(1, entity, (ent) -> {
@@ -88,7 +93,7 @@ public class AetherCrossbowMagma extends AetherCrossbow{
     public void createRay(Level level, float damage, float knockback, int fire, LivingEntity shooter, Vec3 start, Vec3 targetPos, ItemStack stack, int id) {
         DamageSource dam = new DamageEmber(level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(EmbersDamageTypes.EMBER_KEY), shooter, true);
         EffectDamageCrossbowMagma effect = new EffectDamageCrossbowMagma(damage, knockback, e -> dam, fire, 1.0f,
-                List.of(new MobEffectInstance(AWRegistry.EFFECT_MOONFIRE.get(), 200, 0, false, true, true)),
+                List.of(new MobEffectInstance(AWRegistry.EFFECT_MOONFIRE.get(), 200, 1, false, true, true)),
                 this, id, stack);
         createRay(level, effect, shooter, start, targetPos, stack, false);
     }

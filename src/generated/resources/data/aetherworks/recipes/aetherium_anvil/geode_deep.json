@@ -83,12 +83,12 @@
       "item": "embers:raw_silver"
     },
     {
-      "chance": 1.0,
+      "chance": 1.5,
       "count": 1,
       "item": "minecraft:diamond"
     },
     {
-      "chance": 0.25,
+      "chance": 0.5,
       "count": 1,
       "item": "minecraft:echo_shard"
     }
