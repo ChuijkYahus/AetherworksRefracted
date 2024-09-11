@@ -1,5 +1,15 @@
 Changelog - Aetherworks Refracted
 =============================
+1.20.1-1.1.2
+-----------------------------
+_Additions_
+
+_Changes_
+
+_Fixes_
+
+- Forge Heaters and Coolers weren't properly consuming fluids, meaning they didn't require them to operate.
+
 1.20.1-1.1.1
 -----------------------------
 _Additions_

@@ -103,7 +103,7 @@ public class HeaterBaseBlockEntity extends FluidHandlerBlockEntity implements IF
             if (currentPasses) {
                 FluidStack tankReq = new FluidStack(tankFluid, fluidPerOperation);
 
-                if (tank.drain(tankReq, IFluidHandler.FluidAction.SIMULATE).getAmount() >= 0 &&
+                if (tank.drain(tankReq, IFluidHandler.FluidAction.SIMULATE).getAmount() == fluidPerOperation &&
                     emberCapability.removeAmount(emberPerOperation, false) == emberPerOperation)
                 {
                     if (consumesBelowBlock)
