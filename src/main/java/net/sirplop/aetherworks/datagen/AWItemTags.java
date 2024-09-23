@@ -42,6 +42,7 @@ public class AWItemTags extends ItemTagsProvider {
         tag(ItemTags.PICKAXES).add(AWRegistry.PICKAXE_EMBER.get(), AWRegistry.PICKAXE_AETHER.get());
         tag(ItemTags.AXES).add(AWRegistry.AXE_ENDER.get(), AWRegistry.AXE_SCULK.get());
         tag(ItemTags.SHOVELS).add(AWRegistry.SHOVEL_SLIME.get(), AWRegistry.SHOVEL_PRISMARINE.get());
+        tag(ItemTags.HOES).add(AWRegistry.HOE_AMETHYST.get(), AWRegistry.HOE_HONEY.get());
 
         tag(EmbersItemTags.NORMAL_WALK_SPEED_TOOL).add(AWRegistry.CROSSBOW_QUARTZ.get(), AWRegistry.CROSSBOW_MAGMA.get());
         tag(EmbersItemTags.AUGMENTABLE_PROJECTILE_WEAPONS).add(AWRegistry.CROSSBOW_QUARTZ.get(), AWRegistry.CROSSBOW_MAGMA.get());

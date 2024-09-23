@@ -4,11 +4,15 @@ Changelog - Aetherworks Refracted
 -----------------------------
 _Additions_
 
+- Added Chinese translation.
+
 _Changes_
 
 _Fixes_
 
 - Forge Heaters and Coolers weren't properly consuming fluids, meaning they didn't require them to operate.
+- Aetherium Hoes missing hoe tags.
+- Tweaked meteorite worldgen to hopefully completely prevent ocean meteorites from creating holes in the water.
 
 1.20.1-1.1.1
 -----------------------------

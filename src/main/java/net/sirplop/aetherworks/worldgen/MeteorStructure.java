@@ -61,7 +61,9 @@ public class MeteorStructure extends Structure {
 
         var t2 = generator.getBiomeSource().getBiomesWithin(centerX, generator.getSeaLevel(), centerZ, 0,
                 context.randomState().sampler());
-        var spawnBiome = t2.stream().findFirst().orElseThrow();
+
+        boolean hasWateryBiome = t2.stream().anyMatch(b -> b.is(BiomeTags.IS_OCEAN) || b.is(BiomeTags.IS_DEEP_OCEAN)
+                || b.is(BiomeTags.IS_RIVER) || b.is(BiomeTags.IS_BEACH));
 
         final Heightmap.Types heightmapType = Heightmap.Types.OCEAN_FLOOR_WG;
 
@@ -80,7 +82,7 @@ public class MeteorStructure extends Structure {
         int centerY = (int) stats.mean();
         // Spawn it down a bit further with a high variance.
         if (stats.populationVariance() > 5) {
-            centerY -= (stats.mean() - stats.min()) * 0.75;
+            centerY -= (int) ((stats.mean() - stats.min()) * 0.75);
         }
         // Offset caused by the height of the meteor - make it nice n' buried.
         centerY -= yOffset;
@@ -89,11 +91,11 @@ public class MeteorStructure extends Structure {
         centerY = Math.max(heightAccessor.getMinBuildHeight() + yOffset, centerY);
 
         BlockPos actualPos = new BlockPos(centerX, centerY, centerZ);
-        boolean hasWater = locateWaterAroundTheCrater(actualPos, (meteoriteXSize + meteoriteZSize) / 1.5f, context, spawnBiome);
+        boolean hasWater = locateWaterAroundTheCrater(actualPos, (meteoriteXSize + meteoriteZSize) / 1.5f, context, hasWateryBiome);
         piecesBuilder.addPiece(new MeteorStructurePiece(actualPos, meteoriteXSize, meteoriteYSize, meteoriteZSize, hasWater));
     }
 
-    private static boolean locateWaterAroundTheCrater(BlockPos pos, float radius, GenerationContext context, Holder<Biome> spawnBiome) {
+    private static boolean locateWaterAroundTheCrater(BlockPos pos, float radius, GenerationContext context, boolean hasWateryBiome) {
         var generator = context.chunkGenerator();
         var heightAccessor = context.heightAccessor();
 
@@ -102,8 +104,7 @@ public class MeteorStructure extends Structure {
         BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos();
 
         //shortcut
-        if (spawnBiome.is(BiomeTags.IS_OCEAN) || spawnBiome.is(BiomeTags.IS_DEEP_OCEAN)
-                || spawnBiome.is(BiomeTags.IS_RIVER) || spawnBiome.is(BiomeTags.IS_BEACH))
+        if (hasWateryBiome)
             return true; //this should always be watery
 
         blockPos.setY(maxY);
