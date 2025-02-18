@@ -25,14 +25,14 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.sirplop.aetherworks.AWRegistry;
+import net.sirplop.aetherworks.api.tile.ITopHammerable;
 import net.sirplop.aetherworks.recipe.AetheriumAnvilContext;
 import net.sirplop.aetherworks.recipe.IAetheriumAnvilRecipe;
 import net.sirplop.aetherworks.util.Utils;
-import org.joml.Vector3f;
 
 import java.util.List;
 
-public class AetheriumAnvilBlockEntity extends BlockEntity implements IForgePart, IExtraCapabilityInformation {
+public class AetheriumAnvilBlockEntity extends BlockEntity implements IForgePart, IExtraCapabilityInformation, ITopHammerable {
 
     public AetheriumAnvilBlockEntity(BlockPos pos, BlockState state) {
         super(AWRegistry.AETHERIUM_ANVIL_BLOCK_ENTITY.get(), pos, state);
@@ -246,6 +246,21 @@ public class AetheriumAnvilBlockEntity extends BlockEntity implements IForgePart
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onHit(BlockEntity hammer) {
+        if (cachedRecipe != null)
+        {
+            ++progress; //hammer does anvil recipes double speed.
+            onHit();
+        }
+    }
+
+    @Override
+    public boolean isValid() {
+        //we only allow trivial recipes to be automated.
+        return cachedRecipe != null && cachedRecipe.getDifficulty() <= 1 && hitTimeout > 0;
     }
 
     public void makeMistake() {

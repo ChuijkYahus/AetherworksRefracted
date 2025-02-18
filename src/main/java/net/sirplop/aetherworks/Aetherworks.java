@@ -1,9 +1,6 @@
 package net.sirplop.aetherworks;
 
 import com.mojang.logging.LogUtils;
-import com.rekindled.embers.blockentity.ItemPipeBlockEntity;
-import com.rekindled.embers.blockentity.ItemTransferBlockEntity;
-import com.rekindled.embers.item.InflictorGemItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -146,6 +143,9 @@ public class Aetherworks
         @OnlyIn(Dist.CLIENT)
         @SubscribeEvent
         public static void clientSetup(FMLClientSetupEvent event) {
+            IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+            modEventBus.addListener(AWClientEvents::afterModelBake);
+
             event.enqueueWork(() -> {
                 AWItemProperties.register();
 
@@ -175,6 +175,7 @@ public class Aetherworks
             event.registerBlockEntityRenderer(AWRegistry.METAL_FORMER_BLOCK_ENTITY.get(), RenderMetalFormer::new);
             event.registerBlockEntityRenderer(AWRegistry.AETHERIUM_ANVIL_BLOCK_ENTITY.get(), RenderAetherAnvil::new);
             event.registerBlockEntityRenderer(AWRegistry.TOOL_STATION_BLOCK_ENTITY.get(), RenderToolStation::new);
+            event.registerBlockEntityRenderer(AWRegistry.LEXICON_RECEPTACLE_BLOCK_ENTITY.get(), RenderLexiconReceptacle::new);
         }
         @OnlyIn(Dist.CLIENT)
         @SubscribeEvent

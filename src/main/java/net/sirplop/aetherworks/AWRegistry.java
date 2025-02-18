@@ -149,7 +149,6 @@ public class AWRegistry {
 
     public static final RegistryObject<Block> AETHER_FORGE = registerBlock("aether_forge", () -> new AetherForgeBlock(Properties.of().mapColor(MapColor.WOOD).pushReaction(PushReaction.BLOCK).sound(EmbersSounds.MULTIBLOCK_CENTER).requiresCorrectToolForDrops().strength(1.6f).noOcclusion(), EmbersSounds.MULTIBLOCK_EXTRA));
     public static final RegistryObject<Block> AETHER_FORGE_EDGE = BLOCKS.register("aether_forge_edge", () -> new AetherForgeEdgeBlock(Properties.of().mapColor(MapColor.WOOD).sound(EmbersSounds.MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
-    public static final RegistryObject<Block> FORGE_CORE = BLOCKS.register("forge_core", () -> new ForgeCoreBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).strength(3, 10).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> FORGE_VENT = registerBlock("forge_vent", () -> new ForgeVentBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).strength(3, 10).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> FORGE_HEATER = registerBlock("forge_heater", () -> new ForgeHeaterBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).strength(3, 10).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> FORGE_COOLER = registerBlock("forge_cooler", () -> new ForgeCoolerBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).strength(3, 10).requiresCorrectToolForDrops()));
@@ -157,7 +156,7 @@ public class AWRegistry {
     public static final RegistryObject<Block> FORGE_METAL_FORMER = registerBlock("forge_metal_former", () -> new MetalFormerBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).strength(3, 10).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> FORGE_TOOL_STATION = registerBlock("forge_tool_station", () -> new ForgeToolStation(Properties.copy(RegistryManager.FLUID_VESSEL.get()).requiresCorrectToolForDrops().strength(3, 6)));
 
-    public static final RegistryObject<Block> FORGE_BLOCK = registerBlock("forge_block", () -> new ForgeStructureBlock(Properties.copy(Blocks.IRON_BLOCK)));
+    public static final RegistryObject<Block> LEXICON_RECEPTACLE = registerBlock("lexicon_receptacle", () -> new LexiconReceptacleBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).requiresCorrectToolForDrops().strength(3, 12)));
 
     public static final RegistryObject<Block> SUEVITE = registerBlock("suevite", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(2.5f)));
     public static final RegistryObject<Block> SUEVITE_COBBLE = registerBlock("suevite_cobble", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));;
@@ -226,6 +225,7 @@ public class AWRegistry {
     public static final RegistryObject<Item> TUNING_CYLINDER = ITEMS.register("tuning_cylinder", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> VOLANT_CALCIFIER = ITEMS.register("volant_calcifier", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> AGRARIAN_LINERS = ITEMS.register("agrarian_liners", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> LEXICON = ITEMS.register("lexicon", () -> new Lexicon(new Item.Properties().stacksTo(1)));
 
     //Augments
     public static final IAugment TUNING_CYLINDER_AUGMENT = AugmentUtil.registerAugment(new TuningCylinderAugment(new ResourceLocation(Aetherworks.MODID, "tuning_cylinder")));
@@ -304,7 +304,6 @@ public class AWRegistry {
 
     //Block Entities
     public static final RegistryObject<BlockEntityType<PrismBlockEntity>> PRISM_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("prism_block_entity", () -> BlockEntityType.Builder.of(PrismBlockEntity::new, PRISM.get()).build(null));
-    public static final RegistryObject<BlockEntityType<ForgeCoreBlockEntity>> FORGE_CORE_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("forge_core_block_entity", () -> BlockEntityType.Builder.of(ForgeCoreBlockEntity::new, FORGE_CORE.get()).build(null));
     public static final RegistryObject<BlockEntityType<ForgeHeatVentBlockEntity>> FORGE_VENT_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("forge_vent_block_entity", () -> BlockEntityType.Builder.of(ForgeHeatVentBlockEntity::new, FORGE_VENT.get()).build(null));
     public static final RegistryObject<BlockEntityType<ForgeHeaterBlockEntity>> FORGE_HEATER_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("forge_heater_block_entity", () -> BlockEntityType.Builder.of(ForgeHeaterBlockEntity::new, FORGE_HEATER.get()).build(null));
     public static final RegistryObject<BlockEntityType<ForgeCoolerBlockEntity>> FORGE_COOLER_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("forge_cooler_block_entity", () -> BlockEntityType.Builder.of(ForgeCoolerBlockEntity::new, FORGE_COOLER.get()).build(null));
@@ -313,8 +312,11 @@ public class AWRegistry {
     public static final RegistryObject<BlockEntityType<AetheriumAnvilBlockEntity>> AETHERIUM_ANVIL_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("aetherium_anvil_block_entity", () -> BlockEntityType.Builder.of(AetheriumAnvilBlockEntity::new, FORGE_ANVIL.get()).build(null));
     public static final RegistryObject<BlockEntityType<ToolStationBlockEntity>> TOOL_STATION_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("tool_station_block_entity", () -> BlockEntityType.Builder.of(ToolStationBlockEntity::new, FORGE_TOOL_STATION.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<TopHammerBlockEntity>> TOP_HAMMERABLE_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("top_hammerable_block_entity", () -> BlockEntityType.Builder.of(TopHammerBlockEntity::new, AETHER_FORGE_EDGE.get()).build(null));
     public static final RegistryObject<BlockEntityType<AetherForgeBlockEntity>> AETHER_FORGE_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("aether_forge_block_entity", () -> BlockEntityType.Builder.of(AetherForgeBlockEntity::new, AETHER_FORGE.get()).build(null));
     public static final RegistryObject<BlockEntityType<AetherForgeTopBlockEntity>> AETHER_FORGE_TOP_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("aether_forge_top_block_entity", () -> BlockEntityType.Builder.of(AetherForgeTopBlockEntity::new, AETHER_FORGE.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<LexiconReceptacleBlockEntity>> LEXICON_RECEPTACLE_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("lexicon_receptacle_block_entity", () -> BlockEntityType.Builder.of(LexiconReceptacleBlockEntity::new, LEXICON_RECEPTACLE.get()).build(null));
 
     //Creative Tabs
     public static final RegistryObject<CreativeModeTab> AW_TAB = CREATIVE_MODE_TAB.register("aetherworks_tab",
@@ -324,8 +326,6 @@ public class AWRegistry {
                     .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
                     .displayItems((params, output) -> {
                         for (RegistryObject<Item> item : ITEMS.getEntries()) {
-                            if (item.get().equals(FORGE_BLOCK.get().asItem()))
-                                continue;
                             output.accept(item.get());
 
                             if (item.get() instanceof EmberStorageItem)
@@ -358,6 +358,7 @@ public class AWRegistry {
     public static final RegistryObject<RecipeSerializer<PotionGemUnsocketRecipe>> GEM_UNSOCKET_SERIALIZER = RECIPE_SERIALIZERS.register("potion_gem_unsocket", () -> PotionGemUnsocketRecipe.SERIALIZER);
     public static final RegistryObject<RecipeSerializer<PotionGemImbueRecipe>> GEM_IMBUE_SERIALIZER = RECIPE_SERIALIZERS.register("potion_gem_imbue", () -> PotionGemImbueRecipe.SERIALIZER);
     public static final RegistryObject<RecipeSerializer<DrainRecipe>> DRAIN_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("drain_shovel", () -> DrainRecipe.SERIALIZER);
+    public static final RegistryObject<RecipeSerializer<LexiconRecipe>> FILL_LEXICON_SERIALIZER = RECIPE_SERIALIZERS.register("fill_lexicon", () -> LexiconRecipe.SERIALIZER);
 
     //Recipe Serializers
     public static final RegistryObject<RecipeSerializer<MetalFormerRecipe>> METAL_FORMING_SERIALIZER = RECIPE_SERIALIZERS.register("metal_forming", () -> MetalFormerRecipe.SERIALIZER);

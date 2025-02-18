@@ -3,11 +3,11 @@
   "inputs": [
     {
       "amount": 4,
-      "name": "aetherworks:aether_gas_impure"
+      "fluid": "aetherworks:aether_gas_impure"
     },
     {
       "amount": 3,
-      "name": "aetherworks:alchemic_precursor"
+      "fluid": "aetherworks:alchemic_precursor"
     }
   ],
   "output": {

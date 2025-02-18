@@ -1,19 +1,12 @@
 package net.sirplop.aetherworks.datagen;
 
-import com.rekindled.embers.RegistryManager;
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntries;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntry;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -63,18 +56,18 @@ public class AWBlockLootTables extends BlockLootSubProvider {
         dropSelf(AWRegistry.PRISM.get());
         dropSelf(AWRegistry.MOONLIGHT_AMPLIFIER.get());
         dropSelf(AWRegistry.CONTROL_MATRIX.get());
-        dropOther(AWRegistry.FORGE_CORE.get(), AWRegistry.AETHER_FORGE.get());
         dropSelf(AWRegistry.FORGE_COOLER.get());
         dropSelf(AWRegistry.FORGE_HEATER.get());
         dropSelf(AWRegistry.FORGE_VENT.get());
         dropSelf(AWRegistry.FORGE_ANVIL.get());
         dropSelf(AWRegistry.FORGE_METAL_FORMER.get());
         dropSelf(AWRegistry.FORGE_TOOL_STATION.get());
-        dropOther(AWRegistry.FORGE_BLOCK.get(), RegistryManager.DAWNSTONE_BLOCK_ITEM.get());
         dropSelf(AWRegistry.HEAT_DIAL.get());
 
         dropOther(AWRegistry.AETHER_FORGE_EDGE.get(), AWRegistry.AETHER_FORGE.get());
         dropSelf(AWRegistry.AETHER_FORGE.get());
+
+        dropSelf(AWRegistry.LEXICON_RECEPTACLE.get());
     }
 
     protected LootTable.Builder createAetherOreDrops(Block pBlock, ItemLike item) {

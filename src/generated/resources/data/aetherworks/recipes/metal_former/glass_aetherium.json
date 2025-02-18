@@ -3,7 +3,7 @@
   "craft_time": 30,
   "fluid": {
     "amount": 10,
-    "name": "aetherworks:aether_gas"
+    "fluid": "aetherworks:aether_gas"
   },
   "input": {
     "item": "minecraft:glass"

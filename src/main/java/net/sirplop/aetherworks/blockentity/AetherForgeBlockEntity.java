@@ -66,8 +66,8 @@ public class AetherForgeBlockEntity extends BlockEntity implements IForge, IExtr
             { 1, 2},
     };
 
-    private List<IFluidHandler> fluidHandlers = new ArrayList<>();
-    private List<IForgePart> parts = new ArrayList<>();
+    private final List<IFluidHandler> fluidHandlers = new ArrayList<>();
+    private final List<IForgePart> parts = new ArrayList<>();
     private double storedHeat;
     private int ticksInDanger = 0;
     public int ticksExisted = -1;

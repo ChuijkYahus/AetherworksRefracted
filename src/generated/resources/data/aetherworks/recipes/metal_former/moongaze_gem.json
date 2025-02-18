@@ -3,7 +3,7 @@
   "craft_time": 600,
   "fluid": {
     "amount": 810,
-    "name": "aetherworks:aether_gas"
+    "fluid": "aetherworks:aether_gas"
   },
   "input": {
     "item": "aetherworks:potion_gem"

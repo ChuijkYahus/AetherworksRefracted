@@ -3,15 +3,15 @@ package net.sirplop.aetherworks.datagen;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CrossbowItem;
-import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.ItemStack;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.Aetherworks;
+import net.sirplop.aetherworks.item.Lexicon;
 import net.sirplop.aetherworks.item.PotionGemItem;
 
 public class AWItemProperties {
 
     public static void register() {
-        //Copied from vanilla to mimic normal crossbow
 
         ItemProperties.register(AWRegistry.POTION_GEM.get(), new ResourceLocation(Aetherworks.MODID, "has_gem"), (stack, world, living, intIn) -> {
             if (stack.isEmpty())
@@ -19,6 +19,13 @@ public class AWItemProperties {
             return PotionGemItem.getColor(stack) == PotionGemItem.DEFAULT_COLOR ? 0 : 1;
         });
 
+        ItemProperties.register(AWRegistry.LEXICON.get(), new ResourceLocation(Aetherworks.MODID, "lexicon_has_item"), (stack, world, living, intIn) -> {
+            if (stack.isEmpty())
+                return 0;
+            return Lexicon.getStoredItem(stack) != ItemStack.EMPTY ? 1 : 0;
+        });
+
+        //Copied from vanilla to mimic normal crossbow
         ItemProperties.register(AWRegistry.CROSSBOW_QUARTZ.get(), new ResourceLocation(Aetherworks.MODID, "pull"), (p_239427_0_, p_239427_1_, p_239427_2_, intIn) -> {
             if (p_239427_2_ == null) {
                 return 0.0F;

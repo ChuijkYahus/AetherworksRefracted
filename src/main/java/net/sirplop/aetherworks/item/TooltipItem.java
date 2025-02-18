@@ -28,7 +28,7 @@ public class TooltipItem extends Item {
     }
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        pTooltipComponents.add(Component.translatable(tooltipLocation).withStyle(ChatFormatting.GRAY));
+        pTooltipComponents.add(Component.translatable(tooltipLocation).withStyle(format));
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
     @Override

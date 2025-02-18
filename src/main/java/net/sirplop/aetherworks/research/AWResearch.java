@@ -23,7 +23,7 @@ public class AWResearch {
     public static ResearchCategory categoryAether;
     public static ResearchCategory subCategoryTools;
     public static ResearchCategory subCategoryAlchemy;
-    public static ResearchBase meteor, gauge, amalgam, moon_harvester, focus_matrix, purify_aetherium, alchemy, forge, heat_dial, forge_heat, metal_former, anvil, tool_station, pearls, tools;
+    public static ResearchBase meteor, gauge, amalgam, moon_harvester, focus_matrix, purify_aetherium, alchemy, forge, heat_dial, forge_heat, metal_former, anvil, tool_station, pearls, tools, lexicon;
     public static ResearchBase pobs, pomd, aotr, aosa, sotc, soic, hovh, hohs, cosb, cosr, crown; //TOOLS
     public static ResearchBase tuning_cylinder, volant_calcifier, agrarian_liners;
     public static ResearchBase moonsnare_jars, moonsnare_bulb;
@@ -37,7 +37,7 @@ public class AWResearch {
 
         meteor = new ResearchBase("aw.meteor", new ItemStack(AWRegistry.AETHER_SHARD.get()), 12, 0);
         meteor.addPage(new ResearchShowItem("aw.meteor_2", ItemStack.EMPTY, 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.SUEVITE.get()), new ItemStack(AWRegistry.AETHERIUM_ORE.get()))));
-        gauge = new ResearchBase("aw.aetheriometer", new ItemStack(AWRegistry.AETHERIOMETER.get()), 8, 0).addAncestor(meteor);
+        gauge = new ResearchBase("aw.aetheriometer", new ItemStack(AWRegistry.AETHERIOMETER.get()), 9, 0).addAncestor(meteor);
         amalgam = new ResearchBase("aw.amalgam", new ItemStack(AWRegistry.AETHER_AMALGAM.get()), 11, 3).addAncestor(meteor);
         moon_harvester = new ResearchBase("aw.moon_harvester", new ItemStack(AWRegistry.PRISM.get()), 12, 7).addAncestor(amalgam);
         moon_harvester.addPage(new ResearchShowItem("aw.moon_harvester_2", ItemStack.EMPTY, 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.PRISM.get()), new ItemStack(AWRegistry.PRISM_SUPPORT.get()), new ItemStack(AWRegistry.MOONLIGHT_AMPLIFIER.get()))));
@@ -56,10 +56,13 @@ public class AWResearch {
         forge_heat.addPage(new ResearchShowItem("aw.forge_heat_4", ItemStack.EMPTY, 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.FORGE_VENT.get()))));
         metal_former = new ResearchBase("aw.metal_former", new ItemStack(AWRegistry.FORGE_METAL_FORMER.get()), 4, 3).addAncestor(forge);
         anvil = new ResearchBase("aw.anvil", new ItemStack(AWRegistry.FORGE_ANVIL.get()), 2, 2).addAncestor(forge);
+        anvil.addPage(new ResearchBase("aw.anvil_2", ItemStack.EMPTY, 0, 0));
         tool_station = new ResearchBase("aw.tool_station", new ItemStack(AWRegistry.FORGE_TOOL_STATION.get()), 0, 3).addAncestor(forge);
 
         pearls = new ResearchBase("aw.pearls", new ItemStack(AWRegistry.AETHER_PEARL.get()), 4, 0).addAncestor(metal_former);
         tools = new ResearchBase("aw.tools", new ItemStack(AWRegistry.TOOL_ROD_INFUSED.get()), 0, 0).addAncestor(tool_station).addAncestor(pearls);
+        lexicon = new ResearchBase("aw.lexicon", new ItemStack(AWRegistry.LEXICON.get()), 6.5, 1).addAncestor(pearls);
+        lexicon.addPage(new ResearchShowItem("aw.lexicon_2", new ItemStack(AWRegistry.LEXICON_RECEPTACLE.get()), 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.LEXICON_RECEPTACLE.get()))));
 
         ResearchBase toolsFake = new ResearchFakePage(tools, 6, 4);
 
@@ -125,6 +128,7 @@ public class AWResearch {
                 .addResearch(meteor)
                 .addResearch(gauge)
                 .addResearch(pearls)
+                .addResearch(lexicon)
                 .addResearch(amalgam)
                 .addResearch(moon_harvester)
                 .addResearch(focus_matrix)

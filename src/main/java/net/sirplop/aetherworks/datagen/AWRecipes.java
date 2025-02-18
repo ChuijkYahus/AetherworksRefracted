@@ -12,7 +12,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Item;
@@ -226,6 +225,8 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
         ToolStationRecipeBuilder.create(AWRegistry.AETHER_EMBER_CARTRIDGE.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2500).temperatureRate(15).input(Ingredient.of(AWRegistry.AETHER_SHARD.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(RegistryManager.EMBER_CARTRIDGE.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(AWRegistry.AETHER_SHARD.get())).save(consumer);
         ToolStationRecipeBuilder.create(CuriosCompat.AETHER_EMBER_BULB.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2500).temperatureRate(15).input(Ingredient.of(AWRegistry.AETHER_SHARD.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(com.rekindled.embers.compat.curios.CuriosCompat.EMBER_BULB.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(AWRegistry.AETHER_SHARD.get())).save(consumer);
 
+        ToolStationRecipeBuilder.create(AWRegistry.LEXICON.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2700).temperatureRate(30).input(Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(AWRegistry.AETHER_PEARL.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE)).save(consumer);
+
         //stamping
         StampingRecipeBuilder.create(AWRegistry.AETHER_SHARD.get()).domain(Aetherworks.MODID).folder(EmbersRecipes.stampingFolder).stamp(RegistryManager.FLAT_STAMP.get()).fluid(AWRegistry.AETHERIUM_GAS_IMPURE.FLUID.get(), FluidAmounts.NUGGET_AMOUNT).save(ConsumerWrapperBuilder.wrap().build(consumer));
         StampingRecipeBuilder.create(AWRegistry.FOCUS_CRYSTAL.get()).domain(Aetherworks.MODID).folder(EmbersRecipes.stampingFolder).stamp(RegistryManager.FLAT_STAMP.get()).input(AWRegistry.GEM_AETHER.get()).fluid(AWRegistry.ALCHEMIC_PRECURSOR.FLUID.get(), FluidAmounts.INGOT_AMOUNT).save(ConsumerWrapperBuilder.wrap().build(consumer));
@@ -244,6 +245,7 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
         GenericRecipeBuilder.create(new PotionGemUnsocketRecipe(new ResourceLocation(Aetherworks.MODID, "crown_unsocket"))).save(consumer);
         GenericRecipeBuilder.create(new PotionGemImbueRecipe(new ResourceLocation(Aetherworks.MODID, "potion_gem_imbue"))).save(consumer);
         GenericRecipeBuilder.create(new DrainRecipe(new ResourceLocation(Aetherworks.MODID, "drain_prismarine_shovel"))).save(consumer);
+        GenericRecipeBuilder.create(new LexiconRecipe(new ResourceLocation(Aetherworks.MODID, "fill_aetherium_lexicon"))).save(consumer);
 
         //alchemy
         AlchemyRecipeBuilder.create(AWRegistry.AETHER_AMALGAM.get()).tablet(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()).folder(EmbersRecipes.alchemyFolder)
@@ -306,6 +308,8 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
         decoRecipes(AWRegistry.SUEVITE_COBBLE_DECO, consumer);
         decoRecipes(AWRegistry.SUEVITE_BRICKS_DECO, consumer);
         decoRecipes(AWRegistry.SUEVITE_BIG_TILE_DECO, consumer);
+        decoRecipes(AWRegistry.SUEVITE_SMALL_BRICKS_DECO, consumer);
+        decoRecipes(AWRegistry.SUEVITE_SMALL_TILE_DECO, consumer);
 
         //normal smelting
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(AWRegistry.SUEVITE_COBBLE.get()), RecipeCategory.MISC, AWRegistry.SUEVITE.get(), 0.1F, 200)
@@ -499,6 +503,19 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
                 .define('P', EmbersItemTags.DAWNSTONE_PLATE)
                 .unlockedBy("has_ember_cluster", has(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()))
                 .save(consumer, getResource("heat_dial_block"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AWRegistry.LEXICON_RECEPTACLE.get())
+                .pattern(" A ")
+                .pattern("SCS")
+                .pattern("BPB")
+                .define('A', AWRegistry.PLATE_AETHER.get())
+                .define('S', EmbersItemTags.SILVER_PLATE)
+                .define('C', RegistryManager.ARCHAIC_CIRCUIT.get())
+                .define('B', RegistryManager.CAMINITE_BRICKS.get())
+                .define('P', RegistryManager.ITEM_PIPE.get())
+                .unlockedBy("has_lexicon", has(AWRegistry.LEXICON.get()))
+                .save(consumer, getResource("lexicon_receptacle"));
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AWRegistry.TUNING_CYLINDER.get())
                 .pattern(" SP")
                 .pattern("SLS")

@@ -1,12 +1,29 @@
 Changelog - Aetherworks Refracted
 =============================
+1.20.1-1.1.3
+-----------------------------
+_Additions_
+
+- Made the Automatic Hammer work on the Aetherium Anvil's easiest recipes (Difficult: Trivial)
+- Added Aetherium Lexicons and the Lexicon Receptacle, allowing near-infinite single-item storage.
+- Added logo to mods section.
+
+_Changes_
+
+- Resprited Aetherium Lens.
+- Removed legacy aether forge blocks.
+- Misc. codex entry tweaks.
+
+_Fixes_
+
+- Fixed the "!" above the Aetherium Anvil being scaled wrong.
+- Added missing suevite deco recipes.
+
 1.20.1-1.1.2
 -----------------------------
 _Additions_
 
 - Added Chinese translation.
-
-_Changes_
 
 _Fixes_
 

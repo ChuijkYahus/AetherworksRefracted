@@ -24,6 +24,9 @@ import net.sirplop.aetherworks.Aetherworks;
 import net.sirplop.aetherworks.recipe.IAetheriumAnvilRecipe;
 import net.sirplop.aetherworks.util.Utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AetheriumAnvilCategory implements IRecipeCategory<IAetheriumAnvilRecipe> {
     private final IDrawable background;
     private final IDrawable icon;
@@ -59,7 +62,14 @@ public class AetheriumAnvilCategory implements IRecipeCategory<IAetheriumAnvilRe
     public void setRecipe(IRecipeLayoutBuilder builder, IAetheriumAnvilRecipe recipe, IFocusGroup iFocusGroup) {
         builder.addSlot(RecipeIngredientRole.INPUT, 19, 18).addIngredients(recipe.getDisplayInput());
         builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 18).addItemStacks(recipe.getAllResults());
-        builder.addSlot(RecipeIngredientRole.CATALYST, 19, 1).addItemStack(new ItemStack(RegistryManager.TINKER_HAMMER.get().asItem()));
+        if (recipe.getDifficulty() == 1) { //trivial recipe has autohammer available.
+            List<ItemStack> list = new ArrayList<>();
+            list.add(new ItemStack(RegistryManager.TINKER_HAMMER.get().asItem()));
+            list.add(new ItemStack(RegistryManager.AUTOMATIC_HAMMER.get().asItem()));
+            builder.addSlot(RecipeIngredientRole.CATALYST, 19, 1).addItemStacks(list);
+        }
+        else
+            builder.addSlot(RecipeIngredientRole.CATALYST, 19, 1).addItemStack(new ItemStack(RegistryManager.TINKER_HAMMER.get().asItem()));
     }
 
     @SuppressWarnings("resource")

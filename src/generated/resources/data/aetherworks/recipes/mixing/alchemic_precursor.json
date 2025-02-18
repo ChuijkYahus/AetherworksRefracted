@@ -11,7 +11,7 @@
     },
     {
       "amount": 2,
-      "name": "embers:dwarven_oil"
+      "fluid": "embers:dwarven_oil"
     }
   ],
   "output": {

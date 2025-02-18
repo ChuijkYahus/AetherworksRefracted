@@ -43,14 +43,13 @@ public class AWBlockTags  extends BlockTagsProvider {
                 AWRegistry.CONTROL_MATRIX.get(),
                 AWRegistry.AETHER_FORGE.get(),
                 AWRegistry.AETHER_FORGE_EDGE.get(),
-                AWRegistry.FORGE_BLOCK.get(),
-                AWRegistry.FORGE_CORE.get(),
                 AWRegistry.FORGE_HEATER.get(),
                 AWRegistry.FORGE_COOLER.get(),
                 AWRegistry.FORGE_VENT.get(),
                 AWRegistry.FORGE_ANVIL.get(),
                 AWRegistry.FORGE_METAL_FORMER.get(),
                 AWRegistry.FORGE_TOOL_STATION.get(),
+                AWRegistry.LEXICON_RECEPTACLE.get(),
                 AWRegistry.HEAT_DIAL.get(),
                 AWRegistry.SUEVITE.get(),
                 AWRegistry.SUEVITE_COBBLE.get(),
@@ -78,6 +77,10 @@ public class AWBlockTags  extends BlockTagsProvider {
         );
         tag(EmbersBlockTags.MECH_CORE_PROXYABLE_BOTTOM).add(
                 AWRegistry.AETHER_FORGE.get()
+        );
+
+        tag(EmbersBlockTags.MECH_CORE_PROXYABLE).add(
+                AWRegistry.LEXICON_RECEPTACLE.get()
         );
 
         tag(BlockTags.WITHER_IMMUNE).add(AWRegistry.GLASS_AETHERIUM.get());

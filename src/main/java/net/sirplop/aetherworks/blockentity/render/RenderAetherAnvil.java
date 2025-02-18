@@ -64,7 +64,7 @@ public class RenderAetherAnvil implements BlockEntityRenderer<AetheriumAnvilBloc
             Vector3f eyePos = player.getEyePosition().toVector3f();
             poseStack.pushPose();
             poseStack.translate(0.5f, 0.9f, 0.5f);
-            poseStack.scale(0.75f, 0.75f, 1);
+            poseStack.scale(0.75f, 0.75f, 0.75f);
 
             Vector3f position = blockEntity.getBlockPos().getCenter().toVector3f();
             Vector3f dir = new Vector3f(position.x() - eyePos.x(),

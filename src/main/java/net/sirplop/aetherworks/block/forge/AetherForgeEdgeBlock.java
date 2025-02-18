@@ -6,6 +6,9 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -18,7 +21,7 @@ import net.sirplop.aetherworks.AWRegistry;
 
 import javax.annotation.Nullable;
 
-public class AetherForgeEdgeBlock extends MechEdgeBlockBase {
+public class AetherForgeEdgeBlock extends MechEdgeBlockBase implements EntityBlock {
     public AetherForgeEdgeBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any()
@@ -42,9 +45,12 @@ public class AetherForgeEdgeBlock extends MechEdgeBlockBase {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPES_BOTTOM[state.getValue(EDGE).index];
+        return SHAPES_BOTTOM[state.getValue(MechEdgeBlockBase.EDGE).index];
     }
 
+    public RenderShape getRenderShape(BlockState pState) {
+        return RenderShape.MODEL;
+    }
 
     @Override
     public Block getCenterBlock() {
@@ -58,7 +64,7 @@ public class AetherForgeEdgeBlock extends MechEdgeBlockBase {
             if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER)
                 centerPos = pos.below();
             else {
-                centerPos = pos.offset(state.getValue(EDGE).centerPos);
+                centerPos = pos.offset(state.getValue(MechEdgeBlockBase.EDGE).centerPos);
             }
             if (level.getBlockState(centerPos).getBlock() == this.getCenterBlock()) {
                 level.destroyBlock(centerPos, false);
@@ -87,5 +93,11 @@ public class AetherForgeEdgeBlock extends MechEdgeBlockBase {
         pBuilder.add(BlockStateProperties.SOUTH);
         pBuilder.add(BlockStateProperties.EAST);
         pBuilder.add(BlockStateProperties.WEST);
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return AWRegistry.TOP_HAMMERABLE_BLOCK_ENTITY.get().create(blockPos, blockState);
     }
 }

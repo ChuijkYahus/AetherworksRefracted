@@ -65,6 +65,7 @@ public class AWItemModels extends ItemModelProvider {
 
         itemWithTexture(AWRegistry.AETHER_ASPECTUS, "aspectus_aetherium");
         itemWithTexture(AWRegistry.AETHERIOMETER, "aetheriometer");
+        //itemWithTexture(AWRegistry.LEXICON, "lexicon"); //lexicon now in own model file because overrides
 
         layeredItem(AWRegistry.AETHER_EMBER_JAR, "item/generated", "aether_ember_jar_glass", "aether_ember_jar_shine", "aether_ember_jar");
         layeredItem(AWRegistry.AETHER_EMBER_CARTRIDGE, "item/generated", "aether_ember_cartridge_glass", "aether_ember_cartridge_shine", "aether_ember_cartridge");

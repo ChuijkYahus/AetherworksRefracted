@@ -15,7 +15,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.Aetherworks;
-import net.sirplop.aetherworks.lib.OctDirection;
 import net.sirplop.aetherworks.lib.OctFacingHorizontalProperty;
 import org.joml.Vector3f;
 
@@ -67,6 +66,7 @@ public class AWBlockStates extends BlockStateProvider {
         blockWithItem(AWRegistry.AETHERIUM_BLOCK);
         blockWithItem(AWRegistry.PRISM_SUPPORT, "prism_support");
         blockWithItem(AWRegistry.PRISM, "prism");
+        blockWithItem(AWRegistry.LEXICON_RECEPTACLE, "lexicon_receptacle");
 
         ItemModelBuilder moonlightAmplifier = horzBlockAndItemAdjust(AWRegistry.MOONLIGHT_AMPLIFIER, "moonlight_amplifier");
         itemWithAdjustment(moonlightAmplifier, ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, ROT_FPR, new Vector3f(0, 2, 2), SCALE_FPR);
@@ -77,8 +77,6 @@ public class AWBlockStates extends BlockStateProvider {
         itemWithAdjustment(controlMatrix, ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, ROT_FPR, new Vector3f(0, 0, 2), SCALE_FPR);
         itemWithAdjustment(controlMatrix, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, ROT_TPR, new Vector3f(TRANS_TPR.x, TRANS_TPR.y, TRANS_TPR.z + 2), SCALE_TPR);
 
-
-        blockWithItem(AWRegistry.FORGE_CORE, "forge_core");
         horizontalblockWithItem(AWRegistry.FORGE_HEATER, "forge_heater");
         horizontalblockWithItem(AWRegistry.FORGE_COOLER, "forge_cooler");
 
@@ -93,10 +91,6 @@ public class AWBlockStates extends BlockStateProvider {
         ItemModelBuilder toolStation = horzBlockAndItemAdjust(AWRegistry.FORGE_TOOL_STATION, "tool_station");
         itemWithAdjustment(toolStation, ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, ROT_FPR, new Vector3f(0, 5, 2), SCALE_FPR);
         itemWithAdjustment(toolStation, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, ROT_TPR, new Vector3f(TRANS_TPR.x, TRANS_TPR.y, TRANS_TPR.z + 2), SCALE_TPR);
-
-        //horizontalblockWithItem(AWRegistry.FORGE_ANVIL, "anvil");
-        //horizontalblockWithItem(AWRegistry.FORGE_METAL_FORMER, "metal_former");
-        //horizontalblockWithItem(AWRegistry.FORGE_TOOL_STATION, "tool_station");
 
         ItemModelBuilder forgeVent = horzBlockAndItemAdjust(AWRegistry.FORGE_VENT, "forge_vent");
         itemWithAdjustment(forgeVent, ItemDisplayContext.GUI, new Vector3f(ROT_GUI.x, 40, ROT_GUI.z), new Vector3f(3, -2f, 0), SCALE_GUI);
@@ -145,26 +139,6 @@ public class AWBlockStates extends BlockStateProvider {
                 .condition(BlockStateProperties.SOUTH, true).end()
                 .part().modelFile(forgeConnectorModel).rotationY(270).addModel()
                 .condition(BlockStateProperties.WEST, true).end();
-
-        ExistingModelFile forgeCenter = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "forge_center"));
-        ExistingModelFile forgeSide = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "forge_side"));
-        ExistingModelFile forgeCorner = models().getExistingFile(new ResourceLocation(Aetherworks.MODID, "forge_corner"));
-
-        forgeStructure(AWRegistry.FORGE_BLOCK.get(), state -> {
-            OctDirection dir = state.getValue(OctFacingHorizontalProperty.OCT_DIRECTIONS);
-            switch (dir) {
-                case LEFT, RIGHT, FRONT, BACK -> {
-                    return forgeSide;
-                }
-                case LEFT_FRONT, RIGHT_FRONT, LEFT_BACK, RIGHT_BACK -> {
-                    return forgeCorner;
-                }
-                default -> {
-                    return forgeCenter;
-                }
-            }
-        });
-        simpleBlockItem(AWRegistry.FORGE_BLOCK.get(), models().cubeAll("block/block", new ResourceLocation(Aetherworks.MODID, "block/forge/forge")));
 
         dial(AWRegistry.HEAT_DIAL, "heat_dial");
     }
