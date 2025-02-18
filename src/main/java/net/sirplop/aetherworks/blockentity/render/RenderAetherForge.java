@@ -11,7 +11,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.sirplop.aetherworks.Aetherworks;
 import net.sirplop.aetherworks.blockentity.AetherForgeBlockEntity;
-import net.sirplop.aetherworks.blockentity.ForgeCoreBlockEntity;
 import net.sirplop.aetherworks.util.FaceRendererUtil;
 
 public class RenderAetherForge implements BlockEntityRenderer<AetherForgeBlockEntity> {
