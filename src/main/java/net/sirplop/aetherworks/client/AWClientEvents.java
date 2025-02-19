@@ -153,9 +153,6 @@ public class AWClientEvents {
 
     public static BakedModel getModel(ModelBakery bakery, String name) {
         ResourceLocation location = new ResourceLocation(Aetherworks.MODID, "block/" + name);
-
-        bakery.bakeModels((modelLoc, material) -> material.sprite());
-
         ModelBakerImplButNotStinky bakerImpl = new ModelBakerImplButNotStinky(bakery, (modelLoc, material) -> material.sprite(), location);
         UnbakedModel model = bakery.getModel(location);
         return model.bake(bakerImpl, Material::sprite, BlockModelRotation.X0_Y0, location);
