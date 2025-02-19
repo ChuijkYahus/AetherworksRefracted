@@ -1,5 +1,11 @@
 Changelog - Aetherworks Refracted
 =============================
+1.20.1-1.1.4
+-----------------------------
+_Fixes_
+
+- Fixed an error with the new lexicon model loading that could cause crashes with certain mods.
+
 1.20.1-1.1.3
 -----------------------------
 _Additions_

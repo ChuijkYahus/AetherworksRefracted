@@ -157,7 +157,7 @@ public class AWClientEvents {
 
         ModelBakerImplButNotStinky bakerImpl = new ModelBakerImplButNotStinky(bakery, (modelLoc, material) -> material.sprite(), location);
         UnbakedModel model = bakery.getModel(location);
-        model.bake(null, Material::sprite, BlockModelRotation.X0_Y0, location);
+        model.bake(bakerImpl, Material::sprite, BlockModelRotation.X0_Y0, location);
         return model.bake(bakerImpl, Material::sprite, BlockModelRotation.X0_Y0, location);
     }
 
@@ -181,7 +181,7 @@ public class AWClientEvents {
             return bakery.getModel(p_248568_);
         }
 
-        public Function<Material, TextureAtlasSprite> getModelTextureGetter() {
+        public @NotNull Function<Material, TextureAtlasSprite> getModelTextureGetter() {
             return this.modelTextureGetter;
         }
 
@@ -204,11 +204,6 @@ public class AWClientEvents {
 
         @OnlyIn(Dist.CLIENT)
         record BakedCacheKey(ResourceLocation id, Transformation transformation, boolean isUvLocked) {
-            BakedCacheKey(ResourceLocation id, Transformation transformation, boolean isUvLocked) {
-                this.id = id;
-                this.transformation = transformation;
-                this.isUvLocked = isUvLocked;
-            }
 
             public ResourceLocation id() {
                 return this.id;
