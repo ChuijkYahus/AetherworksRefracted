@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import com.mojang.math.Transformation;
+import com.rekindled.embers.EmbersClientEvents;
 import com.rekindled.embers.datagen.EmbersItemTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -157,7 +158,6 @@ public class AWClientEvents {
 
         ModelBakerImplButNotStinky bakerImpl = new ModelBakerImplButNotStinky(bakery, (modelLoc, material) -> material.sprite(), location);
         UnbakedModel model = bakery.getModel(location);
-        model.bake(bakerImpl, Material::sprite, BlockModelRotation.X0_Y0, location);
         return model.bake(bakerImpl, Material::sprite, BlockModelRotation.X0_Y0, location);
     }
 
