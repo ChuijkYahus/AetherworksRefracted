@@ -393,7 +393,7 @@ public class AWRegistry {
                 DispenserBlock.registerBehavior(fluid.FLUID_BUCKET.get(), dispenseBucket);
             }
 
-            EmbersAPI.registerEmberResonance(Ingredient.of(PICKAXE_EMBER.get(), PICKAXE_AETHER.get(), AXE_ENDER.get(), AXE_SCULK.get(), SHOVEL_PRISMARINE.get(), SHOVEL_SLIME.get(), CROSSBOW_MAGMA.get(), CROSSBOW_QUARTZ.get()), 2.5);
+            EmbersAPI.registerEmberResonance(Ingredient.of(PICKAXE_EMBER.get(), PICKAXE_AETHER.get(), AXE_ENDER.get(), AXE_SCULK.get(), SHOVEL_PRISMARINE.get(), SHOVEL_SLIME.get(), CROSSBOW_MAGMA.get(), CROSSBOW_QUARTZ.get(), HOE_AMETHYST.get(), HOE_HONEY.get()), 2.5);
             EmbersAPI.registerEmberResonance(Ingredient.of(AETHER_CROWN.get()), 2.5);
             EmbersAPI.registerWearableLens(Ingredient.of(AETHER_CROWN.get())); //of course it's a lens!
 
