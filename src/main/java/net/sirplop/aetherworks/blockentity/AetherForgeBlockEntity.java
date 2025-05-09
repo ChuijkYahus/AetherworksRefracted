@@ -9,6 +9,7 @@ import com.rekindled.embers.block.MechEdgeBlockBase;
 import com.rekindled.embers.blockentity.FluidVesselBlockEntity;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.power.DefaultEmberCapability;
+import com.rekindled.embers.util.EmbersColors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -33,7 +34,6 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.sirplop.aetherworks.AWRegistry;
-import net.sirplop.aetherworks.Aetherworks;
 import net.sirplop.aetherworks.api.capabilities.IHeatCapability;
 import net.sirplop.aetherworks.capabilities.AWCapabilities;
 import net.sirplop.aetherworks.datagen.AWSounds;
@@ -51,20 +51,6 @@ public class AetherForgeBlockEntity extends BlockEntity implements IForge, IExtr
         heatCapability.setHeat(0);
         heatCapability.setHeatCapacity(3000);
     }
-    public static final int[][] FORGE_SIDES = {
-            {-2, -1},
-            {-2,  0},
-            {-2,  1},
-            {2, -1},
-            {2,  0},
-            {2,  1},
-            {-1, -2},
-            { 0, -2},
-            { 1, -2},
-            {-1, 2},
-            { 0, 2},
-            { 1, 2},
-    };
 
     private final List<IFluidHandler> fluidHandlers = new ArrayList<>();
     private final List<IForgePart> parts = new ArrayList<>();
@@ -137,7 +123,7 @@ public class AetherForgeBlockEntity extends BlockEntity implements IForge, IExtr
     }
 
     private int groanTick = 0;
-    public static final GlowParticleOptions EMBER = new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, 2f, 40);
+    public static final GlowParticleOptions EMBER = new GlowParticleOptions(EmbersColors.EMBER, 2f, 40);
     @OnlyIn(Dist.CLIENT)
     public static void clientTick(Level level, BlockPos pos, BlockState state, AetherForgeBlockEntity blockEntity) {
         if (!level.isClientSide())

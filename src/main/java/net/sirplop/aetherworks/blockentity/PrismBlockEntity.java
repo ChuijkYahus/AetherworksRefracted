@@ -3,6 +3,7 @@ package net.sirplop.aetherworks.blockentity;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.blockentity.FluidVesselBlockEntity;
 import com.rekindled.embers.particle.GlowParticleOptions;
+import com.rekindled.embers.util.EmbersColors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,7 +25,6 @@ import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.block.MoonlightAmplifierBlock;
 import net.sirplop.aetherworks.util.Utils;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3f;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -74,7 +74,7 @@ public class PrismBlockEntity extends BlockEntity {
     private boolean currentCrystalHeat;
 
     public static final GlowParticleOptions GLOW = new GlowParticleOptions(Utils.AETHERIUM_COLOR, 2f, 80);
-    public static final GlowParticleOptions EMBER = new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, 2f, 80);
+    public static final GlowParticleOptions EMBER = new GlowParticleOptions(EmbersColors.EMBER, 2f, 80);
     public static final GlowParticleOptions GLOW_WORK = new GlowParticleOptions(Utils.AETHERIUM_COLOR, 1.5f, 40);
 
 

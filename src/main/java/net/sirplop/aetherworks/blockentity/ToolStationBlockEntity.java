@@ -5,6 +5,7 @@ import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.SmokeParticleOptions;
 import com.rekindled.embers.particle.SparkParticleOptions;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.Misc;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -162,7 +163,7 @@ public class ToolStationBlockEntity extends BlockEntity implements IForgePart, I
                 return;
             }
             final GlowParticleOptions glow = new GlowParticleOptions(Utils.multiLerp( progress / (float)AWConfig.FORGE_TOOL_STATION_MAX_HITS.get(),
-                    GlowParticleOptions.EMBER_COLOR, Utils.AETHERIUM_COLOR), 1f, 30);
+                    EmbersColors.EMBER, Utils.AETHERIUM_COLOR), 1f, 30);
             BlockPos pos = getBlockPos();
             final float speed = 0.1f;
             level.addParticle(glow,
@@ -198,15 +199,15 @@ public class ToolStationBlockEntity extends BlockEntity implements IForgePart, I
                 progress = 0;
 
                 if (level instanceof ServerLevel serverLevel) {
-                    serverLevel.sendParticles(new SparkParticleOptions(GlowParticleOptions.EMBER_COLOR, 1.0f), worldPosition.getX() + 0.5f, worldPosition.getY() + 1.0625f, worldPosition.getZ() + 0.5f, 10, 0.1, 0.0, 0.1, 1.0);
-                    serverLevel.sendParticles(new SmokeParticleOptions(SmokeParticleOptions.SMOKE_COLOR, 3.0f), worldPosition.getX() + 0.5f, worldPosition.getY() + 1.0625f, worldPosition.getZ() + 0.5f, 10, 0.1, 0.0, 0.1, 1.0);
+                    serverLevel.sendParticles(new SparkParticleOptions(EmbersColors.EMBER, 1.0f), worldPosition.getX() + 0.5f, worldPosition.getY() + 1.0625f, worldPosition.getZ() + 0.5f, 10, 0.1, 0.0, 0.1, 1.0);
+                    serverLevel.sendParticles(new SmokeParticleOptions(EmbersColors.SMOKE, 3.0f), worldPosition.getX() + 0.5f, worldPosition.getY() + 1.0625f, worldPosition.getZ() + 0.5f, 10, 0.1, 0.0, 0.1, 1.0);
                 }
                 level.playSound(null, worldPosition, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 1.0f, 0.95f+random.nextFloat()*0.1f);
                 inventory.setStackInSlot(5, cachedRecipe.assemble(context, level.registryAccess()));
                 setChanged();
             } else if (level instanceof ServerLevel serverLevel) {
                 setChanged();
-                serverLevel.sendParticles(new SparkParticleOptions(GlowParticleOptions.EMBER_COLOR, 1.0f),
+                serverLevel.sendParticles(new SparkParticleOptions(EmbersColors.EMBER, 1.0f),
                         worldPosition.getX() + 0.3f + level.random.nextFloat() * 0.4f,
                         worldPosition.getY() + 0.125f,
                         worldPosition.getZ() + 0.3f + level.random.nextFloat() * 0.4f,

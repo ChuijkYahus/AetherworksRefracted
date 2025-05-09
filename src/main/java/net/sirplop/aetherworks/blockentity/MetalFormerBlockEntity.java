@@ -3,6 +3,7 @@ package net.sirplop.aetherworks.blockentity;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.particle.GlowParticleOptions;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.Misc;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,7 +13,6 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -23,14 +23,10 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import net.sirplop.aetherworks.AWConfig;
 import net.sirplop.aetherworks.AWRegistry;
-import net.sirplop.aetherworks.Aetherworks;
-import net.sirplop.aetherworks.recipe.IAetheriumAnvilRecipe;
 import net.sirplop.aetherworks.recipe.IMetalFormerRecipe;
 import net.sirplop.aetherworks.recipe.MetalFormerContext;
 import net.sirplop.aetherworks.util.Utils;
-import org.joml.Vector3f;
 
 import java.util.List;
 
@@ -176,7 +172,7 @@ public class MetalFormerBlockEntity extends FluidHandlerBlockEntity implements I
                     }
                 } else if (hasEmber) {
                     final GlowParticleOptions glow = new GlowParticleOptions(Utils.multiLerp( progress / (float) cachedRecipe.getCraftTime(),
-                            GlowParticleOptions.EMBER_COLOR, Utils.AETHERIUM_COLOR), 1f, 30);
+                            EmbersColors.EMBER, Utils.AETHERIUM_COLOR), 1f, 30);
 
                     BlockPos pos = getBlockPos();
                     final float speed = 0.1f;

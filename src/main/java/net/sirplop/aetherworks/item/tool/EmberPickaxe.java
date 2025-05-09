@@ -1,6 +1,7 @@
 package net.sirplop.aetherworks.item.tool;
 
 import com.rekindled.embers.particle.GlowParticleOptions;
+import com.rekindled.embers.util.EmbersColors;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
@@ -23,10 +24,9 @@ public class EmberPickaxe  extends AOEEmberDiggerItem{
 
     private final GlowParticleOptions particle = new GlowParticleOptions(getParticleColor(), 1, 15);
 
-    private final static Vector3f particleColor = GlowParticleOptions.EMBER_COLOR;
     @Override
     public Vector3f getParticleColor() {
-        return particleColor;
+        return EmbersColors.EMBER;
     }
 
     @Override

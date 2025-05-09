@@ -4,6 +4,7 @@ import com.rekindled.embers.Embers;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.SparkParticleOptions;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.Misc;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -238,7 +239,7 @@ public class AetheriumAnvilBlockEntity extends BlockEntity implements IForgePart
             } else {
                 makeMistake();
             }
-            ((ServerLevel)level).sendParticles(new SparkParticleOptions(GlowParticleOptions.EMBER_COLOR, 1.0f),
+            ((ServerLevel)level).sendParticles(new SparkParticleOptions(EmbersColors.EMBER, 1.0f),
                     worldPosition.getX() + 0.3f + level.random.nextFloat() * 0.4f,
                     worldPosition.getY() + 0.35f,
                     worldPosition.getZ() + 0.3f + level.random.nextFloat() * 0.4f,

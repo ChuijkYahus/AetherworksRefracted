@@ -1,5 +1,11 @@
 Changelog - Aetherworks Refracted
 =============================
+1.20.1-1.1.5
+-----------------------------
+_Changes
+- Updated Chinese translation.
+- Updated to Embers 1.4.0, fixing many deprecation issues.
+
 1.20.1-1.1.4
 -----------------------------
 _Fixes_
