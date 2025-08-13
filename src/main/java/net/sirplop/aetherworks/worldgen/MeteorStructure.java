@@ -57,13 +57,14 @@ public class MeteorStructure extends Structure {
         final float meteoriteXSize = random.nextFloat() * 4.0f + 1;
         final float meteoriteYSize = random.nextFloat() * 3.0f + 2; //our meteor is not quite a sphere!
         final float meteoriteZSize = random.nextFloat() * (meteoriteXSize > 2.5f ? 2.0f : 4.0f) + 1;
-        final int yOffset = (int) Math.ceil(meteoriteYSize);
 
-        var t2 = generator.getBiomeSource().getBiomesWithin(centerX, generator.getSeaLevel(), centerZ, 0,
+        var t2 = generator.getBiomeSource().getBiomesWithin(centerX, generator.getSeaLevel(), centerZ, 4,
                 context.randomState().sampler());
 
         boolean hasWateryBiome = t2.stream().anyMatch(b -> b.is(BiomeTags.IS_OCEAN) || b.is(BiomeTags.IS_DEEP_OCEAN)
                 || b.is(BiomeTags.IS_RIVER) || b.is(BiomeTags.IS_BEACH));
+
+        final int yOffset = (int) Math.ceil(meteoriteYSize) + 2;
 
         final Heightmap.Types heightmapType = Heightmap.Types.OCEAN_FLOOR_WG;
 
@@ -91,21 +92,21 @@ public class MeteorStructure extends Structure {
         centerY = Math.max(heightAccessor.getMinBuildHeight() + yOffset, centerY);
 
         BlockPos actualPos = new BlockPos(centerX, centerY, centerZ);
-        boolean hasWater = locateWaterAroundTheCrater(actualPos, (meteoriteXSize + meteoriteZSize) / 1.5f, context, hasWateryBiome);
+        boolean hasWater = locateWaterAroundTheCrater(actualPos, (meteoriteXSize + meteoriteZSize), context, hasWateryBiome);
         piecesBuilder.addPiece(new MeteorStructurePiece(actualPos, meteoriteXSize, meteoriteYSize, meteoriteZSize, hasWater));
     }
 
     private static boolean locateWaterAroundTheCrater(BlockPos pos, float radius, GenerationContext context, boolean hasWateryBiome) {
+        //shortcut
+        if (hasWateryBiome)
+            return true; //this should always be watery
+
         var generator = context.chunkGenerator();
         var heightAccessor = context.heightAccessor();
 
         final int seaLevel = generator.getSeaLevel();
         final int maxY = seaLevel - 1;
         BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos();
-
-        //shortcut
-        if (hasWateryBiome)
-            return true; //this should always be watery
 
         blockPos.setY(maxY);
         for (int i = pos.getX() - 40; i <= pos.getX() + 40; i++) {
@@ -119,7 +120,7 @@ public class MeteorStructure extends Structure {
 
                 final double distanceFrom = dx * dx + dz * dz;
 
-                if (maxY > h + distanceFrom * 0.0175 && maxY < h + distanceFrom * 0.02) {
+                if (maxY > h + distanceFrom * 0.04 && maxY < h + distanceFrom * 0.08) {
                     int height = generator.getBaseHeight(blockPos.getX(), blockPos.getZ(), Heightmap.Types.OCEAN_FLOOR,
                             heightAccessor, context.randomState());
                     if (height < seaLevel) {
