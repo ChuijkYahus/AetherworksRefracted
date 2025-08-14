@@ -11,10 +11,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.material.Fluids;
 import net.sirplop.aetherworks.AWRegistry;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class MeteorPlacer {
     public static Map<ChunkPos, Integer> map = new HashMap<>();
@@ -57,7 +57,7 @@ public class MeteorPlacer {
     private final double meteoriteSizeX;
     private final double meteoriteSizeY;
     private final double meteoriteSizeZ;
-    private final boolean liquidCrater;
+    private boolean liquidCrater;
     private final BoundingBox boundingBox;
     private final LevelAccessor level;
     private final RandomSource random;
@@ -99,10 +99,12 @@ public class MeteorPlacer {
         final int craterAdjust = 5;
         BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos();
 
+        List<BlockPos> touchedPos = new ArrayList<>();
         double meteorSize = (meteoriteSizeX + meteoriteSizeY + meteoriteSizeZ) / 3;
         int end = y + (int)Math.ceil(meteoriteSizeY);
         for (int j = maxY; j >= end; j--) {
             blockPos.setY(j);
+            boolean belowSeaLevel = j < level.getSeaLevel();
 
             for (int i = boundingBox.minX(); i <= boundingBox.maxX(); i++) {
                 blockPos.setX(i);
@@ -116,11 +118,18 @@ public class MeteorPlacer {
                     final double distanceFrom = dx * dx + dz * dz;
 
                     if (j > h + distanceFrom * 0.08) {
+
                         BlockState origState = level.getBlockState(blockPos);
-                        if (origState.is(BlockTags.FEATURES_CANNOT_REPLACE)
+                        if ((origState.isAir() && !belowSeaLevel) || origState.is(BlockTags.FEATURES_CANNOT_REPLACE)
                             || origState.is(BlockTags.LEAVES)
-                            || origState.is(BlockTags.OVERWORLD_NATURAL_LOGS)) //stop replacing trees!
+                            || origState.is(BlockTags.LOGS)) //stop replacing trees!
                             continue;
+
+                        if (belowSeaLevel)
+                            touchedPos.add(blockPos);
+                        if (origState.getFluidState().is(Fluids.WATER) && origState.getFluidState().isSource())
+                            liquidCrater = true; //if it TOUCHES water, then this is FULL OF WATER.
+
                         //sink the current block so the crater looks old and a part of the landscape.
                         //also make sure we don't sink blocks from overhangs, because that causes really weird formations of floating blocks.
                         if (!origState.isAir()
@@ -129,16 +138,25 @@ public class MeteorPlacer {
                                 && !origState.is(BlockTags.REPLACEABLE)
                                 && !level.getBlockState(blockPos.offset(0, -1, 0)).isAir())
                         {
-                            if (j < level.getSeaLevel() && (origState.is(Blocks.GRASS_BLOCK) || origState.is(Blocks.PODZOL) || origState.is(Blocks.MYCELIUM)))
+                            if (liquidCrater && belowSeaLevel && (origState.is(Blocks.GRASS_BLOCK) || origState.is(Blocks.PODZOL) || origState.is(Blocks.MYCELIUM)))
                                 put(level, blockPos, Blocks.DIRT.defaultBlockState()); //no grass underwater!
                             else
                                 put(level, blockPos.offset(0, -1, 0), origState);
                         }
-                        if (liquidCrater && j < level.getSeaLevel())
+                        if (liquidCrater && belowSeaLevel)
                             put(level, blockPos, Blocks.WATER.defaultBlockState());
                         else
                             put(level, blockPos, Blocks.AIR.defaultBlockState());
                     }
+                }
+            }
+        }
+        if (liquidCrater)
+        {
+            for (BlockPos pos : touchedPos) {
+                BlockState origState = level.getBlockState(pos);
+                if (origState.isAir()) {
+                    put(level, pos, Blocks.WATER.defaultBlockState());
                 }
             }
         }
