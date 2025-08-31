@@ -12,6 +12,10 @@ import net.sirplop.aetherworks.item.PotionGemItem;
 public class AWItemProperties {
 
     public static void register() {
+        //copied from vanilla to mimic shield behaviour
+        ItemProperties.register(AWRegistry.AETHER_SHIELD.get(), new ResourceLocation(Aetherworks.MODID,"blocking"), (p_174575_, p_174576_, p_174577_, p_174578_) -> {
+            return p_174577_ != null && p_174577_.isUsingItem() && p_174577_.getUseItem() == p_174575_ ? 1.0F : 0.0F;
+        });
 
         ItemProperties.register(AWRegistry.POTION_GEM.get(), new ResourceLocation(Aetherworks.MODID, "has_gem"), (stack, world, living, intIn) -> {
             if (stack.isEmpty())

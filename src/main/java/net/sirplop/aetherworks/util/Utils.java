@@ -10,7 +10,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -59,7 +58,7 @@ public class Utils {
             ItemEntity entityItem = new ItemEntity(level,
                     pos.getX() + rx, pos.getY() + ry, pos.getZ() + rz,
                     item.copy());
-            entityItem.setDefaultPickUpDelay();;
+            entityItem.setDefaultPickUpDelay();
 
             if (item.hasTag()) {
                 entityItem.getItem().setTag(item.getTag().copy());
@@ -317,7 +316,6 @@ public class Utils {
         List<ItemEntity> ret = new ArrayList<>();
         while(!pStack.isEmpty()) {
             ItemEntity itementity = new ItemEntity(pLevel, d3, d4, d5, pStack.split(pLevel.random.nextInt(21) + 10));
-            float f = 0.05F;
             itementity.setDeltaMovement(pLevel.random.triangle(0.0D, 0.11485000171139836D), pLevel.random.triangle(0.2D, 0.11485000171139836D), pLevel.random.triangle(0.0D, 0.11485000171139836D));
             pLevel.addFreshEntity(itementity);
             ret.add(itementity);
@@ -353,5 +351,18 @@ public class Utils {
             }
         }
         return result;
+    }
+
+    public static Vector3f rotateAroundAxis(Vector3f v, Vector3f axis, float deltaRadian) {
+        float cosTheta = (float)Math.cos(deltaRadian);
+        float sinTheta = (float)Math.sin(deltaRadian);
+        float dot = axis.dot(v);
+
+        Vector3f t1 = v.mul(cosTheta, cosTheta, cosTheta);
+        Vector3f t2 = axis.cross(v).mul(sinTheta, sinTheta, sinTheta);
+                                  //...
+        Vector3f t3 = axis.mul(dot, dot, dot).mul(1 - cosTheta, 1 - cosTheta, 1 - cosTheta);
+
+        return t1.add(t2).add(t3);
     }
 }

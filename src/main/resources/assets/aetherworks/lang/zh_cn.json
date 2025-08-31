@@ -100,6 +100,7 @@
   "block.aetherworks.prism_support" : "方镁矾支柱",
   "block.aetherworks.prism" : "折射棱镜",
   "block.aetherworks.aether_forge" : "天华锻座",
+  "block.aetherworks.aether_forge_edge" : "天华锻座",
   "block.aetherworks.forge_heater" : "天华锻座加热器",
   "block.aetherworks.forge_cooler" : "天华锻座冷却器",
   "block.aetherworks.forge_vent" : "天华锻座散热口",

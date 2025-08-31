@@ -46,6 +46,7 @@ public class AWConfig {
     public static ConfigValue<Integer> FORGE_TOOL_STATION_MAX_HITS;
 
     public static ConfigValue<Integer> AUGMENT_TUNING_CYLINDER_CHANCE;
+    private static ConfigValue<List<? extends String>> AUGMENT_TUNING_CYLINDER_LIST;
     public static ConfigValue<Double> AETHER_CROWN_EFFECT_RADIUS;
     private static ConfigValue<List<? extends  String>> POTION_GEM_BANNED;
 
@@ -55,6 +56,7 @@ public class AWConfig {
     private static Set<Block> SKULK_AXE_ALLOWED;
     private static Set<Block> SLIME_SHOVEL_ALLOWED;
     private static Set<Block> AMETHYST_HOE_RIGHT_CLICK;
+    private static Set<Block> TUNING_CYLINDER_ALLOWED;
 
     private static Dictionary<Block, Set<Block>> SAME_BLOCK_SET = null;
 
@@ -66,7 +68,8 @@ public class AWConfig {
         ENDER_AXE,
         SCULK_AXE,
         SLIME_SHOVEL,
-        AMETHYST_HOE
+        AMETHYST_HOE,
+        TUNING_CYLINDER
     }
 
     public static boolean isMoonlitDimension(ResourceKey<DimensionType> type) {
@@ -118,6 +121,12 @@ public class AWConfig {
                     AMETHYST_HOE_RIGHT_CLICK = mixedListToBlocks(AMETHYST_HOE_HARVEST_RIGHTCLICK);
                 }
                 return AMETHYST_HOE_RIGHT_CLICK;
+            }
+            case TUNING_CYLINDER -> {
+                if (TUNING_CYLINDER_ALLOWED == null) {
+                    TUNING_CYLINDER_ALLOWED = mixedListToBlocks(AUGMENT_TUNING_CYLINDER_LIST);
+                }
+                return TUNING_CYLINDER_ALLOWED;
             }
         }
         return new HashSet<>();
@@ -195,11 +204,7 @@ public class AWConfig {
             }
         }
         Set<Block> set = SAME_BLOCK_SET.get(target);
-        if (set != null) {
-            return set;
-        }
-        else
-            return new HashSet<>();
+        return Objects.requireNonNullElseGet(set, HashSet::new);
     }
 
     public static void register() {
@@ -291,7 +296,7 @@ public class AWConfig {
         CROSSBOW_MAGMA_CHAIN_LIMIT = COMMON.comment("How many entities the Crossbow of the Shattered Reflection is allowed to chain to. [default 16]").define("crossbow.magma.chain_limit", 16);
         CROSSBOW_MAGMA_CHAIN_RANGE = COMMON.comment("How far can an entity be for the Crossbow of the Shattered Reflection to chain to them. [default 16.0]").define("crossbow.magma.chain_range", 16.0);
 
-        AETHER_CROWN_EFFECT_RADIUS = COMMON.comment("Cube radius of the area of effect the Aetherium Crown applies to. [default: 8.0")
+        AETHER_CROWN_EFFECT_RADIUS = COMMON.comment("Cube radius of the area of effect the Aetherium Crown applies to. [default: 8.0]")
                 .define("crown.radius", 8.0);
 
         POTION_GEM_BANNED = COMMON.comment("Syntax is ( original|replacement ). Effects that should be replaced with another when put into a Vessel Gem.")
@@ -300,6 +305,20 @@ public class AWConfig {
                         "minecraft:instant_damage|minecraft:wither"
                 ), AWConfig::validatePotions);
         AUGMENT_TUNING_CYLINDER_CHANCE = COMMON.comment("Base chance (1/X) per level to drop a geode when using the Tuning Cylinder augment. [default: 32]").define("tuning_cylinder.chance", 32);
+        AUGMENT_TUNING_CYLINDER_LIST = COMMON.comment("List of blocks that can drop geodes when using the Tuning Cylinder augment.")
+                .defineListAllowEmpty("tuning_cylinder.allowed", List.of(
+                        "#minecraft:base_stone_overworld",
+                        "#minecraft:base_stone_nether",
+                        "#minecraft:nylium",
+                        "#forge:sandstone",
+                        "minecraft:dripstone_block",
+                        "minecraft:calcite",
+                        "minecraft:smooth_basalt",
+                        "minecraft:basalt",
+                        "minecraft:end_stone",
+                        "minecraft:obsidian",
+                        "aetherworks:suevite"
+                ), a -> true);
 
         COMMON.pop();
 

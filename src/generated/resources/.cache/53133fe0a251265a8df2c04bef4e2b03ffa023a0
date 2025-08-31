@@ -1,4 +1,5 @@
-// 1.20.1	2025-02-13T20:42:08.8436192	Item Models: aetherworks
+// 1.20.1	2025-08-28T22:10:03.0945067	Item Models: aetherworks
+c63491e0b5a333cca17d004848192c4d425b16c5 assets/aetherworks/models/item/aetherial_plating.json
 263c3fa599b16e43c5708ed4242608e4931d5e1b assets/aetherworks/models/item/aetheriometer.json
 d45f4464b3b643edba8fc5cf621a56ccd8646486 assets/aetherworks/models/item/aetherium_lens.json
 14d56331c116e7649d3b64ea7182b6f076e870e0 assets/aetherworks/models/item/aether_amalgam.json
@@ -53,6 +54,9 @@ d163e17d211f80b52b23ccc1f4e3853b5f0b55d5 assets/aetherworks/models/item/pickaxe_
 0dcd4bd17a38be8eb17d3c36daab0ff873381f8b assets/aetherworks/models/item/pickaxe_head_crude.json
 6ed830fc741954193a461a180b2ec049bffc406d assets/aetherworks/models/item/pickaxe_head_ember.json
 47a877bdbf02f447aac14fa8bf4ae946307a3f31 assets/aetherworks/models/item/plate_aether.json
+ef6cfa06c2db58ccb319399adbb416511ed1d764 assets/aetherworks/models/item/shield_core.json
+f3b2c48deaac2a7b9c1080d884fc8afdfa668f2d assets/aetherworks/models/item/shield_core_crude.json
+ef6cfa06c2db58ccb319399adbb416511ed1d764 assets/aetherworks/models/item/shield_core_infused.json
 8980d04b8a278a3002c3211176b837f782c831dc assets/aetherworks/models/item/shovel_head.json
 878334d9d8beed0b23d2b6f772703c4c8f7155b1 assets/aetherworks/models/item/shovel_head_crude.json
 0ddc3bbddf818b8fb02552cdfc3b9adde08b4fd3 assets/aetherworks/models/item/shovel_head_prismarine.json

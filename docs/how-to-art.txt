@@ -1,0 +1,29 @@
+The Aetherium palette is the following:
+c3eeff
+a9e7ff
+87dfff
+63cdff
+2fbdff
+21b2ff
+13abff
+0a9df5
+0090eb
+0177c2
+00619f
+0b618f
+024b76
+023b5d
+
+How to make sprites do the glow effect:
+1. Use GIMP
+2. Draw the sprite using the aetherium palette, this is the darkest color of the animation.
+3. Map -> Tile the sprite to be 8 sprites (for a 16x16 sprite, it'll be 16x128)
+4. For each of the 7 new sprites, select it and do Colors -> Levels and enter the following values into Clamp Output:
+	2. 1.5, 245
+	3. 2.0, 235
+	4. 2.5, 225
+	5. 2.0, 230
+	6. 1.75, 240
+	7. 1.5, 250
+	8. 1.25, 255
+Bam, you've got glows.

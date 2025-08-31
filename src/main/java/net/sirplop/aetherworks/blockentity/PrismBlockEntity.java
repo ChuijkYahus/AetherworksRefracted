@@ -74,7 +74,7 @@ public class PrismBlockEntity extends BlockEntity {
     private boolean currentCrystalHeat;
 
     public static final GlowParticleOptions GLOW = new GlowParticleOptions(Utils.AETHERIUM_COLOR, 2f, 80);
-    public static final GlowParticleOptions EMBER = new GlowParticleOptions(EmbersColors.EMBER, 2f, 80);
+    public static final GlowParticleOptions EMBER = new GlowParticleOptions(EmbersColors.EMBER_ID, 2f, 80);
     public static final GlowParticleOptions GLOW_WORK = new GlowParticleOptions(Utils.AETHERIUM_COLOR, 1.5f, 40);
 
 

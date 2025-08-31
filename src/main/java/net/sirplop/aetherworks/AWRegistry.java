@@ -37,6 +37,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -62,6 +64,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import net.sirplop.aetherworks.augment.AetherPlatingAugment;
 import net.sirplop.aetherworks.augment.AgrarianLinersAugment;
 import net.sirplop.aetherworks.augment.VolantCalcifierAugment;
 import net.sirplop.aetherworks.augment.TuningCylinderAugment;
@@ -94,6 +97,7 @@ public class AWRegistry {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, Aetherworks.MODID);
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Aetherworks.MODID);
     public static final DeferredRegister<Enchantment> ENCHANTMENTS =  DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, Aetherworks.MODID);
+    public static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(ForgeRegistries.ATTRIBUTES, Aetherworks.MODID);
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Aetherworks.MODID);
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, Aetherworks.MODID);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Aetherworks.MODID);
@@ -134,6 +138,7 @@ public class AWRegistry {
     public static final RegistryObject<Item> CROSSBOW_QUARTZ = ITEMS.register("crossbow_quartz", () -> new AetherCrossbowQuartz(new Item.Properties().rarity(Rarity.RARE).stacksTo(1).durability(AetheriumTiers.AETHERIUM.getUses()).defaultDurability(AetheriumTiers.AETHERIUM.getUses())));
     public static final RegistryObject<Item> CROSSBOW_MAGMA = ITEMS.register("crossbow_magma", () -> new AetherCrossbowMagma(new Item.Properties().rarity(Rarity.RARE).stacksTo(1).durability(AetheriumTiers.AETHERIUM.getUses()).defaultDurability(AetheriumTiers.AETHERIUM.getUses())));
 
+    public static final RegistryObject<Item> AETHER_SHIELD = ITEMS.register("aether_shield", () -> new AetherShield(new Item.Properties().rarity(Rarity.RARE).stacksTo(1).durability(AetheriumTiers.AETHERIUM.getUses()).defaultDurability(AetheriumTiers.AETHERIUM.getUses())));
     public static final RegistryObject<Item> AETHER_CROWN = ITEMS.register("aether_crown", () -> new AetherCrownItem(AshenArmorMaterial.INSTANCE, ArmorItem.Type.HELMET, new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> POTION_GEM = ITEMS.register("potion_gem", () -> new PotionGemItem(new Item.Properties()));
 
@@ -159,15 +164,15 @@ public class AWRegistry {
     public static final RegistryObject<Block> LEXICON_RECEPTACLE = registerBlock("lexicon_receptacle", () -> new LexiconReceptacleBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).requiresCorrectToolForDrops().strength(3, 12)));
 
     public static final RegistryObject<Block> SUEVITE = registerBlock("suevite", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(2.5f)));
-    public static final RegistryObject<Block> SUEVITE_COBBLE = registerBlock("suevite_cobble", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));;
+    public static final RegistryObject<Block> SUEVITE_COBBLE = registerBlock("suevite_cobble", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));
     public static final StoneDecoBlocks SUEVITE_COBBLE_DECO = new StoneDecoBlocks("suevite_cobble", SUEVITE_COBBLE, Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f));
-    public static final RegistryObject<Block> SUEVITE_BRICKS = registerBlock("suevite_bricks", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));;
+    public static final RegistryObject<Block> SUEVITE_BRICKS = registerBlock("suevite_bricks", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));
     public static final StoneDecoBlocks SUEVITE_BRICKS_DECO = new StoneDecoBlocks("suevite_bricks", SUEVITE_BRICKS, Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f));
-    public static final RegistryObject<Block> SUEVITE_SMALL_BRICKS = registerBlock("suevite_small_bricks", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));;
+    public static final RegistryObject<Block> SUEVITE_SMALL_BRICKS = registerBlock("suevite_small_bricks", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));
     public static final StoneDecoBlocks SUEVITE_SMALL_BRICKS_DECO = new StoneDecoBlocks("suevite_small_bricks", SUEVITE_SMALL_BRICKS, Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f));
-    public static final RegistryObject<Block> SUEVITE_BIG_TILE = registerBlock("suevite_big_tile", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));;
+    public static final RegistryObject<Block> SUEVITE_BIG_TILE = registerBlock("suevite_big_tile", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));
     public static final StoneDecoBlocks SUEVITE_BIG_TILE_DECO = new StoneDecoBlocks("suevite_big_tile", SUEVITE_BIG_TILE, Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f));
-    public static final RegistryObject<Block> SUEVITE_SMALL_TILE = registerBlock("suevite_small_tile", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));;
+    public static final RegistryObject<Block> SUEVITE_SMALL_TILE = registerBlock("suevite_small_tile", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));
     public static final StoneDecoBlocks SUEVITE_SMALL_TILE_DECO = new StoneDecoBlocks("suevite_small_tile", SUEVITE_SMALL_TILE, Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f));
 
     public static final RegistryObject<Block> GLASS_AETHERIUM = registerBlock("glass_aetherium", () -> new StainedGlassBlock(DyeColor.LIGHT_BLUE, Properties.copy(Blocks.LIGHT_BLUE_STAINED_GLASS).explosionResistance(1800000).requiresCorrectToolForDrops()));
@@ -213,6 +218,10 @@ public class AWRegistry {
     public static final RegistryObject<Item> CROSSBOW_LIMBS = ITEMS.register("crossbow_limbs", () -> new TooltipItem(new Item.Properties(), "aetherworks.tooltip.must_work_uninfused", false));
     public static final RegistryObject<Item> CROSSBOW_LIMBS_QUARTZ = ITEMS.register("crossbow_limbs_quartz", () -> new TooltipItem(new Item.Properties(), "aetherworks.tooltip.crossbow_limbs_quartz", false));
     public static final RegistryObject<Item> CROSSBOW_LIMBS_MAGMA = ITEMS.register("crossbow_limbs_magma", () -> new TooltipItem(new Item.Properties(), "aetherworks.tooltip.crossbow_limbs_magma", false));
+    public static final RegistryObject<Item> SHIELD_CORE_CRUDE = ITEMS.register("shield_core_crude", () -> new TooltipItem(new Item.Properties(), "aetherworks.tooltip.must_work_crude", false));
+    public static final RegistryObject<Item> SHIELD_CORE = ITEMS.register("shield_core", () -> new TooltipItem(new Item.Properties(), "aetherworks.tooltip.must_work_uninfused", false));
+    public static final RegistryObject<Item> SHIELD_CORE_INFUSED = ITEMS.register("shield_core_infused", () -> new SimpleFoiledItem(new Item.Properties()));
+
     public static final RegistryObject<Item> GEODE_END = ITEMS.register("geode_end", () -> new TooltipItem(new Item.Properties(), "aetherworks.tooltip.geode", false));
     public static final RegistryObject<Item> GEODE_NETHER = ITEMS.register("geode_nether", () -> new TooltipItem(new Item.Properties(), "aetherworks.tooltip.geode", false));
     public static final RegistryObject<Item> GEODE_HOT = ITEMS.register("geode_hot", () -> new TooltipItem(new Item.Properties(), "aetherworks.tooltip.geode", false));
@@ -225,12 +234,14 @@ public class AWRegistry {
     public static final RegistryObject<Item> TUNING_CYLINDER = ITEMS.register("tuning_cylinder", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> VOLANT_CALCIFIER = ITEMS.register("volant_calcifier", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> AGRARIAN_LINERS = ITEMS.register("agrarian_liners", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> AETHERIAL_PLATING = ITEMS.register("aetherial_plating", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> LEXICON = ITEMS.register("lexicon", () -> new Lexicon(new Item.Properties().stacksTo(1)));
 
     //Augments
     public static final IAugment TUNING_CYLINDER_AUGMENT = AugmentUtil.registerAugment(new TuningCylinderAugment(new ResourceLocation(Aetherworks.MODID, "tuning_cylinder")));
     public static final IAugment VOLANT_CALCIFIER_AUGMENT = AugmentUtil.registerAugment(new VolantCalcifierAugment(new ResourceLocation(Aetherworks.MODID, "volant_calcifier")));
     public static final IAugment AGRARIAN_LINERS_AUGMENT = AugmentUtil.registerAugment(new AgrarianLinersAugment(new ResourceLocation(Aetherworks.MODID, "agrarian_liners")));
+    public static final IAugment AETHERIAL_PLATING_AUGMENT = AugmentUtil.registerAugment(new AetherPlatingAugment(new ResourceLocation(Aetherworks.MODID, "aetherial_plating")));
 
     //Fluids
     public static final FluidStuff AETHERIUM_GAS_IMPURE = addFluid(new EmbersFluidType.FluidInfo("aether_gas_impure", 0xff6c829f, 0.1F, 1.5F),
@@ -341,6 +352,8 @@ public class AWRegistry {
 
     //Entities
     public static final RegistryObject<EntityType<DummyArmorLoaderEntity>> DUMMY_LOADER = registerEntity("dummy_loader", EntityType.Builder.<DummyArmorLoaderEntity>of(DummyArmorLoaderEntity::new, MobCategory.MISC).sized(0.0F, 0F));
+
+    //Attributes
 
     //Spawn Eggs
 

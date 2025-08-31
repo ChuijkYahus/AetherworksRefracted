@@ -14,7 +14,7 @@ import net.sirplop.aetherworks.util.AetheriumTiers;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
-public class AetherPickaxe  extends AOEEmberDiggerItem {
+public class AetherPickaxe extends AOEEmberDiggerItem {
     public AetherPickaxe(Properties properties) {
         super(1.5f, -2.8f, AetheriumTiers.AETHERIUM, BlockTags.MINEABLE_WITH_PICKAXE, properties);
     }
@@ -33,7 +33,7 @@ public class AetherPickaxe  extends AOEEmberDiggerItem {
             return result;
 
         if (context.getPlayer() == null || context.getLevel().isClientSide()
-                || !context.getLevel().getBlockState(context.getClickedPos()).getTags().anyMatch(blockTagKey -> blockTagKey == blocks)
+                || context.getLevel().getBlockState(context.getClickedPos()).getTags().noneMatch(blockTagKey -> blockTagKey == blocks)
                 || AWConfig.getConfigSet(AWConfig.Tool.AETHER_PICKAXE).contains(context.getLevel().getBlockState(context.getClickedPos()).getBlock())
         )
             return result;

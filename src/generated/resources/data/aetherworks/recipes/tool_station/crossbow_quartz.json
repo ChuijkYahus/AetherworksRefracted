@@ -20,6 +20,6 @@
   "output": {
     "item": "aetherworks:crossbow_quartz"
   },
-  "temperature": 2800,
-  "temperature_rate": 10.0
+  "temperature": 2900,
+  "temperature_rate": 5.0
 }
