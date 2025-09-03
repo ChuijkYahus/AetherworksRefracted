@@ -7,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -36,13 +35,13 @@ public class TuningCylinderAugment extends AugmentBase {
         if (player.isCreative())
             return; //creative players don't drop anything!
 
-        Level world = (Level)event.getLevel();
         ItemStack heldStack = player.getMainHandItem();
-        BlockPos pos = event.getPos();
         if (AugmentUtil.hasHeat(heldStack)) {
+            Level world = (Level)event.getLevel();
+            BlockPos pos = event.getPos();
             int level = AugmentUtil.getAugmentLevel(heldStack, this);
-            if (!world.isClientSide() && level > 0 && world.getBlockState(pos).getTags().anyMatch(
-                    blockTagKey -> blockTagKey == BlockTags.MINEABLE_WITH_PICKAXE)) {
+            if (!world.isClientSide() && level > 0 && AWConfig.getConfigSet(AWConfig.Tool.TUNING_CYLINDER)
+                    .contains(world.getBlockState(pos).getBlock())) {
                 double resonance = EmbersAPI.getEmberResonance(heldStack);
                 if (world.random.nextInt(getChance(level, resonance)) == 0)
                     spawnGeode(world, pos);

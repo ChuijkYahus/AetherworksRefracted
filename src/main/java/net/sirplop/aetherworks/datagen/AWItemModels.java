@@ -37,6 +37,9 @@ public class AWItemModels extends ItemModelProvider {
         itemWithTexture(AWRegistry.TOOL_ROD_CRUDE, "tool_rod_crude");
         itemWithTexture(AWRegistry.TOOL_ROD, "tool_rod");
         itemWithTexture(AWRegistry.TOOL_ROD_INFUSED, "tool_rod");
+        itemWithTexture(AWRegistry.SHIELD_CORE_CRUDE, "shield_core_crude");
+        itemWithTexture(AWRegistry.SHIELD_CORE, "shield_core");
+        itemWithTexture(AWRegistry.SHIELD_CORE_INFUSED, "shield_core");
         itemWithTexture(AWRegistry.PICKAXE_HEAD_CRUDE, "generated", "tool/head/pickaxe_head_center", "tool/part/pickaxe_head_crude");
         itemWithTexture(AWRegistry.PICKAXE_HEAD, "generated", "tool/head/pickaxe_head_center", "tool/part/pickaxe_head");
         itemWithTexture(AWRegistry.PICKAXE_HEAD_AETHER, "generated", "tool/head/pickaxe_head_center", "tool/head/pickaxe_head_aether");
@@ -65,7 +68,6 @@ public class AWItemModels extends ItemModelProvider {
 
         itemWithTexture(AWRegistry.AETHER_ASPECTUS, "aspectus_aetherium");
         itemWithTexture(AWRegistry.AETHERIOMETER, "aetheriometer");
-        //itemWithTexture(AWRegistry.LEXICON, "lexicon"); //lexicon now in own model file because overrides
 
         layeredItem(AWRegistry.AETHER_EMBER_JAR, "item/generated", "aether_ember_jar_glass", "aether_ember_jar_shine", "aether_ember_jar");
         layeredItem(AWRegistry.AETHER_EMBER_CARTRIDGE, "item/generated", "aether_ember_cartridge_glass", "aether_ember_cartridge_shine", "aether_ember_cartridge");
@@ -74,6 +76,7 @@ public class AWItemModels extends ItemModelProvider {
         itemWithTexture(AWRegistry.TUNING_CYLINDER, "tuning_cylinder");
         itemWithTexture(AWRegistry.VOLANT_CALCIFIER, "volant_calcifier");
         itemWithTexture(AWRegistry.AGRARIAN_LINERS, "agrarian_liners");
+        itemWithTexture(AWRegistry.AETHERIAL_PLATING, "aether_plating");
 
         itemWithTexture(AWRegistry.GEODE_END, "geode_end");
         itemWithTexture(AWRegistry.GEODE_NETHER, "geode_nether");
@@ -94,8 +97,6 @@ public class AWItemModels extends ItemModelProvider {
         toolWithTexture(AWRegistry.HOE_AMETHYST, "tool/tool_base", "tool/hoe_amethyst");
 
         itemWithTexture(AWRegistry.AETHER_CROWN, "generated", "aether_crown", "aether_crown_overlay");
-        //potion gem now in own model file because overrides
-        //itemWithTexture(AWRegistry.POTION_GEM, "item/generated","potion_gem_overlay", "potion_gem");
     }
 
     public void itemWithModel(RegistryObject<? extends Item> registryObject, String model) {

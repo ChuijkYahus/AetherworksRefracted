@@ -1,8 +1,27 @@
 Changelog - Aetherworks Refracted
 =============================
+1.20.1-1.1.6
+-----------------------------
+_Additions_
+- Added the Aetherium Shield, a powerful defensive tool that will reflect enemy projectiles back at them!
+- Added the Aetherial Plating augment, an armor augment that increases your total armor and armor toughness by 10% per level.
+
+_Changes_
+- Tweaked some tool forge recipe temperature values.
+- Added a config list for blocks that can drop geodes when using the Tuning Cylinder.
+- Added Cobbled Suevite and Suevite to the cobblestone and stone item tags respectively.
+- Added the Aetherium Glass blocks to the glass and glass_blue item tags.
+
+_Fixes_
+- Misc. typo fixes in the codex.
+- Actually fixed meteorites creating holes in the ocean. Still has some weirdness with caves, but no more holes!!!
+- Named the aetherium forge edge block, so it appears correctly when using a WAILA-like mod.
+
+Note: how-to-art.txt was added to docs. This is instructions on how the aetherium sprites were made.
+
 1.20.1-1.1.5
 -----------------------------
-_Changes
+_Changes_
 - Updated Chinese translation.
 - Updated to Embers 1.4.0, fixing many deprecation issues.
 
@@ -16,7 +35,7 @@ _Fixes_
 -----------------------------
 _Additions_
 
-- Made the Automatic Hammer work on the Aetherium Anvil's easiest recipes (Difficult: Trivial)
+- Made the Automatic Hammer work on the Aetherium Anvil's easiest recipes (Difficulty: Trivial)
 - Added Aetherium Lexicons and the Lexicon Receptacle, allowing near-infinite single-item storage.
 - Added logo to mods section.
 

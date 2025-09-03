@@ -38,11 +38,16 @@ public class AWItemTags extends ItemTagsProvider {
         tag(EmbersItemTags.ASPECTUS).add(AWRegistry.AETHER_ASPECTUS.get());
 
         tag(Tags.Items.STORAGE_BLOCKS).add(AWRegistry.AETHERIUM_SHARD_BLOCK.get().asItem());
+        tag(Tags.Items.COBBLESTONE).add(AWRegistry.SUEVITE_COBBLE.get().asItem());
+        tag(Tags.Items.STONE).add(AWRegistry.SUEVITE.get().asItem());
+        tag(Tags.Items.GLASS).add(AWRegistry.GLASS_AETHERIUM.get().asItem(), AWRegistry.GLASS_AETHERIUM_BORDERLESS.get().asItem());
+        tag(Tags.Items.GLASS_BLUE).add(AWRegistry.GLASS_AETHERIUM.get().asItem(), AWRegistry.GLASS_AETHERIUM_BORDERLESS.get().asItem());
 
         tag(ItemTags.PICKAXES).add(AWRegistry.PICKAXE_EMBER.get(), AWRegistry.PICKAXE_AETHER.get());
         tag(ItemTags.AXES).add(AWRegistry.AXE_ENDER.get(), AWRegistry.AXE_SCULK.get());
         tag(ItemTags.SHOVELS).add(AWRegistry.SHOVEL_SLIME.get(), AWRegistry.SHOVEL_PRISMARINE.get());
         tag(ItemTags.HOES).add(AWRegistry.HOE_AMETHYST.get(), AWRegistry.HOE_HONEY.get());
+        tag(Tags.Items.TOOLS_SHIELDS).add(AWRegistry.AETHER_SHIELD.get());
 
         tag(EmbersItemTags.NORMAL_WALK_SPEED_TOOL).add(AWRegistry.CROSSBOW_QUARTZ.get(), AWRegistry.CROSSBOW_MAGMA.get());
         tag(EmbersItemTags.AUGMENTABLE_PROJECTILE_WEAPONS).add(AWRegistry.CROSSBOW_QUARTZ.get(), AWRegistry.CROSSBOW_MAGMA.get());

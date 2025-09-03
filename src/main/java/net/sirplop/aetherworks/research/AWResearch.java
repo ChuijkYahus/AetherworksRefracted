@@ -24,8 +24,8 @@ public class AWResearch {
     public static ResearchCategory subCategoryTools;
     public static ResearchCategory subCategoryAlchemy;
     public static ResearchBase meteor, gauge, amalgam, moon_harvester, focus_matrix, purify_aetherium, alchemy, forge, heat_dial, forge_heat, metal_former, anvil, tool_station, pearls, tools, lexicon;
-    public static ResearchBase pobs, pomd, aotr, aosa, sotc, soic, hovh, hohs, cosb, cosr, crown; //TOOLS
-    public static ResearchBase tuning_cylinder, volant_calcifier, agrarian_liners;
+    public static ResearchBase pobs, pomd, aotr, aosa, sotc, soic, hovh, hohs, cosb, cosr, crown, shield; //TOOLS
+    public static ResearchBase tuning_cylinder, volant_calcifier, agrarian_liners, aether_plate;
     public static ResearchBase moonsnare_jars, moonsnare_bulb;
     public static ResearchBase seething_aetherium, aetherium_glass, aspectus;
 
@@ -80,6 +80,8 @@ public class AWResearch {
         crown = new ResearchBase("aw.crown", new ItemStack(AWRegistry.AETHER_CROWN.get()), subCategoryTools.popGoodLocation()).addAncestor(toolsFake);
         crown.addPage(new ResearchShowItem("aw.crown_gem", new ItemStack(AWRegistry.POTION_GEM.get()), 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.POTION_GEM.get()))));
 
+        shield = new ResearchBase("aw.shield", new ItemStack(AWRegistry.AETHER_SHIELD.get()), subCategoryTools.popGoodLocation()).addAncestor(toolsFake);
+
         aspectus = new ResearchBase("aw.aspectus", new ItemStack(AWRegistry.AETHER_ASPECTUS.get()), 7, 4);
         seething_aetherium = new ResearchBase("aw.seething", new ItemStack(AWRegistry.SEETHING_AETHERIUM.FLUID_BUCKET.get()), 4, 4).addAncestor(aspectus);
         aetherium_glass = new ResearchShowItem("aw.glass", new ItemStack(AWRegistry.GLASS_AETHERIUM.get()), 2, 6).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.GLASS_AETHERIUM.get()), new ItemStack(AWRegistry.GLASS_AETHERIUM_BORDERLESS.get())));
@@ -90,6 +92,8 @@ public class AWResearch {
         ResearchManager.subCategoryProjectileAugments.addResearch(volant_calcifier);
         agrarian_liners = new ResearchBase("aw.agrarian_liners", new ItemStack(AWRegistry.AGRARIAN_LINERS.get()), ResearchManager.subCategoryArmorAugments.popGoodLocation()).addAncestor(ResearchManager.inferno_forge);
         ResearchManager.subCategoryArmorAugments.addResearch(agrarian_liners);
+        aether_plate = new ResearchBase("aw.aether_plate", new ItemStack(AWRegistry.AETHERIAL_PLATING.get()), ResearchManager.subCategoryArmorAugments.popGoodLocation()).addAncestor(ResearchManager.inferno_forge);
+        ResearchManager.subCategoryArmorAugments.addResearch(aether_plate);
 
         ItemStack fullJar = EmberStorageItem.withFill(AWRegistry.AETHER_EMBER_JAR.get(), ((EmberStorageItem)AWRegistry.AETHER_EMBER_JAR.get()).getCapacity());
         moonsnare_jars = new ResearchBase("aw.moonsnare_jars", fullJar, 6.5, 7).addAncestor(ResearchManager.jars);
@@ -111,7 +115,8 @@ public class AWResearch {
                 .addResearch(hohs)
                 .addResearch(cosb)
                 .addResearch(cosr)
-                .addResearch(crown);
+                .addResearch(crown)
+                .addResearch(shield);
 
         subCategoryAlchemy
                 .addResearch(aspectus)

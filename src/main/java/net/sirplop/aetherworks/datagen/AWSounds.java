@@ -20,6 +20,9 @@ public class AWSounds extends SoundDefinitionsProvider {
 
     //Sounds
     public static final RegistryObject<SoundEvent> FORGE_GROAN = registerSoundEvent("block.forge_groan");
+    public static final RegistryObject<SoundEvent> AETHER_SHIELD_RAISE_1 = registerSoundEvent("item.aethershield.raise1");
+    public static final RegistryObject<SoundEvent> AETHER_SHIELD_RAISE_2 = registerSoundEvent("item.aethershield.raise2");
+    public static final RegistryObject<SoundEvent> AETHER_SHIELD_LOWER = registerSoundEvent("item.aethershield.lower");
 
     public static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return AWRegistry.SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Aetherworks.MODID, name)));
@@ -28,11 +31,20 @@ public class AWSounds extends SoundDefinitionsProvider {
     public void registerSounds() {
         withSubtitle(FORGE_GROAN, definition().with(
                 sound(resource("forge_groan"))));
+        withSubtitle(AETHER_SHIELD_RAISE_1, definition().with(
+                sound(resource("shield_raise_1"))), "item.aethershield.raise");
+        withSubtitle(AETHER_SHIELD_RAISE_2, definition().with(
+                sound(resource("shield_raise_2"))), "item.aethershield.raise");
+        withSubtitle(AETHER_SHIELD_LOWER, definition().with(
+                sound(resource("shield_lower"))));
     }
 
 
     public void withSubtitle(RegistryObject<SoundEvent> soundEvent, SoundDefinition definition) {
         add(soundEvent, definition.subtitle("subtitles." + Aetherworks.MODID + "." + soundEvent.getId().getPath()));
+    }
+    public void withSubtitle(RegistryObject<SoundEvent> soundEvent, SoundDefinition definition, String overridePath) {
+        add(soundEvent, definition.subtitle("subtitles." + Aetherworks.MODID + "." + overridePath));
     }
     public ResourceLocation resource(String path) {
         return new ResourceLocation(Aetherworks.MODID, path);

@@ -29,6 +29,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.sirplop.aetherworks.blockentity.render.*;
 import net.sirplop.aetherworks.client.AWClientEvents;
 import net.sirplop.aetherworks.client.AWKeybinds;
+import net.sirplop.aetherworks.client.AetherShieldReflectHandler;
 import net.sirplop.aetherworks.compat.curios.CuriosCompat;
 import net.sirplop.aetherworks.datagen.*;
 import net.sirplop.aetherworks.entity.render.DummyAetherCrownRender;
@@ -70,6 +71,7 @@ public class Aetherworks
         AWRegistry.FLUIDTYPES.register(modEventBus);
         AWRegistry.FLUIDS.register(modEventBus);
         AWRegistry.ENTITY_TYPES.register(modEventBus);
+        AWRegistry.ATTRIBUTES.register(modEventBus);
         AWRegistry.BLOCK_ENTITY_TYPES.register(modEventBus);
         AWRegistry.CREATIVE_MODE_TAB.register(modEventBus);
         //AWRegistry.ENCHANTMENTS.register(modEventBus); //we're ignoring Aetheric for now - aetherium items will just self-repair.
@@ -145,6 +147,10 @@ public class Aetherworks
         public static void clientSetup(FMLClientSetupEvent event) {
             IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
             modEventBus.addListener(AWClientEvents::afterModelBake);
+
+            MinecraftForge.EVENT_BUS.addListener(AetherShieldReflectHandler::onUpdateEvent);
+            MinecraftForge.EVENT_BUS.addListener(AetherShieldReflectHandler::onLevelUnload);
+            MinecraftForge.EVENT_BUS.addListener(AetherShieldReflectHandler::onEntityLeaveEvent);
 
             event.enqueueWork(() -> {
                 AWItemProperties.register();

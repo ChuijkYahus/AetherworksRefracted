@@ -6,7 +6,6 @@ import com.rekindled.embers.datagen.EmbersItemTags;
 import com.rekindled.embers.datagen.EmbersRecipes;
 import com.rekindled.embers.recipe.*;
 import com.rekindled.embers.util.ConsumerWrapperBuilder;
-import com.rekindled.embers.util.FluidAmounts;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -59,6 +58,7 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
         AnvilAugmentRecipeBuilder.create(AWRegistry.TUNING_CYLINDER_AUGMENT).folder(EmbersRecipes.anvilFolder).tool(HeatIngredient.of(Ingredient.of(EmbersItemTags.AUGMENTABLE_TOOLS))).input(AWRegistry.TUNING_CYLINDER.get()).save(consumer);
         AnvilAugmentRecipeBuilder.create(AWRegistry.VOLANT_CALCIFIER_AUGMENT).folder(EmbersRecipes.anvilFolder).tool(HeatIngredient.of(projectileWeapons)).input(AWRegistry.VOLANT_CALCIFIER.get()).save(consumer);
         AnvilAugmentRecipeBuilder.create(AWRegistry.AGRARIAN_LINERS_AUGMENT).folder(EmbersRecipes.anvilFolder).tool(HeatIngredient.of(Ingredient.of(EmbersItemTags.AUGMENTABLE_BOOTS))).input(AWRegistry.AGRARIAN_LINERS.get()).save(consumer);
+        AnvilAugmentRecipeBuilder.create(AWRegistry.AETHERIAL_PLATING_AUGMENT).folder(EmbersRecipes.anvilFolder).tool(HeatIngredient.of(Ingredient.of(EmbersItemTags.AUGMENTABLE_ARMORS))).input(AWRegistry.AETHERIAL_PLATING.get()).save(consumer);
 
         //metal former
         MetalFormerRecipeBuilder.create(AWRegistry.INGOT_AETHER.get()).domain(Aetherworks.MODID).folder(metalFormerFolder).temperature(2100).craftTime(200).fluid(new FluidStack(AWRegistry.AETHERIUM_GAS.FLUID.get(), EmbersRecipes.INGOT_AMOUNT)).input(Ingredient.of(EmbersItemTags.DAWNSTONE_INGOT)).save(consumer);
@@ -81,6 +81,7 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
         AetheriumAnvilRecipeBuilder.create(AWRegistry.CROSSBOW_FRAME_CRUDE.get()).id(AWRegistry.CROSSBOW_FRAME.getId()).domain(Aetherworks.MODID).folder(anvilFolder).temperatureRange(2600, 3000).difficulty(5).hitInfo(35, 70).result(AWRegistry.CROSSBOW_FRAME.get(), 1).save(consumer);
         AetheriumAnvilRecipeBuilder.create(AWRegistry.CROSSBOW_LIMBS_CRUDE.get()).id(AWRegistry.CROSSBOW_LIMBS.getId()).domain(Aetherworks.MODID).folder(anvilFolder).temperatureRange(2600, 3000).difficulty(5).hitInfo(35, 70).result(AWRegistry.CROSSBOW_LIMBS.get(), 1).save(consumer);
         AetheriumAnvilRecipeBuilder.create(AWRegistry.AETHER_CROWN_CRUDE.get()).id(AWRegistry.AETHER_CROWN_MUNDANE.getId()).domain(Aetherworks.MODID).folder(anvilFolder).temperatureRange(2500, 2900).difficulty(6).hitInfo(30, 80).result(AWRegistry.AETHER_CROWN_MUNDANE.get(), 1).save(consumer);
+        AetheriumAnvilRecipeBuilder.create(AWRegistry.SHIELD_CORE_CRUDE.get()).id(AWRegistry.SHIELD_CORE.getId()).domain(Aetherworks.MODID).folder(anvilFolder).temperatureRange(2200, 2500).difficulty(5).hitInfo(25, 90).result(AWRegistry.SHIELD_CORE.get(), 1).save(consumer);
 
         AetheriumAnvilRecipeBuilder.create(AWRegistry.GEODE_BASIC.get()).domain(Aetherworks.MODID).folder(anvilFolder).temperatureRange(700, 2100).difficulty(1).hitInfo(1, 10)
                 .result(Items.STONE, 10)
@@ -218,8 +219,9 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
         ToolStationRecipeBuilder.create(AWRegistry.SHOVEL_SLIME.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2800).temperatureRate(10).input(null, Ingredient.of(AWRegistry.SHOVEL_HEAD_SLIME.get()), Ingredient.of(AWRegistry.AETHER_PEARL.get()), Ingredient.of(AWRegistry.TOOL_ROD_INFUSED.get()), null).save(consumer);
         ToolStationRecipeBuilder.create(AWRegistry.HOE_AMETHYST.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2800).temperatureRate(10).input(null, Ingredient.of(AWRegistry.HOE_HEAD_AMETHYST.get()), Ingredient.of(AWRegistry.AETHER_PEARL.get()), Ingredient.of(AWRegistry.TOOL_ROD_INFUSED.get()), null).save(consumer);
         ToolStationRecipeBuilder.create(AWRegistry.HOE_HONEY.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2800).temperatureRate(10).input(null, Ingredient.of(AWRegistry.HOE_HEAD_HONEY.get()), Ingredient.of(AWRegistry.AETHER_PEARL.get()), Ingredient.of(AWRegistry.TOOL_ROD_INFUSED.get()), null).save(consumer);
-        ToolStationRecipeBuilder.create(AWRegistry.CROSSBOW_QUARTZ.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2800).temperatureRate(10).input(Ingredient.of(AWRegistry.CROSSBOW_LIMBS_QUARTZ.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(AWRegistry.AETHER_PEARL.get()), Ingredient.of(Items.LEVER), Ingredient.of(AWRegistry.CROSSBOW_FRAME_INFUSED.get())).save(consumer);
-        ToolStationRecipeBuilder.create(AWRegistry.CROSSBOW_MAGMA.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2800).temperatureRate(10).input(Ingredient.of(AWRegistry.CROSSBOW_LIMBS_MAGMA.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(AWRegistry.AETHER_PEARL.get()), Ingredient.of(Items.LEVER), Ingredient.of(AWRegistry.CROSSBOW_FRAME_INFUSED.get())).save(consumer);
+        ToolStationRecipeBuilder.create(AWRegistry.CROSSBOW_QUARTZ.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2900).temperatureRate(5).input(Ingredient.of(AWRegistry.CROSSBOW_LIMBS_QUARTZ.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(AWRegistry.AETHER_PEARL.get()), Ingredient.of(Items.LEVER), Ingredient.of(AWRegistry.CROSSBOW_FRAME_INFUSED.get())).save(consumer);
+        ToolStationRecipeBuilder.create(AWRegistry.CROSSBOW_MAGMA.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2900).temperatureRate(5).input(Ingredient.of(AWRegistry.CROSSBOW_LIMBS_MAGMA.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(AWRegistry.AETHER_PEARL.get()), Ingredient.of(Items.LEVER), Ingredient.of(AWRegistry.CROSSBOW_FRAME_INFUSED.get())).save(consumer);
+        ToolStationRecipeBuilder.create(AWRegistry.AETHER_SHIELD.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2850).temperatureRate(10).input(Ingredient.of(AWRegistry.AETHERIUM_LENS.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(AWRegistry.AETHER_PEARL.get()), Ingredient.of(AWRegistry.SHIELD_CORE_INFUSED.get()), Ingredient.of(AWRegistry.AETHERIUM_LENS.get())).save(consumer);
 
         ToolStationRecipeBuilder.create(AWRegistry.AETHER_EMBER_JAR.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2500).temperatureRate(15).input(Ingredient.of(AWRegistry.AETHER_SHARD.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(RegistryManager.EMBER_JAR.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(AWRegistry.AETHER_SHARD.get())).save(consumer);
         ToolStationRecipeBuilder.create(AWRegistry.AETHER_EMBER_CARTRIDGE.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2500).temperatureRate(15).input(Ingredient.of(AWRegistry.AETHER_SHARD.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(RegistryManager.EMBER_CARTRIDGE.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(AWRegistry.AETHER_SHARD.get())).save(consumer);
@@ -257,6 +259,10 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
         AlchemyRecipeBuilder.create(AWRegistry.SEETHING_AETHERIUM.FLUID_BUCKET.get()).tablet(AWRegistry.AETHERIUM_GAS.FLUID_BUCKET.get()).folder(EmbersRecipes.alchemyFolder)
                 .inputs(RegistryManager.ALCHEMICAL_WASTE.get(), RegistryManager.ALCHEMICAL_WASTE.get(),RegistryManager.ALCHEMICAL_WASTE.get(), Items.GHAST_TEAR, Items.GHAST_TEAR, Items.GHAST_TEAR)
                 .aspects(EmbersItemTags.LEAD_ASPECTUS, EmbersItemTags.IRON_ASPECTUS, AWItemTags.AETHERIUM_ASPECTUS).save(consumer);
+        AlchemyRecipeBuilder.create(AWRegistry.AETHERIAL_PLATING.get()).tablet(AWRegistry.PLATE_AETHER.get()).folder(EmbersRecipes.alchemyFolder)
+                .inputs(RegistryManager.ASHEN_FABRIC.get(), RegistryManager.ASHEN_FABRIC.get(), RegistryManager.ASHEN_FABRIC.get(), RegistryManager.ADHESIVE.get(), AWRegistry.AETHER_AMALGAM.get())
+                .aspects(EmbersItemTags.SILVER_ASPECTUS, AWItemTags.AETHERIUM_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS).save(consumer);
+
 
         AlchemyRecipeBuilder.create(AWRegistry.TOOL_ROD_INFUSED.get()).tablet(AWRegistry.TOOL_ROD.get()).folder(EmbersRecipes.alchemyFolder)
                 .inputs(RegistryManager.EMBER_GRIT.get(), RegistryManager.ASH.get(), RegistryManager.EMBER_GRIT.get(), RegistryManager.ASH.get())
@@ -303,6 +309,9 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
         AlchemyRecipeBuilder.create(AWRegistry.AETHER_CROWN.get()).tablet(AWRegistry.AETHER_CROWN_MUNDANE.get()).folder(EmbersRecipes.alchemyFolder)
                 .inputs(AWRegistry.AETHER_AMALGAM.get(), AWRegistry.AETHER_AMALGAM.get(), AWRegistry.AETHER_PEARL.get(), RegistryManager.ELDRITCH_INSIGNIA.get(), AWRegistry.AETHER_AMALGAM.get())
                 .aspects(EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS, AWItemTags.AETHERIUM_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
+        AlchemyRecipeBuilder.create(AWRegistry.SHIELD_CORE_INFUSED.get()).tablet(AWRegistry.SHIELD_CORE.get()).folder(EmbersRecipes.alchemyFolder)
+                .inputs(RegistryManager.DAWNSTONE_ASPECTUS.get(), RegistryManager.DAWNSTONE_ASPECTUS.get(), AWRegistry.FOCUS_CRYSTAL.get(), AWRegistry.FOCUS_CRYSTAL.get())
+                .aspects(EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS, AWItemTags.AETHERIUM_ASPECTUS).save(consumer);
 
         //deco
         decoRecipes(AWRegistry.SUEVITE_COBBLE_DECO, consumer);
@@ -394,6 +403,14 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
                 .define('P', AWRegistry.PLATE_AETHER.get())
                 .unlockedBy("has_aether_ingot", has(AWRegistry.INGOT_AETHER.get()))
                 .save(consumer, getResource("aether_crown_crude"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AWRegistry.SHIELD_CORE_CRUDE.get())
+                .pattern("III")
+                .pattern("IDI")
+                .pattern(" I ")
+                .define('I', AWRegistry.INGOT_AETHER.get())
+                .define('D', AWRegistry.GEM_AETHER.get())
+                .unlockedBy("has_aether_ingot", has(AWRegistry.INGOT_AETHER.get()))
+                .save(consumer, getResource("aether_shield_crude"));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AWRegistry.CONTROL_MATRIX.get())
                 .pattern("DFD")
                 .pattern("DID")
