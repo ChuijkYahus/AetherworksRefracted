@@ -1,5 +1,20 @@
 Changelog - Aetherworks Refracted
 =============================
+1.20.1-1.1.7
+-----------------------------
+_Additions_
+- Added a new codex page to the Moonlight Harvester page with a picture to help understand how to build the multiblock.
+
+_Changes_
+- Tweaked Moonlight Amplifier model and texture.
+- Tweaked Refraction Prism model and texture.
+
+_Fixes_
+- Fixed some item name references in the Moonlight Harvester codex entry.
+- Added tags to their appropriate parent tags.
+- Added the Aetherium Block and Aetherium Shard Block to the storage_blocks tag.
+- Made the Moonsnare Bulb recipe check if curios is installed to stop it from throwing a (harmless) error.
+
 1.20.1-1.1.6
 -----------------------------
 _Additions_

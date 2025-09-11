@@ -22,10 +22,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.CompoundIngredient;
-import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.common.crafting.conditions.NotCondition;
-import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
+import net.minecraftforge.common.crafting.conditions.*;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.RegistryObject;
 import net.sirplop.aetherworks.AWRegistry;
@@ -225,7 +222,8 @@ public class AWRecipes extends RecipeProvider implements IConditionBuilder {
 
         ToolStationRecipeBuilder.create(AWRegistry.AETHER_EMBER_JAR.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2500).temperatureRate(15).input(Ingredient.of(AWRegistry.AETHER_SHARD.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(RegistryManager.EMBER_JAR.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(AWRegistry.AETHER_SHARD.get())).save(consumer);
         ToolStationRecipeBuilder.create(AWRegistry.AETHER_EMBER_CARTRIDGE.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2500).temperatureRate(15).input(Ingredient.of(AWRegistry.AETHER_SHARD.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(RegistryManager.EMBER_CARTRIDGE.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(AWRegistry.AETHER_SHARD.get())).save(consumer);
-        ToolStationRecipeBuilder.create(CuriosCompat.AETHER_EMBER_BULB.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2500).temperatureRate(15).input(Ingredient.of(AWRegistry.AETHER_SHARD.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(com.rekindled.embers.compat.curios.CuriosCompat.EMBER_BULB.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(AWRegistry.AETHER_SHARD.get())).save(consumer);
+        ToolStationRecipeBuilder.create(CuriosCompat.AETHER_EMBER_BULB.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2500).temperatureRate(15).input(Ingredient.of(AWRegistry.AETHER_SHARD.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(com.rekindled.embers.compat.curios.CuriosCompat.EMBER_BULB.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(AWRegistry.AETHER_SHARD.get()))
+                .save(ConsumerWrapperBuilder.wrap().addCondition(new ModLoadedCondition("curios")).build(consumer));
 
         ToolStationRecipeBuilder.create(AWRegistry.LEXICON.get()).domain(Aetherworks.MODID).folder(toolStationFolder).temperature(2700).temperatureRate(30).input(Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(AWRegistry.AETHER_PEARL.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE), Ingredient.of(EmbersItemTags.DAWNSTONE_PLATE)).save(consumer);
 

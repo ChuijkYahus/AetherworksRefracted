@@ -25,23 +25,42 @@ public class AWItemTags extends ItemTagsProvider {
         super(pOutput, pLookupProvider, pBlockTags, Aetherworks.MODID, existingFileHelper);
     }
     public static final TagKey<Item> RAW_AETHERIUM = ItemTags.create(new ResourceLocation("forge", "raw_materials/aetherium"));
+    public static final TagKey<Item> BLOCK_AETHERIUM = ItemTags.create(new ResourceLocation("forge", "storage_blocks/aetherium"));
+    public static final TagKey<Item> BLOCK_SHARDS = ItemTags.create(new ResourceLocation("forge", "storage_blocks/raw_aetherium"));
     public static final TagKey<Item> AETHERIUM_INGOT = ItemTags.create(new ResourceLocation("forge", "ingots/aetherium"));
     public static final TagKey<Item> AETHERIUM_PLATE = ItemTags.create(new ResourceLocation("forge", "plates/aetherium"));
     public static final TagKey<Item> AETHERIUM_ASPECTUS = ItemTags.create(new ResourceLocation(Embers.MODID, "aspectus/aetherium"));
 
+
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        tag(Tags.Items.INGOTS).addTag(AETHERIUM_INGOT);
+        tag(EmbersItemTags.PLATES).addTag(AETHERIUM_PLATE);
+        tag(Tags.Items.RAW_MATERIALS).addTag((RAW_AETHERIUM));
+
         tag(RAW_AETHERIUM).add(AWRegistry.AETHER_SHARD.get());
         tag(AETHERIUM_INGOT).add(AWRegistry.INGOT_AETHER.get());
         tag(AETHERIUM_PLATE).add(AWRegistry.PLATE_AETHER.get());
         tag(AETHERIUM_ASPECTUS).add(AWRegistry.AETHER_ASPECTUS.get());
         tag(EmbersItemTags.ASPECTUS).add(AWRegistry.AETHER_ASPECTUS.get());
 
-        tag(Tags.Items.STORAGE_BLOCKS).add(AWRegistry.AETHERIUM_SHARD_BLOCK.get().asItem());
+        tag(Tags.Items.ORES).add(AWRegistry.AETHERIUM_ORE.get().asItem());
+        tag(Tags.Items.STORAGE_BLOCKS).add(
+                AWRegistry.AETHERIUM_SHARD_BLOCK.get().asItem(),
+                AWRegistry.AETHERIUM_BLOCK.get().asItem()
+        );
+        tag(BLOCK_AETHERIUM).add(AWRegistry.AETHERIUM_BLOCK.get().asItem());
+        tag(BLOCK_SHARDS).add(AWRegistry.AETHERIUM_SHARD_BLOCK.get().asItem());
         tag(Tags.Items.COBBLESTONE).add(AWRegistry.SUEVITE_COBBLE.get().asItem());
         tag(Tags.Items.STONE).add(AWRegistry.SUEVITE.get().asItem());
-        tag(Tags.Items.GLASS).add(AWRegistry.GLASS_AETHERIUM.get().asItem(), AWRegistry.GLASS_AETHERIUM_BORDERLESS.get().asItem());
-        tag(Tags.Items.GLASS_BLUE).add(AWRegistry.GLASS_AETHERIUM.get().asItem(), AWRegistry.GLASS_AETHERIUM_BORDERLESS.get().asItem());
+        tag(Tags.Items.GLASS).add(
+                AWRegistry.GLASS_AETHERIUM.get().asItem(),
+                AWRegistry.GLASS_AETHERIUM_BORDERLESS.get().asItem()
+        );
+        tag(Tags.Items.GLASS_BLUE).add(
+                AWRegistry.GLASS_AETHERIUM.get().asItem(),
+                AWRegistry.GLASS_AETHERIUM_BORDERLESS.get().asItem()
+        );
 
         tag(ItemTags.PICKAXES).add(AWRegistry.PICKAXE_EMBER.get(), AWRegistry.PICKAXE_AETHER.get());
         tag(ItemTags.AXES).add(AWRegistry.AXE_ENDER.get(), AWRegistry.AXE_SCULK.get());

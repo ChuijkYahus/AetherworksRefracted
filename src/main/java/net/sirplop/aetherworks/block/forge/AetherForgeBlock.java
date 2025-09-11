@@ -89,14 +89,15 @@ public class AetherForgeBlock extends DoubleTallMachineBlock implements SimpleWa
         if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER)
             return;
         for (MechEdge edge : MechEdge.values()) {
-            BlockState edgeState = AWRegistry.AETHER_FORGE_EDGE.get().defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(level.getFluidState(pos.subtract(edge.centerPos)).getType() == Fluids.WATER))
+            BlockState edgeState = AWRegistry.AETHER_FORGE_EDGE.get().defaultBlockState()
+                    .setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(level.getFluidState(pos.subtract(edge.centerPos)).getType() == Fluids.WATER))
                     .setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER);
-            level.setBlock(pos.subtract(edge.centerPos), edgeState.setValue(MechEdgeBlockBase.EDGE, edge), UPDATE_ALL);
+            level.setBlock(pos.subtract(edge.centerPos), edgeState.setValue(MechEdgeBlockBase.EDGE, edge), UPDATE_ALL_IMMEDIATE);
         }
         BlockState topState = AWRegistry.AETHER_FORGE.get().defaultBlockState()
                 .setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(level.getFluidState(pos.above()).getType() == Fluids.WATER))
                 .setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER);
-        level.setBlock(pos.above(), topState, UPDATE_ALL);
+        level.setBlock(pos.above(), topState, UPDATE_ALL_IMMEDIATE);
     }
 
     @Override

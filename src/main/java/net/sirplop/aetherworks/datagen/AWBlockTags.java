@@ -5,8 +5,11 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.sirplop.aetherworks.AWRegistry;
@@ -24,6 +27,8 @@ public class AWBlockTags  extends BlockTagsProvider {
     public static final TagKey<Block> SCULK_AXE_MINEABLE = BlockTags.create(new ResourceLocation(Aetherworks.MODID, "sculk_axe_mineable"));
     public static final TagKey<Block> FORGE_HEATER_BELOW = BlockTags.create(new ResourceLocation(Aetherworks.MODID, "forge_heater_below"));
     public static final TagKey<Block> FORGE_COOLER_BELOW = BlockTags.create(new ResourceLocation(Aetherworks.MODID, "forge_cooler_below"));
+    public static final TagKey<Block> BLOCK_AETHERIUM = BlockTags.create(new ResourceLocation("forge", "storage_blocks/aetherium"));
+    public static final TagKey<Block> BLOCK_SHARDS = BlockTags.create(new ResourceLocation("forge", "storage_blocks/raw_aetherium"));
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
@@ -82,6 +87,10 @@ public class AWBlockTags  extends BlockTagsProvider {
         tag(EmbersBlockTags.MECH_CORE_PROXYABLE).add(
                 AWRegistry.LEXICON_RECEPTACLE.get()
         );
+
+        tag(BLOCK_AETHERIUM).add(AWRegistry.AETHERIUM_BLOCK.get());
+        tag(BLOCK_SHARDS).add(AWRegistry.AETHERIUM_SHARD_BLOCK.get());
+        tag(Tags.Blocks.STORAGE_BLOCKS).add(AWRegistry.AETHERIUM_BLOCK.get(), AWRegistry.AETHERIUM_SHARD_BLOCK.get());
 
         tag(BlockTags.WITHER_IMMUNE).add(AWRegistry.GLASS_AETHERIUM.get());
         getTag("forge:glass").add(AWRegistry.GLASS_AETHERIUM.get(), AWRegistry.GLASS_AETHERIUM_BORDERLESS.get());

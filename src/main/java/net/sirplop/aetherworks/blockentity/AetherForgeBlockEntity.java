@@ -249,12 +249,13 @@ public class AetherForgeBlockEntity extends BlockEntity implements IForge, IExtr
         }
 
         pos = pos.below();
-        for (MechEdgeBlockBase.MechEdge edge : MechEdgeBlockBase.MechEdge.values())
-        { //scan the sides for upgrades and set connections appropriately
+        for (MechEdgeBlockBase.MechEdge edge : MechEdgeBlockBase.MechEdge.values()) { //scan the sides for upgrades and set connections appropriately
             BlockPos block = pos.subtract(edge.centerPos);
             BlockState forgeState = getLevel().getBlockState(block);
             if (forgeState.isAir())
                 break; //we're breaking the forge, kill it!
+            if (!forgeState.getBlock().equals(AWRegistry.AETHER_FORGE_EDGE.get()))
+                continue; //this isn't a forge block, which means something strange is happening here! (probably placed it on snow or something)
             if (edge.corner) {
                 boolean change = false;
                 BooleanProperty xState = edge.centerPos.getX() < 0 ? BlockStateProperties.EAST : BlockStateProperties.WEST;

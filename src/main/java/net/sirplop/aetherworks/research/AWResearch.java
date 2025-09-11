@@ -1,5 +1,6 @@
 package net.sirplop.aetherworks.research;
 
+import com.rekindled.embers.Embers;
 import com.rekindled.embers.item.EmberStorageItem;
 import com.rekindled.embers.research.ResearchBase;
 import com.rekindled.embers.research.ResearchCategory;
@@ -19,6 +20,9 @@ import net.sirplop.aetherworks.compat.curios.CuriosCompat;
 public class AWResearch {
     public static final ResourceLocation PAGE_ICONS = new ResourceLocation(Aetherworks.MODID, "textures/gui/codex_index_icons.png");
     public static final double PAGE_ICON_SIZE = 48;
+
+    public static ResearchShowImage.DisplayImage moon_harvester_image = new ResearchShowImage.DisplayImage(new ResourceLocation(Aetherworks.MODID, "textures/gui/moonlight_harvester.png"),
+            -21, 48, 0, 0, 160, 128, 256, 256);
 
     public static ResearchCategory categoryAether;
     public static ResearchCategory subCategoryTools;
@@ -42,6 +46,7 @@ public class AWResearch {
         moon_harvester = new ResearchBase("aw.moon_harvester", new ItemStack(AWRegistry.PRISM.get()), 12, 7).addAncestor(amalgam);
         moon_harvester.addPage(new ResearchShowItem("aw.moon_harvester_2", ItemStack.EMPTY, 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.PRISM.get()), new ItemStack(AWRegistry.PRISM_SUPPORT.get()), new ItemStack(AWRegistry.MOONLIGHT_AMPLIFIER.get()))));
         moon_harvester.addPage(new ResearchShowItem("aw.moon_harvester_3", ItemStack.EMPTY, 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.PRISM.get()), new ItemStack(AWRegistry.PRISM_SUPPORT.get()), new ItemStack(AWRegistry.MOONLIGHT_AMPLIFIER.get()))));
+        moon_harvester.addPage(new ResearchShowImage("aw.moon_harvester_4", ItemStack.EMPTY, 0, 0).addImage(moon_harvester_image));
         focus_matrix = new ResearchBase("aw.focus_matrix", new ItemStack(AWRegistry.CONTROL_MATRIX.get()), 9, 6).addAncestor(moon_harvester);
         purify_aetherium = new ResearchBase("aw.purify_aetherium", new ItemStack(AWRegistry.AETHERIUM_GAS.FLUID_BUCKET.get()), 7, 7).addAncestor(moon_harvester);
         purify_aetherium.addPage(new ResearchShowItem("aw.purify_aetherium_2", ItemStack.EMPTY, 0, 0).addItem(new ResearchShowItem.DisplayItem(new ItemStack(AWRegistry.AETHERIUM_GAS.FLUID_BUCKET.get()), new ItemStack(AWRegistry.SUEVITE_COBBLE.get()), new ItemStack(Items.WATER_BUCKET))));
