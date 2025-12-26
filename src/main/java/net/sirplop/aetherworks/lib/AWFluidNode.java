@@ -97,7 +97,7 @@ public class AWFluidNode extends AWHarvestNode {
                     continue;
                 }
                 BlockState state = level.getBlockState(offset);
-                if (state.isAir() || state.canBeReplaced(targetfluid))
+                if (state.isAir() || state.canBeReplaced())
                 {
                     nodes.add(0, offset);
                 }

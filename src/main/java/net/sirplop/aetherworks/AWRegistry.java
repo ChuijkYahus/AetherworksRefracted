@@ -147,21 +147,21 @@ public class AWRegistry {
     public static final RegistryObject<Item> AETHERIOMETER = ITEMS.register("aetheriometer", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Block> HEAT_DIAL = registerBlock("heat_dial", () -> new HeatDialBlock(Properties.copy(RegistryManager.EMBER_DIAL.get())));
-    public static final RegistryObject<Block> PRISM = registerBlock("prism", () -> new PrismBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).strength(4, 8).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> PRISM_SUPPORT = registerBlock("prism_support", () -> new PrismSupportBlock(Properties.copy(RegistryManager.CAMINITE_BRICKS.get()).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> MOONLIGHT_AMPLIFIER = registerBlock("moonlight_amplifier", () -> new MoonlightAmplifierBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).requiresCorrectToolForDrops().strength(3, 6).sound(SoundType.GLASS)));
-    public static final RegistryObject<Block> CONTROL_MATRIX = registerBlock("aether_prism_controller_matrix", () -> new ControlMatrixBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).strength(3, 6).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> PRISM = registerBlock("prism", () -> new PrismBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).forceSolidOn().strength(4, 8).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> PRISM_SUPPORT = registerBlock("prism_support", () -> new PrismSupportBlock(Properties.copy(RegistryManager.CAMINITE_BRICKS.get()).forceSolidOn().requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> MOONLIGHT_AMPLIFIER = registerBlock("moonlight_amplifier", () -> new MoonlightAmplifierBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).forceSolidOn().requiresCorrectToolForDrops().strength(3, 6).sound(SoundType.GLASS)));
+    public static final RegistryObject<Block> CONTROL_MATRIX = registerBlock("aether_prism_controller_matrix", () -> new ControlMatrixBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).forceSolidOn().strength(3, 6).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> AETHER_FORGE = registerBlock("aether_forge", () -> new AetherForgeBlock(Properties.of().mapColor(MapColor.WOOD).pushReaction(PushReaction.BLOCK).sound(EmbersSounds.MULTIBLOCK_CENTER).requiresCorrectToolForDrops().strength(1.6f).noOcclusion(), EmbersSounds.MULTIBLOCK_EXTRA));
     public static final RegistryObject<Block> AETHER_FORGE_EDGE = BLOCKS.register("aether_forge_edge", () -> new AetherForgeEdgeBlock(Properties.of().mapColor(MapColor.WOOD).sound(EmbersSounds.MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
-    public static final RegistryObject<Block> FORGE_VENT = registerBlock("forge_vent", () -> new ForgeVentBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).strength(3, 10).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> FORGE_HEATER = registerBlock("forge_heater", () -> new ForgeHeaterBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).strength(3, 10).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> FORGE_COOLER = registerBlock("forge_cooler", () -> new ForgeCoolerBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).strength(3, 10).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> FORGE_ANVIL = registerBlock("forge_anvil", () -> new AetheriumAnvilBlock(Properties.copy(RegistryManager.DAWNSTONE_ANVIL.get()).strength(3, 10).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> FORGE_METAL_FORMER = registerBlock("forge_metal_former", () -> new MetalFormerBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).strength(3, 10).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> FORGE_TOOL_STATION = registerBlock("forge_tool_station", () -> new ForgeToolStation(Properties.copy(RegistryManager.FLUID_VESSEL.get()).requiresCorrectToolForDrops().strength(3, 6)));
+    public static final RegistryObject<Block> FORGE_VENT = registerBlock("forge_vent", () -> new ForgeVentBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).forceSolidOn().strength(3, 10).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> FORGE_HEATER = registerBlock("forge_heater", () -> new ForgeHeaterBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).forceSolidOn().strength(3, 10).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> FORGE_COOLER = registerBlock("forge_cooler", () -> new ForgeCoolerBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).forceSolidOn().strength(3, 10).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> FORGE_ANVIL = registerBlock("forge_anvil", () -> new AetheriumAnvilBlock(Properties.copy(RegistryManager.DAWNSTONE_ANVIL.get()).forceSolidOn().strength(3, 10).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> FORGE_METAL_FORMER = registerBlock("forge_metal_former", () -> new MetalFormerBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).forceSolidOn().strength(3, 10).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> FORGE_TOOL_STATION = registerBlock("forge_tool_station", () -> new ForgeToolStation(Properties.copy(RegistryManager.FLUID_VESSEL.get()).forceSolidOn().requiresCorrectToolForDrops().strength(3, 6)));
 
-    public static final RegistryObject<Block> LEXICON_RECEPTACLE = registerBlock("lexicon_receptacle", () -> new LexiconReceptacleBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).requiresCorrectToolForDrops().strength(3, 12)));
+    public static final RegistryObject<Block> LEXICON_RECEPTACLE = registerBlock("lexicon_receptacle", () -> new LexiconReceptacleBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).forceSolidOn().requiresCorrectToolForDrops().strength(3, 12)));
 
     public static final RegistryObject<Block> SUEVITE = registerBlock("suevite", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(2.5f)));
     public static final RegistryObject<Block> SUEVITE_COBBLE = registerBlock("suevite_cobble", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().strength(1.6f)));
