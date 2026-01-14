@@ -1,5 +1,21 @@
 Changelog - Aetherworks Refracted
 =============================
+1.20.1-1.1.8
+-----------------------------
+_Additions_
+- Added config option for Moongaze damage strength.
+- Made Tuning Cylinder geode drops data-driven via biome tags.
+
+_Changes_
+- Updated Chinese translation.
+- Updated to Embers 1.4.7
+- Moved all block configs to tags instead.
+
+_Fixes_
+- Added forceSolidOn to all smaller blocks that were supposed to be considered solid.
+- The Shovel of the Timeless Cascades now uses a different replacement check, so it will not replace non-solid blocks.
+- Fixed the aetherium shield running posestack code on servers, causing crashes.
+
 1.20.1-1.1.7
 -----------------------------
 _Additions_

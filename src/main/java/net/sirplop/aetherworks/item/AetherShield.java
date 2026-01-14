@@ -92,7 +92,7 @@ public class AetherShield extends ShieldItem {
     @Override
     public void onUseTick(@NotNull Level lvl, @NotNull LivingEntity entity, @NotNull ItemStack pStack, int pRemainingUseDuration) {
         if (!(lvl instanceof ServerLevel level))
-            return; //only do this check on server.
+            return; //only do this check on client.
         //find the area of effect
 
         Player player = null;
@@ -108,12 +108,12 @@ public class AetherShield extends ShieldItem {
         Vec3 eyePos = entity.getEyePosition();
         Vec3 middlePos = eyePos.add(dir);
 
-        PoseStack poseStack = new PoseStack();
-        poseStack.translate(middlePos.x, middlePos.y, middlePos.z);
-        poseStack.mulPose(Axis.ZP.rotationDegrees(0));
-        poseStack.mulPose(Axis.YP.rotation((float)-Math.toRadians(entity.getYRot())));
-        poseStack.mulPose(Axis.XP.rotation((float)Math.toRadians(entity.getXRot())));
-        Matrix4f matrix4f = poseStack.last().pose();
+        //construct the region the shield is blocking
+        Matrix4f matrix4f = new Matrix4f();
+        matrix4f.setTranslation((float) middlePos.x, (float) middlePos.y, (float) middlePos.z);
+        matrix4f.rotate(Axis.ZP.rotationDegrees(0));
+        matrix4f.rotate(Axis.YP.rotationDegrees((float)-Math.toRadians(entity.getYRot())));
+        matrix4f.rotate(Axis.XP.rotationDegrees((float)Math.toRadians(entity.getXRot())));
 
         Vector3f lbb = matrix4f.transformPosition(new Vector3f(-1f, -1.5f, 0f));
         Vector3f rtf = matrix4f.transformPosition(new Vector3f(1f, 1.5f, 0.75f));
@@ -126,33 +126,33 @@ public class AetherShield extends ShieldItem {
         List<Entity> list = level.getEntities(entity, aabb,
                 ent -> ent instanceof Projectile proj && ent.position().closerThan(eyePos, 5) && proj.getOwner() != entity && !ent.getTags().contains(SHIELD_TAG));
         int interact = 0;
-        for (Entity destroy : list) {
+        for (Entity projectile : list) {
             if (player != null && !consumeEmbers(player, 2)){
                 break; //we're a player, and we're outta ember!
             }
 
-            destroy.addTag(SHIELD_TAG);
+            projectile.addTag(SHIELD_TAG);
             interact++;
 
-            float speed = Math.max(0.1f, (float)destroy.getDeltaMovement().length());
+            float speed = Math.max(0.1f, (float)projectile.getDeltaMovement().length());
             level.sendParticles(SPARK,
-                    destroy.getX(), destroy.getY(), destroy.getZ(),
+                    projectile.getX(), projectile.getY(), projectile.getZ(),
                     5, 0, 0, 0, speed);
             level.sendParticles(GLOW,
-                    destroy.getX(), destroy.getY(), destroy.getZ(),
+                    projectile.getX(), projectile.getY(), projectile.getZ(),
                     10, 0.1, 0.1, 0.1, speed * 0.5);
-            level.playSound(null, destroy.getX(), destroy.getY(), destroy.getZ(), EmbersSounds.ASHEN_AMULET_BURN.get(), SoundSource.PLAYERS, 0.5f, Misc.random.nextFloat()*0.5f + 0.2f);
+            level.playSound(null, projectile.getX(), projectile.getY(), projectile.getZ(), EmbersSounds.ASHEN_AMULET_BURN.get(), SoundSource.PLAYERS, 0.5f, Misc.random.nextFloat()*0.5f + 0.2f);
 
-            Vec3 deltaMotion = destroy.getDeltaMovement().scale(-1);
-            float yRot = destroy.getYRot() + 180.0F;
-            float yRotO = destroy.yRotO + 180;
+            Vec3 deltaMotion = projectile.getDeltaMovement().scale(-1);
+            float yRot = projectile.getYRot() + 180.0F;
+            float yRotO = projectile.yRotO + 180;
 
-            destroy.setDeltaMovement(deltaMotion);
-            destroy.setYRot(yRot);
-            destroy.yRotO = yRotO;
+            projectile.setDeltaMovement(deltaMotion);
+            projectile.setYRot(yRot);
+            projectile.yRotO = yRotO;
 
             PacketHandler.INSTANCE.send(PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(middlePos.x, middlePos.y, middlePos.z,
-                    32, level.dimension())), new MessageSyncEntityMotion(destroy, deltaMotion.toVector3f(), yRot, yRotO));
+                    32, level.dimension())), new MessageSyncEntityMotion(projectile, deltaMotion.toVector3f(), yRot, yRotO));
         }
         if (player != null)
             pStack.hurt(interact, level.getRandom(), (ServerPlayer)player);

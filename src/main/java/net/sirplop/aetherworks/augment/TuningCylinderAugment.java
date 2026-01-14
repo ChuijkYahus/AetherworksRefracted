@@ -18,6 +18,8 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.sirplop.aetherworks.AWRegistry;
 import net.sirplop.aetherworks.AWConfig;
+import net.sirplop.aetherworks.datagen.AWBiomeTags;
+import net.sirplop.aetherworks.datagen.AWBlockTags;
 import net.sirplop.aetherworks.util.Utils;
 
 import java.util.ArrayList;
@@ -40,8 +42,7 @@ public class TuningCylinderAugment extends AugmentBase {
             Level world = (Level)event.getLevel();
             BlockPos pos = event.getPos();
             int level = AugmentUtil.getAugmentLevel(heldStack, this);
-            if (!world.isClientSide() && level > 0 && AWConfig.getConfigSet(AWConfig.Tool.TUNING_CYLINDER)
-                    .contains(world.getBlockState(pos).getBlock())) {
+            if (!world.isClientSide() && level > 0 && Utils.blockHasTag(world.getBlockState(pos), AWBlockTags.DROPS_GEODES)) {
                 double resonance = EmbersAPI.getEmberResonance(heldStack);
                 if (world.random.nextInt(getChance(level, resonance)) == 0)
                     spawnGeode(world, pos);
@@ -56,26 +57,25 @@ public class TuningCylinderAugment extends AugmentBase {
 
     private void spawnGeode(Level level, BlockPos pos) {
         Holder<Biome> currentBiome = level.getBiome(pos);
-        boolean isEnd = currentBiome.is(BiomeTags.IS_END);
-        boolean isNether = currentBiome.is(BiomeTags.IS_NETHER);
-        boolean isOcean = currentBiome.is(BiomeTags.IS_OCEAN);
-        boolean isHot = currentBiome.is(Tags.Biomes.IS_HOT);
-        boolean isCold = currentBiome.is(Tags.Biomes.IS_COLD);
-        boolean isMagic = currentBiome.is(Tags.Biomes.IS_MAGICAL);
-        boolean isDeep = pos.getY() < 0;
-        //EITHER end OR nether OR (Hot Cold Magic Deep) OR Deep OR Basic
+        boolean isEnd = currentBiome.is(AWBiomeTags.TC_END_GEODES);
+        boolean isNether = currentBiome.is(AWBiomeTags.TC_NETHER_GEODES);
+        boolean isOcean = currentBiome.is(AWBiomeTags.TC_OCEAN_GEODES);
+        boolean isHot = currentBiome.is(AWBiomeTags.TC_HOT_GEODES);
+        boolean isCold = currentBiome.is(AWBiomeTags.TC_COLD_GEODES);
+        boolean isMagic = currentBiome.is(AWBiomeTags.TC_MAGIC_GEODES);
+        boolean isDeep = AWConfig.isDeepGeodeDimension(level.dimensionTypeId()) &&
+                pos.getY() < AWConfig.AUGMENT_TUNING_CYLINDER_BIOME_DEEP_DEPTH.get();
 
         ItemStack geode;
-        if (isEnd){
-            geode = new ItemStack(AWRegistry.GEODE_END.get(), 1);
-        } else if (isNether) {
-            geode = new ItemStack(AWRegistry.GEODE_NETHER.get(), 1);
-        } else if (isOcean || isHot || isCold || isMagic) {
-            List<Item> options = new ArrayList<>();
-            if (isHot) options.add(AWRegistry.GEODE_HOT.get());
-            if (isCold) options.add(AWRegistry.GEODE_COLD.get());
-            if (isOcean) options.add(AWRegistry.GEODE_OCEAN.get());
-            if (isMagic) options.add(AWRegistry.GEODE_MAGIC.get());
+        List<Item> options = new ArrayList<>();
+        if (isEnd) options.add(AWRegistry.GEODE_END.get());
+        if (isNether) options.add(AWRegistry.GEODE_NETHER.get());
+        if (isHot) options.add(AWRegistry.GEODE_HOT.get());
+        if (isCold) options.add(AWRegistry.GEODE_COLD.get());
+        if (isOcean) options.add(AWRegistry.GEODE_OCEAN.get());
+        if (isMagic) options.add(AWRegistry.GEODE_MAGIC.get());
+
+        if (!options.isEmpty()) {
             geode = new ItemStack(isDeep && level.random.nextFloat() < 0.5f ?
                     AWRegistry.GEODE_DEEP.get() : options.get(level.random.nextInt(options.size())), 1);
         } else if (isDeep) {

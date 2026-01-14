@@ -134,6 +134,7 @@ public class Aetherworks
                     .add(Registries.STRUCTURE_SET, AWStructures::generateSets),
                     Set.of(MODID)));
 
+            gen.addProvider(true, new AWBiomeTags(output, lookupProvider, existingFileHelper));
             gen.addProvider(true, new AWDamageTypeTags(output, lookupProvider, existingFileHelper));
             //gen.addProvider(true, new EmbersLootModifiers(output));
         }

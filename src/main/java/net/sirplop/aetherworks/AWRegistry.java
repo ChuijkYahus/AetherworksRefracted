@@ -142,9 +142,9 @@ public class AWRegistry {
     public static final RegistryObject<Item> AETHER_CROWN = ITEMS.register("aether_crown", () -> new AetherCrownItem(AshenArmorMaterial.INSTANCE, ArmorItem.Type.HELMET, new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> POTION_GEM = ITEMS.register("potion_gem", () -> new PotionGemItem(new Item.Properties()));
 
-    public static final RegistryObject<Item> AETHER_EMBER_JAR = ITEMS.register("aether_ember_jar", () -> new AetherEmberJarItem(new Item.Properties()));
-    public static final RegistryObject<Item> AETHER_EMBER_CARTRIDGE = ITEMS.register("aether_ember_cartridge", () -> new AetherEmberCartridgeItem(new Item.Properties()));
-    public static final RegistryObject<Item> AETHERIOMETER = ITEMS.register("aetheriometer", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> AETHER_EMBER_JAR = ITEMS.register("aether_ember_jar", () -> new AetherEmberJarItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> AETHER_EMBER_CARTRIDGE = ITEMS.register("aether_ember_cartridge", () -> new AetherEmberCartridgeItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> AETHERIOMETER = ITEMS.register("aetheriometer", () -> new Item(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Block> HEAT_DIAL = registerBlock("heat_dial", () -> new HeatDialBlock(Properties.copy(RegistryManager.EMBER_DIAL.get())));
     public static final RegistryObject<Block> PRISM = registerBlock("prism", () -> new PrismBlock(Properties.copy(RegistryManager.FLUID_VESSEL.get()).forceSolidOn().strength(4, 8).requiresCorrectToolForDrops()));
@@ -230,6 +230,7 @@ public class AWRegistry {
     public static final RegistryObject<Item> GEODE_OCEAN = ITEMS.register("geode_ocean", () -> new TooltipItem(new Item.Properties(), "aetherworks.tooltip.geode", false));
     public static final RegistryObject<Item> GEODE_DEEP = ITEMS.register("geode_deep", () -> new TooltipItem(new Item.Properties(), "aetherworks.tooltip.geode", false));
     public static final RegistryObject<Item> GEODE_BASIC = ITEMS.register("geode_basic", () -> new TooltipItem(new Item.Properties(), "aetherworks.tooltip.geode", false));
+
     public static final RegistryObject<Item> AETHER_ASPECTUS = ITEMS.register("aspectus_aetherium", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TUNING_CYLINDER = ITEMS.register("tuning_cylinder", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> VOLANT_CALCIFIER = ITEMS.register("volant_calcifier", () -> new Item(new Item.Properties()));
@@ -433,6 +434,11 @@ public class AWRegistry {
     private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block)
     {
         return ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+    }
+
+    public static void RegisterEnabledGeodes()
+    {
+
     }
 
     public static class FluidStuff {

@@ -7,6 +7,7 @@ import net.minecraft.network.chat.OutgoingChatMessage;
 import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -351,6 +352,10 @@ public class Utils {
             }
         }
         return result;
+    }
+
+    public static Boolean blockHasTag(BlockState state, TagKey<Block> tag) {
+        return state.getTags().anyMatch((pred) -> pred == tag);
     }
 
     public static Vector3f rotateAroundAxis(Vector3f v, Vector3f axis, float deltaRadian) {

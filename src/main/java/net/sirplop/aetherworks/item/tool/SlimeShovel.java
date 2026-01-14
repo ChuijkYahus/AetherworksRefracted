@@ -9,7 +9,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -18,6 +17,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.network.PacketDistributor;
 import net.sirplop.aetherworks.AWConfig;
 import net.sirplop.aetherworks.api.item.IHudFocus;
+import net.sirplop.aetherworks.datagen.AWBlockTags;
 import net.sirplop.aetherworks.lib.AWExchangeNode;
 import net.sirplop.aetherworks.lib.AWHarvestHelper;
 import net.sirplop.aetherworks.network.MessageFocusedStack;
@@ -47,7 +47,7 @@ public class SlimeShovel extends AOEEmberDiggerItem implements IHudFocus {
     private final GlowParticleOptions particle = new GlowParticleOptions(getParticleColor(), 1, 15);
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
         HitResult pick = playerIn.pick(playerIn.getBlockReach(), 0.0F, false);
         // Hit something that wasn't a block.
         if (pick instanceof BlockHitResult blockHitResult && !worldIn.getBlockState(blockHitResult.getBlockPos()).isAir()) {
@@ -95,7 +95,7 @@ public class SlimeShovel extends AOEEmberDiggerItem implements IHudFocus {
         }
 
         //else, put it in exchange node and let it run
-        if (AWConfig.getConfigSet(AWConfig.Tool.SLIME_SHOVEL).contains(context.getLevel().getBlockState(context.getClickedPos()).getBlock()))
+        if (Utils.blockHasTag(context.getLevel().getBlockState(context.getClickedPos()), AWBlockTags.SOIC_BANNED))
             return result;
 
         if (result == InteractionResult.PASS && context.getHand() == InteractionHand.MAIN_HAND)

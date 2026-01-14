@@ -20,6 +20,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.network.PacketDistributor;
 import net.sirplop.aetherworks.AWConfig;
+import net.sirplop.aetherworks.datagen.AWBlockTags;
 import net.sirplop.aetherworks.network.MessageSyncItemEntityTag;
 import net.sirplop.aetherworks.network.PacketHandler;
 import net.sirplop.aetherworks.util.Utils;
@@ -86,7 +87,7 @@ public class AWCropNode extends AWHarvestNode {
         boolean success = false;
 
         var hitResult = new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, true);
-        if (AWConfig.getConfigSet(AWConfig.Tool.AMETHYST_HOE).contains(block))
+        if (Utils.blockHasTag(state, AWBlockTags.HOVH_RIGHTCLICK))
         { //this is a right-click harvest block... so do that!
             if (harvester instanceof ServerPlayer player) {
                 success = player.gameMode.useItemOn(player, player.level(), ItemStack.EMPTY, InteractionHand.MAIN_HAND,
@@ -174,6 +175,6 @@ public class AWCropNode extends AWHarvestNode {
         return blockState.getOptionalValue(age).orElse(0) >= Collections.max(age.getPossibleValues());
     }
     public static boolean isCrop(Block block) {
-        return !(block instanceof TorchflowerCropBlock) && (block instanceof CropBlock || block instanceof NetherWartBlock || block instanceof CocoaBlock || block instanceof PitcherCropBlock || AWConfig.getConfigSet(AWConfig.Tool.AMETHYST_HOE).contains(block));
+        return !(block instanceof TorchflowerCropBlock) && (block instanceof CropBlock || block instanceof NetherWartBlock || block instanceof CocoaBlock || block instanceof PitcherCropBlock || Utils.blockHasTag(block.defaultBlockState(), AWBlockTags.HOVH_RIGHTCLICK));
     }
 }

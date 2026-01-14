@@ -14,6 +14,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.sirplop.aetherworks.AWConfig;
+import net.sirplop.aetherworks.datagen.AWBlockTags;
 import net.sirplop.aetherworks.lib.OctDirection;
 import net.sirplop.aetherworks.util.AetheriumTiers;
 import net.sirplop.aetherworks.util.Utils;
@@ -39,12 +40,11 @@ public class EnderAxe extends AOEEmberDiggerItem{
     @Override
     public @NotNull InteractionResult useOn(@NotNull UseOnContext context) {
         InteractionResult result = super.useOn(context);
-        if (!(context.getLevel() instanceof ServerLevel) || context.getLevel().isClientSide || AWConfig.getConfigSet(AWConfig.Tool.ENDER_AXE).isEmpty())
+        if (!(context.getLevel() instanceof ServerLevel) || context.getLevel().isClientSide)
             return result;
 
         if (context.getPlayer() == null
-                || !AWConfig.getConfigSet(AWConfig.Tool.ENDER_AXE).contains(context.getLevel().getBlockState(context.getClickedPos()).getBlock())
-        )
+                || !Utils.blockHasTag(context.getLevel().getBlockState(context.getClickedPos()), AWBlockTags.AOTR_ALLOWED))
             return result;
         if (result == InteractionResult.PASS && context.getHand() == InteractionHand.MAIN_HAND
                 && context.getLevel().getBlockState(context.getClickedPos()).canHarvestBlock(context.getLevel(), context.getClickedPos(), context.getPlayer())

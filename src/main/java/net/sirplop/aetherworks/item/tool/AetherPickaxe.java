@@ -7,10 +7,12 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
+import net.sirplop.aetherworks.datagen.AWBlockTags;
 import net.sirplop.aetherworks.lib.AWHarvestHelper;
 import net.sirplop.aetherworks.lib.AWHarvestNode;
 import net.sirplop.aetherworks.AWConfig;
 import net.sirplop.aetherworks.util.AetheriumTiers;
+import net.sirplop.aetherworks.util.Utils;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
@@ -34,7 +36,7 @@ public class AetherPickaxe extends AOEEmberDiggerItem {
 
         if (context.getPlayer() == null || context.getLevel().isClientSide()
                 || context.getLevel().getBlockState(context.getClickedPos()).getTags().noneMatch(blockTagKey -> blockTagKey == blocks)
-                || AWConfig.getConfigSet(AWConfig.Tool.AETHER_PICKAXE).contains(context.getLevel().getBlockState(context.getClickedPos()).getBlock())
+                || Utils.blockHasTag(context.getLevel().getBlockState(context.getClickedPos()), AWBlockTags.POBS_BANNED)
         )
             return result;
         if (result == InteractionResult.PASS && context.getHand() == InteractionHand.MAIN_HAND

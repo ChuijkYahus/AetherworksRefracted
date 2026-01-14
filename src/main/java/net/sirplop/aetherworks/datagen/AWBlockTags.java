@@ -9,6 +9,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -29,6 +30,16 @@ public class AWBlockTags  extends BlockTagsProvider {
     public static final TagKey<Block> FORGE_COOLER_BELOW = BlockTags.create(new ResourceLocation(Aetherworks.MODID, "forge_cooler_below"));
     public static final TagKey<Block> BLOCK_AETHERIUM = BlockTags.create(new ResourceLocation("forge", "storage_blocks/aetherium"));
     public static final TagKey<Block> BLOCK_SHARDS = BlockTags.create(new ResourceLocation("forge", "storage_blocks/raw_aetherium"));
+
+    public static final TagKey<Block> DROPS_GEODES = BlockTags.create(new ResourceLocation(Aetherworks.MODID, "drops_geodes"));
+    public static final TagKey<Block> HOVH_RIGHTCLICK = BlockTags.create(new ResourceLocation(Aetherworks.MODID, "hovh_rightclick"));
+    public static final TagKey<Block> SOIC_BANNED = BlockTags.create(new ResourceLocation(Aetherworks.MODID, "soic_banned"));
+    public static final TagKey<Block> AOSA_ALLOWED = BlockTags.create(new ResourceLocation(Aetherworks.MODID, "aosa_allowed"));
+    public static final TagKey<Block> AOTR_ALLOWED = BlockTags.create(new ResourceLocation(Aetherworks.MODID, "aotr_allowed"));
+    public static final TagKey<Block> POMD_ALLOWED = BlockTags.create(new ResourceLocation(Aetherworks.MODID, "pomd_allowed"));
+    public static final TagKey<Block> POBS_BANNED = BlockTags.create(new ResourceLocation(Aetherworks.MODID, "pobs_banned"));
+
+
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
@@ -99,6 +110,55 @@ public class AWBlockTags  extends BlockTagsProvider {
 
         tag(FORGE_COOLER_BELOW).addTags(
                 BlockTags.ICE
+        );
+
+        tag(DROPS_GEODES).add(
+                Blocks.DRIPSTONE_BLOCK,
+                Blocks.CALCITE,
+                Blocks.SMOOTH_BASALT,
+                Blocks.BASALT,
+                Blocks.END_STONE,
+                Blocks.OBSIDIAN,
+                AWRegistry.SUEVITE.get()
+        ).addTags(
+                BlockTags.BASE_STONE_OVERWORLD,
+                BlockTags.BASE_STONE_NETHER,
+                BlockTags.NYLIUM,
+                Tags.Blocks.SANDSTONE
+        );
+        tag(HOVH_RIGHTCLICK).add(
+                Blocks.SWEET_BERRY_BUSH,
+                Blocks.COCOA,
+                Blocks.CAVE_VINES,
+                Blocks.CAVE_VINES_PLANT
+        ).addOptional(new ResourceLocation("farmersdelight:tomatoes"));
+        tag(SOIC_BANNED).add(
+                Blocks.BEDROCK,
+                Blocks.REINFORCED_DEEPSLATE,
+                AWRegistry.AETHER_FORGE.get(),
+                AWRegistry.AETHER_FORGE_EDGE.get()
+        );
+        tag(AOSA_ALLOWED).addTag(BlockTags.LEAVES);
+        tag(AOTR_ALLOWED).addTag(BlockTags.LOGS);
+        tag(POMD_ALLOWED).add(
+                Blocks.DRIPSTONE_BLOCK,
+                Blocks.CALCITE,
+                Blocks.SMOOTH_BASALT,
+                Blocks.BASALT,
+                Blocks.END_STONE,
+                Blocks.OBSIDIAN,
+                AWRegistry.SUEVITE.get()
+        ).addTags(
+                BlockTags.BASE_STONE_OVERWORLD,
+                BlockTags.BASE_STONE_NETHER,
+                BlockTags.NYLIUM,
+                Tags.Blocks.SANDSTONE
+        );
+        tag(POBS_BANNED).add(
+                Blocks.BEDROCK,
+                Blocks.REINFORCED_DEEPSLATE,
+                AWRegistry.AETHER_FORGE.get(),
+                AWRegistry.AETHER_FORGE_EDGE.get()
         );
 
         //individual tags

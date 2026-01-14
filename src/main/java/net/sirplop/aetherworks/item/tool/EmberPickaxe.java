@@ -10,10 +10,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.sirplop.aetherworks.datagen.AWBlockTags;
 import net.sirplop.aetherworks.lib.AWHarvestHelper;
 import net.sirplop.aetherworks.lib.AWTunnelNode;
 import net.sirplop.aetherworks.AWConfig;
 import net.sirplop.aetherworks.util.AetheriumTiers;
+import net.sirplop.aetherworks.util.Utils;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
@@ -32,12 +34,11 @@ public class EmberPickaxe  extends AOEEmberDiggerItem{
     @Override
     public @NotNull InteractionResult useOn(UseOnContext context) {
         InteractionResult result = super.useOn(context);
-        if (!(context.getLevel() instanceof ServerLevel) || context.getLevel().isClientSide || AWConfig.getConfigSet(AWConfig.Tool.EMBER_PICKAXE).isEmpty())
+        if (!(context.getLevel() instanceof ServerLevel) || context.getLevel().isClientSide)
             return result;
 
         if (context.getPlayer() == null
-                || !AWConfig.getConfigSet(AWConfig.Tool.EMBER_PICKAXE).contains(context.getLevel().getBlockState(context.getClickedPos()).getBlock())
-        )
+                || !Utils.blockHasTag(context.getLevel().getBlockState(context.getClickedPos()), AWBlockTags.POMD_ALLOWED))
             return result;
         if (result == InteractionResult.PASS && context.getHand() == InteractionHand.MAIN_HAND
                 && context.getLevel().getBlockState(context.getClickedPos()).canHarvestBlock(context.getLevel(), context.getClickedPos(), context.getPlayer()))
@@ -51,7 +52,7 @@ public class EmberPickaxe  extends AOEEmberDiggerItem{
             if (AWHarvestHelper.addNode(context.getPlayer(),
                     new AWTunnelNode(context.getPlayer(), context.getLevel(), context.getClickedPos(),
                             AWConfig.EMBER_PICKAXE_RANGE.get() * 3, p -> p.getMainHandItem().getItem() == this,
-                            particle, 0.75, blockHitResult.getDirection().getOpposite(), (state) -> AWConfig.getConfigSet(AWConfig.Tool.EMBER_PICKAXE).contains(state.getBlock()))))
+                            particle, 0.75, blockHitResult.getDirection().getOpposite(), (state) -> Utils.blockHasTag(state, AWBlockTags.POMD_ALLOWED))))
             {
                 context.getPlayer().swing(context.getHand(), true);
                 return InteractionResult.SUCCESS;

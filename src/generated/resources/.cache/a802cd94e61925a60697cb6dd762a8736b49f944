@@ -1,0 +1,7 @@
+// 1.20.1	2026-01-13T20:22:33.9988021	Tags for minecraft:worldgen/biome mod id aetherworks
+3dc10b247fba73245433f1ff983f955bf283aa5f data/aetherworks/tags/worldgen/biome/tc_cold_geodes.json
+2848fd21678020e480817af24906cc7471b13118 data/aetherworks/tags/worldgen/biome/tc_end_geodes.json
+ed2652de5da8af177b424eac752817d615d0aa2a data/aetherworks/tags/worldgen/biome/tc_hot_geodes.json
+894950614663cb08c61ce96601e9f84f11f2b4a0 data/aetherworks/tags/worldgen/biome/tc_magic_geodes.json
+a24545b58f3f91c6c033586e2b2ae12f1e8131b1 data/aetherworks/tags/worldgen/biome/tc_nether_geodes.json
+74a855e481dd684fc14e843ffbf7634328669190 data/aetherworks/tags/worldgen/biome/tc_ocean_geodes.json
